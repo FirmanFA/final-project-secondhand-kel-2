@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/exampleFragment"
-        android:name="com.binar.secondhand.kel2.ui.ExampleFragment"
+        android:name="com.binar.secondhand.kel2.ui.example.ExampleFragment"
         android:label="fragment_example"
         tools:layout="@layout/fragment_example" />
 </navigation>
