@@ -1,14 +1,11 @@
-package com.binar.secondhand.kel2.data.api.model.seller.product.id.getProductId
+package com.binar.secondhand.kel2.data.api.model.seller.product.id.put
 
 
-import com.binar.secondhand.kel2.data.api.model.seller.product.id.getProductId.Category
 import com.google.gson.annotations.SerializedName
 
-data class GetProductIdResponse(
+data class PutProductIdResponse(
     @SerializedName("base_price")
     val basePrice: Int,
-    @SerializedName("categories")
-    val categories: List<Category>,
     @SerializedName("created_at")
     val createdAt: String,
     @SerializedName("id")

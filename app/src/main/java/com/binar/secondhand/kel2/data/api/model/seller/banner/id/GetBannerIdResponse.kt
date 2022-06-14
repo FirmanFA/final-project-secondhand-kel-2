@@ -1,12 +1,10 @@
-package com.binar.secondhand.kel2.data.api.model.seller.product.id.putProductId
+package com.binar.secondhand.kel2.data.api.model.seller.banner.id
 
 
 import com.google.gson.annotations.SerializedName
 
-data class PutProductIdResponse(
-    @SerializedName("base_price")
-    val basePrice: Int,
-    @SerializedName("created_at")
+data class GetBannerIdResponse(
+    @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("id")
     val id: Int,
@@ -14,11 +12,9 @@ data class PutProductIdResponse(
     val imageName: String,
     @SerializedName("image_url")
     val imageUrl: String,
-    @SerializedName("location")
-    val location: String,
     @SerializedName("name")
     val name: String,
-    @SerializedName("updated_at")
+    @SerializedName("updatedAt")
     val updatedAt: String,
     @SerializedName("user_id")
     val userId: Int
