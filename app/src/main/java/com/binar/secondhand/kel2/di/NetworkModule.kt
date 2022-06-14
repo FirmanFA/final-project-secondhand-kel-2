@@ -9,7 +9,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "BASEURL"
+private const val BASE_URL = "https://market-final-project.herokuapp.com/"
 val networkModule = module {
 
     single {
