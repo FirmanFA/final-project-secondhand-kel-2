@@ -1,9 +1,9 @@
-package com.binar.secondhand.kel2.data.api.model.auth.register
+package com.binar.secondhand.kel2.data.api.model.auth.user
 
 
 import com.google.gson.annotations.SerializedName
 
-data class PostRegisterResponse(
+data class PutAuthResponse(
     @SerializedName("address")
     val address: String,
     @SerializedName("createdAt")
