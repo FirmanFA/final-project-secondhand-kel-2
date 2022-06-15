@@ -27,8 +27,8 @@ class OnBoardingFragment :
 
         val onBoardingData:MutableList<OnBoardingData> = ArrayList()
         onBoardingData.add(OnBoardingData("Barang Bekas","Temukan Barang Bekas Di Tempat Ini", R.drawable.ic_baseline_shopping_cart_36))
-        onBoardingData.add(OnBoardingData("Semuanya Jenis Ada","Semua Yang Anda Butuhkan, Semua Yang Anda Inginkan Hanya Ada Di Sini", R.drawable.ic_baseline_shopping_cart_36))
-        onBoardingData.add(OnBoardingData("Sempurna","Cara Sempurna Untuk Membeli Dan Menjual Barang Bekas Di Platform Ini", R.drawable.ic_baseline_shopping_cart_36))
+        onBoardingData.add(OnBoardingData("Semuanya Jenis Ada","Semua Yang Anda Butuhkan, Hanya Ada Di Sini", R.drawable.ic_baseline_shopping_cart_36))
+        onBoardingData.add(OnBoardingData("Sempurna","Cara Sempurna Untuk Transaksi Barang Bekas Di Platform Ini", R.drawable.ic_baseline_shopping_cart_36))
 
         setOnBoardingViewPagerAdapter(onBoardingData)
 
