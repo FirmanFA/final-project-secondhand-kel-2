@@ -3,7 +3,7 @@ package com.binar.secondhand.kel2.data.api.model.notification
 
 import com.google.gson.annotations.SerializedName
 
-class GetNotificationResponse : ArrayList<GetNotificationResponseItem>(){
+class GetNotificationResponse : ArrayList<GetNotificationResponse.GetNotificationResponseItem>(){
     data class GetNotificationResponseItem(
         @SerializedName("id")
         val id: Int,

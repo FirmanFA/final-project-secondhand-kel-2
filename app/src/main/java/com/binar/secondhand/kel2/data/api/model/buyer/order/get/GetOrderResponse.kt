@@ -3,7 +3,7 @@ package com.binar.secondhand.kel2.data.api.model.buyer.order.get
 
 import com.google.gson.annotations.SerializedName
 
-class GetOrderResponse : ArrayList<GetOrderResponseItem>(){
+class GetOrderResponse : ArrayList<GetOrderResponse.GetOrderResponseItem>(){
     data class GetOrderResponseItem(
         @SerializedName("id")
         val id: Int,
