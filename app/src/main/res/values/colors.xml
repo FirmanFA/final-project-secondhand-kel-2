@@ -10,4 +10,8 @@
     <color name="dark_blue05">#4B1979</color>
     <color name="lime_green05">#AA9B87</color>
     <color name="purple_04">#7126B5</color>
+    <color name="purple_binar">#7126B5</color>
+    <color name="inactive_nav_bar_icon">#8A8A8A</color>
+    <color name="purple_primary">#7126B5</color>
+
 </resources>
