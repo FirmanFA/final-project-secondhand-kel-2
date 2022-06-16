@@ -3,10 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/onBoardingFragment">
+    app:startDestination="@id/mainFragment">
+
+
     <fragment
-        android:id="@+id/onBoardingFragment"
-        android:name="com.binar.secondhand.kel2.ui.onboarding.OnBoardingFragment"
-        android:label="fragment_on_boarding"
-        tools:layout="@layout/fragment_on_boarding" />
+        android:id="@+id/exampleFragment"
+        android:name="com.binar.secondhand.kel2.ui.ExampleFragment"
+        android:label="fragment_example"
+        tools:layout="@layout/fragment_example" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.binar.secondhand.kel2.ui.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
 </navigation>
