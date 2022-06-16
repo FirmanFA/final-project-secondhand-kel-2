@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="24dp"
-            android:fontFamily="@font/poppins"
+            android:fontFamily="@font/poppins_semibold"
             android:text="Next"
             android:textColor="@color/dark_blue05"
             android:textSize="16sp"
