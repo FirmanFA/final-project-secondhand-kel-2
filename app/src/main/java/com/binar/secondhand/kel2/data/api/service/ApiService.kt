@@ -5,6 +5,9 @@ import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginRequest
 import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginResponse
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterResponse
+import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
+import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthRequest
+import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.id.GetBannerIdResponse
@@ -30,11 +33,11 @@ interface ApiService {
     @POST("auth/register")
     suspend fun postRegister(@Body request: PostRegisterRequest): Response<PostRegisterResponse>
 
-//    @GET("auth/user/{id}")
-//    suspend fun getAuth(@Header("Authorization")token: String): GetAuthResponse
+    @GET("auth/user/{id}")
+    suspend fun getAuth(): Response<GetAuthResponse>
 
-//    @PUT("auth/user/{id}")
-//    suspend fun putAuth
+    @PUT("auth/user/{id}")
+    suspend fun putAuth(@Body request:PutAuthRequest): Response<PutAuthResponse>
 
     //seller
 
