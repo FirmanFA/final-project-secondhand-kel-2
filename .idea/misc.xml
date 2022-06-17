@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable-v24/ic_baseline_arrow_back_24.xml" value="0.1715" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable-v24/ic_baseline_remove_24.xml" value="0.172" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable-v24/ic_broken.xml" value="0.163" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1715" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable-v24/rounded shape.xml" value="0.1715" />
@@ -17,6 +18,7 @@
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/product_round_corner.xml" value="0.148" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/round_corner.xml" value="0.163" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/rounded_back.xml" value="0.1715" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/rounded_bottom_dialog.xml" value="0.172" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/activity_main.xml" value="0.2328125" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/float button.xml" value="0.2328125" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_detail.xml" value="0.2" />
@@ -24,6 +26,7 @@
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_detail_productt.xml" value="0.264" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_example.xml" value="0.2328125" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_on_boarding.xml" value="0.2328125" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_pengajuan_penawaran.xml" value="0.2328125" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/item_product.xml" value="0.4" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/onboarding_screen_layout.xml" value="0.2328125" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/menu/menu_main.xml" value="0.2328125" />
