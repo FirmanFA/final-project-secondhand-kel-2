@@ -5,12 +5,16 @@
       <map>
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/ic_baseline_shopping_cart_36.xml" value="0.13" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/indicator_selector.xml" value="0.13" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/round_outline.xml" value="0.129" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/round_shape.xml" value="0.129" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/selected.xml" value="0.13" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/unselected.xml" value="0.13" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_example.xml" value="0.20833333333333334" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_notification.xml" value="0.264" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_on_boarding.xml" value="0.20833333333333334" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/list_item.xml" value="0.245018115942029" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/notification_content.xml" value="0.245018115942029" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/onboarding_screen_layout.xml" value="0.136" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/activity_main.xml" value="0.17028985507246377" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/content_main.xml" value="0.17028985507246377" />
