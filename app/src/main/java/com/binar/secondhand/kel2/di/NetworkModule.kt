@@ -20,6 +20,12 @@ val networkModule = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor(get<HttpLoggingInterceptor>())
+            .addInterceptor {
+                val request = it.request().newBuilder()
+                    .addHeader("access_token", getProperty("access_token", ""))
+                    .build()
+                it.proceed(request)
+            }
             .build()
     }
     single {

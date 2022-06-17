@@ -11,4 +11,104 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="city">
+        <item>Ambon</item>
+        <item>Balikpapan</item>
+        <item>Banda Aceh</item>
+        <item>Bandar Lampung</item>
+        <item>Bandung</item>
+        <item>Banjar</item>
+        <item>Banjarbaru</item>
+        <item>Banjarmasin</item>
+        <item>Batam</item>
+        <item>Batu</item>
+        <item>Baubau</item>
+        <item>Bekasi</item>
+        <item>Bengkulu</item>
+        <item>Bima</item>
+        <item>Binjai</item>
+        <item>Bitung</item>
+        <item>Blitar</item>
+        <item>Bogor</item>
+        <item>Bontang</item>
+        <item>Bukittinggi</item>
+        <item>Cilegon</item>
+        <item>Cimahi</item>
+        <item>Cirebon</item>
+        <item>Denpasar</item>
+        <item>Depok</item>
+        <item>Dumai</item>
+        <item>Gorontalo</item>
+        <item>Gunungsitoli</item>
+        <item>Jakarta Barat</item>
+        <item>Jakarta Pusat</item>
+        <item>Jakarta Selatan</item>
+        <item>Jakarta Timur</item>
+        <item>Jakarta Utara</item>
+        <item>Jambi</item>
+        <item>Jayapura</item>
+        <item>Kediri</item>
+        <item>Kendari</item>
+        <item>Kotamobagu</item>
+        <item>Kupang</item>
+        <item>Langsa</item>
+        <item>Lhokseumawe</item>
+        <item>Lubuklinggaut</item>
+        <item>Madiun</item>
+        <item>Magelang</item>
+        <item>Makassar</item>
+        <item>Malang</item>
+        <item>Manado</item>
+        <item>Mataram</item>
+        <item>Medan</item>
+        <item>Metro</item>
+        <item>Mojokerto</item>
+        <item>Padang</item>
+        <item>Padang Panjang</item>
+        <item>PAdangsidimpuan</item>
+        <item>Pagar Alam</item>
+        <item>Palangka Raya</item>
+        <item>Palembang</item>
+        <item>Palopo</item>
+        <item>Palu</item>
+        <item>Pangkalpinang</item>
+        <item>Parepare</item>
+        <item>Pariaman</item>
+        <item>Pasuruan</item>
+        <item>Payakumbuh</item>
+        <item>Pekalongan</item>
+        <item>Pekanbaru</item>
+        <item>Pematangsiantar</item>
+        <item>Pontianak</item>
+        <item>Prabumulih</item>
+        <item>Probolinggo</item>
+        <item>Sabang</item>
+        <item>Salatiga</item>
+        <item>Samarinda</item>
+        <item>Sawahlunto</item>
+        <item>Semarang</item>
+        <item>Sibolga</item>
+        <item>Singkawang</item>
+        <item>Solok</item>
+        <item>Sorong</item>
+        <item>Subulussalam</item>
+        <item>Sukabumi</item>
+        <item>Sungai Penuh</item>
+        <item>Surabaya</item>
+        <item>Surakarta</item>
+        <item>Tangerang</item>
+        <item>Tangerang Selatan</item>
+        <item>Tanjungbalai</item>
+        <item>Tanjungpinang</item>
+        <item>Tarakan</item>
+        <item>Tasikmalaya</item>
+        <item>Tebing Tinggi</item>
+        <item>Tegal</item>
+        <item>Ternate</item>
+        <item>Tidore Kepulauan</item>
+        <item>Tomohon</item>
+        <item>Tual</item>
+        <item>Yogyakarta</item>
+    </string-array>
 </resources>

@@ -5,5 +5,5 @@
     android:innerRadius="3dp"
     android:useLevel="false">
 
-    <solid android:color="@color/purple_binar"/>
+    <solid android:color="@color/dark_blue05"/>
 </shape>
