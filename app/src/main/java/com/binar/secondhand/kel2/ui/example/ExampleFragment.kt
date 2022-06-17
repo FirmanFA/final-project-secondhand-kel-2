@@ -7,6 +7,7 @@ import com.binar.secondhand.kel2.data.api.model.ExamplePostRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentExampleBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ExampleFragment :
@@ -20,6 +21,9 @@ class ExampleFragment :
 
         //call this method first
         setUpObserver()
+
+        //set access token setelah dapet dari login
+        getKoin().setProperty("access_token", "user token")
 
         //cal snackbar
         binding.button.setOnClickListener {
