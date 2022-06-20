@@ -3,13 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/ic_baseline_shopping_cart_36.xml" value="0.13" />
-        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/indicator_selector.xml" value="0.13" />
-        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/selected.xml" value="0.13" />
-        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/unselected.xml" value="0.13" />
-        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_example.xml" value="0.20833333333333334" />
-        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_on_boarding.xml" value="0.20833333333333334" />
-        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/onboarding_screen_layout.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android Studio Project Copy/final-projek-secondhand-kel-2/app/src/main/res/drawable/ic_fi_arrow_left.xml" value="0.1315" />
+        <entry key="..\:/Android Studio Project Copy/final-projek-secondhand-kel-2/app/src/main/res/drawable/ic_password.xml" value="0.1315" />
+        <entry key="..\:/Android Studio Project Copy/final-projek-secondhand-kel-2/app/src/main/res/drawable/password_toggle_drawable.xml" value="0.1315" />
+        <entry key="..\:/Android Studio Project Copy/final-projek-secondhand-kel-2/app/src/main/res/drawable/shape_button.xml" value="0.1315" />
+        <entry key="..\:/Android Studio Project Copy/final-projek-secondhand-kel-2/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Android Studio Project Copy/final-projek-secondhand-kel-2/app/src/main/res/layout/fragment_register.xml" value="0.25" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/activity_main.xml" value="0.17028985507246377" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/content_main.xml" value="0.17028985507246377" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_example.xml" value="0.17028985507246377" />

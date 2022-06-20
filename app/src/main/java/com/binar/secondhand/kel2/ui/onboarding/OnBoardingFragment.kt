@@ -3,6 +3,7 @@ package com.binar.secondhand.kel2.ui.onboarding
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.databinding.FragmentOnBoardingBinding
@@ -41,6 +42,7 @@ class OnBoardingFragment :
             }
             if (position == onBoardingData.size){
                 //pindah fragment
+                findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
             }
         }
     }
