@@ -6,13 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
-import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
-import com.binar.secondhand.kel2.data.repository.HomeRepository
+import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponse
 import com.binar.secondhand.kel2.data.resource.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
+class HomeViewModel(/*repository here*/) : ViewModel() {
 
     private val _getBannerResponse = MutableLiveData<Resource<Response<GetBannerResponse>>>()
     val getBannerResponse: LiveData<Resource<Response<GetBannerResponse>>> get() = _getBannerResponse
@@ -21,8 +20,8 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
         viewModelScope.launch {
             _getBannerResponse.postValue(Resource.loading())
             try {
-                val dataExample = Resource.success(repository.getBanner())
-                _getBannerResponse.postValue(dataExample)
+//                val dataExample = Resource.success(repository.postExample())
+//                _getBannerResponse.postValue(dataExample)
             } catch (exp: Exception) {
                 _getBannerResponse.postValue(
                     Resource.error(
@@ -38,20 +37,12 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
         MutableLiveData<Resource<Response<GetProductResponse>>>()
     val getHomeProductResponse: LiveData<Resource<Response<GetProductResponse>>> get() = _getHomeProductResponse
 
-    fun getHomeProduct(
-        status: String? = null,
-        categoriId: Int? = null,
-        searchKeyword: String? = null
-    ) {
+    fun getHomeProduct() {
         viewModelScope.launch {
             _getHomeProductResponse.postValue(Resource.loading())
             try {
-                val dataExample = Resource.success(repository.getProduct(
-                    status,
-                    categoriId,
-                    searchKeyword
-                ))
-                _getHomeProductResponse.postValue(dataExample)
+//                val dataExample = Resource.success(repository.postExample())
+//                _getHomeProductResponse.postValue(dataExample)
             } catch (exp: Exception) {
                 _getHomeProductResponse.postValue(
                     Resource.error(
@@ -71,8 +62,8 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
         viewModelScope.launch {
             _getCategoryResponse.postValue(Resource.loading())
             try {
-                val dataExample = Resource.success(repository.getCategory())
-                _getCategoryResponse.postValue(dataExample)
+//                val dataExample = Resource.success(repository.postExample())
+//                _getCategoryResponse.postValue(dataExample)
             } catch (exp: Exception) {
                 _getCategoryResponse.postValue(
                     Resource.error(
