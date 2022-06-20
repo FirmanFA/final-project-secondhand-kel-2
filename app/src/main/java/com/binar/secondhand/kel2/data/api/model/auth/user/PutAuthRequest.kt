@@ -19,5 +19,8 @@ data class PutAuthRequest(
     val address: String,
 
     @SerializedName("image")
-    val image: String
+    val image: String,
+
+    @SerializedName("city")
+    val city: String
 )
