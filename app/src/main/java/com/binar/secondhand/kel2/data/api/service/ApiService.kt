@@ -9,6 +9,7 @@ import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthRequest
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetOrderIdResponse
+import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.id.GetBannerIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.post.PostBannerRequest
@@ -33,11 +34,14 @@ interface ApiService {
     @POST("auth/register")
     suspend fun postRegister(@Body request: PostRegisterRequest): Response<PostRegisterResponse>
 
-    @GET("auth/user/{id}")
+    @GET("auth/user")
     suspend fun getAuth(): Response<GetAuthResponse>
 
-    @PUT("auth/user/{id}")
+    @PUT("auth/user")
     suspend fun putAuth(@Body request:PutAuthRequest): Response<PutAuthResponse>
+
+    @GET("notification")
+    suspend fun getNotification(): Response<GetNotificationResponse>
 
     //seller
 

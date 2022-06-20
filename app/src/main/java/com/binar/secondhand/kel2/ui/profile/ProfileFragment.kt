@@ -95,6 +95,7 @@ class ProfileFragment :
                     when(it.data?.code()){
                         200 ->{
                             binding.etName.editText?.setText(it.data.body()?.fullName)
+                            binding.etCity.editText?.setText(it.data.body()?.city)
                             binding.etAddress.editText?.setText(it.data.body()?.address)
                             binding.etPhone.editText?.setText(it.data.body()?.phoneNumber.toString())
                         }
