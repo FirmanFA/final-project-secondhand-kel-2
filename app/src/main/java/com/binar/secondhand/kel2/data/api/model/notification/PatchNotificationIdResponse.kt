@@ -3,7 +3,7 @@ package com.binar.secondhand.kel2.data.api.model.notification
 
 import com.google.gson.annotations.SerializedName
 
-data class GetNotificationIdResponse(
+data class PatchNotificationIdResponse(
     @SerializedName("id")
     val id: Int,
     @SerializedName("product_id")
@@ -20,8 +20,12 @@ data class GetNotificationIdResponse(
     val buyerName: String,
     @SerializedName("receiver_id")
     val receiverId: Int,
-    @SerializedName("createdAt")
+    @SerializedName("image_url")
+    val imageUrl: String,
+    @SerializedName("read")
+    val read: Boolean,
+    @SerializedName("created_at")
     val createdAt: String,
-    @SerializedName("updatedAt")
+    @SerializedName("updated_at")
     val updatedAt: String
 )

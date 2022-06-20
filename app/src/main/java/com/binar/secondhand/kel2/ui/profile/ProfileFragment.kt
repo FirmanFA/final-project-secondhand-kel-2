@@ -8,6 +8,7 @@ import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentProfileBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.java.KoinJavaComponent.getKoin
 
@@ -94,6 +95,7 @@ class ProfileFragment :
 
                     when(it.data?.code()){
                         200 ->{
+                            Glide.with(this).load(it.data.body()?.imageUrl).into(binding.ivCam)
                             binding.etName.editText?.setText(it.data.body()?.fullName)
                             binding.etCity.editText?.setText(it.data.body()?.city)
                             binding.etAddress.editText?.setText(it.data.body()?.address)
