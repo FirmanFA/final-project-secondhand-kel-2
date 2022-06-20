@@ -5,32 +5,36 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse.GetOrderResponseItem.Product
+import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponseItem
 import com.binar.secondhand.kel2.databinding.HomeProductListLayoutBinding
 
-class HomeProductAdapter(private val onClick: (Product) -> Unit) :
-    ListAdapter<Product, HomeProductAdapter.ViewHolder>(CommunityComparator()) {
+class HomeProductAdapter(private val onClick: (GetProductResponseItem) -> Unit) :
+    ListAdapter<GetProductResponseItem, HomeProductAdapter.ViewHolder>(CommunityComparator()) {
 
 
     class ViewHolder(private val binding: HomeProductListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            currentProduct: Product,
-            onClick: (Product) -> Unit
+            currentGetProductResponseItem: GetProductResponseItem,
+            onClick: (GetProductResponseItem) -> Unit
         ) {
-
-
+            binding.root.setOnClickListener {
+                onClick(currentGetProductResponseItem)
+            }
+            binding.tvProductName.text = currentGetProductResponseItem.name
+            binding.tvProductCategory.text = currentGetProductResponseItem.name
+            binding.tvProductPrice.text = "Rp. ${currentGetProductResponseItem.basePrice}"
         }
 
     }
 
-    class CommunityComparator : DiffUtil.ItemCallback<Product>() {
-        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+    class CommunityComparator : DiffUtil.ItemCallback<GetProductResponseItem>() {
+        override fun areItemsTheSame(oldItem: GetProductResponseItem, newItem: GetProductResponseItem): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+        override fun areContentsTheSame(oldItem: GetProductResponseItem, newItem: GetProductResponseItem): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
