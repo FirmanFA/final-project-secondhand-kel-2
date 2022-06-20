@@ -21,6 +21,10 @@ class GetNotificationResponse : ArrayList<GetNotificationResponse.GetNotificatio
         val buyerName: String,
         @SerializedName("receiver_id")
         val receiverId: Int,
+        @SerializedName("image_url")
+        val imageUrl: String,
+        @SerializedName("read")
+        val read: Boolean,
         @SerializedName("createdAt")
         val createdAt: String,
         @SerializedName("updatedAt")
