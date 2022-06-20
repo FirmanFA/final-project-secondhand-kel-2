@@ -6,19 +6,23 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponseItem
-import com.binar.secondhand.kel2.databinding.HomeProductListLayoutBinding
+import com.binar.secondhand.kel2.databinding.HomeBannerListLayoutBinding
 
 class HomeBannerAdapter(private val onClick: (GetBannerResponseItem) -> Unit) :
     ListAdapter<GetBannerResponseItem, HomeBannerAdapter.ViewHolder>(CommunityComparator()) {
 
 
-    class ViewHolder(private val binding: HomeProductListLayoutBinding) :
+    class ViewHolder(private val binding: HomeBannerListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            currentProduct: GetBannerResponseItem,
+            currentBanner: GetBannerResponseItem,
             onClick: (GetBannerResponseItem) -> Unit
         ) {
+
+
+            //
+
 
 
         }
@@ -36,7 +40,7 @@ class HomeBannerAdapter(private val onClick: (GetBannerResponseItem) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = HomeProductListLayoutBinding.inflate(
+        val binding = HomeBannerListLayoutBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
 
