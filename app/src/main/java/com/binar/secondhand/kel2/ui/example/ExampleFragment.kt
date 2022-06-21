@@ -1,5 +1,7 @@
 package com.binar.secondhand.kel2.ui.example
 
+import android.content.ContentResolver
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -7,6 +9,8 @@ import com.binar.secondhand.kel2.data.api.model.ExamplePostRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentExampleBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,6 +33,31 @@ class ExampleFragment :
         binding.button.setOnClickListener {
             showSnackbar("Testing Snackbar")
         }
+
+//        val username = etUsername.editText?.text.toString()
+//        val email = etEmail.editText?.text.toString()
+//        val password = etPassword.editText?.text.toString()
+//
+//        val imageFile = File(URIPathHelper.getPath(this@RegisterActivity, imageUri!!).toString())
+
+
+
+
+//        val usernameBody = username.toRequestBody("text/plain".toMediaTypeOrNull())
+//        val emailBody = email.toRequestBody("text/plain".toMediaTypeOrNull())
+//        val passwordBody = password.toRequestBody("text/plain".toMediaTypeOrNull())
+//
+//        val requestImage = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+//        val imageBody = MultipartBody.Part.createFormData("image",
+//            imageFile.name, requestImage
+//        )
+//
+//        registerViewModel.postRegister(
+//            username = usernameBody,
+//            email = emailBody,
+//            password = passwordBody,
+//            image = imageBody
+//        )
 
 
         //call snackbar with action
