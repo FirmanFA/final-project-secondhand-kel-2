@@ -17,7 +17,7 @@ import com.binar.secondhand.kel2.data.api.model.seller.banner.post.PostBannerRes
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.id.GetCategoryIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.get.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdResponse
@@ -100,7 +100,7 @@ interface ApiService {
     @GET("seller/banner")
     suspend fun getBanner(): Response<GetBannerResponse>
 
-    @GET("seller/product")
+    @GET("buyer/product")
     suspend fun getProduct(): Response<GetProductResponse>
 
     @GET("seller/category")
