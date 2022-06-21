@@ -17,7 +17,7 @@ import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryR
 import com.binar.secondhand.kel2.data.api.model.seller.category.id.GetCategoryIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.id.get.GetProductIdResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest

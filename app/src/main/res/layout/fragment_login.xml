@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context=".uii.login.LoginFragment">
+    tools:context=".ui.login.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="82dp"
-            android:fontFamily="@font/poppins_bold"
             android:text="Masuk"
             android:textColor="@color/black"
             android:textSize="32sp"
@@ -45,7 +44,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:fontFamily="@font/poppins_regular"
             android:text="Email"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -71,7 +69,6 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
                 android:textSize="14sp"
-                android:fontFamily="@font/poppins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Contoh: johndee@gmail.com"
@@ -86,7 +83,6 @@
             android:text="Password"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:fontFamily="@font/poppins_regular"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +109,6 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_masukkan_passowrd"
                 android:textSize="14sp"
-                android:fontFamily="@font/poppins_regular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Masukkan pasword"
@@ -133,7 +128,6 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/masukkan_password_container"/>
@@ -145,7 +139,6 @@
             android:text="Belum punya akun?"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular"
             android:layout_marginTop="12dp"
             android:layout_marginStart="84dp"
             android:layout_marginEnd="8dp"
@@ -160,9 +153,8 @@
             android:layout_height="wrap_content"
             android:text="Daftar di sini"
             android:textStyle="bold"
-            android:textColor="@color/purple_binar"
+            android:textColor="@color/purple_500"
             android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="84dp"
             app:layout_constraintEnd_toEndOf="parent"

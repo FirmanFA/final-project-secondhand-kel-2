@@ -17,8 +17,12 @@
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/notification_content.xml" value="0.245018115942029" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/onboarding_screen_layout.xml" value="0.136" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/arrow_left_24.xml" value="0.151" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/btn_tertarik.xml" value="0.1" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.151" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/ic_password_off.xml" value="0.151" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/indicator_selector.xml" value="0.151" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/selected.xml" value="0.1" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/shape_button.xml" value="0.1" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/drawable/unselected.xml" value="0.151" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/font/poppins.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/font/poppins_thin.xml" value="0.2526041666666667" />
@@ -26,8 +30,14 @@
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_detail_product.xml" value="0.264" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_login.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_notification.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_on_boarding.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_pengajuan_penawaran.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_profile.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_register.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/item_product.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/list_item.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/notification_content.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/braye.LAPTOP-B3CH1893/AndroidStudioProjects/final-project-secondhand-kel-2/app/src/main/res/layout/onboarding_screen_layout.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/activity_main.xml" value="0.17028985507246377" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/content_main.xml" value="0.17028985507246377" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_example.xml" value="0.17028985507246377" />

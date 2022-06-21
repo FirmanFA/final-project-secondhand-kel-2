@@ -22,7 +22,6 @@
             android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="Product Name"
             android:fitsSystemWindows="true"
             android:background="@drawable/product_round_corner"
             tools:ignore="MissingConstraints" />

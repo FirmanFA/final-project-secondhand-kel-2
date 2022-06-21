@@ -12,7 +12,7 @@ import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.binar.secondhand.kel2.databinding.FragmentDetailProductBinding
-import com.binar.secondhand.kel2.ui.profile.DetailProductViewModel
+import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
 import com.bumptech.glide.Glide
 import org.koin.java.KoinJavaComponent
 

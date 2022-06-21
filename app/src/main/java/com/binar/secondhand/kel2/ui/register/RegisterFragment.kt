@@ -22,7 +22,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         setUpObserver()
 
         binding.tvMasukDisini.setOnClickListener {
-            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
 
         binding.btnDaftar.setOnClickListener {
@@ -70,7 +69,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                             val updatedAt = data?.updatedAt
 
                             Toast.makeText(context, "Registrasi Berhasil", Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                         }
 
                         400 -> {

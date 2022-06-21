@@ -42,7 +42,6 @@ class OnBoardingFragment :
             }
             if (position == onBoardingData.size){
                 //pindah fragment
-                findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
             }
         }
     }
