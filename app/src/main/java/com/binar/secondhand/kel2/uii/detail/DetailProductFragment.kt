@@ -1,4 +1,4 @@
-package com.binar.secondhand.kel2.ui.detail
+package com.binar.secondhand.kel2.uii.detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

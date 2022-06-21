@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:background="@color/grey"
-    tools:context=".ui.detail.PengajuanPenawaranFragment">
+    tools:context=".uii.detail.PengajuanPenawaranFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

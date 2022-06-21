@@ -1,4 +1,4 @@
-package com.binar.secondhand.kel2.ui.base
+package com.binar.secondhand.kel2.uii.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

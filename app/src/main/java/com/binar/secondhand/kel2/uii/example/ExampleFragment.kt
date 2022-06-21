@@ -1,4 +1,4 @@
-package com.binar.secondhand.kel2.ui.example
+package com.binar.secondhand.kel2.uii.example
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.binar.secondhand.kel2.data.api.model.ExamplePostRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentExampleBinding
-import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.uii.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ExampleFragment :
