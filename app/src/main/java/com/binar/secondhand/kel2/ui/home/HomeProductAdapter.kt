@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponseItem
+import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponseItem
 import com.binar.secondhand.kel2.databinding.HomeProductListLayoutBinding
+import com.bumptech.glide.Glide
 
 class HomeProductAdapter(private val onClick: (GetProductResponseItem) -> Unit) :
     ListAdapter<GetProductResponseItem, HomeProductAdapter.ViewHolder>(CommunityComparator()) {
@@ -22,6 +23,8 @@ class HomeProductAdapter(private val onClick: (GetProductResponseItem) -> Unit) 
             binding.root.setOnClickListener {
                 onClick(currentGetProductResponseItem)
             }
+            Glide.with(binding.root).load(currentGetProductResponseItem.imageUrl)
+                .into(binding.imvProductImage)
             binding.tvProductName.text = currentGetProductResponseItem.name
             binding.tvProductCategory.text = currentGetProductResponseItem.name
             binding.tvProductPrice.text = "Rp. ${currentGetProductResponseItem.basePrice}"
@@ -30,11 +33,17 @@ class HomeProductAdapter(private val onClick: (GetProductResponseItem) -> Unit) 
     }
 
     class CommunityComparator : DiffUtil.ItemCallback<GetProductResponseItem>() {
-        override fun areItemsTheSame(oldItem: GetProductResponseItem, newItem: GetProductResponseItem): Boolean {
+        override fun areItemsTheSame(
+            oldItem: GetProductResponseItem,
+            newItem: GetProductResponseItem
+        ): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: GetProductResponseItem, newItem: GetProductResponseItem): Boolean {
+        override fun areContentsTheSame(
+            oldItem: GetProductResponseItem,
+            newItem: GetProductResponseItem
+        ): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
