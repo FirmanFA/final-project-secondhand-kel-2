@@ -38,19 +38,11 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
         MutableLiveData<Resource<Response<GetProductResponse>>>()
     val getHomeProductResponse: LiveData<Resource<Response<GetProductResponse>>> get() = _getHomeProductResponse
 
-    fun getHomeProduct(
-        status: String? = null,
-        categoriId: Int? = null,
-        searchKeyword: String? = null
-    ) {
+    fun getHomeProduct() {
         viewModelScope.launch {
             _getHomeProductResponse.postValue(Resource.loading())
             try {
-                val dataExample = Resource.success(repository.getProduct(
-                    status,
-                    categoriId,
-                    searchKeyword
-                ))
+                val dataExample = Resource.success(repository.getProduct())
                 _getHomeProductResponse.postValue(dataExample)
             } catch (exp: Exception) {
                 _getHomeProductResponse.postValue(
