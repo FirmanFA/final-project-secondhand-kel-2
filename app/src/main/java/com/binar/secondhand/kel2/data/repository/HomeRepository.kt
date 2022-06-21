@@ -6,7 +6,15 @@ class HomeRepository(private val apiHelper: ApiHelper) {
 
     suspend fun getBanner() = apiHelper.getBanner()
 
-    suspend fun getProduct() = apiHelper.getProduct()
+    suspend fun getProduct(
+        status: String? = null,
+        categoriId: Int? = null,
+        searchKeyword: String? = null
+    ) = apiHelper.getProduct(
+        status,
+        categoriId,
+        searchKeyword
+    )
 
     suspend fun getCategory() = apiHelper.getCategory()
 }
