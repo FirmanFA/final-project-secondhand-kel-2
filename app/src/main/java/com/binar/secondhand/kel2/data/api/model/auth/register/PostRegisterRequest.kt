@@ -13,11 +13,14 @@ data class PostRegisterRequest(
     val password: String,
 
     @SerializedName("phone_number")
-    val phoneNumber: Int = 0,
+    val phoneNumber: Int,
 
     @SerializedName("address")
-    val address: String = "Jakarta",
+    val address: String,
 
     @SerializedName("image")
-    val image: String = ""
+    val image: String,
+
+    @SerializedName("city")
+    val city: String
 )

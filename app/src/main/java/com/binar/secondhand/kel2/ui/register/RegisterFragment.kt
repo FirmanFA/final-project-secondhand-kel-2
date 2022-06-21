@@ -29,7 +29,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             val registerPostRequest = PostRegisterRequest(
                 binding.etNama.text.toString(),
                 binding.etEmail.text.toString(),
-                binding.etBuatPassowrd.text.toString()
+                binding.etBuatPassowrd.text.toString(),
+                0,"-","","-"
             )
 
             if (binding.etNama.text.isNullOrEmpty() || binding.etEmail.text.isNullOrEmpty() || binding.etBuatPassowrd.text.isNullOrEmpty()) {
