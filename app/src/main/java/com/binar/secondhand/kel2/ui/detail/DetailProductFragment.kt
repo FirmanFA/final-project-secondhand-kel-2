@@ -1,60 +1,101 @@
 package com.binar.secondhand.kel2.ui.detail
 
+import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.binar.secondhand.kel2.R
+import com.binar.secondhand.kel2.data.resource.Status
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.binar.secondhand.kel2.databinding.FragmentDetailProductBinding
+import com.binar.secondhand.kel2.ui.profile.DetailProductViewModel
+import com.bumptech.glide.Glide
+import org.koin.java.KoinJavaComponent
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailProductFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailProductFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentDetailProductBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: DetailProductViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_product, container, false)
+    ): View {
+        _binding = FragmentDetailProductBinding.inflate(layoutInflater)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailProductFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailProductFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val productId = 1
+        val progressDialog = ProgressDialog(requireContext())
+
+        KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
+
+        setUpObserver()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun setUpObserver() {
+        viewModel.detailProduct.observe(viewLifecycleOwner){
+            when(it.status){
+                Status.LOADING -> {
+                    //loading state, misal menampilkan progressbar
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+
+                    binding.progressBar.visibility = View.GONE
+                    //sukses mendapat response, progressbar disembunyikan lagi
+                    Glide.with(binding.ivBackdrop)
+                        .load(it.data?.body()?.imageUrl)
+                        .error(R.drawable.ic_broken)
+                        .into(binding.ivBackdrop)
+
+                    binding.apply {
+                        tvTitle.text = it.data?.body()?.name
+                        tvCategory.text = it.data?.body()?.categories.toString()
+                        tvPrice.text = it.data?.body()?.basePrice.toString()
+                    }
+                }
+                Status.ERROR ->{
+                    binding.progressBar.visibility = View.GONE
+                    val error = it.message
+                    Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+        viewModel.authGetResponse.observe(viewLifecycleOwner){
+            when(it.status){
+                Status.LOADING -> {
+                    //loading state, misal menampilkan progressbar
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+
+                    binding.progressBar.visibility = View.GONE
+                    //sukses mendapat response, progressbar disembunyikan lagi
+                    Glide.with(binding.imgProfile)
+                        .load(it.data?.body()?.imageUrl)
+                        .error(R.drawable.ic_broken)
+                        .into(binding.imgProfile)
+
+                    binding.apply {
+                        tvTitle.text = it.data?.body()?.fullName
+                        tvLocation.text = it.data?.body()?.city
+                    }
+                }
+                Status.ERROR ->{
+                    binding.progressBar.visibility = View.GONE
+                    val error = it.message
+                    Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }

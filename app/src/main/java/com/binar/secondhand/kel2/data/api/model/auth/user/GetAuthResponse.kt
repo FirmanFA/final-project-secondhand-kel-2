@@ -18,6 +18,8 @@ data class GetAuthResponse(
     val imageUrl: Any,
     @SerializedName("password")
     val password: String,
+    @SerializedName("city")
+    val city: String,
     @SerializedName("phone_number")
     val phoneNumber: Long,
     @SerializedName("updatedAt")

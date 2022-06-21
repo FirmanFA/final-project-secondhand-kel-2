@@ -39,6 +39,11 @@ interface ApiService {
     @PUT("auth/user/{id}")
     suspend fun putAuth(@Body request:PutAuthRequest): Response<PutAuthResponse>
 
+    @GET("buyer/product/{product_id}")
+    suspend fun getProductDetail(@Path("product_id")productid:Int): Response<GetProductIdResponse>
+
+
+
     //seller
 
 //    @POST("seller/banner")

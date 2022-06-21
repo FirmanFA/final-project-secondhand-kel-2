@@ -21,4 +21,5 @@
     <string name="tawaran">Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu akan segera dihubungi penjual</string>
     <string name="masukan_harga_tawarmu">Masukan Harga Tawarmu</string>
     <string name="kirim">Kirim</string>
+    <string name="seller_name">Seller Name</string>
 </resources>

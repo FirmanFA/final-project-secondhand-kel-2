@@ -28,9 +28,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         setUpObserver()
 
-        binding.tvDaftarDisini.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-        }
+
 
         binding.btnMasuk.setOnClickListener {
             val loginPostRequest = PostLoginRequest(
