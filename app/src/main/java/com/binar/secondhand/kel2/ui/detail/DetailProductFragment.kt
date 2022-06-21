@@ -36,7 +36,7 @@ class DetailProductFragment : Fragment() {
         val progressDialog = ProgressDialog(requireContext())
 
         KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
-
+        viewModel.getDetailProduct(productId)
         setUpObserver()
     }
 
@@ -61,6 +61,7 @@ class DetailProductFragment : Fragment() {
                         tvTitle.text = it.data?.body()?.name
                         tvCategory.text = it.data?.body()?.categories.toString()
                         tvPrice.text = it.data?.body()?.basePrice.toString()
+                        tvDesc.text = it.data?.body()?.description.toString()
                     }
                 }
                 Status.ERROR ->{
