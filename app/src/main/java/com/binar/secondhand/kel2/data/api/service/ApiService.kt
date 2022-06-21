@@ -101,7 +101,11 @@ interface ApiService {
     suspend fun getBanner(): Response<GetBannerResponse>
 
     @GET("buyer/product")
-    suspend fun getProduct(): Response<GetProductResponse>
+    suspend fun getProduct(
+        @Query("status") status: String? = null,
+        @Query("category_id") categoryId: Int? = null,
+        @Query("search") searchKeyword: String? = null
+    ): Response<GetProductResponse>
 
     @GET("seller/category")
     suspend fun getCategory(): Response<GetCategoryResponse>

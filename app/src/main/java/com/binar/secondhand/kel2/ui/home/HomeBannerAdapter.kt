@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponseItem
 import com.binar.secondhand.kel2.databinding.HomeBannerListLayoutBinding
+import com.bumptech.glide.Glide
 
 class HomeBannerAdapter(private val onClick: (GetBannerResponseItem) -> Unit) :
     ListAdapter<GetBannerResponseItem, HomeBannerAdapter.ViewHolder>(CommunityComparator()) {
@@ -21,7 +22,7 @@ class HomeBannerAdapter(private val onClick: (GetBannerResponseItem) -> Unit) :
         ) {
 
 
-            //
+            Glide.with(binding.root).load(currentBanner.imageUrl).into(binding.root)
 
 
 
