@@ -46,11 +46,11 @@ class ApiHelper(val apiService: ApiService) {
 
     suspend fun getProduct(
         status: String? = null,
-        categoriId: Int? = null,
+        categoryId: Int? = null,
         searchKeyword: String? = null
     ) = apiService.getProduct(
         status,
-        categoriId,
+        categoryId,
         searchKeyword
     )
 

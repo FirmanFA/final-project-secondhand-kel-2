@@ -2,23 +2,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.binar.secondhand.kel2.ui.MainActivity">
-    <item android:id="@+id/home"
+
+    <item android:id="@+id/main_home"
         android:title="@string/navbar_home"
         android:icon="@drawable/ic_navbar_home" />
 
-    <item android:id="@+id/notification"
+    <item android:id="@+id/main_notification"
         android:title="@string/navbar_notification"
         android:icon="@drawable/ic_navbar_notification" />
 
-    <item android:id="@+id/jual"
+    <item android:id="@+id/main_sell"
         android:title="@string/navbar_sell"
         android:icon="@drawable/ic_navbar_sell" />
 
-    <item android:id="@+id/sale_list"
+    <item android:id="@+id/main_sale_list"
         android:title="@string/navbar_sale_list"
         android:icon="@drawable/ic_navbar_sale_list" />
 
-    <item android:id="@+id/account"
+    <item android:id="@+id/main_account"
         android:title="@string/navbar_account"
         android:icon="@drawable/ic_navbar_account" />
 

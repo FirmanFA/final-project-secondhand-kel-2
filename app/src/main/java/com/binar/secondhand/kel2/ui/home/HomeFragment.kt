@@ -1,13 +1,8 @@
 package com.binar.secondhand.kel2.ui.home
 
 import android.os.Bundle
-import android.view.KeyEvent
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
@@ -34,24 +29,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         setUpSearchBarListener()
         setUpObserver()
 
+        binding.tabHomeCategory.addTab(
+            binding.tabHomeCategory.newTab()
+                .setText("Semua")
+                .setIcon(R.drawable.ic_baseline_search_24)
+                .setId(-1)
+        )
+
         homeViewModel.getHomeProduct()
         homeViewModel.getHomeBanner()
         homeViewModel.getHomeCategory()
 
-//        for (i in 0..3) {
-//            binding.tabHomeCategory.addTab(
-//                binding.tabHomeCategory.newTab()
-//                    .setText("tab ke $i")
-//                    .setIcon(R.drawable.ic_baseline_search_24).setId(i * 10)
-//                    .setTag("ini tag tab ke $i")
-//            )
-//
-//        }
+
 
         binding.tabHomeCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                Toast.makeText(context, "${tab?.tag}", Toast.LENGTH_SHORT).show()
                 //do filter product here
+                if (tab?.id == -1){
+                    homeViewModel.getHomeProduct()
+                }else{
+                    homeViewModel.getHomeProduct(categoryId = tab?.id)
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -98,7 +96,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                                             .setText(category.name)
                                             .setIcon(R.drawable.ic_baseline_search_24)
                                             .setId(category.id)
-                                            .setTag(category.name)
                                     )
 
                                 }
@@ -162,7 +159,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             searchProduct(binding.etSearch.editText?.text.toString())
         }
 
-        binding.etSearch.editText?.setOnEditorActionListener { textView, i, keyEvent ->
+        binding.etSearch.editText?.setOnEditorActionListener { _, i, _ ->
 
             if (i == EditorInfo.IME_ACTION_SEARCH) {
                 //do something with search
