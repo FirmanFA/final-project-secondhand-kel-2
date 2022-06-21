@@ -37,7 +37,7 @@ interface ApiService {
     suspend fun getAuth(): Response<GetAuthResponse>
 
     @PUT("auth/user/{id}")
-    suspend fun putAuth(@Body request:PutAuthRequest): Response<PutAuthResponse>
+    suspend fun putAuth(@Body request: PutAuthRequest): Response<PutAuthResponse>
 
     //seller
 
@@ -88,7 +88,11 @@ interface ApiService {
     suspend fun getBanner(): Response<GetBannerResponse>
 
     @GET("buyer/product")
-    suspend fun getProduct(): Response<GetProductResponse>
+    suspend fun getProduct(
+        @Query("status") status: String? = null,
+        @Query("category_id") categoryId: Int? = null,
+        @Query("search") searchKeyword: String? = null
+    ): Response<GetProductResponse>
 
     @GET("seller/category")
     suspend fun getCategory(): Response<GetCategoryResponse>

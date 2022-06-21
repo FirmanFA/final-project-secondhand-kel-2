@@ -27,12 +27,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         getKoin().setProperty(
             "access_token",
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsa2VsMkBtYWlsLmNvbSIsImlh" +
-                    "dCI6MTY1NTgwODc4NX0.uCRi6CtzaaaoMNLLD8C8eYMrwnZx3aZAFgi2_Ey6o1w"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsa2VsMkBtYWlsLmNvbSI" +
+                    "sImlhdCI6MTY1NTgwODc4NX0.uCRi6CtzaaaoMNLLD8C8eYMrwnZx3aZAFgi2_Ey6o1w"
         )
 
         setUpSearchBarListener()
         setUpObserver()
+
+        binding.tabHomeCategory.addTab(
+            binding.tabHomeCategory.newTab()
+                .setText("Semua")
+                .setIcon(R.drawable.ic_baseline_search_24)
+                .setId(-1)
+        )
 
         homeViewModel.getHomeProduct()
         homeViewModel.getHomeBanner()
@@ -50,8 +57,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         binding.tabHomeCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                Toast.makeText(context, "${tab?.tag}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "${tab?.tag}", Toast.LENGTH_SHORT).show()
                 //do filter product here
+                if (tab?.id == -1){
+                    homeViewModel.getHomeProduct()
+                }else{
+                    homeViewModel.getHomeProduct(categoriId = tab?.id)
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
