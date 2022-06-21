@@ -83,4 +83,14 @@ interface ApiService {
 //    @GET("seller/order/product{product_id}")
 //    suspend fun getOrderProductId():GetOrderIdResponse
 
+    //Home endpoint
+    @GET("seller/banner")
+    suspend fun getBanner(): Response<GetBannerResponse>
+
+    @GET("seller/product")
+    suspend fun getProduct(): Response<GetProductResponse>
+
+    @GET("seller/category")
+    suspend fun getCategory(): Response<GetCategoryResponse>
+
 }
