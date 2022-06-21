@@ -12,6 +12,7 @@ import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentLoginBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.java.KoinJavaComponent
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
@@ -76,7 +77,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                             editor.apply()
 
                             // Bisa diganti pindah fragment
-                            Toast.makeText(context, "Login berhasil", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(context, "Login berhasil", Toast.LENGTH_SHORT).show()
+
+                            //set access token setelah dapet dari login
+                            KoinJavaComponent.getKoin().setProperty("access_token", accesToken.toString())
+
+                            findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
                         }
 
                         401 -> {

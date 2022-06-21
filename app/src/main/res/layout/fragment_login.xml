@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:text="Daftar di sini"
             android:textStyle="bold"
-            android:textColor="@color/purple_binar"
+            android:textColor="@color/purple_04"
             android:textSize="14sp"
             android:fontFamily="@font/poppins_regular"
             android:layout_marginTop="12dp"
