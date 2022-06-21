@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.repository.HomeRepository
 import com.binar.secondhand.kel2.data.resource.Resource
 import kotlinx.coroutines.launch

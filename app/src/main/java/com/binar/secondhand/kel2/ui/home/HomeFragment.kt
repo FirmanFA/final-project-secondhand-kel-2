@@ -10,11 +10,12 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentHomeBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
@@ -24,6 +25,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getKoin().setProperty(
+            "access_token",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsa2VsMkBtYWlsLmNvbSIsImlh" +
+                    "dCI6MTY1NTgwODc4NX0.uCRi6CtzaaaoMNLLD8C8eYMrwnZx3aZAFgi2_Ey6o1w"
+        )
+
         setUpSearchBarListener()
         setUpObserver()
 
@@ -31,15 +38,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         homeViewModel.getHomeBanner()
         homeViewModel.getHomeCategory()
 
-        for (i in 0..3) {
-            binding.tabHomeCategory.addTab(
-                binding.tabHomeCategory.newTab()
-                    .setText("tab ke $i")
-                    .setIcon(R.drawable.ic_baseline_search_24).setId(i*10)
-                    .setTag("ini tag tab ke $i")
-            )
-
-        }
+//        for (i in 0..3) {
+//            binding.tabHomeCategory.addTab(
+//                binding.tabHomeCategory.newTab()
+//                    .setText("tab ke $i")
+//                    .setIcon(R.drawable.ic_baseline_search_24).setId(i * 10)
+//                    .setTag("ini tag tab ke $i")
+//            )
+//
+//        }
 
         binding.tabHomeCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -54,34 +61,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun setUpObserver() {
-        homeViewModel.getBannerResponse.observe(viewLifecycleOwner){
-            when(it.status){
+        homeViewModel.getBannerResponse.observe(viewLifecycleOwner) {
+            when (it.status) {
 
                 Status.LOADING -> {}
 
                 Status.SUCCESS -> {
 
-                    when(it.data?.code()){
-                        200 ->{
+                    when (it.data?.code()) {
+                        200 -> {
                             val data = it.data.body()
                             showHomeBanner(data)
                         }
                     }
                 }
 
-                Status.ERROR ->{}
+                Status.ERROR -> {}
             }
         }
 
-        homeViewModel.getCategoryResponse.observe(viewLifecycleOwner){
-            when(it.status){
+        homeViewModel.getCategoryResponse.observe(viewLifecycleOwner) {
+            when (it.status) {
 
                 Status.LOADING -> {}
 
                 Status.SUCCESS -> {
 
-                    when(it.data?.code()){
-                        200 ->{
+                    when (it.data?.code()) {
+                        200 -> {
 
                             val data = it.data.body()
                             if (data != null) {
@@ -101,19 +108,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     }
                 }
 
-                Status.ERROR ->{}
+                Status.ERROR -> {}
             }
         }
 
-        homeViewModel.getHomeProductResponse.observe(viewLifecycleOwner){
-            when(it.status){
+        homeViewModel.getHomeProductResponse.observe(viewLifecycleOwner) {
+            when (it.status) {
 
                 Status.LOADING -> {}
 
                 Status.SUCCESS -> {
 
-                    when(it.data?.code()){
-                        200 ->{
+                    when (it.data?.code()) {
+                        200 -> {
 
                             val data = it.data.body()
                             showHomeProductList(data)
@@ -122,13 +129,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     }
                 }
 
-                Status.ERROR ->{}
+                Status.ERROR -> {}
             }
         }
     }
 
     private fun showHomeBanner(data: GetBannerResponse?) {
-        val adapter = HomeBannerAdapter{
+        val adapter = HomeBannerAdapter {
             //onclick item
         }
 
@@ -138,7 +145,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun showHomeProductList(productResponse: GetProductResponse?) {
-        val adapter = HomeProductAdapter{
+        val adapter = HomeProductAdapter {
             //onclick item
         }
 
@@ -149,8 +156,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
 
-
-    private fun setUpSearchBarListener(){
+    private fun setUpSearchBarListener() {
         binding.etSearch.setEndIconOnClickListener {
             //do search
             searchProduct(binding.etSearch.editText?.text.toString())
