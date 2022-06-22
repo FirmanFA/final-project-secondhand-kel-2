@@ -20,23 +20,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getKoin().setProperty(
-            "access_token",
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsa2VsMkBtYWlsLmNvbSIsImlh" +
-                    "dCI6MTY1NTgwODc4NX0.uCRi6CtzaaaoMNLLD8C8eYMrwnZx3aZAFgi2_Ey6o1w"
-        )
+//        getKoin().setProperty(
+//            "access_token",
+//            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsa2VsMkBtYWlsLmNvbSIsImlh" +
+//                    "dCI6MTY1NTgwODc4NX0.uCRi6CtzaaaoMNLLD8C8eYMrwnZx3aZAFgi2_Ey6o1w"
+//        )
 
         setUpSearchBarListener()
         setUpObserver()
 
-        binding.tabHomeCategory.addTab(
-            binding.tabHomeCategory.newTab()
-                .setText("Semua")
-                .setIcon(R.drawable.ic_baseline_search_24)
-                .setId(-1)
-        )
-
-        homeViewModel.getHomeProduct()
+//        homeViewModel.getHomeProduct()
         homeViewModel.getHomeBanner()
         homeViewModel.getHomeCategory()
 
@@ -62,31 +55,53 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         homeViewModel.getBannerResponse.observe(viewLifecycleOwner) {
             when (it.status) {
 
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    binding.pbBanner.visibility = View.VISIBLE
+                }
 
                 Status.SUCCESS -> {
+
+                    binding.pbBanner.visibility = View.GONE
 
                     when (it.data?.code()) {
                         200 -> {
                             val data = it.data.body()
                             showHomeBanner(data)
                         }
+
+                        else ->{
+                            showSnackbar("Error occured: ${it.data?.code()}")
+                        }
                     }
                 }
 
-                Status.ERROR -> {}
+                Status.ERROR -> {
+                    binding.pbBanner.visibility = View.GONE
+                    showSnackbar("${it.message}")
+                }
             }
         }
 
         homeViewModel.getCategoryResponse.observe(viewLifecycleOwner) {
             when (it.status) {
 
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    binding.pbCategory.visibility = View.VISIBLE
+                }
 
                 Status.SUCCESS -> {
 
+                    binding.pbCategory.visibility = View.GONE
+
                     when (it.data?.code()) {
                         200 -> {
+
+                            binding.tabHomeCategory.addTab(
+                                binding.tabHomeCategory.newTab()
+                                    .setText("Semua")
+                                    .setIcon(R.drawable.ic_baseline_search_24)
+                                    .setId(-1)
+                            )
 
                             val data = it.data.body()
                             if (data != null) {
@@ -100,21 +115,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
                                 }
                             }
+                        }
 
+                        else ->{
+                            showSnackbar("Error occured: ${it.data?.code()}")
                         }
                     }
                 }
 
-                Status.ERROR -> {}
+                Status.ERROR -> {
+                    binding.pbCategory.visibility = View.GONE
+                    showSnackbar("${it.message}")
+                }
             }
         }
 
         homeViewModel.getHomeProductResponse.observe(viewLifecycleOwner) {
             when (it.status) {
 
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    binding.pbHomeProduct.visibility = View.VISIBLE
+                }
 
                 Status.SUCCESS -> {
+
+                    binding.pbHomeProduct.visibility = View.GONE
 
                     when (it.data?.code()) {
                         200 -> {
@@ -123,10 +148,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                             showHomeProductList(data)
 
                         }
+                        else ->{
+                            showSnackbar("Error occured: ${it.data?.code()}")
+                        }
                     }
                 }
 
-                Status.ERROR -> {}
+                Status.ERROR -> {
+                    binding.pbHomeProduct.visibility = View.GONE
+                    showSnackbar("${it.message}")
+                }
             }
         }
     }

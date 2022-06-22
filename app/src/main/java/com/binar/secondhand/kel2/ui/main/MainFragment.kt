@@ -25,23 +25,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val navController = Navigation.findNavController(requireActivity(), R.id.main_fragment_host)
-
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.main_home, R.id.main_account
-//            )
-//        )
-
-//        val navController = binding.mainFragmentHost.findNavController()
-//        setupActionBarWithNavController(
-//            requireActivity() as AppCompatActivity,
-//            navController,
-//            appBarConfiguration
-//        )
-
-//        binding.bottomMainFragment.setupWithNavController(navController)
-
 
         binding.bottomMainFragment.setOnItemSelectedListener {
             when(it.itemId){
@@ -61,8 +44,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
                     true
                 }
-
-
 
                 else -> false
             }
