@@ -11,13 +11,10 @@ import com.binar.secondhand.kel2.data.resource.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class DetailProductViewModel(private val repository: Repository): ViewModel() {
+class PengajuanPenawaranViewModel(private val repository: Repository): ViewModel() {
 
     private val _detailProduct = MutableLiveData<Resource<Response<GetProductIdResponse>>>()
     val detailProduct: LiveData<Resource<Response<GetProductIdResponse>>> get() = _detailProduct
-
-    private val _GetProfile = MutableLiveData<Resource<Response<GetAuthResponse>>>()
-    val GetProfile : LiveData<Resource<Response<GetAuthResponse>>> get() = _GetProfile
 
 
     fun getDetailProduct(productId: Int){
@@ -32,16 +29,6 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun getUserProfile(userId: Int){
-        viewModelScope.launch {
-            _GetProfile .postValue(Resource.loading())
-            try {
-                val dataUser = Resource.success(repository.getUserProfile(userId))
-                _GetProfile .postValue(dataUser)
-            }catch (exp: Exception){
-                _GetProfile .postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
-            }
-        }
-    }
+
 
 }

@@ -9,4 +9,5 @@ class Repository(private val apiHelper: ApiHelper) {
 
     suspend fun putAuth(request: PutAuthRequest) = apiHelper.putAuth(request)
     suspend fun getProductDetail(productId: Int) = apiHelper.getProductDetail(productId)
+    suspend fun getUserProfile(userId: Int) = apiHelper.getUserProfile(userId)
 }

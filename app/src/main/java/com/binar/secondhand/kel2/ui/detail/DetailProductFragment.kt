@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,11 +34,16 @@ class DetailProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val productId = 1
-        val progressDialog = ProgressDialog(requireContext())
+//        val UserId = 75
+//        viewModel.getUserProfile(UserId)
 
         KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
         viewModel.getDetailProduct(productId)
         setUpObserver()
+
+        binding.btnTertarik.setOnClickListener {
+            findNavController().navigate(R.id.action_detailProductFragment_to_buyerPenawaranFragment)
+        }
     }
 
     @SuppressLint("CheckResult")
@@ -58,8 +64,13 @@ class DetailProductFragment : Fragment() {
                         .into(binding.ivBackdrop)
 
                     binding.apply {
+                        val category = arrayListOf<String>()
+                        it.data?.body()?.categories?.forEach { categories ->
+                            category.add(categories.name)
+                        }
+                        tvCategory.text = category.joinToString ()
+
                         tvTitle.text = it.data?.body()?.name
-                        tvCategory.text = it.data?.body()?.categories.toString()
                         tvPrice.text = it.data?.body()?.basePrice.toString()
                         tvDesc.text = it.data?.body()?.description.toString()
                     }
@@ -71,7 +82,7 @@ class DetailProductFragment : Fragment() {
                 }
             }
         }
-        viewModel.authGetResponse.observe(viewLifecycleOwner){
+        viewModel.GetProfile.observe(viewLifecycleOwner){
             when(it.status){
                 Status.LOADING -> {
                     //loading state, misal menampilkan progressbar

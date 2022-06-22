@@ -14,4 +14,5 @@ class ApiHelper(val apiService: ApiService) {
     suspend fun putAuth(request: PutAuthRequest) = apiService.putAuth(request)
 
     suspend fun getProductDetail(productId: Int) = apiService.getProductDetail(productId)
+    suspend fun getUserProfile(userId: Int) = apiService.getUserProfile(userId)
 }

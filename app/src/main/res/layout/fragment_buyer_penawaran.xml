@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:background="@color/grey"
-    tools:context=".ui.detail.PengajuanPenawaranFragment">
+    tools:context=".ui.detail.BuyerPenawaranFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -145,7 +145,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/btn_tertarik"
+                    android:id="@+id/btn_kirim"
                     android:paddingHorizontal="32dp"
                     android:paddingVertical="12dp"
                     android:layout_marginTop="20dp"

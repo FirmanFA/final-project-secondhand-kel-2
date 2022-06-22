@@ -42,6 +42,9 @@ interface ApiService {
     @GET("buyer/product/{product_id}")
     suspend fun getProductDetail(@Path("product_id")productid:Int): Response<GetProductIdResponse>
 
+    @GET("buyer/product/{user_id}")
+    suspend fun getUserProfile(@Path("user_id")userid:Int): Response<GetAuthResponse>
+
 
 
     //seller

@@ -1,29 +1,32 @@
 package com.binar.secondhand.kel2.ui.detail
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
-import com.binar.secondhand.kel2.databinding.FragmentPengajuanPenawaranBinding
+import com.binar.secondhand.kel2.databinding.FragmentBuyerPenawaranBinding
+import com.binar.secondhand.kel2.databinding.FragmentDetailProductBinding
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.koin.java.KoinJavaComponent
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.java.KoinJavaComponent
 
-class PengajuanPenawaranFragment : BottomSheetDialogFragment() {
-    private var _binding: FragmentPengajuanPenawaranBinding? = null
+
+class BuyerPenawaranFragment : Fragment() {
+    private var _binding: FragmentBuyerPenawaranBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PengajuanPenawaranViewModel by viewModel()
+    private val viewModel: DetailProductViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    ): View {
+        _binding = FragmentBuyerPenawaranBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,6 +36,7 @@ class PengajuanPenawaranFragment : BottomSheetDialogFragment() {
         KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
         viewModel.getDetailProduct(productId)
         setUpObserver()
+
 
     }
 
@@ -69,5 +73,4 @@ class PengajuanPenawaranFragment : BottomSheetDialogFragment() {
             }
         }
     }
-
 }
