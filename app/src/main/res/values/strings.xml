@@ -111,4 +111,9 @@
         <item>Tual</item>
         <item>Yogyakarta</item>
     </string-array>
+    <string name="navbar_home">Home</string>
+    <string name="navbar_notification">Notifikasi</string>
+    <string name="navbar_sell">Jual</string>
+    <string name="navbar_sale_list">Daftar Jual</string>
+    <string name="navbar_account">Akun</string>
 </resources>

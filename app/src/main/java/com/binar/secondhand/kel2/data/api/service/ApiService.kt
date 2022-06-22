@@ -17,7 +17,7 @@ import com.binar.secondhand.kel2.data.api.model.seller.banner.post.PostBannerRes
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.id.GetCategoryIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.get.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdResponse
@@ -56,4 +56,58 @@ interface ApiService {
 
     @GET("seller/product/{id}")
     suspend fun getProductId(): Response<GetProductIdResponse>
+
+//    @GET("seller/banner")
+//    suspend fun getBanner(): GetBannerResponse
+//
+//    @GET("seller/banner/{id}")
+//    suspend fun  getBannerId(): GetBannerIdResponse
+//
+//    @POST("seller/banner/category")
+//    suspend fun postCategory(@Body request: PostBannerRequest): Response<PostBannerResponse>
+//
+//    @GET("seller/category")
+//    suspend fun getCategory(): GetCategoryResponse
+//
+//    @GET("seller/category/{id}")
+//    suspend fun getCategoryId(): GetCategoryIdResponse
+//
+//    @POST("seller/product")
+//    suspend fun postProduct(@Body request: PostProductRequest): Response<PostProductResponse>
+//
+//    @GET("seller/product")
+//    suspend fun getProduct(): GetProductResponse
+//
+//    @GET("seller/product/{id}")
+//    suspend fun getProductId(): GetProductIdResponse
+//
+//    @PUT("seller/product/{id}")
+//    suspend fun putProductId(@Body request:PutProductIdRequest): Response<PutProductIdResponse>
+//
+//    @GET("seller/order")
+//    suspend fun getOrder() : GetOrderResponse
+
+//    @GET("seller/order/{id}")
+//    suspend fun getOrderId() :
+
+//    @PATCH("seller/order/{id}")
+//    suspend fun patchOrderId :
+
+//    @GET("seller/order/product{product_id}")
+//    suspend fun getOrderProductId():GetOrderIdResponse
+
+    //Home endpoint
+    @GET("seller/banner")
+    suspend fun getBanner(): Response<GetBannerResponse>
+
+    @GET("buyer/product")
+    suspend fun getProduct(
+        @Query("status") status: String? = null,
+        @Query("category_id") categoryId: Int? = null,
+        @Query("search") searchKeyword: String? = null
+    ): Response<GetProductResponse>
+
+    @GET("seller/category")
+    suspend fun getCategory(): Response<GetCategoryResponse>
+
 }
