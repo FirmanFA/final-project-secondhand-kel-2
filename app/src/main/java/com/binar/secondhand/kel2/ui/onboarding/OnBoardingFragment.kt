@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.databinding.FragmentOnBoardingBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 
 class OnBoardingFragment :
@@ -16,7 +17,7 @@ class OnBoardingFragment :
     var onBoardingViewPagerAdapter: OnBoardingViewPagerAdapter? = null
     var tabLayout: TabLayout? = null
     var onBoardingViewPager : ViewPager? = null
-    var next: TextView? = null
+    var next: FloatingActionButton? = null
     var position = 0
 
 
@@ -24,12 +25,12 @@ class OnBoardingFragment :
         super.onViewCreated(view, savedInstanceState)
 
         tabLayout = binding.tabIndicator
-        next = binding.tvNext
+        next = binding.fab
 
         val onBoardingData:MutableList<OnBoardingData> = ArrayList()
-        onBoardingData.add(OnBoardingData("Barang Bekas","Temukan Barang Bekas Di Tempat Ini", R.drawable.ic_baseline_shopping_cart_36))
-        onBoardingData.add(OnBoardingData("Semuanya Jenis Ada","Semua Yang Anda Butuhkan, Hanya Ada Di Sini", R.drawable.ic_baseline_shopping_cart_36))
-        onBoardingData.add(OnBoardingData("Sempurna","Cara Sempurna Untuk Transaksi Barang Bekas Di Platform Ini", R.drawable.ic_baseline_shopping_cart_36))
+        onBoardingData.add(OnBoardingData("Temukan Barang Bekas Di Tempat Ini", R.drawable.onboarding_1))
+        onBoardingData.add(OnBoardingData("Cara Sempurna Untuk Transaksi Barang Bekas Di Platform Ini", R.drawable.onboarding_2))
+        onBoardingData.add(OnBoardingData("Semua Yang Anda Butuhkan, Hanya Ada Di Sini", R.drawable.onboarding_3))
 
         setOnBoardingViewPagerAdapter(onBoardingData)
 

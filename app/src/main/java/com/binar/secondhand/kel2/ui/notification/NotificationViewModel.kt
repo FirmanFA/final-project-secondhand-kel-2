@@ -15,8 +15,8 @@ import java.lang.Exception
 class NotificationViewModel(private val repository: Repository): ViewModel() {
     private val _notification = MutableLiveData<Resource<Response<GetNotificationResponse>>>()
     private val _sellerProductId = MutableLiveData<Resource<Response<GetProductIdResponse>>>()
-    val notification: LiveData<Resource<Response<GetNotificationResponse>>> get() = _notification
-    val sellerProductId: LiveData<Resource<Response<GetProductIdResponse>>> get() = _sellerProductId
+    val notificationResponse: LiveData<Resource<Response<GetNotificationResponse>>> get() = _notification
+    val sellerProductIdResponse: LiveData<Resource<Response<GetProductIdResponse>>> get() = _sellerProductId
 
     fun getNotification(){
         viewModelScope.launch {
