@@ -83,6 +83,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                             KoinJavaComponent.getKoin().setProperty("access_token", accesToken.toString())
 
 //                            findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+                            findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
                         }
 
                         401 -> {
