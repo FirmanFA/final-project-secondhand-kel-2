@@ -138,6 +138,7 @@
                     android:hint="Rp. 0,00">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@id/etHargaTawar"
                         android:layout_width="match_parent"
                         android:inputType="number"
                         android:layout_height="wrap_content" />

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.resource.Status
@@ -14,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.java.KoinJavaComponent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PengajuanPenawaranFragment : BottomSheetDialogFragment() {
+class PengajuanPenawaranFragment : Fragment() {
     private var _binding: FragmentPengajuanPenawaranBinding? = null
     private val binding get() = _binding!!
     private val viewModel: PengajuanPenawaranViewModel by viewModel()
