@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.databinding.NotificationContentBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 
 class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
@@ -43,7 +46,13 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
         fun bind(data: GetNotificationResponse.GetNotificationResponseItem){
             binding.apply {
 //                tvPrice.text = data.bidPrice.toString()
-
+                Glide.with(binding.root)
+                    .load(data.imageUrl)
+                    .centerCrop()
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(16)))
+                    .into(binding.ivProduct)
+                tvTitle.text = "Lorem Ipsum"
+                tvPrice.text = "Free"
                 tvNego.text = data.bidPrice.toString()
                 tvStatus.text = data.status
                 tvTime.text = data.transactionDate
