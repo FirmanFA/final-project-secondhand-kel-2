@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.binar.secondhand.kel2.R
+import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentPengajuanPenawaranBinding
 import com.bumptech.glide.Glide
@@ -28,11 +29,25 @@ class PengajuanPenawaranFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val productId = 1
+        val productId = 2
 
         KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
         viewModel.getDetailProduct(productId)
         setUpObserver()
+
+
+        binding.btnProduct.setOnClickListener{
+            val buyerPenawaran = PostOrderRequest(
+                binding.etHargaTawar.text.toString().toInt(),
+                productId
+            )
+            if (binding.etHargaTawar.text.isNullOrEmpty()) {
+                Toast.makeText(context, "Kolom tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                viewModel.postBuyerOrder(buyerPenawaran)
+            }
+        }
 
     }
 
@@ -65,6 +80,36 @@ class PengajuanPenawaranFragment : BottomSheetDialogFragment() {
                     binding.progressBar.visibility = View.GONE
                     val error = it.message
                     Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.buyerOrder.observe(viewLifecycleOwner){
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+                    binding.progressBar.visibility = View.GONE
+                    when (it.data?.code()){
+                        201 -> {
+                            val id = it.data?.body()?.id
+                            val buyerId = it.data?.body()?.buyerId
+                            val productId = it.data?.body()?.productId
+                            val status = it.data?.body()?.status
+                            val createdAt = it.data?.body()?.createdAt
+                            val updatedAt = it.data?.body()?.updatedAt
+
+                            Toast.makeText(context, "Penawaran Anda Diterima", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                }
+                Status.ERROR -> {
+                    binding.progressBar.visibility = View.GONE
+
+                    val error = it.message
+                    Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
                 }
             }
         }

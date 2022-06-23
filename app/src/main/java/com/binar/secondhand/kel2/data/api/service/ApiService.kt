@@ -8,6 +8,8 @@ import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRespon
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthRequest
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
+import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.id.GetBannerIdResponse
@@ -44,6 +46,9 @@ interface ApiService {
 
     @GET("buyer/product/{user_id}")
     suspend fun getUserProfile(@Path("user_id")userid:Int): Response<GetAuthResponse>
+
+    @POST("buyer/order")
+    suspend fun postBuyerOrder(@Body request: PostOrderRequest): Response<PostOrderResponse>
 
 
 

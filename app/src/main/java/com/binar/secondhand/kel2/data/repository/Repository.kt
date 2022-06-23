@@ -1,6 +1,8 @@
 package com.binar.secondhand.kel2.data.repository
 
+import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthRequest
+import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.service.ApiHelper
 
 class Repository(private val apiHelper: ApiHelper) {
@@ -10,4 +12,5 @@ class Repository(private val apiHelper: ApiHelper) {
     suspend fun putAuth(request: PutAuthRequest) = apiHelper.putAuth(request)
     suspend fun getProductDetail(productId: Int) = apiHelper.getProductDetail(productId)
     suspend fun getUserProfile(userId: Int) = apiHelper.getUserProfile(userId)
+    suspend fun postBuyerOrder(request: PostOrderRequest) = apiHelper.postBuyerOrder(request)
 }

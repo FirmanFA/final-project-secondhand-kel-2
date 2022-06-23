@@ -128,7 +128,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_product" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textField"
+                    android:id="@+id/wrapHargaTawar"
                     android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -138,6 +138,7 @@
                     android:hint="Rp. 0,00">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etHargaTawar"
                         android:layout_width="match_parent"
                         android:inputType="number"
                         android:layout_height="wrap_content" />
@@ -145,7 +146,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/btn_tertarik"
+                    android:id="@+id/btn_kirim"
                     android:paddingHorizontal="32dp"
                     android:paddingVertical="12dp"
                     android:layout_marginTop="20dp"
@@ -155,7 +156,7 @@
                     android:layout_width="match_parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textField"
+                    app:layout_constraintTop_toBottomOf="@id/wrapHargaTawar"
                     android:layout_height="match_parent">
                 </Button>
 
