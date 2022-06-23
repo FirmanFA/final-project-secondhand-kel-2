@@ -39,7 +39,7 @@ class NotificationFragment :
                         list = it.data?.body()!!
                         listSize = it.data.body()!!.size
                         it.data?.body()?.forEach {
-                            notificationViewModel.getSellerProductId(it.id)
+                            notificationViewModel.getSellerProductId(it.productId)
                         }
                     }
                 }
@@ -56,6 +56,8 @@ class NotificationFragment :
                 Status.SUCCESS -> {
                     if (it.data?.body() != null){
                         listProduct.add(it.data.body()!!)
+                    }else{
+                        listProduct.add(GetProductIdResponse(0, listOf(),"-",0,"-","-","-","-","-",0))
                     }
                     if (list.size != 0){
                         Log.d("List",list.size.toString())
