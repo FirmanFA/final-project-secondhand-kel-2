@@ -54,6 +54,6 @@ interface ApiService {
     @GET("notification")
     suspend fun getNotification(): Response<GetNotificationResponse>
 
-    @GET("seller/product/{id}")
-    suspend fun getProductId(): Response<GetProductIdResponse>
+    @GET("buyer/product/{id}")
+    suspend fun getProductId(@Path("id")id:Int): Response<GetProductIdResponse>
 }

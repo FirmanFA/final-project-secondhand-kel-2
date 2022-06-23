@@ -37,5 +37,5 @@ class ApiHelper(val apiService: ApiService) {
 
     suspend fun getNotification() = apiService.getNotification()
 
-    suspend fun getProductId() = apiService.getProductId()
+    suspend fun getProductId(id: Int) = apiService.getProductId(id)
 }
