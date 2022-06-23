@@ -55,4 +55,5 @@ class ApiHelper(val apiService: ApiService) {
     )
 
     suspend fun getCategory() = apiService.getCategory()
+    suspend fun getProductId(id: Int) = apiService.getProductId(id)
 }

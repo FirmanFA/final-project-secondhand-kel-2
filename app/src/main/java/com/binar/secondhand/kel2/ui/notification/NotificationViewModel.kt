@@ -30,11 +30,11 @@ class NotificationViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun getSellerProductId(){
+    fun getSellerProductId(id: Int){
         viewModelScope.launch {
             _sellerProductId.postValue(Resource.loading())
             try {
-                val sellerProductId = Resource.success(repository.getProductId())
+                val sellerProductId = Resource.success(repository.getProductId(id))
                 _sellerProductId.postValue(sellerProductId)
             }catch (exception : Exception){
                 _sellerProductId.postValue(Resource.error(exception.message?: "Error Occurred"))
