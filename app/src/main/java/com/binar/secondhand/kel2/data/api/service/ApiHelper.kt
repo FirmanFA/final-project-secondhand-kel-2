@@ -3,6 +3,7 @@ package com.binar.secondhand.kel2.data.api.service
 import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginRequest
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthRequest
+import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.get.GetProductIdResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -53,7 +54,10 @@ class ApiHelper(val apiService: ApiService) {
         categoryId,
         searchKeyword
     )
+    suspend fun getProductDetail(productId: Int) = apiService.getProductDetail(productId)
+    suspend fun getUserProfile(userId: Int) = apiService.getUserProfile(userId)
 
+    suspend fun postBuyerOrder(request: PostOrderRequest) = apiService.postBuyerOrder(request)
     suspend fun getCategory() = apiService.getCategory()
     suspend fun getProductId(id: Int) = apiService.getProductId(id)
 }

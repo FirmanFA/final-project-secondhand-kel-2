@@ -1,6 +1,8 @@
 package com.binar.secondhand.kel2.data.api.service
 
-
+import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
+import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginRequest
 import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginResponse
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
@@ -58,6 +60,15 @@ interface ApiService {
     suspend fun getProductId(@Path("id")id:Int): Response<GetProductIdResponse>
     @GET("seller/product/{id}")
     suspend fun getProductId(): Response<GetProductIdResponse>
+    @GET("buyer/product/{product_id}")
+    suspend fun getProductDetail(@Path("product_id")productid:Int): Response<GetProductIdResponse>
+
+    @GET("buyer/product/{user_id}")
+    suspend fun getUserProfile(@Path("user_id")userid:Int): Response<GetAuthResponse>
+
+    @POST("buyer/order")
+    suspend fun postBuyerOrder(@Body request: PostOrderRequest): Response<PostOrderResponse>
+
 
 //    @GET("seller/banner")
 //    suspend fun getBanner(): GetBannerResponse

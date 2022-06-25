@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detail.DetailProductFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:background="@android:color/transparent"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <ImageView
+                    android:id="@+id/ivBackdrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="parallax"
+                    tools:src="@tools:sample/backgrounds/scenic"
+                    tools:ignore="ContentDescription" />
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:padding="8dp"
+                    android:background="@drawable/rounded_back"
+                    android:src="@drawable/ic_back" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:behavior_overlapTop="68dp"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="32dp" />
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    android:id="@+id/btn_product"
+                    android:backgroundTint="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/guideline"
+                    tools:ignore="MissingConstraints">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fitsSystemWindows="true"
+                        android:layout_margin="16dp">
+
+                        <TextView
+                            android:id="@+id/tv_title"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_product"
+                            android:textStyle="bold"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_marginTop="4dp"
+                            android:id="@+id/tv_category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/category"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@id/tv_title"
+                            android:textSize="12sp" />
+                        <TextView
+                            android:id="@+id/tv_price"
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rp_1_000_000"
+                            android:textColor="@color/black"
+                            app:layout_constraintTop_toBottomOf="@id/tv_category"
+                            android:textSize="18sp" />
+                        <ImageView
+                            android:id="@+id/ivfav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:src="@drawable/ic_fav" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardElevation="8dp"
+                    android:id="@+id/btn_profile"
+                    android:backgroundTint="@color/white1"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_product"
+                    tools:ignore="MissingConstraints">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fitsSystemWindows="true"
+                        android:layout_margin="16dp">
+                        <ImageView
+                            android:id="@+id/img_profile"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_broken"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="60dp"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/seller_name"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/img_profile" />
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="60dp"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/bandung"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/img_profile"
+                            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardElevation="8dp"
+                    android:backgroundTint="@color/white1"
+                    android:id="@+id/btn_desc"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_profile"
+                    tools:ignore="MissingConstraints">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fitsSystemWindows="true"
+                        android:layout_margin="16dp">
+
+                        <TextView
+                            android:id="@+id/tv_titleDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/deskripsi"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                        <TextView
+                            android:id="@+id/tv_Desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/lorem"
+                            android:textSize="16sp"
+                            app:layout_constraintTop_toBottomOf="@id/tv_titleDesc" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/btn_tertarik"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="12dp"
+            android:textSize="14sp"
+            android:background="@drawable/btn_tertarik"
+            android:text="@string/saya_tertarik_dan_ingin_nego"
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="match_parent">
+
+        </Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
