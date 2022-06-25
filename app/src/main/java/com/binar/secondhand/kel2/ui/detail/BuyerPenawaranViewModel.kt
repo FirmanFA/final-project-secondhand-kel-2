@@ -13,7 +13,7 @@ import com.binar.secondhand.kel2.data.resource.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class PengajuanPenawaranViewModel(private val repository: Repository): ViewModel() {
+class BuyerPenawaranViewModel(private val repository: Repository): ViewModel() {
 
     private val _detailProduct = MutableLiveData<Resource<Response<GetProductIdResponse>>>()
     val detailProduct: LiveData<Resource<Response<GetProductIdResponse>>> get() = _detailProduct

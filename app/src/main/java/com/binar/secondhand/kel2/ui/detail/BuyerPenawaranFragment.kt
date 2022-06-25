@@ -6,12 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBuyerPenawaranBinding
-import com.binar.secondhand.kel2.databinding.FragmentDetailProductBinding
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.java.KoinJavaComponent
@@ -20,7 +18,7 @@ import org.koin.java.KoinJavaComponent
 class BuyerPenawaranFragment : Fragment() {
     private var _binding: FragmentBuyerPenawaranBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PengajuanPenawaranViewModel by viewModel()
+    private val viewModel: BuyerPenawaranViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
