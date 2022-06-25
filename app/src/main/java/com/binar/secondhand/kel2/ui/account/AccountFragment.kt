@@ -5,8 +5,10 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.databinding.FragmentAccountBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.main.MainFragment
 
 class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBinding::inflate) {
 
@@ -14,6 +16,8 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        MainFragment.activePage = R.id.main_home
 
         binding.containerUbahAkun.setOnClickListener {
             // Ke fragment ubah akun

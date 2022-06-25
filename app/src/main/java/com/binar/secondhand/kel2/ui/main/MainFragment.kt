@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.databinding.FragmentMainBinding
+import com.binar.secondhand.kel2.ui.account.AccountFragment
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.home.HomeFragment
 import com.binar.secondhand.kel2.ui.login.LoginFragment
@@ -22,6 +23,9 @@ import com.binar.secondhand.kel2.ui.notification.NotificationFragment
 
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
+    companion object{
+        var activePage = 0
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,7 +52,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
                 R.id.main_account ->{
                     activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.main_fragment_host, LoginFragment())
+                        ?.replace(R.id.main_fragment_host, AccountFragment())
                         ?.commit()
 
                     true
@@ -57,6 +61,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                 else -> false
             }
         }
+
+        binding.bottomMainFragment.selectedItemId = if (activePage == 0){
+            R.id.main_home
+        }else{
+            activePage
+        }
+
+
 
 
     }
