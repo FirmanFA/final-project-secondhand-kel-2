@@ -17,6 +17,7 @@ import com.binar.secondhand.kel2.databinding.FragmentMainBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.home.HomeFragment
 import com.binar.secondhand.kel2.ui.login.LoginFragment
+import com.binar.secondhand.kel2.ui.notification.NotificationFragment
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
@@ -32,6 +33,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                 R.id.main_home -> {
                     activity?.supportFragmentManager?.beginTransaction()
                         ?.replace(R.id.main_fragment_host, HomeFragment())
+                        ?.commit()
+
+                    true
+                }
+
+                R.id.main_notification -> {
+                    activity?.supportFragmentManager?.beginTransaction()
+                        ?.replace(R.id.main_fragment_host, NotificationFragment())
                         ?.commit()
 
                     true

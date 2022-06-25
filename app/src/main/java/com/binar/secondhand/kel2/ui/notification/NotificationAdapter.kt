@@ -6,9 +6,16 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
+import com.binar.secondhand.kel2.data.api.model.seller.product.id.get.GetProductIdResponse
 import com.binar.secondhand.kel2.databinding.NotificationContentBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
-class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+class NotificationAdapter (private val onItemClick: OnClickListener, private val product: List<GetProductIdResponse>) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<GetNotificationResponse.GetNotificationResponseItem>(){
         override fun areItemsTheSame(
@@ -33,20 +40,28 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
 
     override fun onBindViewHolder(holder: NotificationAdapter.ViewHolder, position: Int) {
         val data = differ.currentList[position]
-        data.let { holder.bind(data) }
+        data.let { holder.bind(data, product[position]) }
     }
 
     override fun getItemCount(): Int = differ.currentList.size
 
     inner class ViewHolder(private val binding: NotificationContentBinding) :
         RecyclerView.ViewHolder(binding.root){
-        fun bind(data: GetNotificationResponse.GetNotificationResponseItem){
+        fun bind(data: GetNotificationResponse.GetNotificationResponseItem, product: GetProductIdResponse){
             binding.apply {
-//                tvPrice.text = data.bidPrice.toString()
+                val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'", Locale.ROOT)
+                val date = format.parse(data.transactionDate) as Date
 
+                Glide.with(binding.root)
+                    .load(data.imageUrl)
+                    .centerCrop()
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(16)))
+                    .into(binding.ivProduct)
+                tvTitle.text =  product.name
+                tvPrice.text = product.basePrice.toString()
                 tvNego.text = data.bidPrice.toString()
                 tvStatus.text = data.status
-                tvTime.text = data.transactionDate
+                tvTime.text = DateFormat.getDateInstance(DateFormat.FULL).format(date)
                 root.setOnClickListener {
                     onItemClick.onClickItem(data)
                 }

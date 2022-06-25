@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentProfileBinding
@@ -48,7 +49,6 @@ class ProfileFragment :
                     Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-
                 }
             }
         }
@@ -99,6 +99,7 @@ class ProfileFragment :
                     image = imageBody
                 )
             }
+            findNavController().navigate(R.id.action_profileFragment_to_notificationFragment)
         }
 
     }

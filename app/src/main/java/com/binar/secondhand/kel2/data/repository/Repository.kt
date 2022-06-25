@@ -29,5 +29,5 @@ class Repository(private val apiHelper: ApiHelper) {
 
     suspend fun getNotification() = apiHelper.getNotification()
 
-    suspend fun getProductId() = apiHelper.getProductId()
+    suspend fun getProductId(id: Int) = apiHelper.getProductId(id)
 }
