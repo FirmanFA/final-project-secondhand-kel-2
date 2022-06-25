@@ -1,5 +1,7 @@
 package com.binar.secondhand.kel2.ui.notification
 
+import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +11,8 @@ import com.binar.secondhand.kel2.data.api.model.seller.product.id.get.GetProduct
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentNotificationBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.login.LoginFragment
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NotificationFragment :
@@ -25,8 +29,18 @@ class NotificationFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        notification()
-        notificationViewModel.getNotification()
+        val preferences = this.activity?.getSharedPreferences(LoginFragment.LOGINUSER, Context.MODE_PRIVATE)
+        val email = preferences?.getString(LoginFragment.EMAIL,"")
+        val token = getKoin().getProperty("access_token","")
+
+        if (token == ""){
+            binding.rvNotification.visibility = View.GONE
+        }else{
+            binding.ivLogin.visibility = View.GONE
+            binding.tvLogin.visibility = View.GONE
+            notification()
+            notificationViewModel.getNotification()
+        }
     }
 
     private fun notification() {
