@@ -17,6 +17,7 @@ import com.binar.secondhand.kel2.databinding.FragmentMainBinding
 import com.binar.secondhand.kel2.ui.account.AccountFragment
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.home.HomeFragment
+import com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductFragment
 import com.binar.secondhand.kel2.ui.login.LoginFragment
 import com.binar.secondhand.kel2.ui.notification.NotificationFragment
 
@@ -30,6 +31,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        binding.bottomMainFragment.setOnItemReselectedListener {  }
 
         binding.bottomMainFragment.setOnItemSelectedListener {
             when(it.itemId){
@@ -45,6 +47,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                 R.id.main_notification -> {
                     activity?.supportFragmentManager?.beginTransaction()
                         ?.replace(R.id.main_fragment_host, NotificationFragment())
+                        ?.commit()
+
+                    true
+                }
+
+                R.id.main_sell ->{
+                    activity?.supportFragmentManager?.beginTransaction()
+                        ?.replace(R.id.main_fragment_host, SellerDetailProductFragment())
                         ?.commit()
 
                     true

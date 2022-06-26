@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class GetProductResponseItem(
     @SerializedName("base_price")
     val basePrice: Int,
-    @SerializedName("categories")
-    val categories: List<Category>,
+    @SerializedName("Categories")
+    val categories: List<Category>?,
     @SerializedName("created_at")
     val createdAt: String,
     @SerializedName("id")

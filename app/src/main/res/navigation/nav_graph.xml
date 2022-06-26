@@ -40,7 +40,7 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/mainFragment"
+            app:popUpTo="@id/registerFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -64,5 +64,34 @@
             android:id="@+id/action_mainFragment_to_registerFragment2"
             app:destination="@id/registerFragment"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_mainFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_bidderFragment"
+            app:destination="@id/bidderFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailProductFragment"
+        android:name="com.binar.secondhand.kel2.ui.detail.DetailProductFragment"
+        android:label="fragment_detail_product"
+        tools:layout="@layout/fragment_detail_product" >
+        <argument
+            android:name="product_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_detailProductFragment_to_buyerPenawaranFragment"
+            app:destination="@id/buyerPenawaranFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/buyerPenawaranFragment"
+        android:name="com.binar.secondhand.kel2.ui.detail.BuyerPenawaranFragment"
+        android:label="fragment_buyer_penawaran"
+        tools:layout="@layout/fragment_buyer_penawaran" />
+    <fragment
+        android:id="@+id/bidderFragment"
+        android:name="com.binar.secondhand.kel2.ui.bidder.BidderFragment"
+        android:label="fragment_bidder"
+        tools:layout="@layout/fragment_bidder" />
 </navigation>
