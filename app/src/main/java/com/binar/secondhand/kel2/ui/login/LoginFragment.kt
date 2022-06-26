@@ -11,6 +11,7 @@ import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentLoginBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.java.KoinJavaComponent
 
@@ -50,7 +51,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     private fun setUpObserver() {
 
-        val preferences = this.activity?.getSharedPreferences(LOGINUSER, Context.MODE_PRIVATE)
+        val preferences = this.requireActivity().getSharedPreferences(LOGINUSER, Context.MODE_PRIVATE)
 
         loginViewModel.loginPostResponse.observe(viewLifecycleOwner) {
             when (it.status) {
@@ -71,7 +72,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                             val accesToken = data?.accessToken
 
                             // Save shared preferences
-                            val editor: SharedPreferences.Editor = preferences!!.edit()
+                            val editor = preferences.edit()
                             editor.putString(EMAIL, email)
                             editor.putString(TOKEN, accesToken)
                             editor.apply()
@@ -80,9 +81,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                             //Toast.makeText(context, "Login berhasil", Toast.LENGTH_SHORT).show()
 
                             //set access token setelah dapet dari login
-                            KoinJavaComponent.getKoin().setProperty("access_token", accesToken.toString())
+                            getKoin().setProperty("access_token", accesToken.toString())
 
 //                            findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+                            findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
                         }
 
                         401 -> {

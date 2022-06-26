@@ -99,7 +99,7 @@ class ProfileFragment :
                     image = imageBody
                 )
             }
-            findNavController().navigate(R.id.action_profileFragment_to_notificationFragment)
+//            findNavController().navigate(R.id.action_profileFragment_to_notificationFragment)
         }
 
     }

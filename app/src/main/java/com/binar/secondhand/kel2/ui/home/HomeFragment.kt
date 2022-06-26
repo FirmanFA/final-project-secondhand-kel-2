@@ -3,12 +3,15 @@ package com.binar.secondhand.kel2.ui.home
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentHomeBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.main.MainFragment
+import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.google.android.material.tabs.TabLayout
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,6 +22,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        MainFragment.activePage = R.id.main_home
 
 //        getKoin().setProperty(
 //            "access_token",
@@ -175,6 +180,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun showHomeProductList(productResponse: GetProductResponse?) {
         val adapter = HomeProductAdapter {
             //onclick item
+            val action = MainFragmentDirections.actionMainFragmentToDetailProductFragment(it.id)
+            findNavController().navigate(action)
         }
 
         adapter.submitList(productResponse)

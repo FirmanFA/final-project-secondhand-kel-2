@@ -26,7 +26,9 @@ class HomeProductAdapter(private val onClick: (GetProductResponseItem) -> Unit) 
             Glide.with(binding.root).load(currentGetProductResponseItem.imageUrl)
                 .into(binding.imvProductImage)
             binding.tvProductName.text = currentGetProductResponseItem.name
-            binding.tvProductCategory.text = currentGetProductResponseItem.name
+            binding.tvProductCategory.text = currentGetProductResponseItem.categories?.joinToString{
+                it.name
+            }
             binding.tvProductPrice.text = "Rp. ${currentGetProductResponseItem.basePrice}"
         }
 
