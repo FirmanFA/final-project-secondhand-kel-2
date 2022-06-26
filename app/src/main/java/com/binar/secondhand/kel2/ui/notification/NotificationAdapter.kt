@@ -1,5 +1,6 @@
 package com.binar.secondhand.kel2.ui.notification
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -65,6 +66,7 @@ class NotificationAdapter (private val onItemClick: OnClickListener, private val
                 root.setOnClickListener {
                     onItemClick.onClickItem(data)
                 }
+                Log.d("list adapter", "bind: $data $product")
             }
         }
     }

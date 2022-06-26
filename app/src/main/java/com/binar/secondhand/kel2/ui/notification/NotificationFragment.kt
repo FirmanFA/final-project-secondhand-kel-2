@@ -39,14 +39,18 @@ class NotificationFragment :
         if (token == ""){
             binding.rvNotification.visibility = View.GONE
 
+            Log.d("list", "token kosong")
+
             binding.btnLogin.setOnClickListener{
                 it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
             }
 
         }else{
+            Log.d("list", "token tidak kosong")
             binding.ivLogin.visibility = View.GONE
             binding.tvLogin.visibility = View.GONE
             binding.btnLogin.visibility = View.GONE
+            binding.rvNotification.visibility = View.VISIBLE
             notification()
             notificationViewModel.getNotification()
         }
