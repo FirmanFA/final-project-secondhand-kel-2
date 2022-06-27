@@ -47,6 +47,8 @@ class NotificationFragment :
 
         }else{
             Log.d("list", "token tidak kosong")
+            binding.shimmerNotification.startShimmer()
+            binding.shimmerNotification.visibility = View.VISIBLE
             binding.ivLogin.visibility = View.GONE
             binding.tvLogin.visibility = View.GONE
             binding.btnLogin.visibility = View.GONE
@@ -61,8 +63,12 @@ class NotificationFragment :
         notificationViewModel.notificationResponse.observe(viewLifecycleOwner){
             when(it.status){
                 Status.LOADING -> {
+//                    binding.shimmerNotification.startShimmer()
+//                    binding.shimmerNotification.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
+//                    binding.shimmerNotification.stopShimmer()
+//                    binding.shimmerNotification.visibility = View.GONE
                     if (it.data?.body() != null){
                         list = it.data.body()!!
                         listSize = it.data.body()!!.size
@@ -80,7 +86,10 @@ class NotificationFragment :
 
         notificationViewModel.sellerProductIdResponse.observe(viewLifecycleOwner){
             when(it.status){
-                Status.LOADING -> {}
+                Status.LOADING -> {
+//                    binding.shimmerNotification.startShimmer()
+//                    binding.shimmerNotification.visibility = View.VISIBLE
+                }
                 Status.SUCCESS -> {
                     if (it.data?.body() != null){
                         listProduct.add(it.data.body()!!)
@@ -94,6 +103,8 @@ class NotificationFragment :
                             Log.d("list", "notification: masuk if")
                             Log.d("list", listProduct.toString())
                             Log.d("list", list.toString())
+//                            binding.shimmerNotification.stopShimmer()
+//                            binding.shimmerNotification.visibility = View.GONE
                             val adapter = NotificationAdapter(object : NotificationAdapter.OnClickListener{
                                 override fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem) {
                                     val id = data.id

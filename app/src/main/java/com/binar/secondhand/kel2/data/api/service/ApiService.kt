@@ -84,8 +84,8 @@ interface ApiService {
 //    @GET("seller/category/{id}")
 //    suspend fun getCategoryId(): GetCategoryIdResponse
 //
-//    @POST("seller/product")
-//    suspend fun postProduct(@Body request: PostProductRequest): Response<PostProductResponse>
+    @POST("seller/product")
+    suspend fun postProduct(@Body request: PostProductRequest): Response<PostProductResponse>
 //
 //    @GET("seller/product")
 //    suspend fun getProduct(): GetProductResponse
