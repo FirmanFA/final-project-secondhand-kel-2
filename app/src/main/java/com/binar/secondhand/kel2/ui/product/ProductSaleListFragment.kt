@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.databinding.FragmentProductSaleListBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.main.MainFragment
 
 
 class ProductSaleListFragment :
@@ -15,6 +16,8 @@ class ProductSaleListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        MainFragment.activePage = R.id.main_sale_list
 
 
 
