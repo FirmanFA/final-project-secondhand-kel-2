@@ -20,6 +20,7 @@ import com.binar.secondhand.kel2.ui.home.HomeFragment
 import com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductFragment
 import com.binar.secondhand.kel2.ui.login.LoginFragment
 import com.binar.secondhand.kel2.ui.notification.NotificationFragment
+import com.binar.secondhand.kel2.ui.product.ProductSaleListFragment
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
@@ -55,6 +56,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                 R.id.main_sell ->{
                     activity?.supportFragmentManager?.beginTransaction()
                         ?.replace(R.id.main_fragment_host, SellerDetailProductFragment())
+                        ?.commit()
+
+                    true
+                }
+
+                R.id.main_sale_list -> {
+                    activity?.supportFragmentManager?.beginTransaction()
+                        ?.replace(R.id.main_fragment_host, ProductSaleListFragment())
                         ?.commit()
 
                     true
