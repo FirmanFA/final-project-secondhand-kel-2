@@ -70,9 +70,9 @@ class NotificationFragment :
                     binding.shimmerNotification.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-                    binding.shimmerNotification.stopShimmer()
-                    binding.shimmerNotification.visibility = View.GONE
                     if (it.data?.body() != null){
+                        binding.shimmerNotification.stopShimmer()
+                        binding.shimmerNotification.visibility = View.GONE
                         list = it.data.body()!!
                         listSize = it.data.body()!!.size
                         it.data.body()?.forEach {notification->
@@ -81,6 +81,8 @@ class NotificationFragment :
                     }
                 }
                 Status.ERROR -> {
+                    binding.shimmerNotification.startShimmer()
+                    binding.shimmerNotification.visibility = View.VISIBLE
                     val error = it.message
                     Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT).show()
                 }
@@ -121,7 +123,10 @@ class NotificationFragment :
                         }
                     }
                 }
-                else -> {}
+                else -> {
+                    binding.shimmerNotification.startShimmer()
+                    binding.shimmerNotification.visibility = View.VISIBLE
+                }
             }
         }
     }

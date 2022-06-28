@@ -4,6 +4,7 @@ import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -55,6 +56,10 @@ class ProfileFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val city = resources.getStringArray(R.array.city)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, city)
+        binding.autoCompleteTv.setAdapter(arrayAdapter)
 
         //call this method first
         profile()

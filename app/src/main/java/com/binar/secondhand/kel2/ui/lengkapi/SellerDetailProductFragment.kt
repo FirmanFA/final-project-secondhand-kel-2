@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,10 +19,15 @@ import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentSellerDetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
+import com.binar.secondhand.kel2.utils.URIPathHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -56,6 +62,10 @@ class SellerDetailProductFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val city = resources.getStringArray(R.array.city)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, city)
+        binding.autoCompleteTv.setAdapter(arrayAdapter)
+
         MainFragment.activePage = R.id.main_sell
 
         setUpObservers()
@@ -65,19 +75,38 @@ class SellerDetailProductFragment :
         }
 
         binding.btnTerbit.setOnClickListener {
-            val terbitPostRequest = PostProductRequest(
-                binding.etName.editText?.text.toString(),
-                binding.etPrice.editText?.text.toString(),
-                binding.etCategory.editText?.text.toString().toInt(),
-                List(1, {1}),
-                binding.etCity.editText?.text.toString(),
-                ""
-            )
+            binding.apply {
+                val name = etName.editText?.text.toString()
+                val price = etPrice.editText?.text.toString()
+                val city = etCity.editText?.text.toString()
+                val category = etCategory.editText?.text.toString()
+                val description = etDescription.editText?.text.toString()
 
-            if (binding.etName.editText?.text.toString().isEmpty() || binding.etPrice.editText?.text.toString().isEmpty() || binding.etCategory.editText?.text.toString().isEmpty() || binding.etCity.editText?.text.toString().isEmpty()) {
-                Toast.makeText(context,"Semua field harus diisi", Toast.LENGTH_SHORT).show()
-            } else {
-                sellerDetailProductViewModel.postProduct(terbitPostRequest)
+                val imageFile = if(imageUri == null) {
+                    null
+                }else{
+                    File(URIPathHelper.getPath(requireContext(), imageUri!!).toString())
+                }
+
+                val nameBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
+                val priceBody = price.toRequestBody("text/plain".toMediaTypeOrNull())
+                val cityBody = city.toRequestBody("text/plain".toMediaTypeOrNull())
+                val categoryBody = category.toRequestBody("text/plain".toMediaTypeOrNull())
+                val descriptionBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
+
+                val requestImage = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                val imageBody = requestImage?.let{
+                    MultipartBody.Part.createFormData("image", imageFile?.name, it)
+                }
+
+                sellerDetailProductViewModel.postProduct(
+                    name = nameBody,
+                    base_price = priceBody,
+                    location = cityBody,
+                    category_ids = categoryBody,
+                    description = descriptionBody,
+                    image = imageBody
+                )
             }
         }
     }
@@ -117,7 +146,7 @@ class SellerDetailProductFragment :
                 Status.LOADING -> {
                 }
                 Status.SUCCESS -> {
-                    Toast.makeText(context,"Berhasil terbit", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,it.data?.errorBody().toString(), Toast.LENGTH_SHORT).show()
                     //findNavController().navigate(R.id.)
                 }
                 Status.ERROR -> {
