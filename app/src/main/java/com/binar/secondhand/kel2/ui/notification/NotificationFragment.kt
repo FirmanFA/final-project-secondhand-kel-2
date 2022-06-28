@@ -34,9 +34,12 @@ class NotificationFragment :
 
 //        val preferences = this.activity?.getSharedPreferences(LoginFragment.LOGINUSER, Context.MODE_PRIVATE)
 //        val email = preferences?.getString(LoginFragment.EMAIL,"")
+
         val token = getKoin().getProperty("access_token","")
 
         if (token == ""){
+            binding.shimmerNotification.stopShimmer()
+            binding.shimmerNotification.visibility = View.GONE
             binding.rvNotification.visibility = View.GONE
 
             Log.d("list", "token kosong")
@@ -47,12 +50,12 @@ class NotificationFragment :
 
         }else{
             Log.d("list", "token tidak kosong")
-            binding.shimmerNotification.startShimmer()
-            binding.shimmerNotification.visibility = View.VISIBLE
             binding.ivLogin.visibility = View.GONE
             binding.tvLogin.visibility = View.GONE
             binding.btnLogin.visibility = View.GONE
             binding.rvNotification.visibility = View.VISIBLE
+            binding.shimmerNotification.stopShimmer()
+            binding.shimmerNotification.visibility = View.GONE
             notification()
             notificationViewModel.getNotification()
         }
@@ -63,12 +66,12 @@ class NotificationFragment :
         notificationViewModel.notificationResponse.observe(viewLifecycleOwner){
             when(it.status){
                 Status.LOADING -> {
-//                    binding.shimmerNotification.startShimmer()
-//                    binding.shimmerNotification.visibility = View.VISIBLE
+                    binding.shimmerNotification.startShimmer()
+                    binding.shimmerNotification.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-//                    binding.shimmerNotification.stopShimmer()
-//                    binding.shimmerNotification.visibility = View.GONE
+                    binding.shimmerNotification.stopShimmer()
+                    binding.shimmerNotification.visibility = View.GONE
                     if (it.data?.body() != null){
                         list = it.data.body()!!
                         listSize = it.data.body()!!.size
@@ -87,8 +90,8 @@ class NotificationFragment :
         notificationViewModel.sellerProductIdResponse.observe(viewLifecycleOwner){
             when(it.status){
                 Status.LOADING -> {
-//                    binding.shimmerNotification.startShimmer()
-//                    binding.shimmerNotification.visibility = View.VISIBLE
+                    binding.shimmerNotification.startShimmer()
+                    binding.shimmerNotification.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
                     if (it.data?.body() != null){
@@ -103,8 +106,8 @@ class NotificationFragment :
                             Log.d("list", "notification: masuk if")
                             Log.d("list", listProduct.toString())
                             Log.d("list", list.toString())
-//                            binding.shimmerNotification.stopShimmer()
-//                            binding.shimmerNotification.visibility = View.GONE
+                            binding.shimmerNotification.stopShimmer()
+                            binding.shimmerNotification.visibility = View.GONE
                             val adapter = NotificationAdapter(object : NotificationAdapter.OnClickListener{
                                 override fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem) {
                                     val id = data.id

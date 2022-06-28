@@ -42,8 +42,6 @@ class ApiHelper(val apiService: ApiService) {
 
     suspend fun getNotification() = apiService.getNotification()
 
-    suspend fun getProductId() = apiService.getProductId()
-
     suspend fun getBanner() = apiService.getBanner()
 
     suspend fun getProduct(

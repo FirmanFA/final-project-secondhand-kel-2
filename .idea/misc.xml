@@ -16,6 +16,7 @@
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/unselected.xml" value="0.13" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_account.xml" value="0.14673913043478262" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_detail_product.xml" value="0.21875" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_example.xml" value="0.20833333333333334" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_home.xml" value="0.12158054711246201" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_login.xml" value="0.20516304347826086" />
@@ -33,6 +34,7 @@
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/onboarding_screen_layout.xml" value="0.1" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/shimmer_notification.xml" value="0.21875" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/shimmer_notification_item.xml" value="0.2857142857142857" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/menu/menu_main.xml" value="0.25" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/home_category_tab_background.xml" value="0.1" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/home_category_tab_selected.xml" value="0.1" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/home_category_tab_unselected.xml" value="0.1" />
