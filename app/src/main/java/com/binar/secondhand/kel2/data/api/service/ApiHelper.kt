@@ -12,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Part
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponse
+import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
 import retrofit2.http.Query
 
 class ApiHelper(val apiService: ApiService) {
@@ -41,8 +42,6 @@ class ApiHelper(val apiService: ApiService) {
 
     suspend fun getNotification() = apiService.getNotification()
 
-    suspend fun getProductId() = apiService.getProductId()
-
     suspend fun getBanner() = apiService.getBanner()
 
     suspend fun getProduct(
@@ -60,4 +59,20 @@ class ApiHelper(val apiService: ApiService) {
     suspend fun postBuyerOrder(request: PostOrderRequest) = apiService.postBuyerOrder(request)
     suspend fun getCategory() = apiService.getCategory()
     suspend fun getProductId(id: Int) = apiService.getProductId(id)
+
+    suspend fun postProduct(
+        name: RequestBody,
+        description: RequestBody,
+        base_price: RequestBody,
+        category_ids: RequestBody,
+        location: RequestBody,
+        image: MultipartBody.Part?
+    ) = apiService.postProduct(
+        name,
+        description,
+        base_price,
+        category_ids,
+        location,
+        image
+    )
 }

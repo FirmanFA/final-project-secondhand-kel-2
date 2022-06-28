@@ -46,6 +46,15 @@ class OnBoardingFragment :
                 findNavController().navigate(R.id.action_onBoardingFragment_to_mainFragment)
             }
         }
+        binding.vpOnboarding.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+            override fun onPageSelected(post: Int) {
+                position = post
+            }
+        })
     }
 
     private fun setOnBoardingViewPagerAdapter(onBoardingData: List<OnBoardingData>){

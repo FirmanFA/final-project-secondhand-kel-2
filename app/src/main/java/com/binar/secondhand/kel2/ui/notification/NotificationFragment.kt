@@ -34,9 +34,12 @@ class NotificationFragment :
 
 //        val preferences = this.activity?.getSharedPreferences(LoginFragment.LOGINUSER, Context.MODE_PRIVATE)
 //        val email = preferences?.getString(LoginFragment.EMAIL,"")
+
         val token = getKoin().getProperty("access_token","")
 
         if (token == ""){
+            binding.shimmerNotification.stopShimmer()
+            binding.shimmerNotification.visibility = View.GONE
             binding.rvNotification.visibility = View.GONE
 
             Log.d("list", "token kosong")
@@ -51,6 +54,8 @@ class NotificationFragment :
             binding.tvLogin.visibility = View.GONE
             binding.btnLogin.visibility = View.GONE
             binding.rvNotification.visibility = View.VISIBLE
+            binding.shimmerNotification.stopShimmer()
+            binding.shimmerNotification.visibility = View.GONE
             notification()
             notificationViewModel.getNotification()
         }
@@ -61,9 +66,13 @@ class NotificationFragment :
         notificationViewModel.notificationResponse.observe(viewLifecycleOwner){
             when(it.status){
                 Status.LOADING -> {
+                    binding.shimmerNotification.startShimmer()
+                    binding.shimmerNotification.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
                     if (it.data?.body() != null){
+                        binding.shimmerNotification.stopShimmer()
+                        binding.shimmerNotification.visibility = View.GONE
                         list = it.data.body()!!
                         listSize = it.data.body()!!.size
                         it.data.body()?.forEach {notification->
@@ -72,6 +81,8 @@ class NotificationFragment :
                     }
                 }
                 Status.ERROR -> {
+                    binding.shimmerNotification.startShimmer()
+                    binding.shimmerNotification.visibility = View.VISIBLE
                     val error = it.message
                     Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT).show()
                 }
@@ -80,7 +91,10 @@ class NotificationFragment :
 
         notificationViewModel.sellerProductIdResponse.observe(viewLifecycleOwner){
             when(it.status){
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    binding.shimmerNotification.startShimmer()
+                    binding.shimmerNotification.visibility = View.VISIBLE
+                }
                 Status.SUCCESS -> {
                     if (it.data?.body() != null){
                         listProduct.add(it.data.body()!!)
@@ -94,6 +108,8 @@ class NotificationFragment :
                             Log.d("list", "notification: masuk if")
                             Log.d("list", listProduct.toString())
                             Log.d("list", list.toString())
+                            binding.shimmerNotification.stopShimmer()
+                            binding.shimmerNotification.visibility = View.GONE
                             val adapter = NotificationAdapter(object : NotificationAdapter.OnClickListener{
                                 override fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem) {
                                     val id = data.id
@@ -107,7 +123,10 @@ class NotificationFragment :
                         }
                     }
                 }
-                else -> {}
+                else -> {
+                    binding.shimmerNotification.startShimmer()
+                    binding.shimmerNotification.visibility = View.VISIBLE
+                }
             }
         }
     }

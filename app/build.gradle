@@ -90,5 +90,7 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     //image picker
     implementation 'com.github.dhaval2404:imagepicker:2.1'
+    //simmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
 }

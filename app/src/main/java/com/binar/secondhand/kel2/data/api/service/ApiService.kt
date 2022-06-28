@@ -68,45 +68,16 @@ interface ApiService {
     @POST("buyer/order")
     suspend fun postBuyerOrder(@Body request: PostOrderRequest): Response<PostOrderResponse>
 
-
-//    @GET("seller/banner")
-//    suspend fun getBanner(): GetBannerResponse
-//
-//    @GET("seller/banner/{id}")
-//    suspend fun  getBannerId(): GetBannerIdResponse
-//
-//    @POST("seller/banner/category")
-//    suspend fun postCategory(@Body request: PostBannerRequest): Response<PostBannerResponse>
-//
-//    @GET("seller/category")
-//    suspend fun getCategory(): GetCategoryResponse
-//
-//    @GET("seller/category/{id}")
-//    suspend fun getCategoryId(): GetCategoryIdResponse
-//
-//    @POST("seller/product")
-//    suspend fun postProduct(@Body request: PostProductRequest): Response<PostProductResponse>
-//
-//    @GET("seller/product")
-//    suspend fun getProduct(): GetProductResponse
-//
-//    @GET("seller/product/{id}")
-//    suspend fun getProductId(): GetProductIdResponse
-//
-//    @PUT("seller/product/{id}")
-//    suspend fun putProductId(@Body request:PutProductIdRequest): Response<PutProductIdResponse>
-//
-//    @GET("seller/order")
-//    suspend fun getOrder() : GetOrderResponse
-
-//    @GET("seller/order/{id}")
-//    suspend fun getOrderId() :
-
-//    @PATCH("seller/order/{id}")
-//    suspend fun patchOrderId :
-
-//    @GET("seller/order/product{product_id}")
-//    suspend fun getOrderProductId():GetOrderIdResponse
+    @Multipart
+    @POST("seller/product")
+    suspend fun postProduct(
+        @Part("name") name: RequestBody,
+        @Part("description") description: RequestBody ?= null,
+        @Part("base_price") base_price: RequestBody ?= null,
+        @Part("category_ids") category_ids: RequestBody,
+        @Part("location") location: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): Response<PostProductResponse>
 
     //Home endpoint
     @GET("seller/banner")
