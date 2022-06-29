@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="?android:windowBackground"
     tools:context=".ui.product.ProductSaleListFragment">
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv_user_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -24,24 +26,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="5dp"
         app:cardMaxElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" >
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_city"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tv_user_name"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
@@ -52,9 +58,9 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/textView4"
-                app:layout_constraintEnd_toStartOf="@+id/button"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2"
+                app:layout_constraintEnd_toStartOf="@+id/btn_edit_profile"
+                app:layout_constraintStart_toEndOf="@+id/iv_user_photo"
+                app:layout_constraintTop_toTopOf="@+id/iv_user_photo"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -66,13 +72,13 @@
                 android:text="Kota"
                 android:textColor="#505050"
                 android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                app:layout_constraintEnd_toStartOf="@+id/button"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintBottom_toBottomOf="@+id/iv_user_photo"
+                app:layout_constraintEnd_toStartOf="@+id/btn_edit_profile"
+                app:layout_constraintStart_toEndOf="@+id/iv_user_photo"
+                app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/iv_user_photo"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
@@ -85,20 +91,17 @@
                 tools:src="@tools:sample/avatars" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button"
+                android:id="@+id/btn_edit_profile"
                 style="@style/Widget.Material3.Button.OutlinedButton"
-                app:strokeColor="@color/purple_binar"
-                app:strokeWidth="2dp"
-                app:cornerRadius="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="4dp"
-                android:paddingHorizontal="12dp"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
                 android:layout_marginTop="27dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="27dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
                 android:paddingLeft="0dp"
                 android:paddingTop="0dp"
                 android:paddingRight="0dp"
@@ -107,10 +110,70 @@
                 android:textAllCaps="false"
                 android:textColor="#151515"
                 android:textSize="12sp"
+                app:cornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/purple_binar"
+                app:strokeWidth="2dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_product_filter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_profile"
+        app:tabBackground="@drawable/home_category_tab_background"
+        app:tabIconTint="@color/main_category_tab_icon_color"
+        app:tabIndicator="@null"
+        app:tabInlineLabel="true"
+        app:tabMode="scrollable"
+        app:tabPaddingEnd="25dp"
+        app:tabPaddingStart="20dp"
+        app:tabRippleColor="@null"
+        android:clipToPadding="false"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextAppearance="@style/home_tab_text_appreance"
+        app:tabTextColor="#3C3C3C">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_baseline_search_24"
+            android:text="Product" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_baseline_search_24"
+            android:text="Product" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_baseline_search_24"
+            android:text="Product" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_product_sale"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_product_filter"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/home_product_list_layout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
