@@ -34,6 +34,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
+        binding.tvSignup.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
         binding.btnMasuk.setOnClickListener {
             val loginPostRequest = PostLoginRequest(
                 binding.etEmail.text.toString(),
