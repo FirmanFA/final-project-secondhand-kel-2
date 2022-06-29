@@ -146,8 +146,18 @@ class SellerDetailProductFragment :
                 Status.LOADING -> {
                 }
                 Status.SUCCESS -> {
-                    Toast.makeText(context,it.data?.errorBody().toString(), Toast.LENGTH_SHORT).show()
-                    //findNavController().navigate(R.id.)
+                    when(it.data?.code()){
+                        201 -> {
+                            Toast.makeText(requireContext(), "Berhasil terbit", Toast.LENGTH_SHORT).show()
+//                            findNavController().navigate(R.id.action_sellerDetailProductFragment_to_sellerFragment)
+                        }
+                        503 -> {
+                            Toast.makeText(requireContext(), "Server Down", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            Toast.makeText(requireContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
                 Status.ERROR -> {
                     Toast.makeText(context,"Gagal terbit", Toast.LENGTH_SHORT).show()
