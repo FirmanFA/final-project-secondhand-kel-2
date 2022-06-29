@@ -2,7 +2,6 @@ package com.binar.secondhand.kel2.ui.onboarding
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.binar.secondhand.kel2.R
