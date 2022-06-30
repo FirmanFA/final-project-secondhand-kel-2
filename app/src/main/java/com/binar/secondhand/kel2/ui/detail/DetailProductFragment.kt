@@ -41,15 +41,16 @@ class DetailProductFragment :
         viewModel.getDetailProduct(productId)
 
         binding.btnTertarik.setOnClickListener {
-            Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
-                .setAction("x") {
-                    // Responds to click on the action
-                }
-
-                .setBackgroundTint(resources.getColor(R.color.Green))
-                .setActionTextColor(resources.getColor(R.color.white))
-                .show()
-            findNavController().navigate(R.id.action_detailProductFragment_to_buyerPenawaranFragment)
+//            Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
+//                .setAction("x") {
+//                    // Responds to click on the action
+//                }
+//
+//                .setBackgroundTint(resources.getColor(R.color.Green))
+//                .setActionTextColor(resources.getColor(R.color.white))
+//                .show()
+            val modal = BuyerPenawaran()
+            modal.show(this.requireActivity().supportFragmentManager, "show_modal")
         }
     }
 
@@ -115,7 +116,7 @@ class DetailProductFragment :
 
                     binding.apply {
                         tvTitle.text = it.data?.body()?.fullName
-                        tvLocation.text = it.data?.body()?.city
+                        tvLocation.text = it.data?.body()?.address
                     }
                 }
                 Status.ERROR -> {

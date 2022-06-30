@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
 import com.binar.secondhand.kel2.data.repository.Repository
 import com.binar.secondhand.kel2.data.resource.Resource
 import kotlinx.coroutines.launch
@@ -16,8 +17,8 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
     private val _detailProduct = MutableLiveData<Resource<Response<GetProductIdResponse>>>()
     val detailProduct: LiveData<Resource<Response<GetProductIdResponse>>> get() = _detailProduct
 
-    private val _GetProfile = MutableLiveData<Resource<Response<GetAuthResponse>>>()
-    val GetProfile : LiveData<Resource<Response<GetAuthResponse>>> get() = _GetProfile
+    private val _GetProfile = MutableLiveData<Resource<Response<UserProduct>>>()
+    val GetProfile : LiveData<Resource<Response<UserProduct>>> get() = _GetProfile
 
 
     fun getDetailProduct(productId: Int){

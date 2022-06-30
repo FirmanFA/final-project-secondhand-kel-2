@@ -9,7 +9,6 @@ import com.google.gson.annotations.SerializedName
 data class FavouriteEntity(
     @PrimaryKey(autoGenerate = true) val id: Int?,
     val basePrice: Int,
-    val categories: List<Category>?,
     val imageUrl: String,
     val location: String,
     val name: String,
