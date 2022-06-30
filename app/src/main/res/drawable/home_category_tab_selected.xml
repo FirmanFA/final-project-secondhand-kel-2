@@ -2,8 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:start="8dp"
-        android:end="8dp">
+        android:start="16dp">
 
         <shape android:shape="rectangle">
             <solid android:color="@color/purple_primary" />

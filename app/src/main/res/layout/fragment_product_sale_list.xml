@@ -9,6 +9,12 @@
     tools:context=".ui.product.ProductSaleListFragment">
 
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="rv_product_sale,btn_login,tv_login,tv_user_city,tab_product_filter,iv_login,cv_profile" />
+
     <TextView
         android:id="@+id/tv_user_city"
         android:layout_width="wrap_content"
@@ -123,9 +129,8 @@
         android:id="@+id/tab_product_filter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:paddingHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_profile"
@@ -134,8 +139,8 @@
         app:tabIndicator="@null"
         app:tabInlineLabel="true"
         app:tabMode="scrollable"
-        app:tabPaddingEnd="25dp"
-        app:tabPaddingStart="20dp"
+        app:tabPaddingEnd="28dp"
+        app:tabPaddingStart="12dp"
         app:tabRippleColor="@null"
         android:clipToPadding="false"
         app:tabSelectedTextColor="@color/white"
@@ -145,20 +150,20 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_baseline_search_24"
+            android:icon="@drawable/ic_product"
             android:text="Product" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_baseline_search_24"
-            android:text="Product" />
+            android:icon="@drawable/ic_fav"
+            android:text="Diminati" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_baseline_search_24"
-            android:text="Product" />
+            android:icon="@drawable/ic_dollar"
+            android:text="Terjual" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -175,5 +180,55 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/home_product_list_layout"/>
+
+    <ImageView
+        android:id="@+id/iv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32999998" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp"
+        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:text="Silakan Login Dahulu"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_login" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp"
+        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_login"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="btn_login,tv_login,iv_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
