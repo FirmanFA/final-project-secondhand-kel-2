@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -42,14 +44,6 @@ class ProductSaleListFragment :
         binding.btnLogin.setOnClickListener {
             it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
         }
-
-        Glide.with(requireContext())
-            .load(R.drawable.rectangle_camera)
-            .transform(CenterCrop(), RoundedCorners(12))
-            .into(binding.ivUserPhoto)
-
-
-
     }
 
     private fun setUpObserver(){
@@ -57,11 +51,13 @@ class ProductSaleListFragment :
             when (it.status) {
 
                 Status.LOADING -> {
-
+                    binding.productShimmer.startShimmer()
                 }
 
                 Status.SUCCESS -> {
 
+                    binding.productShimmer.stopShimmer()
+                    binding.productShimmer.visibility = View.GONE
 
                     when (it.data?.code()) {
                         200 -> {
@@ -81,6 +77,8 @@ class ProductSaleListFragment :
             }
         }
 
+
+
         productSaleListViewModel.authGetResponse.observe(viewLifecycleOwner){
             when(it.status){
 
@@ -92,8 +90,20 @@ class ProductSaleListFragment :
                     when(it.data?.code()){
                         200 ->{
 
+                            val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
+                                .setDuration(1800) // how long the shimmering animation takes to do one full sweep
+                                .setBaseAlpha(0.7f) //the alpha of the underlying children
+                                .setHighlightAlpha(0.6f) // the shimmer alpha amount
+                                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                                .setAutoStart(true)
+                                .build()
+                            val shimmerDrawable = ShimmerDrawable().apply {
+                                setShimmer(shimmer)
+                            }
+
                             Glide.with(requireContext())
                                 .load(it.data.body()?.imageUrl)
+                                .placeholder(shimmerDrawable)
                                 .transform(CenterCrop(), RoundedCorners(12))
                                 .error(R.drawable.rectangle_camera)
                                 .into(binding.ivUserPhoto)

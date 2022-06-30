@@ -21,7 +21,7 @@
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_login.xml" value="0.10778985507246377" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_main.xml" value="0.18" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_notification.xml" value="0.18206521739130435" />
-        <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_product_sale_list.xml" value="0.25" />
+        <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_product_sale_list.xml" value="0.22" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_seller_detail_product.xml" value="0.25" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/home_banner_list_layout.xml" value="0.18795289855072464" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/home_category_button_list_layout.xml" value="0.19519927536231885" />
@@ -30,6 +30,7 @@
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/home_product_list_layout.xml" value="0.2" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/item_product.xml" value="0.25" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/notification_content.xml" value="0.17708333333333334" />
+        <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/product_item_shimmer_.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/product_sale_list_layout.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/menu/menu_main.xml" value="0.209375" />
       </map>
