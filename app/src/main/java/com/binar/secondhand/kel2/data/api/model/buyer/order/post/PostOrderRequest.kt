@@ -7,5 +7,5 @@ data class PostOrderRequest(
     @SerializedName("product_id")
     val productId: Int,
     @SerializedName("bid_price")
-    val bidPrice: String
+    val bidPrice: Int
 )
