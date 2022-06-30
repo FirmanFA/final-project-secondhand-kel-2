@@ -71,15 +71,20 @@ class DetailProductFragment :
                         .into(binding.ivBackdrop)
 
                     binding.apply {
-                        val category = arrayListOf<String>()
-                        it.data?.body()?.categories?.forEach { categories ->
-                            category.add(categories.name)
+//                        val category = arrayListOf<String>()
+//                        it.data?.body()?.categories?.forEach { categories ->
+//                            category.add(categories.name)
+//                        }
+                        tvCategory.text = it.data?.body()?.categories?.joinToString(){
+                            it.name
                         }
-                        tvCategory.text = category.joinToString()
 
                         tvTitle.text = it.data?.body()?.name
                         tvPrice.text = it.data?.body()?.basePrice.toString()
                         tvDesc.text = it.data?.body()?.description.toString()
+
+                        tvName.text = it.data?.body()?.user?.fullName.toString()
+                        tvLocation.text = it.data?.body()?.user?.address.toString()
                     }
                 }
                 Status.ERROR -> {
