@@ -36,24 +36,24 @@ class ProductSaleListAdapter(private val onClick: (GetProductResponseItem, Int) 
             binding.root.setOnClickListener {
                 onClick(currentGetProductResponseItem, position)
             }
-//            val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
-//                .setDuration(1800) // how long the shimmering animation takes to do one full sweep
-//                .setBaseAlpha(0.7f) //the alpha of the underlying children
-//                .setHighlightAlpha(0.6f) // the shimmer alpha amount
-//                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-//                .setAutoStart(true)
-//                .build()
-//            val shimmerDrawable = ShimmerDrawable().apply {
-//                setShimmer(shimmer)
-//            }
-//            Glide.with(binding.root).load(currentGetProductResponseItem.imageUrl)
-//                .placeholder(shimmerDrawable)
-//                .into(binding.imvProductImage)
-//            binding.tvProductName.text = currentGetProductResponseItem.name
-//            binding.tvProductCategory.text = currentGetProductResponseItem.categories?.joinToString{
-//                it.name
-//            }
-//            binding.tvProductPrice.text = "Rp. ${currentGetProductResponseItem.basePrice}"
+            val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
+                .setDuration(1800) // how long the shimmering animation takes to do one full sweep
+                .setBaseAlpha(0.7f) //the alpha of the underlying children
+                .setHighlightAlpha(0.6f) // the shimmer alpha amount
+                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                .setAutoStart(true)
+                .build()
+            val shimmerDrawable = ShimmerDrawable().apply {
+                setShimmer(shimmer)
+            }
+            Glide.with(binding.root).load(currentGetProductResponseItem.imageUrl)
+                .placeholder(shimmerDrawable)
+                .into(binding.imvProductImage)
+            binding.tvProductName.text = currentGetProductResponseItem.name
+            binding.tvProductCategory.text = currentGetProductResponseItem.categories?.joinToString{
+                it.name
+            }
+            binding.tvProductPrice.text = "Rp. ${currentGetProductResponseItem.basePrice}"
         }
 
     }
@@ -83,27 +83,22 @@ class ProductSaleListAdapter(private val onClick: (GetProductResponseItem, Int) 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.bind(getItem(position), onClick, position)
-        holder.bind(
-            GetProductResponseItem(
-                0,
-                listOf(),
-                "",
-                0,
-                "",
-                "",
-                "",
-                "",
-                "",
-                0
-            ),
-            onClick,
-            position
-        )
+        holder.bind(getItem(position), onClick, position)
     }
 
-    override fun getItemCount(): Int {
-        return 5
+    fun addEmptyData(){
+        currentList.add(0, GetProductResponseItem(
+            0,
+            listOf(),
+            "",
+            0,
+            "",
+            "",
+            "",
+            "",
+            "",
+            0
+        ))
     }
 
 }
