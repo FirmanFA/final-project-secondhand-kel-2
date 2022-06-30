@@ -86,8 +86,9 @@ class ProductSaleListAdapter(private val onClick: (GetProductResponseItem, Int) 
         holder.bind(getItem(position), onClick, position)
     }
 
-    fun addEmptyData(){
-        currentList.add(0, GetProductResponseItem(
+    fun submitData(listProduct: List<GetProductResponseItem>){
+        val data = mutableListOf<GetProductResponseItem>()
+        data.add( GetProductResponseItem(
             0,
             listOf(),
             "",
@@ -99,6 +100,8 @@ class ProductSaleListAdapter(private val onClick: (GetProductResponseItem, Int) 
             "",
             0
         ))
+        data.addAll(listProduct)
+        submitList(data)
     }
 
 }
