@@ -1,9 +1,9 @@
 package com.binar.secondhand.kel2.data.api.model.buyer.productid
 
-
 import com.google.gson.annotations.SerializedName
 
-data class UserProduct(
+data class UserProduct
+    (
     @SerializedName("address")
     val address: String,
     @SerializedName("city")
@@ -18,4 +18,4 @@ data class UserProduct(
     val imageUrl: Any?,
     @SerializedName("phone_number")
     val phoneNumber: String
-)
+    )
