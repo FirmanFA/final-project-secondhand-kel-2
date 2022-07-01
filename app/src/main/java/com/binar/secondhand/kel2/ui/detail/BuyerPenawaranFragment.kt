@@ -28,7 +28,6 @@ class BuyerPenawaran :BottomSheetDialogFragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val productId = 2
@@ -41,7 +40,6 @@ class BuyerPenawaran :BottomSheetDialogFragment() {
             val buyerPenawaran = PostOrderRequest(
                 productId,
                 binding.etHargaTawar.text.toString()
-
             )
             if (binding.etHargaTawar.text.isNullOrEmpty()) {
 
