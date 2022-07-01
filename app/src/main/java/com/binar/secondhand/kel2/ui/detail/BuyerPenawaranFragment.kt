@@ -46,8 +46,7 @@ class BuyerPenawaranFragment : Fragment() {
                 Toast.makeText(context, "Kolom tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
             else{
-                viewModel.postBuyerOrder(buyerPenawaran)
-                R.layout.fragment_detail_product
+
             }
         }
 
