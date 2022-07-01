@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.detail.DetailProductFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
 
     <ScrollView
         android:id="@+id/ScrollView"
@@ -28,14 +26,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="fitXY"/>
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/detail_and_preview_background"
+                app:layout_constraintTop_toBottomOf="@id/ivBackdrop"
+                app:layout_constraintBottom_toBottomOf="@id/cv_profile"/>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -86,13 +82,6 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_category"
                         android:textSize="18sp" />
 
-                    <ImageView
-                        android:id="@+id/ivfav"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:src="@drawable/ic_fav" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -102,7 +91,7 @@
                 app:cardCornerRadius="16dp"
                 android:layout_margin="16dp"
                 app:cardElevation="8dp"
-                android:id="@+id/btn_profile"
+                android:id="@+id/cv_profile"
                 android:backgroundTint="@color/white1"
                 app:layout_constraintTop_toBottomOf="@+id/btn_product"
                 tools:ignore="MissingConstraints">
@@ -158,7 +147,7 @@
                 app:cardElevation="8dp"
                 android:backgroundTint="@color/white1"
                 android:id="@+id/btn_desc"
-                app:layout_constraintTop_toBottomOf="@+id/btn_profile"
+                app:layout_constraintTop_toBottomOf="@+id/cv_profile"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -208,14 +197,14 @@
         android:src="@drawable/ic_back" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_tertarik"
+        android:id="@+id/btn_terbit"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="12dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/btn_tertarik"
-        android:text="Saya Tertarik"
+        android:text="Terbitkan"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -223,6 +212,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

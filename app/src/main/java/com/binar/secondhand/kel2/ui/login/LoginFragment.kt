@@ -34,6 +34,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
+        binding.tvSignup.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
         binding.btnMasuk.setOnClickListener {
             val loginPostRequest = PostLoginRequest(
                 binding.etEmail.text.toString(),
@@ -71,11 +75,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                             val email = data?.email
                             val accesToken = data?.accessToken
 
-                            // Save shared preferences
-                            val editor = preferences.edit()
-                            editor.putString(EMAIL, email)
-                            editor.putString(TOKEN, accesToken)
-                            editor.apply()
+                            if (binding.cbPassword.isChecked) {
+                                // Save shared preferences
+                                val editor = preferences.edit()
+                                editor.putString(EMAIL, email)
+                                editor.putString(TOKEN, accesToken)
+                                editor.apply()
+                            }
 
                             // Bisa diganti pindah fragment
                             //Toast.makeText(context, "Login berhasil", Toast.LENGTH_SHORT).show()

@@ -12,13 +12,16 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentSellerDetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.home.HomeFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
+import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.binar.secondhand.kel2.utils.URIPathHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -72,6 +75,18 @@ class SellerDetailProductFragment :
 
         binding.ivPhoto.setOnClickListener {
             openImagePicker()
+        }
+
+        binding.btnPreview.setOnClickListener {
+
+            val actionToPreviewFragment = MainFragmentDirections.actionMainFragmentToPreviewFragment(
+                name = binding.etName.editText?.text.toString(),
+                price = binding.etPrice.editText?.text.toString(),
+                location = binding.etCity.editText?.text.toString(),
+                description = binding.etDescription.editText?.text.toString(),
+                image = imageUri.toString()
+            )
+            findNavController().navigate(actionToPreviewFragment)
         }
 
         binding.btnTerbit.setOnClickListener {
@@ -146,8 +161,18 @@ class SellerDetailProductFragment :
                 Status.LOADING -> {
                 }
                 Status.SUCCESS -> {
-                    Toast.makeText(context,it.data?.errorBody().toString(), Toast.LENGTH_SHORT).show()
-                    //findNavController().navigate(R.id.)
+                    when(it.data?.code()){
+                        201 -> {
+                            Toast.makeText(requireContext(), "Berhasil terbit", Toast.LENGTH_SHORT).show()
+//                            findNavController().navigate(R.id.action_sellerDetailProductFragment_to_sellerFragment)
+                        }
+                        503 -> {
+                            Toast.makeText(requireContext(), "Server Down", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            Toast.makeText(requireContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
                 Status.ERROR -> {
                     Toast.makeText(context,"Gagal terbit", Toast.LENGTH_SHORT).show()

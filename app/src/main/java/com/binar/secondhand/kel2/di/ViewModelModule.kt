@@ -8,6 +8,7 @@ import com.binar.secondhand.kel2.ui.home.HomeViewModel
 import com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductViewModel
 import com.binar.secondhand.kel2.ui.login.LoginViewModel
 import com.binar.secondhand.kel2.ui.notification.NotificationViewModel
+import com.binar.secondhand.kel2.ui.preview.PreviewViewModel
 import com.binar.secondhand.kel2.ui.profile.ProfileViewModel
 import com.binar.secondhand.kel2.ui.register.RegisterViewModel
 import org.koin.dsl.module
@@ -29,4 +30,7 @@ val viewModelModule = module {
     viewModelOf(::BuyerPenawaranViewModel)
 
     viewModelOf(::SellerDetailProductViewModel)
+
+    viewModelOf(::PreviewViewModel)
+
 }

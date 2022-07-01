@@ -12,12 +12,12 @@
     <color name="purple_04">#7126B5</color>
     <color name="pink">#CC47AF</color>
     <color name="fab_blue">#0861A8</color>
-    <color name="selector_blue">#0F2974</color>
+    <color name="primary_blue">#0F2974</color>
     <color name="purple_binar">#7126B5</color>
     <color name="inactive_nav_bar_icon">#8A8A8A</color>
     <color name="purple_primary">#7126B5</color>
 
     <color name="white1">#F8F8F8</color>
-    <color name="grey">#686868</color>
+    <color name="grey">#757575</color>
     <color name="transparent">#00FFFFFF</color>
 </resources>
