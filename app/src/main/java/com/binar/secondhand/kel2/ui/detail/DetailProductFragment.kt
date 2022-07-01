@@ -32,23 +32,22 @@ class DetailProductFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val productId = 2
-//        val UserId = 75
-//        viewModel.getUserProfile(UserId)
-        setUpObserver()
+        val productId = args.productId
 
-        KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
+        setUpObserver()
+//
+//        KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
         viewModel.getDetailProduct(productId)
 
         binding.btnTertarik.setOnClickListener {
-//            Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
-//                .setAction("x") {
-//                    // Responds to click on the action
-//                }
-//
-//                .setBackgroundTint(resources.getColor(R.color.Green))
-//                .setActionTextColor(resources.getColor(R.color.white))
-//                .show()
+            Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
+                .setAction("x") {
+                    // Responds to click on the action
+                }
+
+                .setBackgroundTint(resources.getColor(R.color.Green))
+                .setActionTextColor(resources.getColor(R.color.white))
+                .show()
             val modal = BuyerPenawaran()
             modal.show(this.requireActivity().supportFragmentManager, "show_modal")
         }
