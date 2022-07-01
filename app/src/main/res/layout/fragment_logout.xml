@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context=".ui.account.LogoutFragment">
+
+    <TextView
+        android:id="@+id/tv_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="LOG OUT"
+        android:textColor="#DA3823"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_desc_logout"
+        android:layout_width="222dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Anda akan keluar dari aplikasi dan kembali ke halaman utama, apakah anda yakin ?"
+        android:textAlignment="center"
+        android:textColor="#212121"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_logout" />
+
+    <ImageView
+        android:id="@+id/iv_line_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/ic_line_loghorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_desc_logout" />
+
+    <ImageView
+        android:id="@+id/iv_line_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/ic_line_logvertikal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_line_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_kembali"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Kembali"
+        android:textAlignment="center"
+        android:textColor="#1582A1"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/iv_line_vertical"
+        app:layout_constraintStart_toStartOf="@id/iv_line_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/iv_line_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_ya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Ya"
+        android:textAlignment="center"
+        android:textColor="#B71E19"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/iv_line_horizontal"
+        app:layout_constraintStart_toStartOf="@id/iv_line_vertical"
+        app:layout_constraintTop_toBottomOf="@id/iv_line_horizontal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

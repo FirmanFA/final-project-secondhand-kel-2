@@ -21,14 +21,38 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_cam"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:id="@+id/iv_elipse_cam"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginTop="24dp"
-        android:src="@drawable/rectangle_camera"
+        android:background="@drawable/ellipse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_akun_saya" />
+
+    <ImageView
+        android:id="@+id/iv_cam"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/round_camera"
+        app:layout_constraintTop_toTopOf="@id/iv_elipse_cam"
+        app:layout_constraintEnd_toEndOf="@id/iv_elipse_cam"
+        app:layout_constraintStart_toStartOf="@id/iv_elipse_cam" />
+
+    <TextView
+        android:id="@+id/tv_nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:visibility="gone"
+        android:text="Muhamad Lorem Ipsum"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_elipse_cam" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
@@ -39,7 +63,7 @@
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_cam">
+        app:layout_constraintTop_toBottomOf="@id/tv_nama">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="20dp"
-                    android:src="@drawable/ic_edit" />
+                    android:src="@drawable/ic_edit_new" />
 
                 <TextView
                     android:id="@+id/tv_ubah_akun"
@@ -86,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="20dp"
-                    android:src="@drawable/ic_settings" />
+                    android:src="@drawable/ic_settings_new" />
 
                 <TextView
                     android:id="@+id/tv_pengaturan_akun"
@@ -115,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="20dp"
-                    android:src="@drawable/ic_log_out" />
+                    android:src="@drawable/ic_log_out_new" />
 
                 <TextView
                     android:id="@+id/tv_keluar"
