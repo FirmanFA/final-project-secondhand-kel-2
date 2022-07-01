@@ -1,23 +1,17 @@
 package com.binar.secondhand.kel2.ui.detail
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.binar.secondhand.kel2.databinding.FragmentDetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
-import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
 import com.bumptech.glide.Glide
-import org.koin.java.KoinJavaComponent
+import com.google.android.material.snackbar.Snackbar
 
 
 class DetailProductFragment :
@@ -27,26 +21,27 @@ class DetailProductFragment :
     private val viewModel: DetailProductViewModel by viewModel()
     private val args: DetailProductFragmentArgs by navArgs()
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        _binding = FragmentDetailProductBinding.inflate(layoutInflater)
-//        return binding.root
-//    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val productId = args.productId
-//        val UserId = 75
-//        viewModel.getUserProfile(UserId)
-        setUpObserver()
 
+        setUpObserver()
+//
 //        KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
         viewModel.getDetailProduct(productId)
 
         binding.btnTertarik.setOnClickListener {
-            findNavController().navigate(R.id.action_detailProductFragment_to_buyerPenawaranFragment)
+            Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
+                .setAction("x") {
+                    // Responds to click on the action
+                }
+                .setBackgroundTint(resources.getColor(R.color.Green))
+                .setActionTextColor(resources.getColor(R.color.white))
+                .show()
+            val modal = BuyerPenawaran()
+            modal.show(this.requireActivity().supportFragmentManager, "show_modal")
         }
     }
 
@@ -68,15 +63,20 @@ class DetailProductFragment :
                         .into(binding.ivBackdrop)
 
                     binding.apply {
-                        val category = arrayListOf<String>()
-                        it.data?.body()?.categories?.forEach { categories ->
-                            category.add(categories.name)
+//                        val category = arrayListOf<String>()
+//                        it.data?.body()?.categories?.forEach { categories ->
+//                            category.add(categories.name)
+//                        }
+                        tvCategory.text = it.data?.body()?.categories?.joinToString(){
+                            it.name
                         }
-                        tvCategory.text = category.joinToString()
 
                         tvTitle.text = it.data?.body()?.name
                         tvPrice.text = it.data?.body()?.basePrice.toString()
                         tvDesc.text = it.data?.body()?.description.toString()
+
+                        tvName.text = it.data?.body()?.user?.fullName.toString()
+                        tvLocation.text = it.data?.body()?.user?.address.toString()
                     }
                 }
                 Status.ERROR -> {
@@ -90,7 +90,7 @@ class DetailProductFragment :
                 }
             }
         }
-        viewModel.GetProfile.observe(viewLifecycleOwner) {
+        viewModel.getProfile.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     //loading state, misal menampilkan progressbar
@@ -107,7 +107,7 @@ class DetailProductFragment :
 
                     binding.apply {
                         tvTitle.text = it.data?.body()?.fullName
-                        tvLocation.text = it.data?.body()?.city
+                        tvLocation.text = it.data?.body()?.address
                     }
                 }
                 Status.ERROR -> {

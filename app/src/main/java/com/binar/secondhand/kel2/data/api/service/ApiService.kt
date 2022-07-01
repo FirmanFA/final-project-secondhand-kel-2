@@ -13,7 +13,11 @@ import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerRespo
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
+import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdRequest
+import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdResponse
+import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -26,7 +30,8 @@ interface ApiService {
     suspend fun postLogin(@Body request: PostLoginRequest): Response<PostLoginResponse>
 
     @POST("auth/register")
-    suspend fun postRegister(@Body request: PostRegisterRequest): Response<PostRegisterResponse>
+    suspend fun postRegister(@Body request: PostRegisterRequest):
+            Response<PostRegisterResponse>
 
     @GET("auth/user")
     suspend fun getAuth(): Response<GetAuthResponse>
@@ -48,13 +53,15 @@ interface ApiService {
 
     @GET("buyer/product/{id}")
     suspend fun getProductId(@Path("id")id:Int): Response<GetProductIdResponse>
+
     @GET("seller/product/{id}")
     suspend fun getProductId(): Response<GetProductIdResponse>
+
     @GET("buyer/product/{product_id}")
     suspend fun getProductDetail(@Path("product_id")productid:Int): Response<GetProductIdResponse>
 
     @GET("buyer/product/{user_id}")
-    suspend fun getUserProfile(@Path("user_id")userid:Int): Response<GetAuthResponse>
+    suspend fun getUserProfile(@Path("user_id")userid:Int): Response<UserProduct>
 
     @POST("buyer/order")
     suspend fun postBuyerOrder(@Body request: PostOrderRequest): Response<PostOrderResponse>

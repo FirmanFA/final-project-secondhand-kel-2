@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentNotificationBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
@@ -35,20 +36,20 @@ class NotificationFragment :
 //        val preferences = this.activity?.getSharedPreferences(LoginFragment.LOGINUSER, Context.MODE_PRIVATE)
 //        val email = preferences?.getString(LoginFragment.EMAIL,"")
 
-        val token = getKoin().getProperty("access_token","")
+        val token = getKoin().getProperty("access_token", "")
 
-        if (token == ""){
+        if (token == "") {
             binding.shimmerNotification.stopShimmer()
             binding.shimmerNotification.visibility = View.GONE
             binding.rvNotification.visibility = View.GONE
 
             Log.d("list", "token kosong")
 
-            binding.btnLogin.setOnClickListener{
+            binding.btnLogin.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
             }
 
-        }else{
+        } else {
             Log.d("list", "token tidak kosong")
             binding.ivLogin.visibility = View.GONE
             binding.tvLogin.visibility = View.GONE
@@ -63,27 +64,27 @@ class NotificationFragment :
     }
 
     private fun notification() {
-        notificationViewModel.notificationResponse.observe(viewLifecycleOwner){
-            when(it.status){
+        notificationViewModel.notificationResponse.observe(viewLifecycleOwner) {
+            when (it.status) {
                 Status.LOADING -> {
                     binding.shimmerNotification.startShimmer()
                     binding.shimmerNotification.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-                    if (it.data?.body() != null){
+                    if (it.data?.body() != null) {
                         binding.shimmerNotification.stopShimmer()
                         binding.shimmerNotification.visibility = View.GONE
-                        if (it.data?.body()?.size == 0){
+                        if (it.data?.body()?.size == 0) {
                             binding.tvLogin.text = "Tidak ada notifikasi"
                             binding.ivLogin.visibility = View.VISIBLE
                             binding.tvLogin.visibility = View.VISIBLE
                             binding.rvNotification.visibility = View.GONE
-                        }else {
+                        } else {
 
-                                list = it.data.body()!!
-                                listSize = it.data.body()!!.size
-                                it.data.body()?.forEach {notification->
-                                    notificationViewModel.getSellerProductId(notification.productId)
+                            list = it.data.body()!!
+                            listSize = it.data.body()!!.size
+                            it.data.body()?.forEach { notification ->
+                                notificationViewModel.getSellerProductId(notification.productId)
                             }
                         }
                     }
@@ -92,38 +93,62 @@ class NotificationFragment :
                     binding.shimmerNotification.startShimmer()
                     binding.shimmerNotification.visibility = View.VISIBLE
                     val error = it.message
-                    Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
 
-        notificationViewModel.sellerProductIdResponse.observe(viewLifecycleOwner){
-            when(it.status){
+        notificationViewModel.sellerProductIdResponse.observe(viewLifecycleOwner) {
+            when (it.status) {
                 Status.LOADING -> {
                     binding.shimmerNotification.startShimmer()
                     binding.shimmerNotification.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-                    if (it.data?.body() != null){
+                    if (it.data?.body() != null) {
                         listProduct.add(it.data.body()!!)
-                    }else{
-                        listProduct.add(GetProductIdResponse(0, listOf(),"-",0,"-","-","-","-","-",0,""))
+                    } else {
+                        listProduct.add(
+                            GetProductIdResponse(
+                                0,
+                                listOf(),
+                                "-",
+                                "-",
+                                0,
+                                "-",
+                                "-",
+                                "-",
+                                "-",
+                                "-",
+                                "-",
+                                0,
+                                UserProduct("-",
+                                    "-",
+                                    "-",
+                                    "-",
+                                    0,
+                                    "-",
+                                    "-")
+                            )
+                        )
                     }
-                    if (list.size != 0){
-                        Log.d("List",list.size.toString())
-                        Log.d("List product",listProduct.size.toString())
-                        if (listProduct.size == list.size){
+                    if (list.size != 0) {
+                        Log.d("List", list.size.toString())
+                        Log.d("List product", listProduct.size.toString())
+                        if (listProduct.size == list.size) {
                             Log.d("list", "notification: masuk if")
                             Log.d("list", listProduct.toString())
                             Log.d("list", list.toString())
                             binding.shimmerNotification.stopShimmer()
                             binding.shimmerNotification.visibility = View.GONE
-                            val adapter = NotificationAdapter(object : NotificationAdapter.OnClickListener{
-                                override fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem) {
-                                    val id = data.id
-                                    findNavController().navigate(R.id.action_mainFragment_to_bidderFragment)
-                                }
-                            },listProduct
+                            val adapter = NotificationAdapter(
+                                object : NotificationAdapter.OnClickListener {
+                                    override fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem) {
+                                        val id = data.id
+                                        findNavController().navigate(R.id.action_mainFragment_to_bidderFragment)
+                                    }
+                                }, listProduct
                             )
                             adapter.submitData(list)
                             binding.rvNotification.adapter = adapter
