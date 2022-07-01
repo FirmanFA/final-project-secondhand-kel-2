@@ -10,7 +10,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Part
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
 import retrofit2.http.Query
 

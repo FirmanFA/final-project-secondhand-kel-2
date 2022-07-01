@@ -14,6 +14,7 @@ import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryR
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
+import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
