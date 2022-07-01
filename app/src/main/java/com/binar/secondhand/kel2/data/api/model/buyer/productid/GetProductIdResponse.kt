@@ -25,8 +25,8 @@ data class GetProductIdResponse(
     val status: Any?,
     @SerializedName("updatedAt")
     val updatedAt: String,
-    @SerializedName("User")
-    val user: UserProduct,
     @SerializedName("user_id")
-    val userId: Int
+    val userId: Int,
+    @SerializedName("User")
+    val user: UserProduct
 )
