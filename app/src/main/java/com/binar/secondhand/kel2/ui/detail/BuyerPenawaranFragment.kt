@@ -1,7 +1,6 @@
 package com.binar.secondhand.kel2.ui.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,12 @@ import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderReques
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBuyerPenawaranBinding
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.java.KoinJavaComponent
 
 
-class BuyerPenawaranFragment : Fragment() {
+class BuyerPenawaran :BottomSheetDialogFragment() {
     private var _binding: FragmentBuyerPenawaranBinding? = null
     private val binding get() = _binding!!
     private val viewModel: BuyerPenawaranViewModel by viewModel()
@@ -24,9 +24,10 @@ class BuyerPenawaranFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBuyerPenawaranBinding.inflate(layoutInflater)
+        _binding =FragmentBuyerPenawaranBinding.inflate(layoutInflater)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,13 +37,14 @@ class BuyerPenawaranFragment : Fragment() {
         viewModel.getDetailProduct(productId)
         setUpObserver()
 
-
-        binding.btnProduct.setOnClickListener{
+        binding.btnKirim.setOnClickListener{
             val buyerPenawaran = PostOrderRequest(
-                binding.etHargaTawar.text.toString().toInt(),
-                productId
+                productId,
+                binding.etHargaTawar.text.toString()
+
             )
             if (binding.etHargaTawar.text.isNullOrEmpty()) {
+
                 Toast.makeText(context, "Kolom tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
             else{
@@ -115,4 +117,6 @@ class BuyerPenawaranFragment : Fragment() {
             }
         }
     }
+
+
 }
