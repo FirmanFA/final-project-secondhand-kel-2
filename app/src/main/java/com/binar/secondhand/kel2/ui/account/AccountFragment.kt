@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.databinding.FragmentAccountBinding
+import com.binar.secondhand.kel2.ui.MainActivity
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.login.LoginFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
@@ -48,20 +49,23 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
 
         binding.containerKeluar.setOnClickListener {
             // Logout system
-            AlertDialog.Builder(requireContext())
-                .setTitle("Keluar")
-                .setMessage("Apakah anda yakin ingin keluar?")
-                .setPositiveButton("Ya") { dialog, _ ->
-                    dialog.dismiss()
-                    preferences.edit().clear().apply()
-                    getKoin().setProperty("access_token","")
-                    // Ke Fragment login
-
-                }
-                .setNegativeButton("Batal") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+//            AlertDialog.Builder(requireContext())
+//                .setTitle("Keluar")
+//                .setMessage("Apakah anda yakin ingin keluar?")
+//                .setPositiveButton("Ya") { dialog, _ ->
+//                    dialog.dismiss()
+//                    preferences.edit().clear().apply()
+//                    getKoin().setProperty("access_token","")
+//                    // Ke Fragment login
+//
+//                }
+//                .setNegativeButton("Batal") { dialog, _ ->
+//                    dialog.dismiss()
+//                }
+//                .show()
+            val activity = it.context as MainActivity
+            val dialogFragment = LogoutFragment()
+            dialogFragment.show(activity.supportFragmentManager, null)
         }
 
     }
