@@ -73,10 +73,18 @@ class NotificationFragment :
                     if (it.data?.body() != null){
                         binding.shimmerNotification.stopShimmer()
                         binding.shimmerNotification.visibility = View.GONE
-                        list = it.data.body()!!
-                        listSize = it.data.body()!!.size
-                        it.data.body()?.forEach {notification->
-                            notificationViewModel.getSellerProductId(notification.productId)
+                        if (it.data?.body()?.size == 0){
+                            binding.tvLogin.text = "Tidak ada notifikasi"
+                            binding.ivLogin.visibility = View.VISIBLE
+                            binding.tvLogin.visibility = View.VISIBLE
+                            binding.rvNotification.visibility = View.GONE
+                        }else {
+
+                                list = it.data.body()!!
+                                listSize = it.data.body()!!.size
+                                it.data.body()?.forEach {notification->
+                                    notificationViewModel.getSellerProductId(notification.productId)
+                            }
                         }
                     }
                 }

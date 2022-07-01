@@ -24,4 +24,5 @@
     <style name="Theme.SecondhandKel2.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SecondhandKel2.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

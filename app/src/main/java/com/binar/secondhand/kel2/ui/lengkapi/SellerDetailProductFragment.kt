@@ -78,11 +78,13 @@ class SellerDetailProductFragment :
         }
 
         binding.btnPreview.setOnClickListener {
+
             val actionToPreviewFragment = MainFragmentDirections.actionMainFragmentToPreviewFragment(
                 name = binding.etName.editText?.text.toString(),
                 price = binding.etPrice.editText?.text.toString(),
                 location = binding.etCity.editText?.text.toString(),
-                description = binding.etDescription.editText?.text.toString()
+                description = binding.etDescription.editText?.text.toString(),
+                image = imageUri.toString()
             )
             findNavController().navigate(actionToPreviewFragment)
         }

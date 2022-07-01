@@ -215,7 +215,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:singleLine="true" />
+                android:gravity="top"
+                android:maxLength="256" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -26,6 +26,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="fitXY"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/detail_and_preview_background"
+                app:layout_constraintTop_toBottomOf="@id/ivBackdrop"
+                app:layout_constraintBottom_toBottomOf="@id/cv_profile"/>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +91,7 @@
                 app:cardCornerRadius="16dp"
                 android:layout_margin="16dp"
                 app:cardElevation="8dp"
-                android:id="@+id/btn_profile"
+                android:id="@+id/cv_profile"
                 android:backgroundTint="@color/white1"
                 app:layout_constraintTop_toBottomOf="@+id/btn_product"
                 tools:ignore="MissingConstraints">
@@ -140,7 +147,7 @@
                 app:cardElevation="8dp"
                 android:backgroundTint="@color/white1"
                 android:id="@+id/btn_desc"
-                app:layout_constraintTop_toBottomOf="@+id/btn_profile"
+                app:layout_constraintTop_toBottomOf="@+id/cv_profile"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -190,7 +197,7 @@
         android:src="@drawable/ic_back" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_tertarik"
+        android:id="@+id/btn_terbit"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="center"
