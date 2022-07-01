@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
 import com.binar.secondhand.kel2.data.repository.Repository
@@ -17,9 +16,8 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
     private val _detailProduct = MutableLiveData<Resource<Response<GetProductIdResponse>>>()
     val detailProduct: LiveData<Resource<Response<GetProductIdResponse>>> get() = _detailProduct
 
-    private val _GetProfile = MutableLiveData<Resource<Response<UserProduct>>>()
-    val GetProfile : LiveData<Resource<Response<UserProduct>>> get() = _GetProfile
-
+    private val _getProfile = MutableLiveData<Resource<Response<UserProduct>>>()
+    val getProfile : LiveData<Resource<Response<UserProduct>>> get() = _getProfile
 
     fun getDetailProduct(productId: Int){
         viewModelScope.launch {
@@ -33,14 +31,15 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun getUserProfile(userId: Int){
+    fun getUserProfile(userId: Int)
+    {
         viewModelScope.launch {
-            _GetProfile .postValue(Resource.loading())
+            _getProfile .postValue(Resource.loading())
             try {
                 val dataUser = Resource.success(repository.getUserProfile(userId))
-                _GetProfile .postValue(dataUser)
+                _getProfile .postValue(dataUser)
             }catch (exp: Exception){
-                _GetProfile .postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
+                _getProfile .postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
             }
         }
     }
