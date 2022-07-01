@@ -35,6 +35,7 @@ class ProductSaleListFragment :
         if (token == "") {
             binding.groupContent.visibility = View.GONE
             binding.groupLogin.visibility = View.VISIBLE
+            binding.productShimmer.visibility = View.GONE
         } else {
             binding.groupLogin.visibility = View.GONE
             binding.btnEditProfile.setOnClickListener {
