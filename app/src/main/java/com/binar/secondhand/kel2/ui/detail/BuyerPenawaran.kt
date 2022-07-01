@@ -50,6 +50,7 @@ class BuyerPenawaran :BottomSheetDialogFragment() {
             }
             else{
                 viewModel.postBuyerOrder(buyerPenawaran)
+                R.layout.fragment_detail_product
             }
         }
 
