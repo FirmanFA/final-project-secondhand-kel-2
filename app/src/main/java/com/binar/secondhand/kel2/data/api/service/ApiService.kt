@@ -7,22 +7,13 @@ import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginResponse
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterResponse
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
-import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthRequest
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthResponse
-import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
-import com.binar.secondhand.kel2.data.api.model.seller.banner.id.GetBannerIdResponse
-import com.binar.secondhand.kel2.data.api.model.seller.banner.post.PostBannerRequest
-import com.binar.secondhand.kel2.data.api.model.seller.banner.post.PostBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
-import com.binar.secondhand.kel2.data.api.model.seller.category.id.GetCategoryIdResponse
-import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdRequest
-import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
+import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -93,4 +84,7 @@ interface ApiService {
     @GET("seller/category")
     suspend fun getCategory(): Response<GetCategoryResponse>
 
+    //product sale endpoint
+    @GET("seller/product")
+    suspend fun getSellerProduct():Response<GetSellerProductResponse>
 }
