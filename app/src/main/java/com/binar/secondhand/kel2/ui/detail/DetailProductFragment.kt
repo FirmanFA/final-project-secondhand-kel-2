@@ -44,7 +44,6 @@ class DetailProductFragment :
                 .setAction("x") {
                     // Responds to click on the action
                 }
-
                 .setBackgroundTint(resources.getColor(R.color.Green))
                 .setActionTextColor(resources.getColor(R.color.white))
                 .show()

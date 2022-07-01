@@ -37,7 +37,6 @@ class BuyerPenawaran :BottomSheetDialogFragment() {
         viewModel.getDetailProduct(productId)
         setUpObserver()
 
-
         binding.btnKirim.setOnClickListener{
             val buyerPenawaran = PostOrderRequest(
                 productId,
