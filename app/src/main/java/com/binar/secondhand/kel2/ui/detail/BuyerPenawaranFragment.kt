@@ -47,6 +47,7 @@ class BuyerPenawaranFragment : Fragment() {
             }
             else{
                 viewModel.postBuyerOrder(buyerPenawaran)
+                R.layout.fragment_detail_product
             }
         }
 
