@@ -36,7 +36,8 @@ interface ApiService {
     suspend fun postLogin(@Body request: PostLoginRequest): Response<PostLoginResponse>
 
     @POST("auth/register")
-    suspend fun postRegister(@Body request: PostRegisterRequest): Response<PostRegisterResponse>
+    suspend fun postRegister(@Body request: PostRegisterRequest):
+            Response<PostRegisterResponse>
 
     @GET("auth/user")
     suspend fun getAuth(): Response<GetAuthResponse>
@@ -58,8 +59,10 @@ interface ApiService {
 
     @GET("buyer/product/{id}")
     suspend fun getProductId(@Path("id")id:Int): Response<GetProductIdResponse>
+
     @GET("seller/product/{id}")
     suspend fun getProductId(): Response<GetProductIdResponse>
+
     @GET("buyer/product/{product_id}")
     suspend fun getProductDetail(@Path("product_id")productid:Int): Response<GetProductIdResponse>
 
@@ -93,5 +96,4 @@ interface ApiService {
 
     @GET("seller/category")
     suspend fun getCategory(): Response<GetCategoryResponse>
-
 }
