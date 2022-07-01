@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentProductSaleListBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
+import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import org.koin.android.ext.android.getKoin
@@ -31,11 +32,14 @@ class ProductSaleListFragment :
         MainFragment.activePage = R.id.main_sale_list
 
         val token = getKoin().getProperty("access_token", "")
-        if (token==""){
+        if (token == "") {
             binding.groupContent.visibility = View.GONE
             binding.groupLogin.visibility = View.VISIBLE
-        }else{
+        } else {
             binding.groupLogin.visibility = View.GONE
+            binding.btnEditProfile.setOnClickListener {
+                it.findNavController().navigate(R.id.action_mainFragment_to_profileFragment2)
+            }
             setUpObserver()
             productSaleListViewModel.getSellerProduct()
             productSaleListViewModel.getAuth()
@@ -46,8 +50,8 @@ class ProductSaleListFragment :
         }
     }
 
-    private fun setUpObserver(){
-        productSaleListViewModel.getSellerProductResponse.observe(viewLifecycleOwner){
+    private fun setUpObserver() {
+        productSaleListViewModel.getSellerProductResponse.observe(viewLifecycleOwner) {
             when (it.status) {
 
                 Status.LOADING -> {
@@ -65,7 +69,7 @@ class ProductSaleListFragment :
                             showProduct(data)
                         }
 
-                        else ->{
+                        else -> {
                             showSnackbar("Error occured: ${it.data?.code()}")
                         }
                     }
@@ -79,24 +83,25 @@ class ProductSaleListFragment :
 
 
 
-        productSaleListViewModel.authGetResponse.observe(viewLifecycleOwner){
-            when(it.status){
+        productSaleListViewModel.authGetResponse.observe(viewLifecycleOwner) {
+            when (it.status) {
 
                 Status.LOADING -> {
                 }
 
                 Status.SUCCESS -> {
 
-                    when(it.data?.code()){
-                        200 ->{
+                    when (it.data?.code()) {
+                        200 -> {
 
-                            val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
-                                .setDuration(1800) // how long the shimmering animation takes to do one full sweep
-                                .setBaseAlpha(0.7f) //the alpha of the underlying children
-                                .setHighlightAlpha(0.6f) // the shimmer alpha amount
-                                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-                                .setAutoStart(true)
-                                .build()
+                            val shimmer =
+                                Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
+                                    .setDuration(1800) // how long the shimmering animation takes to do one full sweep
+                                    .setBaseAlpha(0.7f) //the alpha of the underlying children
+                                    .setHighlightAlpha(0.6f) // the shimmer alpha amount
+                                    .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                                    .setAutoStart(true)
+                                    .build()
                             val shimmerDrawable = ShimmerDrawable().apply {
                                 setShimmer(shimmer)
                             }
@@ -114,21 +119,27 @@ class ProductSaleListFragment :
                     }
                 }
 
-                Status.ERROR ->{
+                Status.ERROR -> {
                     val error = it.message
-                    Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error get Data : $error",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
     }
 
     private fun showProduct(dataProduct: GetSellerProductResponse?) {
-        val adapter = ProductSaleListAdapter{data, position ->
+        val adapter = ProductSaleListAdapter { data, position ->
 
-            if (position == 0){
-                //TODO:go to add product
-            }else{
-                //TODO:go to detail product
+            if (position == 0) {
+                findNavController().navigate(R.id.action_mainFragment_to_sellerDetailProductFragment)
+            } else {
+                val action =
+                    MainFragmentDirections.actionMainFragmentToDetailProductFragment(data.id)
+                findNavController().navigate(action)
             }
 
         }

@@ -73,6 +73,9 @@
         <action
             android:id="@+id/action_mainFragment_to_previewFragment"
             app:destination="@id/previewFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_sellerDetailProductFragment"
+            app:destination="@id/sellerDetailProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailProductFragment"
@@ -117,4 +120,9 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/sellerDetailProductFragment"
+        android:name="com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductFragment"
+        android:label="fragment_seller_detail_product"
+        tools:layout="@layout/fragment_seller_detail_product" />
 </navigation>
