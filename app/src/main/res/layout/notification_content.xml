@@ -3,10 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="16dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="8dp"
     app:cardCornerRadius="15dp"
     android:elevation="4dp"
-    android:padding="16dp">
+    android:padding="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,13 +18,18 @@
 
         <ImageView
             android:id="@+id/iv_product"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/round_shape"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_price"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/round_shape"
-            android:src="@drawable/ic_baseline_android_48"
-            android:layout_marginStart="16dp"/>
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tv_status"
