@@ -25,7 +25,7 @@ class DetailProductFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val productId = args.productId
+        val productId = 2
 
         setUpObserver()
 //
@@ -40,7 +40,7 @@ class DetailProductFragment :
                 .setBackgroundTint(resources.getColor(R.color.Green))
                 .setActionTextColor(resources.getColor(R.color.white))
                 .show()
-            val modal = BuyerPenawaran()
+            val modal = BuyerPenawaranFragment()
             modal.show(this.requireActivity().supportFragmentManager, "show_modal")
         }
     }
