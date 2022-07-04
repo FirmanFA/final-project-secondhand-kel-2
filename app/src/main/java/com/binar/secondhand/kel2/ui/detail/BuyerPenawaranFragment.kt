@@ -15,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.java.KoinJavaComponent
 
 
-class BuyerPenawaran :BottomSheetDialogFragment() {
+class BuyerPenawaranFragment :BottomSheetDialogFragment() {
     private var _binding: FragmentBuyerPenawaranBinding? = null
     private val binding get() = _binding!!
     private val viewModel: BuyerPenawaranViewModel by viewModel()
