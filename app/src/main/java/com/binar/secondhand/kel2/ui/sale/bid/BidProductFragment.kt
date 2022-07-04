@@ -1,57 +1,34 @@
-package com.binar.secondhand.kel2.ui.notification
+package com.binar.secondhand.kel2.ui.sale.bid
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.resource.Status
-import com.binar.secondhand.kel2.databinding.FragmentNotificationBinding
+import com.binar.secondhand.kel2.databinding.FragmentBidProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
-import com.binar.secondhand.kel2.ui.main.MainFragment
-import com.binar.secondhand.kel2.ui.sale.bid.BidProductAdapter
-import org.koin.android.ext.android.getKoin
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.binar.secondhand.kel2.ui.sale.main.ProductSaleListViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class NotificationFragment :
-    BaseFragment<FragmentNotificationBinding>(FragmentNotificationBinding::inflate) {
 
-    private val notificationViewModel: NotificationViewModel by viewModel()
+class BidProductFragment :
+    BaseFragment<FragmentBidProductBinding>(FragmentBidProductBinding::inflate) {
+
+    private val productSaleListViewModel by sharedViewModel<ProductSaleListViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        MainFragment.activePage = R.id.main_notification
-
-        val token = getKoin().getProperty("access_token", "")
-
-        if (token == "") {
-            binding.shimmerNotification.stopShimmer()
-            binding.shimmerNotification.visibility = View.GONE
-            binding.rvNotification.visibility = View.GONE
-            binding.tvNotification.visibility = View.GONE
-
-            binding.btnLogin.setOnClickListener {
-                it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
-            }
-
-        } else {
-            binding.ivLogin.visibility = View.GONE
-            binding.tvLogin.visibility = View.GONE
-            binding.btnLogin.visibility = View.GONE
-            binding.rvNotification.visibility = View.VISIBLE
-            binding.shimmerNotification.visibility = View.GONE
-            setUpObserver()
-            notificationViewModel.getNotification()
-        }
+        setUpObserver()
+        productSaleListViewModel.getNotification()
 
     }
 
     private fun setUpObserver(){
 
-        notificationViewModel.notificationResponse.observe(viewLifecycleOwner) {
+        productSaleListViewModel.notificationResponse.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.shimmerNotification.startShimmer()
@@ -64,11 +41,13 @@ class NotificationFragment :
                     binding.rvNotification.visibility = View.VISIBLE
                     if (it.data?.body() != null) {
                         if (it.data.body()?.size == 0) {
-                            binding.tvLogin.text = "Tidak ada notifikasi"
-                            binding.ivLogin.visibility = View.VISIBLE
-                            binding.tvLogin.visibility = View.VISIBLE
+                            binding.ivEmpty.visibility = View.VISIBLE
+                            binding.tvEmpty.visibility = View.VISIBLE
                             binding.rvNotification.visibility = View.GONE
                         } else {
+                            binding.ivEmpty.visibility = View.GONE
+                            binding.tvEmpty.visibility = View.GONE
+                            binding.rvNotification.visibility = View.VISIBLE
                             showBidProduct(it.data.body())
                         }
                     }
@@ -86,14 +65,19 @@ class NotificationFragment :
     }
 
     private fun showBidProduct(data: GetNotificationResponse?) {
-        val adapter = NotificationAdapter(
-            object : NotificationAdapter.OnClickListener {
+        val filteredData = data?.filter {
+            it.status != "create"
+        }
+        val adapter = BidProductAdapter(
+            object : BidProductAdapter.OnClickListener {
                 override fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem) {
                     val id = data.id
                     findNavController().navigate(R.id.action_mainFragment_to_bidderFragment)
                 }
             })
-        adapter.submitData(data)
+        adapter.submitData(filteredData)
         binding.rvNotification.adapter = adapter
     }
+
+
 }
