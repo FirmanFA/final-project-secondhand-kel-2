@@ -42,6 +42,7 @@ class NotificationFragment :
             binding.shimmerNotification.stopShimmer()
             binding.shimmerNotification.visibility = View.GONE
             binding.rvNotification.visibility = View.GONE
+            binding.tvNotification.visibility = View.GONE
 
             Log.d("list", "token kosong")
 

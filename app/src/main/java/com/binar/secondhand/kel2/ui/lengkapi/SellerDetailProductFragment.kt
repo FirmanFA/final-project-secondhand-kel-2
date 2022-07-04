@@ -3,6 +3,7 @@ package com.binar.secondhand.kel2.ui.lengkapi
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -64,6 +66,38 @@ class SellerDetailProductFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val token = getKoin().getProperty("access_token", "")
+
+        if (token == "") {
+            binding.tvProduct.visibility = View.GONE
+            binding.tvName.visibility = View.GONE
+            binding.etName.visibility = View.GONE
+            binding.tvPrice.visibility = View.GONE
+            binding.etPrice.visibility = View.GONE
+            binding.tvCity.visibility = View.GONE
+            binding.etCity.visibility = View.GONE
+            binding.tvKategori.visibility = View.GONE
+            binding.etCategory.visibility = View.GONE
+            binding.tvDescription.visibility = View.GONE
+            binding.etDescription.visibility = View.GONE
+            binding.tvPhoto.visibility = View.GONE
+            binding.ivPhoto.visibility = View.GONE
+            binding.btnPreview.visibility = View.GONE
+            binding.btnTerbit.visibility = View.GONE
+
+            Log.d("list", "token kosong")
+
+            binding.btnLogin.setOnClickListener {
+                it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+            }
+
+        } else {
+            Log.d("list", "token tidak kosong")
+            binding.ivLogin.visibility = View.GONE
+            binding.tvLogin.visibility = View.GONE
+            binding.btnLogin.visibility = View.GONE
+        }
 
         val city = resources.getStringArray(R.array.city)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, city)

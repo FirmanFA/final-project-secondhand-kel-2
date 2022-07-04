@@ -30,7 +30,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 binding.etNama.text.toString(),
                 binding.etEmail.text.toString(),
                 binding.etPassowrd.text.toString(),
-                0,"-","","-"
+                0,"-",R.drawable.default_profile.toString(),"-"
             )
 
             if (binding.etNama.text.isNullOrEmpty() || binding.etEmail.text.isNullOrEmpty() || binding.etPassowrd.text.isNullOrEmpty()) {
