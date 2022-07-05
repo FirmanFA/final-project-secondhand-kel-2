@@ -173,14 +173,14 @@ class ProfileFragment :
                                 if (imageUri == null){
                                     Glide.with(this)
                                         .load(R.drawable.rectangle_camera)
-                                        .apply(RequestOptions.bitmapTransform(RoundedCorners(16)))
+                                        .circleCrop()
                                         .into(binding.ivCam)
                                 }
                             }else{
                                 Glide.with(this)
                                     .load(it.data.body()?.imageUrl)
                                     .centerCrop()
-                                    .apply(RequestOptions.bitmapTransform(RoundedCorners(16)))
+                                    .circleCrop()
                                     .into(binding.ivCam)
                             }
                             binding.etName.editText?.setText(it.data.body()?.fullName)

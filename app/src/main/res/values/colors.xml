@@ -20,4 +20,5 @@
     <color name="Green">#73CA5C</color>
     <color name="grey">#686868</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="primary_60">#3C74D1</color>
 </resources>

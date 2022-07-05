@@ -4,6 +4,8 @@ import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderReques
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderResponse
 import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginRequest
 import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginResponse
+import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassRequest
+import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassResponse
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterResponse
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
@@ -47,6 +49,9 @@ interface ApiService {
         @Part("city") city: RequestBody,
         @Part image: MultipartBody.Part?
     ): Response<PutAuthResponse>
+
+    @PUT ("auth/change-password")
+    suspend fun changePassword(@Body request: PutPassRequest): Response<PutPassResponse>
 
     @GET("notification")
     suspend fun getNotification(): Response<GetNotificationResponse>

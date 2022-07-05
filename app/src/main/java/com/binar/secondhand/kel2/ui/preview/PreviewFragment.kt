@@ -37,6 +37,7 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
             val price = args.price
             val description = args.description
             val location = args.location
+            val category = args.category
             val image = args.image.toUri()
 
             val imageFile = if(image == null) {
@@ -52,7 +53,7 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
                 name.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
                 price.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
                 description.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-                "15".toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+                category.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
                 location.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
                 image = imageBody
             )
@@ -65,6 +66,7 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
            val price = args.price
            val description = args.description
            val location = args.location
+           val category = args.category
            val image = args.image.toUri()
 
            when(it.status){
@@ -77,6 +79,7 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
                            binding.tvPrice.text = price
                            binding.tvLocation.text = location
                            binding.tvDesc.text = description
+                           binding.tvCategory.text = category
                            binding.tvName.text = it.data?.body()?.fullName
 
                            Glide.with(this)

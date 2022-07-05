@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".ui.lengkapi.SellerDetailProductFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ProgressBar
                 android:id="@+id/pb_loading"
@@ -29,7 +29,8 @@
                 android:id="@+id/tv_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16sp"
+                android:layout_marginHorizontal="16sp"
+                android:layout_marginTop="46sp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Lengkapi Detail Produk"
                 android:textColor="@color/black"
@@ -262,7 +263,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="24dp"
-                android:backgroundTint="@color/purple_04"
+                android:backgroundTint="@color/primary_60"
                 android:fontFamily="@font/poppins_medium"
                 android:paddingHorizontal="24sp"
                 android:paddingVertical="14sp"
@@ -286,7 +287,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32999998" />
+        app:layout_constraintVertical_bias="0.364" />
 
     <TextView
         android:id="@+id/tv_login"

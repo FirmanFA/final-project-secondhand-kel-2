@@ -1,5 +1,6 @@
 package com.binar.secondhand.kel2.ui.register
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast

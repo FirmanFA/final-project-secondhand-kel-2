@@ -3,18 +3,32 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/btn_gradient.xml" value="0.198" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/drawable/notification_gradient.xml" value="0.198" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/bidder_content.xml" value="0.25" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/dropdown_item.xml" value="0.1585144927536232" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_account.xml" value="0.25" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_bidder.xml" value="0.14356884057971014" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_buyer_penawaran.xml" value="0.12158054711246201" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_change_pass.xml" value="0.25" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_home.xml" value="0.1585144927536232" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_login.xml" value="0.1585144927536232" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_main.xml" value="0.1585144927536232" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_notification.xml" value="0.1585144927536232" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_preview.xml" value="0.1585144927536232" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_product_sale_list.xml" value="0.25" />
-        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_profile.xml" value="0.1585144927536232" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_register.xml" value="0.1585144927536232" />
-        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_seller_detail_product.xml" value="0.1585144927536232" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_search.xml" value="0.25" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_seller_detail_product.xml" value="0.152" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/fragment_wishlist.xml" value="0.25" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/home_banner_list_layout.xml" value="0.25" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/home_product_list_layout.xml" value="0.25" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/item_product.xml" value="0.25" />
-        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/notification_content.xml" value="0.1585144927536232" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/notification_content.xml" value="0.264" />
         <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/onboarding_screen_layout.xml" value="0.1585144927536232" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/product_item_shimmer_layout.xml" value="0.25" />
+        <entry key="..\:/Andorid Studio Project/final-project-secondhand-kel-2/app/src/main/res/layout/product_sale_list_layout.xml" value="0.25" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/add_product_card_border.xml" value="0.1315" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/home_category_tab_background.xml" value="0.1" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/home_category_tab_selected.xml" value="0.1" />

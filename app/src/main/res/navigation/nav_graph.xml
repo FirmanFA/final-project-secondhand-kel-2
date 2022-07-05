@@ -76,6 +76,12 @@
         <action
             android:id="@+id/action_mainFragment_to_sellerDetailProductFragment"
             app:destination="@id/sellerDetailProductFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_changePassFragment"
+            app:destination="@id/changePassFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailProductFragment"
@@ -92,7 +98,7 @@
     </fragment>
     <fragment
         android:id="@+id/buyerPenawaranFragment"
-        android:name="com.binar.secondhand.kel2.ui.detail.BuyerPenawaranFragment"
+        android:name="com.binar.secondhand.kel2.ui.detail.BuyerPenawaran"
         android:label="fragment_buyer_penawaran"
         tools:layout="@layout/fragment_buyer_penawaran" />
     <fragment
@@ -118,6 +124,9 @@
         <argument
             android:name="image"
             app:argType="string" />
+        <argument
+            android:name="category"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -125,4 +134,14 @@
         android:name="com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductFragment"
         android:label="fragment_seller_detail_product"
         tools:layout="@layout/fragment_seller_detail_product" />
+    <fragment
+        android:id="@+id/changePassFragment"
+        android:name="com.binar.secondhand.kel2.ui.pass.ChangePassFragment"
+        android:label="fragment_change_pass"
+        tools:layout="@layout/fragment_change_pass" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.binar.secondhand.kel2.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
