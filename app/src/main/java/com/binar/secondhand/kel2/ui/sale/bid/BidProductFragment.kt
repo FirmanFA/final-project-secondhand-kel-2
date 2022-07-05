@@ -66,7 +66,7 @@ class BidProductFragment :
 
     private fun showBidProduct(data: GetNotificationResponse?) {
         val filteredData = data?.filter {
-            it.status != "create"
+            it.status == "bid"
         }
         val adapter = BidProductAdapter(
             object : BidProductAdapter.OnClickListener {
