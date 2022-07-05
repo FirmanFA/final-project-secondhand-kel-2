@@ -50,7 +50,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/rectangle_camera"
+            android:src="@drawable/img_cam"
             android:layout_marginTop="106dp"/>
 
         <TextView
@@ -210,7 +210,7 @@
             android:textAllCaps="false"
             android:textSize="16sp"
             android:fontFamily="@font/poppins_medium"
-            android:backgroundTint="@color/purple_04"
+            android:backgroundTint="@color/primary_blue"
             app:cornerRadius="16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

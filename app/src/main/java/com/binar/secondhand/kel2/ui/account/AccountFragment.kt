@@ -38,13 +38,11 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
             }else{
                 it.findNavController().navigate(R.id.action_mainFragment_to_profileFragment2)
             }
-
-
         }
 
         binding.containerPengaturanAkun.setOnClickListener {
             // Ke fragment pengaturan akun
-            Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
+            it.findNavController().navigate(R.id.action_mainFragment_to_changePassFragment)
         }
 
         binding.containerKeluar.setOnClickListener {
