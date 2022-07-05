@@ -1,5 +1,6 @@
 package com.binar.secondhand.kel2.ui.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBuyerPenawaranBinding
+import com.binar.secondhand.kel2.databinding.FragmentDetailProductBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,35 +20,45 @@ import org.koin.java.KoinJavaComponent
 class BuyerPenawaranFragment :BottomSheetDialogFragment() {
     private var _binding: FragmentBuyerPenawaranBinding? = null
     private val binding get() = _binding!!
+    private var _binding2: FragmentDetailProductBinding? = null
+    private val binding2 get() = _binding2!!
+
     private val viewModel: BuyerPenawaranViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        _binding2 = FragmentDetailProductBinding.inflate(layoutInflater)
         _binding =FragmentBuyerPenawaranBinding.inflate(layoutInflater)
         return binding.root
     }
 
+
+    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val productId = 2
+
 
         KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
         viewModel.getDetailProduct(productId)
         setUpObserver()
 
+
         binding.btnKirim.setOnClickListener{
+            binding2.btnTertarik.isSelected = !binding2.btnTertarik.isSelected
             val buyerPenawaran = PostOrderRequest(
                 productId,
                 binding.etHargaTawar.text.toString()
             )
             if (binding.etHargaTawar.text.isNullOrEmpty()) {
 
+
                 Toast.makeText(context, "Kolom tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
             else{
-
+                viewModel.postBuyerOrder(buyerPenawaran)
             }
         }
 
@@ -60,7 +72,6 @@ class BuyerPenawaranFragment :BottomSheetDialogFragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-
                     binding.progressBar.visibility = View.GONE
                     //sukses mendapat response, progressbar disembunyikan lagi
                     Glide.with(binding.imgProfile)
@@ -91,6 +102,7 @@ class BuyerPenawaranFragment :BottomSheetDialogFragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
+
                     binding.progressBar.visibility = View.GONE
                     when (it.data?.code()){
                         201 -> {
@@ -102,6 +114,14 @@ class BuyerPenawaranFragment :BottomSheetDialogFragment() {
                             val updatedAt = it.data?.body()?.updatedAt
 
                             Toast.makeText(context, "Penawaran Anda Diterima", Toast.LENGTH_SHORT).show()
+                            dismiss()
+                        }
+                        400 ->{
+                            Toast.makeText(context, "Anda Telah Menawar Produk Ini", Toast.LENGTH_SHORT).show()
+                            dismiss()
+                        }
+                        403 ->{
+                            Toast.makeText(context, "Kamu Belum Login", Toast.LENGTH_SHORT).show()
                         }
 
                     }

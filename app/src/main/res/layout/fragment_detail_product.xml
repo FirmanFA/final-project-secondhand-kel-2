@@ -248,16 +248,19 @@
 
         <Button
             android:id="@+id/btn_tertarik"
-            android:paddingHorizontal="32dp"
-            android:paddingVertical="12dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="28dp"
+            android:paddingVertical="8dp"
             android:textSize="14sp"
-            android:background="@drawable/btn_tertarik"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/product_detail_botttom_bg_color"
+            android:textColor="#ffffff"
             android:text="@string/saya_tertarik_dan_ingin_nego"
-            android:layout_width="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_height="match_parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

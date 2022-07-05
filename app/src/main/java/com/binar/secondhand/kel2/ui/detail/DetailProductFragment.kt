@@ -40,9 +40,17 @@ class DetailProductFragment :
                 .setBackgroundTint(resources.getColor(R.color.Green))
                 .setActionTextColor(resources.getColor(R.color.white))
                 .show()
-            val modal = BuyerPenawaranFragment()
-            modal.show(this.requireActivity().supportFragmentManager, "show_modal")
+            var modal = BuyerPenawaranFragment()
+//            modal.show(this.requireActivity().supportFragmentManager, "show_modal")
+
+//            when(it.context){
+//                modal.dismiss() -> {
+//                    Toast.makeText(this.requireContext(), "dismiss", Toast.LENGTH_SHORT).show()
+//                    binding.btnTertarik.isSelected = !binding.btnTertarik.isSelected
+//                }
+//            }
         }
+
     }
 
     @SuppressLint("CheckResult")

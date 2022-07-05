@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:layout_margin="16dp"
+    android:background="@drawable/rounded_dialog"
     tools:context=".ui.detail.BuyerPenawaranFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_dialog"
+        android:layout_margin="16dp"
+
         tools:ignore="MissingConstraints">
         <ProgressBar
             android:id="@+id/progressBar"
@@ -24,9 +24,10 @@
             android:layout_height="wrap_content" />
 
         <ImageView
+            android:layout_marginTop="8dp"
             android:id="@+id/imageView5"
             android:layout_width="60dp"
-            android:layout_height="10dp"
+            android:layout_height="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_baseline_remove_24"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +38,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:text="@string/masukan_harga_tawarmu"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -52,7 +53,6 @@
             android:layout_marginTop="8dp"
             android:text="@string/tawaran"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tvTitle"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
@@ -61,21 +61,22 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
             android:layout_marginTop="16dp"
-            app:cardElevation="8dp"
+            app:cardElevation="2dp"
             android:id="@+id/btn_product"
             android:backgroundTint="@color/white1"
             app:layout_constraintTop_toBottomOf="@+id/tvHargaTawaran"
             tools:ignore="MissingConstraints">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
                 android:layout_margin="16dp">
                 <ImageView
                     android:id="@+id/img_profile"
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
                     android:src="@drawable/ic_broken"
+                    android:fitsSystemWindows="true"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -88,7 +89,7 @@
                     android:layout_marginTop="4dp"
                     android:text="@string/title_product"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/img_profile" />
@@ -100,7 +101,7 @@
                     android:layout_marginTop="4dp"
                     android:text="@string/rp_1_000_000"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/img_profile"
                     app:layout_constraintTop_toBottomOf="@id/tv_name" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -109,7 +110,7 @@
             android:id="@+id/tvHargaTawar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:text="Harga Tawar"
             android:textSize="18sp"
             android:textColor="@color/black"
@@ -136,19 +137,28 @@
 
         <Button
             android:id="@+id/btn_kirim"
-            android:paddingHorizontal="32dp"
-            android:paddingVertical="12dp"
-            android:layout_marginTop="20dp"
-            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="28dp"
+            android:paddingVertical="8dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/btn_tertarik"
             android:text="@string/kirim"
-            android:layout_width="match_parent"
+            android:textColor="#ffffff"
+            app:backgroundTint="@color/purple_500"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textField"
-            android:layout_height="match_parent">
-        </Button>
+            app:layout_constraintTop_toBottomOf="@id/textField" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_kirim"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+        </Space>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
