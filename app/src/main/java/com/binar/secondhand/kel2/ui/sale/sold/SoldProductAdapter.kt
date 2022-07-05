@@ -1,4 +1,4 @@
-package com.binar.secondhand.kel2.ui.sale.product
+package com.binar.secondhand.kel2.ui.sale.sold
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,28 +12,19 @@ import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 
-class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) -> Unit) :
-    ListAdapter<GetProductResponseItem, SellerProductAdapter.ViewHolder>(CommunityComparator()) {
+class SoldProductAdapter(private val onClick: (GetProductResponseItem) -> Unit) :
+    ListAdapter<GetProductResponseItem, SoldProductAdapter.ViewHolder>(ProductComparator()) {
 
     class ViewHolder(private val binding: ProductSaleListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
             currentGetProductResponseItem: GetProductResponseItem,
-            onClick: (GetProductResponseItem, Int) -> Unit,
-            position: Int
+            onClick: (GetProductResponseItem) -> Unit
         ) {
 
-            if (position == 0) {
-                binding.clAddProduct.visibility = View.VISIBLE
-                binding.clProductItem.visibility = View.INVISIBLE
-            } else {
-                binding.clAddProduct.visibility = View.INVISIBLE
-                binding.clProductItem.visibility = View.VISIBLE
-            }
-
             binding.root.setOnClickListener {
-                onClick(currentGetProductResponseItem, position)
+                onClick(currentGetProductResponseItem)
             }
             val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
                 .setDuration(1800) // how long the shimmering animation takes to do one full sweep
@@ -57,7 +48,7 @@ class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) ->
 
     }
 
-    class CommunityComparator : DiffUtil.ItemCallback<GetProductResponseItem>() {
+    class ProductComparator : DiffUtil.ItemCallback<GetProductResponseItem>() {
         override fun areItemsTheSame(
             oldItem: GetProductResponseItem,
             newItem: GetProductResponseItem
@@ -82,26 +73,7 @@ class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) ->
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), onClick, position)
-    }
-
-    fun submitData(listProduct: List<GetProductResponseItem>){
-        val data = mutableListOf<GetProductResponseItem>()
-        data.add( GetProductResponseItem(
-            0,
-            listOf(),
-            "",
-            0,
-            "",
-            "",
-            "",
-            "",
-            "",
-            0,
-            ""
-        ))
-        data.addAll(listProduct)
-        submitList(data)
+        holder.bind(getItem(position), onClick)
     }
 
 }

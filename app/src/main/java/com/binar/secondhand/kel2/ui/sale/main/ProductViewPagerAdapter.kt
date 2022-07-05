@@ -4,8 +4,9 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.binar.secondhand.kel2.ui.sale.bid.BidProductFragment
 import com.binar.secondhand.kel2.ui.sale.product.SellerProductFragment
+import com.binar.secondhand.kel2.ui.sale.sold.SoldProductFragment
 
-class ProductViewPagerAdapter(private val fragment: Fragment): FragmentStateAdapter(fragment) {
+class ProductViewPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
         return 3
     }
@@ -17,6 +18,9 @@ class ProductViewPagerAdapter(private val fragment: Fragment): FragmentStateAdap
             }
             1 -> {
                 BidProductFragment()
+            }
+            2-> {
+                SoldProductFragment()
             }
             else ->{
                 SellerProductFragment()
