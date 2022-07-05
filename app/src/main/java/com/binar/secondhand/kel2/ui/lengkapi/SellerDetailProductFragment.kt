@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -67,6 +68,8 @@ class SellerDetailProductFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getActivity()?.getWindow()?.setSoftInputMode(WindowManager.LayoutParams. SOFT_INPUT_ADJUST_NOTHING)
+
         val token = getKoin().getProperty("access_token", "")
 
         if (token == "") {
@@ -112,15 +115,19 @@ class SellerDetailProductFragment :
         }
 
         binding.btnPreview.setOnClickListener {
-
-            val actionToPreviewFragment = MainFragmentDirections.actionMainFragmentToPreviewFragment(
-                name = binding.etName.editText?.text.toString(),
-                price = binding.etPrice.editText?.text.toString(),
-                location = binding.etCity.editText?.text.toString(),
-                description = binding.etDescription.editText?.text.toString(),
-                image = imageUri.toString()
-            )
-            findNavController().navigate(actionToPreviewFragment)
+            if (binding.etName.editText?.text.toString().isEmpty() || binding.etPrice.editText?.text.toString().isEmpty() || binding.etCity.editText?.text.toString().isEmpty() || binding.etCategory.editText?.text.toString().isEmpty() || binding.etDescription.editText?.text.toString().isEmpty()) {
+                Toast.makeText(requireContext(), "Lengkapi data terlebih dahulu", Toast.LENGTH_SHORT).show()
+            }else{
+                val actionToPreviewFragment = MainFragmentDirections.actionMainFragmentToPreviewFragment(
+                    name = binding.etName.editText?.text.toString(),
+                    price = binding.etPrice.editText?.text.toString(),
+                    location = binding.etCity.editText?.text.toString(),
+                    description = binding.etDescription.editText?.text.toString(),
+                    image = imageUri.toString(),
+                    category = binding.etCategory.editText?.text.toString()
+                )
+                findNavController().navigate(actionToPreviewFragment)
+            }
         }
 
         binding.btnTerbit.setOnClickListener {
