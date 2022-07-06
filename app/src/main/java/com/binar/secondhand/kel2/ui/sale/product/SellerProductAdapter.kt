@@ -11,6 +11,8 @@ import com.binar.secondhand.kel2.databinding.ProductSaleListLayoutBinding
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) -> Unit) :
     ListAdapter<GetProductResponseItem, SellerProductAdapter.ViewHolder>(CommunityComparator()) {
@@ -52,7 +54,10 @@ class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) ->
             binding.tvProductCategory.text = currentGetProductResponseItem.categories?.joinToString{
                 it.name
             }
-            binding.tvProductPrice.text = "Rp. ${currentGetProductResponseItem.basePrice}"
+            val formatter: NumberFormat = DecimalFormat("#,###")
+            val myNumber = currentGetProductResponseItem.basePrice
+            val formattedNumber: String = formatter.format(myNumber).toString()
+            binding.tvProductPrice.text = "Rp. ${formattedNumber}"
         }
 
     }
