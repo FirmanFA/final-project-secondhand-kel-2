@@ -1,5 +1,6 @@
 package com.binar.secondhand.kel2.ui.notification
 
+import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -73,16 +74,25 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
                     .load(data.imageUrl)
                     .centerCrop()
                     .placeholder(shimmerDrawable)
-                    .transform(CenterCrop(), RoundedCorners(16))
+                    .transform(CenterCrop(), RoundedCorners(12))
                     .into(binding.ivProduct)
                 tvTitle.text =  data.product.name
-                tvPrice.text = data.product.basePrice.toString()
-                if (data.status == "create"){
-                    tvNego.visibility = View.INVISIBLE
-                }else{
-                    tvNego.text = data.bidPrice.toString()
+                tvPrice.text = "Rp ${data.product.basePrice.toString()}"
+                when (data.status) {
+                    "create" -> {
+                        tvNego.visibility = View.GONE
+                        tvStatus.text = "Berhasil diterbitkan"
+                    }
+                    "accepted" -> {
+                        tvNego.text = "Berhasil ditawar Rp ${data.bidPrice.toString()}"
+                        tvPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                        tvStatus.text = "Penawaran produk"
+                    }
+                    else -> {
+                        tvNego.text = "Ditawar Rp ${data.bidPrice.toString()}"
+                        tvStatus.text = "Penawaran produk"
+                    }
                 }
-                tvStatus.text = data.status
                 tvTime.text = DateFormat.getDateInstance(DateFormat.FULL).format(date)
                 root.setOnClickListener {
                     onItemClick.onClickItem(data)

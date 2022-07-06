@@ -1,6 +1,7 @@
 package com.binar.secondhand.kel2.ui.notification
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.findNavController
@@ -14,6 +15,8 @@ import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.ui.sale.bid.BidProductAdapter
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NotificationFragment :
     BaseFragment<FragmentNotificationBinding>(FragmentNotificationBinding::inflate) {
@@ -92,7 +95,11 @@ class NotificationFragment :
                     findNavController().navigate(R.id.action_mainFragment_to_bidderFragment)
                 }
             })
-        adapter.submitData(data)
+
+        adapter.submitData(data?.sortedByDescending {
+            val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'", Locale.ROOT)
+            format.parse(it.createdAt)
+        })
         binding.rvNotification.adapter = adapter
     }
 }
