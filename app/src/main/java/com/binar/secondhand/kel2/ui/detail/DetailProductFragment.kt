@@ -30,11 +30,11 @@ class DetailProductFragment :
         val productId = args.productId
 
         setUpObserver()
-        val token = getKoin().getProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvckBtYWlsLmNvbSIsImlhdCI6MTY1NzA5ODcyMX0.wdOypkKorWE9UY-EHj01M8kFW_NHNEK3yno3_F3wAis")
+        val token = getKoin().getProperty("access_token", "")
 //
 //        KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
         viewModel.getDetailProduct(productId)
-        viewModel.getBuyerOrder(token)
+        viewModel.getBuyerOrder()
 
         binding.btnTertarik.setOnClickListener {
             Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
@@ -46,7 +46,7 @@ class DetailProductFragment :
                 .show()
             var modal = BuyerPenawaranFragment(
                 productId!!,
-                refreshButton = { viewModel.getBuyerOrder(token) }
+                refreshButton = { viewModel.getBuyerOrder() }
             )
             modal.show(parentFragmentManager, "Tag")
 //
@@ -61,8 +61,14 @@ class DetailProductFragment :
             }
             if (isBid) {
                 binding.btnTertarik.isEnabled = false
+                binding.btnTertarik.text = "Menunggu Respon Penjual"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.grey)
+            }
+            else{
+                binding.btnTertarik.isEnabled = true
+                binding.btnTertarik.backgroundTintList =
+                    requireContext().getColorStateList(R.color.primary_blue)
             }
         }
 

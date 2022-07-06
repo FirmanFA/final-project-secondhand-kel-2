@@ -31,11 +31,11 @@ class Repository(private val apiHelper: ApiHelper) {
     )
 
     suspend fun getNotification() = apiHelper.getNotification()
-    suspend fun getBuyerOrder(token: String) = apiHelper.getBuyerOrder(token)
+    suspend fun getBuyerOrder() = apiHelper.getBuyerOrder()
     suspend fun getProductId(id: Int) = apiHelper.getProductId(id)
     suspend fun getProductDetail(productId: Int) = apiHelper.getProductDetail(productId)
     suspend fun getUserProfile(userId: Int) = apiHelper.getUserProfile(userId)
-    suspend fun postBuyerOrder(token: String,requestBuyerOrder: PostOrderRequest) = apiHelper.postBuyerOrder(token, requestBuyerOrder)
+    suspend fun postBuyerOrder(requestBuyerOrder: PostOrderRequest) = apiHelper.postBuyerOrder(requestBuyerOrder)
     suspend fun postProduct(
         name: RequestBody,
         description: RequestBody,

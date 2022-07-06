@@ -45,7 +45,7 @@ class BuyerPenawaranFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val token = getKoin().getProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvckBtYWlsLmNvbSIsImlhdCI6MTY1NzA5ODcyMX0.wdOypkKorWE9UY-EHj01M8kFW_NHNEK3yno3_F3wAis")
+        val token = getKoin().getProperty("access_token", "")
         viewModel.getDetailProduct(productId)
         setUpObserver()
 
@@ -60,9 +60,8 @@ class BuyerPenawaranFragment(
                     productId,
                     hargaTawar.toString().toInt()
                 )
-                viewModel.buyerOrder(token, buyerPenawaran)
+                viewModel.buyerOrder(buyerPenawaran)
                 refreshButton()
-                dismiss()
             }
 
         }
@@ -120,6 +119,7 @@ class BuyerPenawaranFragment(
 
                             Toast.makeText(context, "Penawaran Anda Diterima", Toast.LENGTH_SHORT).show()
                             refreshButton.invoke()
+                            dismiss()
 
                         }
                         400 ->{
@@ -135,7 +135,6 @@ class BuyerPenawaranFragment(
                         }
 
                     }
-                    dismiss()
                 }
                 Status.ERROR -> {
                     binding.progressBar.visibility = View.GONE

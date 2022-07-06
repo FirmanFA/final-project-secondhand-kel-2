@@ -35,11 +35,11 @@ class BuyerPenawaranViewModel(private val repository: Repository): ViewModel() {
     val buyerOrder: LiveData<Resource<Response<PostOrderResponse>>> get() = _buyerOrder
 
 
-    fun buyerOrder(token:String,requestBuyerOrder: PostOrderRequest){
+    fun buyerOrder(requestBuyerOrder: PostOrderRequest){
         viewModelScope.launch {
             _buyerOrder.postValue(Resource.loading())
             try{
-                _buyerOrder.postValue(Resource.success(repository.postBuyerOrder(token, requestBuyerOrder)))
+                _buyerOrder.postValue(Resource.success(repository.postBuyerOrder(requestBuyerOrder)))
             } catch (e:Exception){
                 _buyerOrder.postValue(Resource.error(e.localizedMessage?:"Error occurred"))
             }

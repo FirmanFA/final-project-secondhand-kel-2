@@ -37,11 +37,11 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun getBuyerOrder (token: String){
+    fun getBuyerOrder (){
         viewModelScope.launch {
             _getBuyerOrder.postValue(Resource.loading())
             try{
-                _getBuyerOrder.postValue(Resource.success(repository.getBuyerOrder(token)))
+                _getBuyerOrder.postValue(Resource.success(repository.getBuyerOrder()))
             } catch (e:Exception){
                 _getBuyerOrder.postValue(Resource.error(e.localizedMessage?:"Error occurred"))
             }

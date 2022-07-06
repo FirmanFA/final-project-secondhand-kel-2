@@ -66,13 +66,10 @@ interface ApiService {
 
 
     @GET("buyer/order")
-    suspend fun getBuyerOrder(
-        @Header("access_token") token: String
-    ): List<GetOrderResponse.GetOrderResponseItem>
+    suspend fun getBuyerOrder(): List<GetOrderResponse.GetOrderResponseItem>
 
     @POST("buyer/order")
     suspend fun postBuyerOrder(
-        @Header("access_token") token: String,
         @Body requestBuyerOrder: PostOrderRequest
     ): Response<PostOrderResponse>
 
