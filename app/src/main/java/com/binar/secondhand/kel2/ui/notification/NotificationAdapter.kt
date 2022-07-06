@@ -18,6 +18,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import java.text.DateFormat
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -77,19 +79,28 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
                     .transform(CenterCrop(), RoundedCorners(12))
                     .into(binding.ivProduct)
                 tvTitle.text =  data.product.name
-                tvPrice.text = "Rp ${data.product.basePrice.toString()}"
+                val formatter: NumberFormat = DecimalFormat("#,###")
+                val myNumber = data.product.basePrice
+                val formattedNumber: String = formatter.format(myNumber).toString()
+                tvPrice.text = "Rp ${formattedNumber}"
                 when (data.status) {
                     "create" -> {
                         tvNego.visibility = View.GONE
                         tvStatus.text = "Berhasil diterbitkan"
                     }
                     "accepted" -> {
-                        tvNego.text = "Berhasil ditawar Rp ${data.bidPrice.toString()}"
+                        val formatter: NumberFormat = DecimalFormat("#,###")
+                        val myNumber = data.bidPrice
+                        val formattedNumber: String = formatter.format(myNumber).toString()
+                        tvNego.text = "Berhasil ditawar Rp ${formattedNumber}"
                         tvPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                         tvStatus.text = "Penawaran produk"
                     }
                     else -> {
-                        tvNego.text = "Ditawar Rp ${data.bidPrice.toString()}"
+                        val formatter: NumberFormat = DecimalFormat("#,###")
+                        val myNumber = data.bidPrice
+                        val formattedNumber: String = formatter.format(myNumber).toString()
+                        tvNego.text = "Ditawar Rp ${formattedNumber}"
                         tvStatus.text = "Penawaran produk"
                     }
                 }
