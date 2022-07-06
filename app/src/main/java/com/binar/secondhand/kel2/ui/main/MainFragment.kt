@@ -21,7 +21,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.bottomMainFragment.setOnItemReselectedListener {  }
+        binding.bottomMainFragment.setOnItemReselectedListener {
+            if (activePage == 0){
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.main_fragment_host, HomeFragment())
+                    ?.commit()
+            }
+        }
 
         binding.bottomMainFragment.setOnItemSelectedListener {
             when(it.itemId){
