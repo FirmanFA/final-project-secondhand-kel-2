@@ -1,4 +1,4 @@
-package com.binar.secondhand.kel2.ui.product
+package com.binar.secondhand.kel2.ui.sale.product
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +12,8 @@ import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 
-class ProductSaleListAdapter(private val onClick: (GetProductResponseItem, Int) -> Unit) :
-    ListAdapter<GetProductResponseItem, ProductSaleListAdapter.ViewHolder>(CommunityComparator()) {
-
+class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) -> Unit) :
+    ListAdapter<GetProductResponseItem, SellerProductAdapter.ViewHolder>(CommunityComparator()) {
 
     class ViewHolder(private val binding: ProductSaleListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -98,7 +97,8 @@ class ProductSaleListAdapter(private val onClick: (GetProductResponseItem, Int) 
             "",
             "",
             "",
-            0
+            0,
+            ""
         ))
         data.addAll(listProduct)
         submitList(data)

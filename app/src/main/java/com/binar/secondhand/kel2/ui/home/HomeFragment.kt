@@ -25,20 +25,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         MainFragment.activePage = R.id.main_home
 
-//        getKoin().setProperty(
-//            "access_token",
-//            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsa2VsMkBtYWlsLmNvbSIsImlh" +
-//                    "dCI6MTY1NTgwODc4NX0.uCRi6CtzaaaoMNLLD8C8eYMrwnZx3aZAFgi2_Ey6o1w"
-//        )
-
         setUpSearchBarListener()
         setUpObserver()
 
-//        homeViewModel.getHomeProduct()
         homeViewModel.getHomeBanner()
         homeViewModel.getHomeCategory()
-
-
 
         binding.tabHomeCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -168,13 +159,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun showHomeBanner(data: GetBannerResponse?) {
-        val adapter = HomeBannerAdapter {
-            //onclick item
+        if (data?.size == 0){
+            binding.apply {
+                ivEmpty.visibility = View.VISIBLE
+                tvEmpty.visibility = View.VISIBLE
+                rvHomeProduct.visibility = View.INVISIBLE
+            }
+        }else{
+            binding.apply {
+                ivEmpty.visibility = View.GONE
+                tvEmpty.visibility = View.GONE
+                rvHomeProduct.visibility = View.VISIBLE
+            }
+            val adapter = HomeBannerAdapter {
+                //onclick item
+            }
+
+            adapter.submitList(data)
+
+            binding.vpHomeBanner.adapter = adapter
         }
-
-        adapter.submitList(data)
-
-        binding.vpHomeBanner.adapter = adapter
     }
 
     private fun showHomeProductList(productResponse: GetProductResponse?) {

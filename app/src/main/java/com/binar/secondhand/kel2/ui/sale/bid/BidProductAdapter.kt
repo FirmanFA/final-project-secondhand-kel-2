@@ -1,27 +1,22 @@
-package com.binar.secondhand.kel2.ui.notification
+package com.binar.secondhand.kel2.ui.sale.bid
 
-import android.graphics.Paint
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
-import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.databinding.NotificationContentBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerView.Adapter<BidProductAdapter.ViewHolder>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<GetNotificationResponse.GetNotificationResponseItem>(){
         override fun areItemsTheSame(
@@ -39,12 +34,12 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
 
     fun submitData(value: List<GetNotificationResponse.GetNotificationResponseItem>?) = differ.submitList(value)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BidProductAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ViewHolder(NotificationContentBinding.inflate(inflater, parent,false))
     }
 
-    override fun onBindViewHolder(holder: NotificationAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BidProductAdapter.ViewHolder, position: Int) {
         val data = differ.currentList[position]
         data.let { holder.bind(data) }
     }
@@ -56,7 +51,7 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
         fun bind(data: GetNotificationResponse.GetNotificationResponseItem){
             binding.apply {
                 val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'", Locale.ROOT)
-                val date = format.parse(data.createdAt) as Date
+                val date = format.parse(data.transactionDate) as Date
 
                 val shimmer =
                     Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
@@ -74,25 +69,12 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
                     .load(data.imageUrl)
                     .centerCrop()
                     .placeholder(shimmerDrawable)
-                    .transform(CenterCrop(), RoundedCorners(12))
+                    .transform(CenterCrop(), RoundedCorners(16))
                     .into(binding.ivProduct)
                 tvTitle.text =  data.product.name
-                tvPrice.text = "Rp ${data.product.basePrice.toString()}"
-                when (data.status) {
-                    "create" -> {
-                        tvNego.visibility = View.GONE
-                        tvStatus.text = "Berhasil diterbitkan"
-                    }
-                    "accepted" -> {
-                        tvNego.text = "Berhasil ditawar Rp ${data.bidPrice.toString()}"
-                        tvPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                        tvStatus.text = "Penawaran produk"
-                    }
-                    else -> {
-                        tvNego.text = "Ditawar Rp ${data.bidPrice.toString()}"
-                        tvStatus.text = "Penawaran produk"
-                    }
-                }
+                tvPrice.text = data.product.basePrice.toString()
+                tvNego.text = data.bidPrice.toString()
+                tvStatus.text = data.status
                 tvTime.text = DateFormat.getDateInstance(DateFormat.FULL).format(date)
                 root.setOnClickListener {
                     onItemClick.onClickItem(data)

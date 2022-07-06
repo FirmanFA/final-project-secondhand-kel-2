@@ -1,26 +1,15 @@
 package com.binar.secondhand.kel2.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.databinding.FragmentMainBinding
 import com.binar.secondhand.kel2.ui.account.AccountFragment
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.home.HomeFragment
 import com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductFragment
-import com.binar.secondhand.kel2.ui.login.LoginFragment
 import com.binar.secondhand.kel2.ui.notification.NotificationFragment
-import com.binar.secondhand.kel2.ui.product.ProductSaleListFragment
+import com.binar.secondhand.kel2.ui.sale.main.ProductSaleListFragment
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {

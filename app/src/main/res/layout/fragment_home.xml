@@ -108,6 +108,7 @@
             app:tabRippleColor="@null"
             app:tabIndicator="@null"
             app:tabMode="scrollable"
+            android:clipToPadding="false"
             app:tabSelectedTextColor="@color/white"
             app:tabTextAppearance="@style/home_tab_text_appreance"
             app:tabTextColor="#3C3C3C">
@@ -133,6 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:visibility="gone"
+            android:elevation="3dp"
             app:layout_constraintBottom_toBottomOf="@+id/rv_home_product"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -145,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:layout_marginTop="8dp"
-            android:paddingTop="24dp"
+            android:paddingTop="4dp"
             android:clipToPadding="false"
             android:paddingHorizontal="16dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -156,7 +158,31 @@
             app:spanCount="2"
             tools:listitem="@layout/home_product_list_layout" />
 
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/login"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_home_product"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_home_category"
+            app:layout_constraintVertical_bias="0.0" />
 
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_margin="8sp"
+            android:fontFamily="@font/montserrat_alternates_semibold"
+            android:text="Tidak ada produk"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_empty" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
