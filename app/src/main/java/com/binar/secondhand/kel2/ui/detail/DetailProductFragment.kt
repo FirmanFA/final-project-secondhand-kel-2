@@ -12,6 +12,7 @@ import com.binar.secondhand.kel2.databinding.FragmentDetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.getKoin
 
 
 class DetailProductFragment :
@@ -20,17 +21,20 @@ class DetailProductFragment :
 //    private val binding get() = _binding!!
     private val viewModel: DetailProductViewModel by viewModel()
     private val args: DetailProductFragmentArgs by navArgs()
+    private var isBid = false
 
 
-
+    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val productId = 2
+        val productId = args.productId
 
         setUpObserver()
+        val token = getKoin().getProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvckBtYWlsLmNvbSIsImlhdCI6MTY1NzA5ODcyMX0.wdOypkKorWE9UY-EHj01M8kFW_NHNEK3yno3_F3wAis")
 //
 //        KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
         viewModel.getDetailProduct(productId)
+        viewModel.getBuyerOrder(token)
 
         binding.btnTertarik.setOnClickListener {
             Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
@@ -40,18 +44,30 @@ class DetailProductFragment :
                 .setBackgroundTint(resources.getColor(R.color.Green))
                 .setActionTextColor(resources.getColor(R.color.white))
                 .show()
-            var modal = BuyerPenawaranFragment()
-//            modal.show(this.requireActivity().supportFragmentManager, "show_modal")
+            var modal = BuyerPenawaranFragment(
+                productId!!,
+                refreshButton = { viewModel.getBuyerOrder(token) }
+            )
+            modal.show(parentFragmentManager, "Tag")
+//
 
-//            when(it.context){
-//                modal.dismiss() -> {
-//                    Toast.makeText(this.requireContext(), "dismiss", Toast.LENGTH_SHORT).show()
-//                    binding.btnTertarik.isSelected = !binding.btnTertarik.isSelected
-//                }
-//            }
+        }
+
+        viewModel.getBuyerOrder.observe(viewLifecycleOwner) {
+            for (data in 0 until (it.data?.size ?: 0)) {
+                if (it.data?.get(data)?.productId == productId) {
+                    isBid = true
+                }
+            }
+            if (isBid) {
+                binding.btnTertarik.isEnabled = false
+                binding.btnTertarik.backgroundTintList =
+                    requireContext().getColorStateList(R.color.grey)
+            }
         }
 
     }
+
 
     @SuppressLint("CheckResult")
     private fun setUpObserver() {

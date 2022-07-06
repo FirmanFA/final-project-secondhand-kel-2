@@ -8,6 +8,7 @@ import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterReques
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterResponse
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
@@ -63,8 +64,17 @@ interface ApiService {
     @GET("buyer/product/{user_id}")
     suspend fun getUserProfile(@Path("user_id")userid:Int): Response<UserProduct>
 
+
+    @GET("buyer/order")
+    suspend fun getBuyerOrder(
+        @Header("access_token") token: String
+    ): List<GetOrderResponse.GetOrderResponseItem>
+
     @POST("buyer/order")
-    suspend fun postBuyerOrder(@Body request: PostOrderRequest): Response<PostOrderResponse>
+    suspend fun postBuyerOrder(
+        @Header("access_token") token: String,
+        @Body requestBuyerOrder: PostOrderRequest
+    ): Response<PostOrderResponse>
 
     @Multipart
     @POST("seller/product")

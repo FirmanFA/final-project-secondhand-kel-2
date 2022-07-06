@@ -254,7 +254,7 @@
             android:paddingVertical="8dp"
             android:textSize="14sp"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/product_detail_botttom_bg_color"
+            android:background="@drawable/btn_tertarik"
             android:textColor="#ffffff"
             android:text="@string/saya_tertarik_dan_ingin_nego"
             app:layout_constraintBottom_toBottomOf="parent"
