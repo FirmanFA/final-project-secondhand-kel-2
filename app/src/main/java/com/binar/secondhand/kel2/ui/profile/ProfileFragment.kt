@@ -15,8 +15,11 @@ import com.binar.secondhand.kel2.databinding.FragmentProfileBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.utils.URIPathHelper
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
 import com.github.dhaval2404.imagepicker.ImagePicker
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -161,6 +164,24 @@ class ProfileFragment :
                 Status.LOADING -> {
                     //loading state, misal menampilkan progressbar
                     binding.pbLoading.visibility = View.VISIBLE
+
+                    val shimmer =
+                        Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
+                            .setDuration(1800) // how long the shimmering animation takes to do one full sweep
+                            .setBaseAlpha(0.7f) //the alpha of the underlying children
+                            .setHighlightAlpha(0.6f) // the shimmer alpha amount
+                            .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                            .setAutoStart(true)
+                            .build()
+                    val shimmerDrawable = ShimmerDrawable().apply {
+                        setShimmer(shimmer)
+                    }
+
+                    Glide.with(this)
+                        .load(R.drawable.round_camera)
+                        .placeholder(shimmerDrawable)
+                        .circleCrop()
+                        .into(binding.ivCam)
                 }
 
                 Status.SUCCESS -> {
@@ -169,19 +190,41 @@ class ProfileFragment :
 
                     when(it.data?.code()){
                         200 ->{
+                            val shimmer =
+                                Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
+                                    .setDuration(1800) // how long the shimmering animation takes to do one full sweep
+                                    .setBaseAlpha(0.7f) //the alpha of the underlying children
+                                    .setHighlightAlpha(0.6f) // the shimmer alpha amount
+                                    .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                                    .setAutoStart(true)
+                                    .build()
+                            val shimmerDrawable = ShimmerDrawable().apply {
+                                setShimmer(shimmer)
+                            }
+
                             if (it.data.body()?.imageUrl == null){
                                 if (imageUri == null){
+//                                    Glide.with(requireContext())
+//                                        .load(it.data.body()?.imageUrl)
+//                                        .placeholder(shimmerDrawable)
+//                                        .transform(CenterCrop(), RoundedCorners(12))
+//                                        .error(R.drawable.rectangle_camera)
+//                                        .into(binding.ivCam)
                                     Glide.with(this)
-                                        .load(R.drawable.rectangle_camera)
+                                        .load(R.drawable.round_camera)
+                                        .placeholder(shimmerDrawable)
                                         .circleCrop()
                                         .into(binding.ivCam)
                                 }
                             }else{
                                 Glide.with(this)
                                     .load(it.data.body()?.imageUrl)
-                                    .centerCrop()
+                                    .placeholder(shimmerDrawable)
                                     .circleCrop()
                                     .into(binding.ivCam)
+//                                Glide.with(this)
+//                                    .load(it.data.body()?.imageUrl)
+//                                    .into(binding.ivCam)
                             }
                             binding.etName.editText?.setText(it.data.body()?.fullName)
                             binding.etCity.editText?.setText(it.data.body()?.city)
@@ -202,7 +245,7 @@ class ProfileFragment :
 
     private fun openImagePicker() {
         ImagePicker.with(this)
-            .crop()
+            .crop(1f, 1f)
             .saveDir(
                 File(
                     requireContext().externalCacheDir,
@@ -223,8 +266,6 @@ class ProfileFragment :
         uri?.let {
             Glide.with(this)
                 .load(it)
-                .centerCrop()
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(16)))
                 .into(binding.ivCam)
         }
     }
