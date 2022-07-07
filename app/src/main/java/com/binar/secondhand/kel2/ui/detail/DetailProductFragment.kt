@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
+import com.binar.secondhand.kel2.databinding.DetailProductBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.binar.secondhand.kel2.databinding.FragmentDetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
@@ -17,7 +19,7 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 
 class DetailProductFragment :
-    BaseFragment<FragmentDetailProductBinding>(FragmentDetailProductBinding::inflate) {
+    BaseFragment<DetailProductBinding>(DetailProductBinding::inflate) {
 //    private var _binding: FragmentDetailProductBinding? = null
 //    private val binding get() = _binding!!
     private val viewModel: DetailProductViewModel by viewModel()
@@ -38,6 +40,10 @@ class DetailProductFragment :
 //        KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
         viewModel.getDetailProduct(productId)
         viewModel.getBuyerOrder()
+
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.btnTertarik.setOnClickListener {
             Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
