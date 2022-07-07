@@ -13,6 +13,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import java.text.DateFormat
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -64,6 +66,11 @@ class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerVie
                 val shimmerDrawable = ShimmerDrawable().apply {
                     setShimmer(shimmer)
                 }
+                val formatter: NumberFormat = DecimalFormat("#,###")
+                val myNumber = data.product.basePrice
+                val myNumber2 = data.bidPrice
+                val formattedNumber: String = formatter.format(myNumber).toString()
+                val formattedNumber2: String = formatter.format(myNumber2).toString()
 
                 Glide.with(binding.root)
                     .load(data.imageUrl)
@@ -72,8 +79,8 @@ class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerVie
                     .transform(CenterCrop(), RoundedCorners(16))
                     .into(binding.ivProduct)
                 tvTitle.text =  data.product.name
-                tvPrice.text = data.product.basePrice.toString()
-                tvNego.text = data.bidPrice.toString()
+                tvPrice.text = "Rp $formattedNumber"
+                tvNego.text = "Rp $formattedNumber2"
                 tvStatus.text = data.status
                 tvTime.text = DateFormat.getDateInstance(DateFormat.FULL).format(date)
                 root.setOnClickListener {
