@@ -1,11 +1,10 @@
-package com.binar.secondhand.kel2.ui.search
+package com.binar.secondhand.kel2.ui.search.result
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponseItem
 import com.binar.secondhand.kel2.databinding.HomeProductListLayoutBinding
 import com.bumptech.glide.Glide
