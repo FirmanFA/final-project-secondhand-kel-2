@@ -3,10 +3,14 @@ package com.binar.secondhand.kel2.ui.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.Selection
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import com.binar.secondhand.kel2.R
@@ -20,6 +24,8 @@ import org.koin.android.ext.android.getKoin
 import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.java.KoinJavaComponent
+import java.lang.ref.WeakReference
+import java.text.DecimalFormat
 
 
 class BuyerPenawaranFragment(
@@ -31,6 +37,8 @@ class BuyerPenawaranFragment(
     private val binding get() = _binding!!
     private val productId = productId
     private val viewModel: BuyerPenawaranViewModel by viewModel()
+    lateinit var etMoney: EditText
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +57,24 @@ class BuyerPenawaranFragment(
         viewModel.getDetailProduct(productId)
         setUpObserver()
 
+        etMoney = binding.etHargaTawar
+
+        //delimiter
+        etMoney.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (!s.toString().startsWith("Rp. ")) {
+                    etMoney.setMaskingMoney("Rp. ")
+                    Selection.setSelection(etMoney.text, etMoney.text!!.length)
+                }
+
+            }
+        })
 
         binding.btnKirim.setOnClickListener{
             if (binding.etHargaTawar.text.isNullOrEmpty()) {
@@ -158,10 +184,32 @@ class BuyerPenawaranFragment(
         }
     }
 
-    override fun dismiss() {
-        super.dismiss()
 
+    fun EditText.setMaskingMoney(currencyText: String) {
+//        set delimiter
+        this.addTextChangedListener(object: MyTextWatcher{
+            val editTextWeakReference: WeakReference<EditText> = WeakReference<EditText>(this@setMaskingMoney)
+            override fun afterTextChanged(editable: Editable?) {
+                val editText = editTextWeakReference.get() ?: return
+                val s = editable.toString()
+                editText.removeTextChangedListener(this)
+                val cleanString = s.replace("[Rp,. ]".toRegex(), "")
+                val newval = currencyText + cleanString.monetize()
+
+                editText.setText(newval)
+                editText.setSelection(newval.length)
+                editText.addTextChangedListener(this)
+            }
+        })
     }
+
+    interface MyTextWatcher: TextWatcher {
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+    }
+
+    fun String.monetize(): String = if (this.isEmpty()) "0"
+    else DecimalFormat("#,###").format(this.replace("[^\\d]".toRegex(),"").toLong())
 
 
 }
