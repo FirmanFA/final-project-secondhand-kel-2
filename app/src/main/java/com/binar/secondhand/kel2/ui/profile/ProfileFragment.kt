@@ -217,7 +217,7 @@ class ProfileFragment :
                                         .into(binding.ivCam)
                                 }
                             }else{
-                                Glide.with(this)
+                                Glide.with(requireContext())
                                     .load(it.data.body()?.imageUrl)
                                     .placeholder(shimmerDrawable)
                                     .circleCrop()
