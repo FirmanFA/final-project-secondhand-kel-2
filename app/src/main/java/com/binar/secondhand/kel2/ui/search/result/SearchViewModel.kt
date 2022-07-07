@@ -1,4 +1,4 @@
-package com.binar.secondhand.kel2.ui.search
+package com.binar.secondhand.kel2.ui.search.result
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
