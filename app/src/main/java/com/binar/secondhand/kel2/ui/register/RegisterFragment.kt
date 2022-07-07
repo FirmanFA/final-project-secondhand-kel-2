@@ -1,5 +1,6 @@
 package com.binar.secondhand.kel2.ui.register
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -47,6 +48,18 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 registerViewModel.postRegister(registerPostRequest)
             }
         }
+
+        binding.tvPrivacyPolicy.setOnClickListener {
+            directToUri()
+        }
+
+    }
+
+    private fun directToUri() {
+            val i = Intent(
+                Intent.ACTION_VIEW, Uri.parse("https://www.privacypolicies.com/live/087ce8d0-b996-4de8-b969-16b4e50fb014")
+            )
+            startActivity(i)
     }
 
     private fun setUpObserver() {

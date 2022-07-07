@@ -225,7 +225,7 @@
             android:layout_height="56dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/button_background"
             android:text="Sign Up"
             android:textAllCaps="false"
@@ -275,5 +275,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sudah_memiliki_akun"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Dengan mendaftar, Anda menyetujui"/>
+
+                <TextView
+                    android:id="@+id/tv_privacy_policy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kebijakan Privasi"
+                    android:textColor="#193C8D"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_alternates_semibold"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sudah_memiliki_akun" />
+
+        </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
