@@ -16,4 +16,6 @@ val repositoryModule = module {
     singleOf(::HomeRepository)
 
     singleOf(::ProductSaleListRepository)
+
+    singleOf(::SearchHistoryRepository)
 }

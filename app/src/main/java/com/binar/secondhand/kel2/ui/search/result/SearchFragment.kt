@@ -1,9 +1,11 @@
-package com.binar.secondhand.kel2.ui.search
+package com.binar.secondhand.kel2.ui.search.result
 
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentSearchBinding
@@ -15,18 +17,23 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
 
     private val searchViewModel by viewModel<SearchViewModel>()
+    private val args: SearchFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchViewModel.getProduct(searchKeyword = "baju")
 
         setUpSearchBarListener()
         setUpObserver()
+        searchViewModel.getProduct(searchKeyword = args.querySearch)
     }
 
     private fun setUpObserver() {
         searchViewModel.searchResponse.observe(viewLifecycleOwner){
             when (it.status) {
+                Status.LOADING ->{
+
+                }
+
                 Status.SUCCESS -> {
                     when (it.data?.code()) {
                         200 -> {
@@ -47,6 +54,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun showProductList(productResponse: GetProductResponse?) {
+        binding.tvSearchResult.text = "Hasil pencarian untuk ${args.querySearch}," +
+                " ${productResponse?.size?:0} ditemukan"
         val adapter = SearchAdapter {
             //onclick item
             val action = MainFragmentDirections.actionMainFragmentToDetailProductFragment(it.id)
@@ -59,23 +68,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun setUpSearchBarListener() {
-        binding.etSearch.setEndIconOnClickListener {
-            //do search
-            searchProduct(binding.etSearch.editText?.text.toString())
-        }
-
-        binding.etSearch.editText?.setOnEditorActionListener { _, i, _ ->
-
-            if (i == EditorInfo.IME_ACTION_SEARCH) {
-                //do something with search
-                searchProduct(binding.etSearch.editText?.text.toString())
+        binding.etSearch.editText?.setOnFocusChangeListener { view, b ->
+            if (b){
+                searchProduct()
             }
-
-            true
         }
     }
 
-    private fun searchProduct(query: String) {
-        //TODO
+    private fun searchProduct() {
+        findNavController().navigate(R.id.action_searchFragment_to_searchPageFragment)
     }
 }
