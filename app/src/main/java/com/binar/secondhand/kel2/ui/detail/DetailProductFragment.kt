@@ -13,7 +13,8 @@ import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.getKoin
-
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class DetailProductFragment :
     BaseFragment<FragmentDetailProductBinding>(FragmentDetailProductBinding::inflate) {
@@ -24,10 +25,12 @@ class DetailProductFragment :
     private var isBid = false
 
 
+
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val productId = args.productId
+        val price = binding.tvPrice
 
         setUpObserver()
         val token = getKoin().getProperty("access_token", "")
@@ -100,9 +103,14 @@ class DetailProductFragment :
                         tvCategory.text = it.data?.body()?.categories?.joinToString(){
                             it.name
                         }
-
                         tvTitle.text = it.data?.body()?.name
                         tvPrice.text = it.data?.body()?.basePrice.toString()
+                        val price = tvPrice.text.toString().replace("Rp. ", "").replace(".", "")
+
+                        tvPrice.text = "Rp. $price"
+
+
+
                         tvDesc.text = it.data?.body()?.description.toString()
 
                         tvName.text = it.data?.body()?.user?.fullName.toString()
