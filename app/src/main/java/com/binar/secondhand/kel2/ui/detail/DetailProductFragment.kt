@@ -81,12 +81,17 @@ class DetailProductFragment :
     @SuppressLint("CheckResult")
     private fun setUpObserver() {
         viewModel.detailProduct.observe(viewLifecycleOwner) {
+            val price = it.data?.body()?.basePrice.toString()
             when (it.status) {
                 Status.LOADING -> {
                     //loading state, misal menampilkan progressbar
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
+                    val formatter: NumberFormat = DecimalFormat("#,###")
+                    val myNumber = price.toInt()
+                    val formattedNumber: String = formatter.format(myNumber).toString()
+                    //formattedNumber is equal to 1,000,000
 
                     binding.progressBar.visibility = View.GONE
                     //sukses mendapat response, progressbar disembunyikan lagi
@@ -96,15 +101,12 @@ class DetailProductFragment :
                         .into(binding.ivBackdrop)
 
                     binding.apply {
-//                        val category = arrayListOf<String>()
-//                        it.data?.body()?.categories?.forEach { categories ->
-//                            category.add(categories.name)
-//                        }
+
                         tvCategory.text = it.data?.body()?.categories?.joinToString(){
                             it.name
                         }
                         tvTitle.text = it.data?.body()?.name
-                        tvPrice.text = it.data?.body()?.basePrice.toString()
+                        binding.tvPrice.text = "Rp. $formattedNumber"
                         val price = tvPrice.text.toString().replace("Rp. ", "").replace(".", "")
 
                         tvPrice.text = "Rp. $price"
