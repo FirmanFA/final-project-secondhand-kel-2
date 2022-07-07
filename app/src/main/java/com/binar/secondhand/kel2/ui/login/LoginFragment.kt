@@ -88,7 +88,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                         }
 
                         401 -> {
-                            showSnackbar("Email or Password Are Wrong")
+                            showSnackbarWithAction("Email or Password Are Wrong", "Oke") {
+                                // Do nothing
+                            }
                         }
 
                         500 -> {
