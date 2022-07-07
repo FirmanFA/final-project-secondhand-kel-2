@@ -68,20 +68,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun setUpSearchBarListener() {
-//        binding.etSearch.setEndIconOnClickListener {
-//            //do search
-//            searchProduct(binding.etSearch.editText?.text.toString())
-//        }
-//
-//        binding.etSearch.editText?.setOnEditorActionListener { _, i, _ ->
-//
-//            if (i == EditorInfo.IME_ACTION_SEARCH) {
-//                //do something with search
-//                searchProduct(binding.etSearch.editText?.text.toString())
-//            }
-//
-//            true
-//        }
         binding.etSearch.editText?.setOnFocusChangeListener { view, b ->
             if (b){
                 searchProduct()
