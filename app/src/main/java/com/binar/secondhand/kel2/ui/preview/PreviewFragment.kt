@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.navigation.fragment.navArgs
+import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentPreviewBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
@@ -12,6 +13,8 @@ import com.binar.secondhand.kel2.utils.URIPathHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -73,11 +76,30 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
         previewViewModel.terbit.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Toast.makeText(requireContext(), "Terbitan berhasil", Toast.LENGTH_SHORT).show()
-                    requireActivity().onBackPressed()
+                    Snackbar.make(binding.snackbar, "Produk Berhasil Terbit", Snackbar.LENGTH_LONG)
+                        .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>(){
+                            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                                super.onDismissed(transientBottomBar, event)
+                                requireActivity().onBackPressed()
+                            }
+                        })
+                        .setAction("x") {
+                            // Responds to click on the action
+                            requireActivity().onBackPressed()
+                        }
+                        .setBackgroundTint(resources.getColor(R.color.Green))
+                        .setActionTextColor(resources.getColor(R.color.white))
+                        .show()
+
                 }
                 Status.ERROR -> {
-                    Toast.makeText(requireContext(), "Terbitan gagal", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(binding.snackbar, "Produk Gagal Terbit", Snackbar.LENGTH_LONG)
+                        .setAction("x") {
+                            // Responds to click on the action
+                        }
+                        .setBackgroundTint(resources.getColor(R.color.Green))
+                        .setActionTextColor(resources.getColor(R.color.white))
+                        .show()
                 }
                 Status.LOADING -> {
                 }
