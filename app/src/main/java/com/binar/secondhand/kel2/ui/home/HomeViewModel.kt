@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
@@ -82,5 +83,21 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
             }
         }
     }
+
+    private val _authGetResponse = MutableLiveData<Resource<Response<GetAuthResponse>>>()
+    val authGetResponse: LiveData<Resource<Response<GetAuthResponse>>> get() = _authGetResponse
+
+    fun getAuth() {
+        viewModelScope.launch {
+            _authGetResponse.postValue(Resource.loading())
+            try {
+                val dataAuth = Resource.success(repository.getAuth())
+                _authGetResponse.postValue(dataAuth)
+            } catch (exp: Exception) {
+                _authGetResponse.postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
+            }
+        }
+    }
+
 
 }

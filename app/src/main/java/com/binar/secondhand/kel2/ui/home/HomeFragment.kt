@@ -3,6 +3,7 @@ package com.binar.secondhand.kel2.ui.home
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,11 @@ import com.binar.secondhand.kel2.databinding.FragmentHomeBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
 import com.google.android.material.tabs.TabLayout
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,6 +36,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         setUpSearchBarListener()
         setUpObserver()
+
+        val token = getKoin().getProperty("access_token","")
+
+        if (token.isNotEmpty()){
+            homeViewModel.getAuth()
+            binding.tvUserName.setOnClickListener {
+                it.findNavController().navigate(R.id.action_mainFragment_to_profileFragment2)
+            }
+            binding.ivProfilePhoto.setOnClickListener {
+                it.findNavController().navigate(R.id.action_mainFragment_to_profileFragment2)
+            }
+        }else{
+            binding.tvUserName.text = "Click to login"
+            binding.tvUserName.setOnClickListener {
+                it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+            }
+        }
 
         homeViewModel.getHomeBanner()
         homeViewModel.getHomeCategory()
@@ -160,6 +183,38 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 Status.ERROR -> {
                     binding.pbHomeProduct.visibility = View.GONE
                     showSnackbar("${it.message}")
+                }
+            }
+        }
+        homeViewModel.authGetResponse.observe(viewLifecycleOwner) {
+            when (it.status) {
+
+                Status.LOADING -> {
+                }
+
+                Status.SUCCESS -> {
+
+                    when (it.data?.code()) {
+                        200 -> {
+                            Glide.with(requireContext())
+                                .load(it.data.body()?.imageUrl)
+                                .circleCrop()
+                                .placeholder(R.drawable.round_camera)
+                                .error(R.drawable.round_camera)
+                                .into(binding.ivProfilePhoto)
+
+                            binding.tvUserName.text = it.data.body()?.fullName
+                        }
+                    }
+                }
+
+                Status.ERROR -> {
+                    val error = it.message
+                    Toast.makeText(
+                        requireContext(),
+                        "Error get Data : $error",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
