@@ -4,6 +4,7 @@ import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.Selection
 import android.text.TextWatcher
 import android.util.Log
@@ -27,6 +28,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -225,14 +228,31 @@ class SellerDetailProductFragment :
                 Status.SUCCESS -> {
                     when(it.data?.code()){
                         201 -> {
-                            Toast.makeText(requireContext(), "Berhasil terbit", Toast.LENGTH_SHORT).show()
-//                            findNavController().navigate(R.id.action_sellerDetailProductFragment_to_sellerFragment)
+                            Snackbar.make(binding.snackbar, "Produk Berhasil Terbit", Snackbar.LENGTH_LONG)
+                                .setAction("x") {
+                                    // Responds to click on the action
+                                }
+                                .setBackgroundTint(resources.getColor(R.color.Green))
+                                .setActionTextColor(resources.getColor(R.color.white))
+                                .show()
                         }
                         503 -> {
-                            Toast.makeText(requireContext(), "Server Down", Toast.LENGTH_SHORT).show()
+                            Snackbar.make(binding.snackbar, "Server sedang mengalami gangguan, harap coba lagi nanti.", Snackbar.LENGTH_LONG)
+                                .setAction("x") {
+                                    // Responds to click on the action
+                                }
+                                .setBackgroundTint(resources.getColor(R.color.Green))
+                                .setActionTextColor(resources.getColor(R.color.white))
+                                .show()
                         }
                         else -> {
-                            Toast.makeText(requireContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            Snackbar.make(binding.snackbar, "Terjadi kesalahan", Snackbar.LENGTH_LONG)
+                                .setAction("x") {
+                                    // Responds to click on the action
+                                }
+                                .setBackgroundTint(resources.getColor(R.color.Green))
+                                .setActionTextColor(resources.getColor(R.color.white))
+                                .show()
                         }
                     }
                 }
