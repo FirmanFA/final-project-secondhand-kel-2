@@ -4,17 +4,17 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.DetailProductBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.binar.secondhand.kel2.databinding.FragmentDetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.getKoin
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
@@ -32,12 +32,12 @@ class DetailProductFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val productId = args.productId
-        val price = binding.tvPrice
+        binding.tvPrice
 
         setUpObserver()
-        val token = getKoin().getProperty("access_token", "")
-//
-//        KoinJavaComponent.getKoin().setProperty("access_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzMyMzJ9.HEJjV4U4jjbzzEM8Di5Nuzj9qQqFXkWn4-aW3l5URa0")
+        getKoin().getProperty("access_token", "")
+
+
         viewModel.getDetailProduct(productId)
         viewModel.getBuyerOrder()
 
@@ -47,12 +47,12 @@ class DetailProductFragment :
 
         binding.btnTertarik.setOnClickListener {
 
-            var modal = BuyerPenawaranFragment(
-                productId!!,
+            val modal = BuyerPenawaranFragment(
+                productId,
                 refreshButton = { viewModel.getBuyerOrder() }
             )
             modal.show(parentFragmentManager, "Tag")
-//
+
 
         }
 
@@ -67,8 +67,8 @@ class DetailProductFragment :
                     .setAction("x") {
                         // Responds to click on the action
                     }
-                    .setBackgroundTint(resources.getColor(R.color.Green))
-                    .setActionTextColor(resources.getColor(R.color.white))
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.Green))
+                    .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                     .show()
                 binding.btnTertarik.isEnabled = false
                 binding.btnTertarik.text = "Menunggu Respon Penjual"
@@ -85,13 +85,15 @@ class DetailProductFragment :
     }
 
 
-    @SuppressLint("CheckResult")
+    @SuppressLint("CheckResult", "SetTextI18n")
     private fun setUpObserver() {
-        viewModel.detailProduct.observe(viewLifecycleOwner) {
+        viewModel.detailProduct.observe(viewLifecycleOwner) { it ->
             val price = it.data?.body()?.basePrice.toString()
             when (it.status) {
                 Status.LOADING -> {
-                    //loading state, misal menampilkan progressbar
+                    binding.coordinator1.visibility = View.GONE
+                    binding.coordinator2.visibility = View.GONE
+                    binding.coordinator3.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
@@ -100,6 +102,9 @@ class DetailProductFragment :
                     val formattedNumber: String = formatter.format(myNumber).toString()
                     //formattedNumber is equal to 1,000,000
 
+                    binding.coordinator1.visibility = View.VISIBLE
+                    binding.coordinator2.visibility = View.VISIBLE
+                    binding.coordinator3.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
                     //sukses mendapat response, progressbar disembunyikan lagi
                     Glide.with(binding.ivBackdrop)
@@ -109,7 +114,7 @@ class DetailProductFragment :
 
                     binding.apply {
 
-                        tvCategory.text = it.data?.body()?.categories?.joinToString(){
+                        tvCategory.text = it.data?.body()?.categories?.joinToString {
                             it.name
                         }
                         tvTitle.text = it.data?.body()?.name
@@ -169,4 +174,6 @@ class DetailProductFragment :
             }
         }
     }
+
+
 }

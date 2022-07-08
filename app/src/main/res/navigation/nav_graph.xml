@@ -95,10 +95,13 @@
         <action
             android:id="@+id/action_detailProductFragment_to_buyerPenawaranFragment"
             app:destination="@id/buyerPenawaranFragment" />
+        <action
+            android:id="@+id/action_detailProductFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/buyerPenawaranFragment"
-        android:name="com.binar.secondhand.kel2.ui.detail.BuyerPenawaran"
+        android:name="com.binar.secondhand.kel2.ui.detail.BuyerPenawaranFragment"
         android:label="fragment_buyer_penawaran"
         tools:layout="@layout/fragment_buyer_penawaran" />
     <fragment
