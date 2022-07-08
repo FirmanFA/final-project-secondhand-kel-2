@@ -17,4 +17,6 @@ class HomeRepository(private val apiHelper: ApiHelper) {
     )
 
     suspend fun getCategory() = apiHelper.getCategory()
+
+    suspend fun getAuth() = apiHelper.getAuth()
 }
