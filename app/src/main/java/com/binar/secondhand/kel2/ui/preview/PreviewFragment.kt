@@ -70,8 +70,8 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
     }
 
     private fun terbit() {
-        previewViewModel.terbit.observe(viewLifecycleOwner, {
-            when(it.status){
+        previewViewModel.terbit.observe(viewLifecycleOwner) {
+            when (it.status) {
                 Status.SUCCESS -> {
                     Toast.makeText(requireContext(), "Terbitan berhasil", Toast.LENGTH_SHORT).show()
                     requireActivity().onBackPressed()
@@ -82,7 +82,7 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
                 Status.LOADING -> {
                 }
             }
-        })
+        }
     }
 
     private fun profileAuth() {

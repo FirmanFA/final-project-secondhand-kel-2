@@ -3,25 +3,23 @@ package com.binar.secondhand.kel2.ui.lengkapi
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.Selection
+import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
-import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentSellerDetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
-import com.binar.secondhand.kel2.ui.home.HomeFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.binar.secondhand.kel2.utils.URIPathHelper
@@ -36,6 +34,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
+import java.lang.ref.WeakReference
+import java.text.DecimalFormat
 
 
 class SellerDetailProductFragment :
@@ -67,6 +67,27 @@ class SellerDetailProductFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        lateinit var etMoney: EditText
+
+        etMoney = binding.etPrice.editText!!
+
+        //delimiter
+        etMoney.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (!s.toString().startsWith("Rp. ")) {
+                    etMoney.setMaskingMoney("Rp. ")
+                    Selection.setSelection(etMoney.text, etMoney.text!!.length)
+                }
+
+            }
+        })
 
         getActivity()?.getWindow()?.setSoftInputMode(WindowManager.LayoutParams. SOFT_INPUT_ADJUST_NOTHING)
 
@@ -120,7 +141,7 @@ class SellerDetailProductFragment :
             }else{
                 val actionToPreviewFragment = MainFragmentDirections.actionMainFragmentToPreviewFragment(
                     name = binding.etName.editText?.text.toString(),
-                    price = binding.etPrice.editText?.text.toString(),
+                    price = binding.etPrice.editText?.text.toString().replace("Rp. ", "").replace(",", ""),
                     location = binding.etCity.editText?.text.toString(),
                     description = binding.etDescription.editText?.text.toString(),
                     image = imageUri.toString(),
@@ -133,7 +154,7 @@ class SellerDetailProductFragment :
         binding.btnTerbit.setOnClickListener {
             binding.apply {
                 val name = etName.editText?.text.toString()
-                val price = etPrice.editText?.text.toString()
+                val price = etPrice.editText?.text.toString().replace("Rp. ", "").replace(",", "")
                 val city = etCity.editText?.text.toString()
                 val category = etCategory.editText?.text.toString()
                 val description = etDescription.editText?.text.toString()
@@ -221,4 +242,29 @@ class SellerDetailProductFragment :
             }
         }
     }
+    fun EditText.setMaskingMoney(currencyText: String) {
+//        set delimiter
+        this.addTextChangedListener(object: MyTextWatcher{
+            val editTextWeakReference: WeakReference<EditText> = WeakReference<EditText>(this@setMaskingMoney)
+            override fun afterTextChanged(editable: Editable?) {
+                val editText = editTextWeakReference.get() ?: return
+                val s = editable.toString()
+                editText.removeTextChangedListener(this)
+                val cleanString = s.replace("[Rp,. ]".toRegex(), "")
+                val newval = currencyText + cleanString.monetize()
+
+                editText.setText(newval)
+                editText.setSelection(newval.length)
+                editText.addTextChangedListener(this)
+            }
+        })
+    }
+
+    interface MyTextWatcher: TextWatcher {
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+    }
+
+    fun String.monetize(): String = if (this.isEmpty()) "0"
+    else DecimalFormat("#,###").format(this.replace("[^\\d]".toRegex(),"").toLong())
 }
