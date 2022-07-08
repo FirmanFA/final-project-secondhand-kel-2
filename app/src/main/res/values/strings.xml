@@ -128,5 +128,7 @@
     <string name="masukan_harga_tawarmu">Masukan Harga Tawarmu</string>
     <string name="kirim">Kirim</string>
     <string name="seller_name">Seller Name</string>
+    <string name="silahkan_login_untuk_melanjutkan_penawaran">Silahkan login untuk melanjutkan penawaran</string>
+    <string name="login">Login</string>
 
 </resources>

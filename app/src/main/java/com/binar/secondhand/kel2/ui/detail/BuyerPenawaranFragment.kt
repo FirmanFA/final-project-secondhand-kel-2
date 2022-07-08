@@ -9,21 +9,18 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBuyerPenawaranBinding
-import com.binar.secondhand.kel2.databinding.FragmentDetailProductBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.ext.android.getKoin
-import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.java.KoinJavaComponent
 import java.lang.ref.WeakReference
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -50,17 +47,30 @@ class BuyerPenawaranFragment(
     }
 
 
-    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val token = getKoin().getProperty("access_token", "")
-        viewModel.getDetailProduct(productId)
-        setUpObserver()
+        var token = getKoin().getProperty("access_token", "")
+        if (token == "") {
 
-        etMoney = binding.etHargaTawar
+            binding.dialogLogin.visibility = View.VISIBLE
+            binding.dialogBottom.visibility = View.GONE
+            binding.btnLogin.setOnClickListener {
+                findNavController().navigate(R.id.action_detailProductFragment_to_loginFragment)
+                dismiss()
+            }
+
+        } else {
+            binding.dialogLogin.visibility = View.GONE
+            binding.dialogBottom.visibility = View.VISIBLE
+            viewModel.getDetailProduct(productId)
+            setUpObserver()
+        }
+
+
 
         //delimiter
+        etMoney = binding.etHargaTawar
         etMoney.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
@@ -82,11 +92,11 @@ class BuyerPenawaranFragment(
                 binding.textField.error = "Input tawar harga tidak boleh kosong"
 
             }else {
-                val hargaTawar = binding.etHargaTawar.text
+                binding.etHargaTawar.text
                 val harga = etMoney.text.toString().replace("Rp. ", "").replace(",", "")
                 val buyerPenawaran = PostOrderRequest(
                     productId,
-                    harga.toString().toInt()
+                    harga.toInt()
                 )
                 viewModel.buyerOrder(buyerPenawaran)
                 refreshButton()
@@ -96,6 +106,7 @@ class BuyerPenawaranFragment(
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setUpObserver() {
         viewModel.detailProduct.observe(viewLifecycleOwner){
             val price = it.data?.body()?.basePrice.toString()
@@ -124,13 +135,13 @@ class BuyerPenawaranFragment(
                         }
                         tvName.text = it.data?.body()?.name
                         tvPrice.text = "Rp. $formattedNumber"
-                        val price = tvPrice.text.toString().replace("Rp. ", "").replace(".", "")
+                        tvPrice.text.toString().replace("Rp. ", "").replace(".", "")
                     }
                 }
                 Status.ERROR ->{
                     binding.progressBar.visibility = View.GONE
                     val error = it.message
-                    Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -145,12 +156,12 @@ class BuyerPenawaranFragment(
                     binding.progressBar.visibility = View.GONE
                     when (it.data?.code()){
                         201 -> {
-                            val id = it.data?.body()?.id
-                            val buyerId = it.data?.body()?.buyerId
-                            val productId = it.data?.body()?.productId
-                            val status = it.data?.body()?.status
-                            val createdAt = it.data?.body()?.createdAt
-                            val updatedAt = it.data?.body()?.updatedAt
+                            it.data.body()?.id
+                            it.data.body()?.buyerId
+                            it.data.body()?.productId
+                            it.data.body()?.status
+                            it.data.body()?.createdAt
+                            it.data.body()?.updatedAt
 //                            etMoney.text.clear()
 
 
@@ -178,16 +189,16 @@ class BuyerPenawaranFragment(
                     when (it.data?.code()){
                         500 ->{
                             val error = it.message
-                            Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT).show()
                         }
                         503 ->{
                             val error = it.message
-                            Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT).show()
                         }
 
                         else ->{
                             val error = it.message
-                            Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
