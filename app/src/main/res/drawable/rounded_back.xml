@@ -5,7 +5,7 @@
     tools:ignore="MissingDefaultResource">
 
     <solid
-        android:color="@color/white"
+        android:color="@color/primary_blue"
         />
     <corners
         android:topRightRadius="250dp"

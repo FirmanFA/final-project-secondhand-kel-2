@@ -1,71 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.detail.DetailProductFragment"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true"
-    android:id="@+id/detail_product"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/primary_blue"
+    android:id="@+id/detail_product">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@drawable/detail_and_preview_background"
+
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints">
+
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:layout_height="280dp"
             android:fitsSystemWindows="true"
-            tools:src="@tools:sample/backgrounds/scenic">
+            tools:src="@tools:sample/backgrounds/scenic"
+            android:background="@color/white">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:contentScrim="@color/primary_blue"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                android:background="@color/white"
+
+                android:id="@+id/Colapsetoolbar">
 
                 <ImageView
                     android:id="@+id/ivBackdrop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:fitsSystemWindows="true"
-                    app:layout_collapseMode="parallax"
-                    tools:ignore="ContentDescription"
-                    tools:src="@tools:sample/backgrounds/scenic" />
+                    android:scaleType="centerCrop"
+                    tools:src="@tools:sample/backgrounds/scenic"
+                    android:layout_gravity="center|end"
+                    app:layout_collapseMode="parallax"/>
 
-                <ImageView
-                    android:id="@+id/ivBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/rounded_back"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_back" />
+
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"/>
+
+
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:behavior_overlapTop="70dp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:id="@+id/content"
+                android:layout_height="match_parent">
+
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="200dp"-->
+<!--                    android:background="@drawable/detail_and_preview_background"-->
+<!--                    android:layout_marginTop="70dp"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/content" />-->
                 <ProgressBar
                     android:id="@+id/progressBar"
                     app:layout_constraintTop_toTopOf="parent"
@@ -84,6 +94,7 @@
 
 
                 <androidx.cardview.widget.CardView
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="16dp"
@@ -135,6 +146,8 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
+
+
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -230,10 +243,31 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/rounded_back"
+            android:padding="8dp"
+            android:src="@drawable/ic_back" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/snackbar"
         android:layout_width="match_parent"
@@ -244,7 +278,9 @@
         android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bar"
         android:layout_width="match_parent"
@@ -253,6 +289,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints">
+
 
         <Button
             android:id="@+id/btn_tertarik"
@@ -274,6 +311,8 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

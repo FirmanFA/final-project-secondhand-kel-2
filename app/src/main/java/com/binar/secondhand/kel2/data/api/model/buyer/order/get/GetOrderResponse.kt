@@ -5,49 +5,57 @@ import com.google.gson.annotations.SerializedName
 
 class GetOrderResponse : ArrayList<GetOrderResponse.GetOrderResponseItem>(){
     data class GetOrderResponseItem(
-        @SerializedName("id")
-        val id: Int,
-        @SerializedName("product_id")
-        val productId: Int,
+        @SerializedName("base_price")
+        val basePrice: Any,
         @SerializedName("buyer_id")
         val buyerId: Int,
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("image_url")
+        val imageUrl: Any,
         @SerializedName("price")
         val price: Int,
-        @SerializedName("status")
-        val status: String,
         @SerializedName("Product")
         val product: Product,
+        @SerializedName("product_id")
+        val productId: Int,
+        @SerializedName("product_name")
+        val productName: Any,
+        @SerializedName("status")
+        val status: String,
         @SerializedName("User")
         val user: User
     ) {
         data class Product(
-            @SerializedName("name")
-            val name: String,
-            @SerializedName("description")
-            val description: Any?,
             @SerializedName("base_price")
             val basePrice: Int,
-            @SerializedName("image_url")
-            val imageUrl: Any?,
+            @SerializedName("description")
+            val description: String,
             @SerializedName("image_name")
-            val imageName: Any?,
+            val imageName: String,
+            @SerializedName("image_url")
+            val imageUrl: String,
             @SerializedName("location")
             val location: String,
-            @SerializedName("user_id")
-            val userId: Int,
+            @SerializedName("name")
+            val name: String,
             @SerializedName("status")
-            val status: Any?
+            val status: String,
+            @SerializedName("user_id")
+            val userId: Int
         )
-    
+
         data class User(
-            @SerializedName("full_name")
-            val fullName: String,
+            @SerializedName("address")
+            val address: String,
+            @SerializedName("city")
+            val city: String,
             @SerializedName("email")
             val email: String,
+            @SerializedName("full_name")
+            val fullName: String,
             @SerializedName("phone_number")
-            val phoneNumber: String,
-            @SerializedName("address")
-            val address: String
+            val phoneNumber: String
         )
     }
 }
