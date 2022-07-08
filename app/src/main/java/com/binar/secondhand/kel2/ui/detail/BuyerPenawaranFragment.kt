@@ -26,6 +26,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.java.KoinJavaComponent
 import java.lang.ref.WeakReference
 import java.text.DecimalFormat
+import java.text.NumberFormat
 
 
 class BuyerPenawaranFragment(
@@ -82,9 +83,10 @@ class BuyerPenawaranFragment(
 
             }else {
                 val hargaTawar = binding.etHargaTawar.text
+                val harga = etMoney.text.toString().replace("Rp. ", "").replace(",", "")
                 val buyerPenawaran = PostOrderRequest(
                     productId,
-                    hargaTawar.toString().toInt()
+                    harga.toString().toInt()
                 )
                 viewModel.buyerOrder(buyerPenawaran)
                 refreshButton()
@@ -96,12 +98,18 @@ class BuyerPenawaranFragment(
 
     private fun setUpObserver() {
         viewModel.detailProduct.observe(viewLifecycleOwner){
+            val price = it.data?.body()?.basePrice.toString()
             when(it.status){
                 Status.LOADING -> {
                     //loading state, misal menampilkan progressbar
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
+                    val formatter: NumberFormat = DecimalFormat("#,###")
+                    val myNumber = price.toInt()
+                    val formattedNumber: String = formatter.format(myNumber).toString()
+                    //formattedNumber is equal to 1,000,000
+
                     binding.progressBar.visibility = View.GONE
                     //sukses mendapat response, progressbar disembunyikan lagi
                     Glide.with(binding.imgProfile)
@@ -115,7 +123,8 @@ class BuyerPenawaranFragment(
                             category.add(categories.name)
                         }
                         tvName.text = it.data?.body()?.name
-                        tvPrice.text = it.data?.body()?.basePrice.toString()
+                        tvPrice.text = "Rp. $formattedNumber"
+                        val price = tvPrice.text.toString().replace("Rp. ", "").replace(".", "")
                     }
                 }
                 Status.ERROR ->{
@@ -142,6 +151,8 @@ class BuyerPenawaranFragment(
                             val status = it.data?.body()?.status
                             val createdAt = it.data?.body()?.createdAt
                             val updatedAt = it.data?.body()?.updatedAt
+//                            etMoney.text.clear()
+
 
                             Toast.makeText(context, "Penawaran Anda Diterima", Toast.LENGTH_SHORT).show()
                             refreshButton.invoke()

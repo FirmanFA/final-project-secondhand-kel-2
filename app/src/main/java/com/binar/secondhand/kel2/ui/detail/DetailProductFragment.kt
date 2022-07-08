@@ -20,7 +20,7 @@ import java.text.NumberFormat
 
 class DetailProductFragment :
     BaseFragment<DetailProductBinding>(DetailProductBinding::inflate) {
-//    private var _binding: FragmentDetailProductBinding? = null
+    //    private var _binding: FragmentDetailProductBinding? = null
 //    private val binding get() = _binding!!
     private val viewModel: DetailProductViewModel by viewModel()
     private val args: DetailProductFragmentArgs by navArgs()
@@ -28,7 +28,7 @@ class DetailProductFragment :
 
 
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val productId = args.productId
@@ -46,13 +46,7 @@ class DetailProductFragment :
         }
 
         binding.btnTertarik.setOnClickListener {
-            Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
-                .setAction("x") {
-                    // Responds to click on the action
-                }
-                .setBackgroundTint(resources.getColor(R.color.Green))
-                .setActionTextColor(resources.getColor(R.color.white))
-                .show()
+
             var modal = BuyerPenawaranFragment(
                 productId!!,
                 refreshButton = { viewModel.getBuyerOrder() }
@@ -69,6 +63,13 @@ class DetailProductFragment :
                 }
             }
             if (isBid) {
+                Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
+                    .setAction("x") {
+                        // Responds to click on the action
+                    }
+                    .setBackgroundTint(resources.getColor(R.color.Green))
+                    .setActionTextColor(resources.getColor(R.color.white))
+                    .show()
                 binding.btnTertarik.isEnabled = false
                 binding.btnTertarik.text = "Menunggu Respon Penjual"
                 binding.btnTertarik.backgroundTintList =
