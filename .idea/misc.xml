@@ -75,6 +75,7 @@
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/home_category_tab_background.xml" value="0.1" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/home_category_tab_selected.xml" value="0.1" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/home_category_tab_unselected.xml" value="0.1" />
+        <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/home_gradient_background.xml" value="0.158" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/home_search_bar_background.xml" value="0.118" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/notification_gradient.xml" value="0.1345" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/drawable/onboarding_gradient.xml" value="0.1345" />
@@ -86,10 +87,11 @@
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_bidder.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_buyer_penawaran.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_example.xml" value="0.17028985507246377" />
-        <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_home.xml" value="0.21" />
+        <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_home.xml" value="0.18" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_main.xml" value="0.25" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_notification.xml" value="0.22" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_product_sale_list.xml" value="0.22" />
+        <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_register.xml" value="0.17844202898550723" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_search.xml" value="0.12228260869565218" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_search_page.xml" value="0.18614130434782608" />
         <entry key="..\:/Users/fafir/AndroidStudioProjects/SecondhandKel2/app/src/main/res/layout/fragment_seller_product.xml" value="0.17708333333333334" />
