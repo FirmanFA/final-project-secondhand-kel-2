@@ -1,10 +1,12 @@
-package com.binar.secondhand.kel2.ui.product
+package com.binar.secondhand.kel2.ui.sale.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
+import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.repository.ProductSaleListRepository
 import com.binar.secondhand.kel2.data.resource.Resource
@@ -44,6 +46,21 @@ class ProductSaleListViewModel(private val repository: ProductSaleListRepository
                 _authGetResponse.postValue(dataAuth)
             } catch (exp: Exception) {
                 _authGetResponse.postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
+            }
+        }
+    }
+
+    private val _notificationResponse = MutableLiveData<Resource<Response<GetNotificationResponse>>>()
+    val notificationResponse: LiveData<Resource<Response<GetNotificationResponse>>> get() = _notificationResponse
+
+    fun getNotification(){
+        viewModelScope.launch {
+            _notificationResponse.postValue(Resource.loading())
+            try {
+                val notification = Resource.success(repository.getNotification())
+                _notificationResponse.postValue(notification)
+            }catch (exception : java.lang.Exception){
+                _notificationResponse.postValue(Resource.error(exception.message?: "Error Occurred"))
             }
         }
     }

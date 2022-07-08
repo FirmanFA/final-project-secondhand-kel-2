@@ -1,6 +1,7 @@
 package com.binar.secondhand.kel2.data.api.service
 
 import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginRequest
+import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassRequest
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
@@ -37,6 +38,8 @@ class ApiHelper(val apiService: ApiService) {
         city,
         image
     )
+
+    suspend fun putPass(request: PutPassRequest) = apiService.changePassword(request)
 
     suspend fun getNotification() = apiService.getNotification()
 

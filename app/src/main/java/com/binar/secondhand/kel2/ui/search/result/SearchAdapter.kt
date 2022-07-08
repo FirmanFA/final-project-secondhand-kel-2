@@ -1,40 +1,29 @@
-package com.binar.secondhand.kel2.ui.product
+package com.binar.secondhand.kel2.ui.search.result
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponseItem
-import com.binar.secondhand.kel2.databinding.ProductSaleListLayoutBinding
+import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponseItem
+import com.binar.secondhand.kel2.databinding.HomeProductListLayoutBinding
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 
-class ProductSaleListAdapter(private val onClick: (GetProductResponseItem, Int) -> Unit) :
-    ListAdapter<GetProductResponseItem, ProductSaleListAdapter.ViewHolder>(CommunityComparator()) {
+class SearchAdapter(private val onClick: (GetProductResponseItem) -> Unit) :
+    ListAdapter<GetProductResponseItem, SearchAdapter.ViewHolder>(CommunityComparator()) {
 
 
-    class ViewHolder(private val binding: ProductSaleListLayoutBinding) :
+    class ViewHolder(private val binding: HomeProductListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
             currentGetProductResponseItem: GetProductResponseItem,
-            onClick: (GetProductResponseItem, Int) -> Unit,
-            position: Int
+            onClick: (GetProductResponseItem) -> Unit
         ) {
-
-            if (position == 0) {
-                binding.clAddProduct.visibility = View.VISIBLE
-                binding.clProductItem.visibility = View.INVISIBLE
-            } else {
-                binding.clAddProduct.visibility = View.INVISIBLE
-                binding.clProductItem.visibility = View.VISIBLE
-            }
-
             binding.root.setOnClickListener {
-                onClick(currentGetProductResponseItem, position)
+                onClick(currentGetProductResponseItem)
             }
             val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
                 .setDuration(1800) // how long the shimmering animation takes to do one full sweep
@@ -75,7 +64,7 @@ class ProductSaleListAdapter(private val onClick: (GetProductResponseItem, Int) 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ProductSaleListLayoutBinding.inflate(
+        val binding = HomeProductListLayoutBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
 
@@ -83,25 +72,7 @@ class ProductSaleListAdapter(private val onClick: (GetProductResponseItem, Int) 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), onClick, position)
-    }
-
-    fun submitData(listProduct: List<GetProductResponseItem>){
-        val data = mutableListOf<GetProductResponseItem>()
-        data.add( GetProductResponseItem(
-            0,
-            listOf(),
-            "",
-            0,
-            "",
-            "",
-            "",
-            "",
-            "",
-            0
-        ))
-        data.addAll(listProduct)
-        submitList(data)
+        holder.bind(getItem(position), onClick)
     }
 
 }

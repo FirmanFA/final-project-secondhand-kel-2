@@ -16,37 +16,60 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.home.HomeFragment">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_search"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+        <ImageView
+            android:id="@+id/btn_wishlist"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginEnd="16dp"
-            android:textSize="14sp"
-            app:endIconDrawable="@drawable/ic_baseline_search_24"
-            app:endIconMode="custom"
-            app:hintAnimationEnabled="false"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusBottomEnd="16dp"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_fav"
+            app:layout_constraintBottom_toBottomOf="@+id/et_search"
+            app:layout_constraintEnd_toStartOf="@id/et_search"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/et_search" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Cari apapun di sini"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <ImageView
+            android:id="@+id/et_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_baseline_search_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/et_search"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:textSize="14sp"-->
+<!--            app:endIconDrawable="@drawable/ic_baseline_search_24"-->
+<!--            app:endIconMode="custom"-->
+<!--            app:hintAnimationEnabled="false"-->
+<!--            app:boxCornerRadiusTopStart="16dp"-->
+<!--            app:boxCornerRadiusTopEnd="16dp"-->
+<!--            app:boxCornerRadiusBottomStart="16dp"-->
+<!--            app:boxCornerRadiusBottomEnd="16dp"-->
+<!--            app:hintEnabled="false"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Cari apapun di sini"-->
+<!--                android:imeOptions="actionSearch"-->
+<!--                android:inputType="text"-->
+<!--                android:maxLines="1"-->
+<!--                android:padding="10dp"-->
+<!--                android:textSize="14sp" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -108,6 +131,7 @@
             app:tabRippleColor="@null"
             app:tabIndicator="@null"
             app:tabMode="scrollable"
+            android:clipToPadding="false"
             app:tabSelectedTextColor="@color/white"
             app:tabTextAppearance="@style/home_tab_text_appreance"
             app:tabTextColor="#3C3C3C">
@@ -133,6 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:visibility="gone"
+            android:elevation="3dp"
             app:layout_constraintBottom_toBottomOf="@+id/rv_home_product"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -145,7 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:layout_marginTop="8dp"
-            android:paddingTop="24dp"
+            android:paddingTop="4dp"
             android:clipToPadding="false"
             android:paddingHorizontal="16dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -156,7 +181,31 @@
             app:spanCount="2"
             tools:listitem="@layout/home_product_list_layout" />
 
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/login"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_home_product"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_home_category"
+            app:layout_constraintVertical_bias="0.0" />
 
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_margin="8sp"
+            android:fontFamily="@font/montserrat_alternates_semibold"
+            android:text="Tidak ada produk"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_empty" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

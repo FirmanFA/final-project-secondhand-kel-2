@@ -1,5 +1,6 @@
 package com.binar.secondhand.kel2.data.repository
 
+import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassRequest
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthRequest
 import com.binar.secondhand.kel2.data.api.service.ApiHelper
 import okhttp3.MultipartBody
@@ -29,6 +30,8 @@ class Repository(private val apiHelper: ApiHelper) {
         city,
         image
     )
+
+    suspend fun putPass(request: PutPassRequest) = apiHelper.putPass(request)
 
     suspend fun getNotification() = apiHelper.getNotification()
     suspend fun getBuyerOrder() = apiHelper.getBuyerOrder()

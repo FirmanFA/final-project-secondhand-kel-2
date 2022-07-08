@@ -18,6 +18,8 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBinding::inflate){
 
@@ -32,11 +34,14 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
 
         profileAuth()
 
+        terbit()
+
         binding.btnTerbit.setOnClickListener {
             val name = args.name
             val price = args.price
             val description = args.description
-            val location = args.location
+            val city = args.location
+            val category = args.category
             val image = args.image.toUri()
 
             val imageFile = if(image == null) {
@@ -44,19 +49,40 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
             }else{
                 File(URIPathHelper.getPath(requireContext(), image!!).toString())
             }
+            val nameBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
+            val priceBody = price.toRequestBody("text/plain".toMediaTypeOrNull())
+            val cityBody = city.toRequestBody("text/plain".toMediaTypeOrNull())
+            val categoryBody = category.toRequestBody("text/plain".toMediaTypeOrNull())
+            val descriptionBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
             val requestImage = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageBody = requestImage?.let{
                 MultipartBody.Part.createFormData("image", imageFile?.name, it)
             }
             previewViewModel.terbit(
-                name.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-                price.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-                description.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-                "15".toRequestBody("multipart/form-data".toMediaTypeOrNull()),
-                location.toRequestBody("multipart/form-data".toMediaTypeOrNull()),
+                name = nameBody,
+                base_price = priceBody,
+                location = cityBody,
+                category_ids = categoryBody,
+                description = descriptionBody,
                 image = imageBody
             )
         }
+    }
+
+    private fun terbit() {
+        previewViewModel.terbit.observe(viewLifecycleOwner, {
+            when(it.status){
+                Status.SUCCESS -> {
+                    Toast.makeText(requireContext(), "Terbitan berhasil", Toast.LENGTH_SHORT).show()
+                    requireActivity().onBackPressed()
+                }
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), "Terbitan gagal", Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
+                }
+            }
+        })
     }
 
     private fun profileAuth() {
@@ -65,6 +91,7 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
            val price = args.price
            val description = args.description
            val location = args.location
+           val category = args.category
            val image = args.image.toUri()
 
            when(it.status){
@@ -73,10 +100,15 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
                Status.SUCCESS -> {
                    when(it.data?.code()){
                        200 -> {
+                           val formatter: NumberFormat = DecimalFormat("#,###")
+                           val myNumber = price.toInt()
+                           val formattedNumber: String = formatter.format(myNumber).toString()
+                            //formattedNumber is equal to 1,000,000
                            binding.tvTitle.text = name
-                           binding.tvPrice.text = price
+                           binding.tvPrice.text = "Rp. $formattedNumber"
                            binding.tvLocation.text = location
                            binding.tvDesc.text = description
+                           binding.tvCategory.text = category
                            binding.tvName.text = it.data?.body()?.fullName
 
                            Glide.with(this)

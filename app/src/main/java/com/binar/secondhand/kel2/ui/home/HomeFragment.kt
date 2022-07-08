@@ -3,6 +3,8 @@ package com.binar.secondhand.kel2.ui.home
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
@@ -15,6 +17,7 @@ import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.google.android.material.tabs.TabLayout
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.NumberFormat
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
@@ -25,20 +28,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         MainFragment.activePage = R.id.main_home
 
-//        getKoin().setProperty(
-//            "access_token",
-//            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsa2VsMkBtYWlsLmNvbSIsImlh" +
-//                    "dCI6MTY1NTgwODc4NX0.uCRi6CtzaaaoMNLLD8C8eYMrwnZx3aZAFgi2_Ey6o1w"
-//        )
-
         setUpSearchBarListener()
         setUpObserver()
 
-//        homeViewModel.getHomeProduct()
         homeViewModel.getHomeBanner()
         homeViewModel.getHomeCategory()
 
-
+        binding.etSearch.setOnClickListener {
+            it.findNavController().navigate(R.id.action_mainFragment_to_searchPageFragment)
+        }
 
         binding.tabHomeCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -168,13 +166,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun showHomeBanner(data: GetBannerResponse?) {
-        val adapter = HomeBannerAdapter {
-            //onclick item
+        if (data?.size == 0){
+            binding.apply {
+                ivEmpty.visibility = View.VISIBLE
+                tvEmpty.visibility = View.VISIBLE
+                rvHomeProduct.visibility = View.INVISIBLE
+            }
+        }else{
+            binding.apply {
+                ivEmpty.visibility = View.GONE
+                tvEmpty.visibility = View.GONE
+                rvHomeProduct.visibility = View.VISIBLE
+            }
+            val adapter = HomeBannerAdapter {
+                //onclick item
+            }
+
+            adapter.submitList(data)
+
+            binding.vpHomeBanner.adapter = adapter
         }
-
-        adapter.submitList(data)
-
-        binding.vpHomeBanner.adapter = adapter
     }
 
     private fun showHomeProductList(productResponse: GetProductResponse?) {
@@ -192,20 +203,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
 
     private fun setUpSearchBarListener() {
-        binding.etSearch.setEndIconOnClickListener {
-            //do search
-            searchProduct(binding.etSearch.editText?.text.toString())
-        }
-
-        binding.etSearch.editText?.setOnEditorActionListener { _, i, _ ->
-
-            if (i == EditorInfo.IME_ACTION_SEARCH) {
-                //do something with search
-                searchProduct(binding.etSearch.editText?.text.toString())
-            }
-
-            true
-        }
+//        binding.etSearch.setEndIconOnClickListener {
+//            //do search
+//            searchProduct(binding.etSearch.editText?.text.toString())
+//        }
+//
+//        binding.etSearch.editText?.setOnEditorActionListener { _, i, _ ->
+//
+//            if (i == EditorInfo.IME_ACTION_SEARCH) {
+//                //do something with search
+//                searchProduct(binding.etSearch.editText?.text.toString())
+//            }
+//
+//            true
+//        }
     }
 
     private fun searchProduct(query: String) {

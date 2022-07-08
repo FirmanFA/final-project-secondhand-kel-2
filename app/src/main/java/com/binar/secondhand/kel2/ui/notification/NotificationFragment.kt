@@ -8,33 +8,25 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
-import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
-import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentNotificationBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
+import com.binar.secondhand.kel2.ui.sale.bid.BidProductAdapter
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NotificationFragment :
     BaseFragment<FragmentNotificationBinding>(FragmentNotificationBinding::inflate) {
 
     private val notificationViewModel: NotificationViewModel by viewModel()
 
-    private var list = GetNotificationResponse()
-
-    private val listProduct = ArrayList<GetProductIdResponse>()
-
-    private var listSize = 0
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         MainFragment.activePage = R.id.main_notification
-
-//        val preferences = this.activity?.getSharedPreferences(LoginFragment.LOGINUSER, Context.MODE_PRIVATE)
-//        val email = preferences?.getString(LoginFragment.EMAIL,"")
 
         val token = getKoin().getProperty("access_token", "")
 
@@ -42,56 +34,51 @@ class NotificationFragment :
             binding.shimmerNotification.stopShimmer()
             binding.shimmerNotification.visibility = View.GONE
             binding.rvNotification.visibility = View.GONE
-
-            Log.d("list", "token kosong")
+            binding.tvNotification.visibility = View.GONE
 
             binding.btnLogin.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
             }
 
         } else {
-            Log.d("list", "token tidak kosong")
             binding.ivLogin.visibility = View.GONE
             binding.tvLogin.visibility = View.GONE
             binding.btnLogin.visibility = View.GONE
             binding.rvNotification.visibility = View.VISIBLE
-            binding.shimmerNotification.stopShimmer()
             binding.shimmerNotification.visibility = View.GONE
-            notification()
+            setUpObserver()
             notificationViewModel.getNotification()
         }
 
     }
 
-    private fun notification() {
+    private fun setUpObserver(){
+
         notificationViewModel.notificationResponse.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.shimmerNotification.startShimmer()
                     binding.shimmerNotification.visibility = View.VISIBLE
+                    binding.rvNotification.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
+                    binding.shimmerNotification.stopShimmer()
+                    binding.shimmerNotification.visibility = View.GONE
+                    binding.rvNotification.visibility = View.VISIBLE
                     if (it.data?.body() != null) {
-                        binding.shimmerNotification.stopShimmer()
-                        binding.shimmerNotification.visibility = View.GONE
-                        if (it.data?.body()?.size == 0) {
+                        if (it.data.body()?.size == 0) {
                             binding.tvLogin.text = "Tidak ada notifikasi"
                             binding.ivLogin.visibility = View.VISIBLE
                             binding.tvLogin.visibility = View.VISIBLE
                             binding.rvNotification.visibility = View.GONE
                         } else {
-
-                            list = it.data.body()!!
-                            listSize = it.data.body()!!.size
-                            it.data.body()?.forEach { notification ->
-                                notificationViewModel.getSellerProductId(notification.productId)
-                            }
+                            showBidProduct(it.data.body())
                         }
                     }
                 }
                 Status.ERROR -> {
-                    binding.shimmerNotification.startShimmer()
-                    binding.shimmerNotification.visibility = View.VISIBLE
+                    binding.shimmerNotification.stopShimmer()
+                    binding.shimmerNotification.visibility = View.GONE
                     val error = it.message
                     Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT)
                         .show()
@@ -99,68 +86,21 @@ class NotificationFragment :
             }
         }
 
-        notificationViewModel.sellerProductIdResponse.observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.shimmerNotification.startShimmer()
-                    binding.shimmerNotification.visibility = View.VISIBLE
+    }
+
+    private fun showBidProduct(data: GetNotificationResponse?) {
+        val adapter = NotificationAdapter(
+            object : NotificationAdapter.OnClickListener {
+                override fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem) {
+                    val id = data.id
+                    findNavController().navigate(R.id.action_mainFragment_to_bidderFragment)
                 }
-                Status.SUCCESS -> {
-                    if (it.data?.body() != null) {
-                        listProduct.add(it.data.body()!!)
-                    } else {
-                        listProduct.add(
-                            GetProductIdResponse(
-                                0,
-                                listOf(),
-                                "-",
-                                "-",
-                                0,
-                                "-",
-                                "-",
-                                "-",
-                                "-",
-                                "-",
-                                "-",
-                                0,
-                                UserProduct("-",
-                                    "-",
-                                    "-",
-                                    "-",
-                                    0,
-                                    "-",
-                                    "-")
-                            )
-                        )
-                    }
-                    if (list.size != 0) {
-                        Log.d("List", list.size.toString())
-                        Log.d("List product", listProduct.size.toString())
-                        if (listProduct.size == list.size) {
-                            Log.d("list", "notification: masuk if")
-                            Log.d("list", listProduct.toString())
-                            Log.d("list", list.toString())
-                            binding.shimmerNotification.stopShimmer()
-                            binding.shimmerNotification.visibility = View.GONE
-                            val adapter = NotificationAdapter(
-                                object : NotificationAdapter.OnClickListener {
-                                    override fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem) {
-                                        val id = data.id
-                                        findNavController().navigate(R.id.action_mainFragment_to_bidderFragment)
-                                    }
-                                }, listProduct
-                            )
-                            adapter.submitData(list)
-                            binding.rvNotification.adapter = adapter
-                            Log.d("list", "adapter count: ${adapter.itemCount}")
-                        }
-                    }
-                }
-                else -> {
-                    binding.shimmerNotification.startShimmer()
-                    binding.shimmerNotification.visibility = View.VISIBLE
-                }
-            }
-        }
+            })
+
+        adapter.submitData(data?.sortedByDescending {
+            val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'", Locale.ROOT)
+            format.parse(it.createdAt)
+        })
+        binding.rvNotification.adapter = adapter
     }
 }

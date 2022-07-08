@@ -1,4 +1,4 @@
-package com.binar.secondhand.kel2.ui.product
+package com.binar.secondhand.kel2.ui.sale.main
 
 import android.os.Bundle
 import android.view.View
@@ -17,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
+import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -35,55 +36,39 @@ class ProductSaleListFragment :
         if (token == "") {
             binding.groupContent.visibility = View.GONE
             binding.groupLogin.visibility = View.VISIBLE
-            binding.productShimmer.visibility = View.GONE
         } else {
             binding.groupLogin.visibility = View.GONE
             binding.btnEditProfile.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_profileFragment2)
             }
             setUpObserver()
-            productSaleListViewModel.getSellerProduct()
             productSaleListViewModel.getAuth()
         }
 
         binding.btnLogin.setOnClickListener {
             it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
         }
+
+        binding.vpList.adapter = ProductViewPagerAdapter(this)
+        TabLayoutMediator(binding.tabProductFilter,binding.vpList){ tab, pos ->
+            when(pos){
+                0 -> {
+                    tab.text = "Product"
+                    tab.setIcon(R.drawable.ic_product)
+                }
+                1 -> {
+                    tab.text = "Diminati"
+                    tab.setIcon(R.drawable.ic_fav)
+                }
+                2 -> {
+                    tab.text = "Terjual"
+                    tab.setIcon(R.drawable.ic_dollar)
+                }
+            }
+        }.attach()
     }
 
     private fun setUpObserver() {
-        productSaleListViewModel.getSellerProductResponse.observe(viewLifecycleOwner) {
-            when (it.status) {
-
-                Status.LOADING -> {
-                    binding.productShimmer.startShimmer()
-                }
-
-                Status.SUCCESS -> {
-
-                    binding.productShimmer.stopShimmer()
-                    binding.productShimmer.visibility = View.GONE
-
-                    when (it.data?.code()) {
-                        200 -> {
-                            val data = it.data.body()
-                            showProduct(data)
-                        }
-
-                        else -> {
-                            showSnackbar("Error occured: ${it.data?.code()}")
-                        }
-                    }
-                }
-
-                Status.ERROR -> {
-                    showSnackbar("${it.message}")
-                }
-            }
-        }
-
-
-
         productSaleListViewModel.authGetResponse.observe(viewLifecycleOwner) {
             when (it.status) {
 
@@ -130,24 +115,6 @@ class ProductSaleListFragment :
                 }
             }
         }
-    }
-
-    private fun showProduct(dataProduct: GetSellerProductResponse?) {
-        val adapter = ProductSaleListAdapter { data, position ->
-
-            if (position == 0) {
-                findNavController().navigate(R.id.action_mainFragment_to_sellerDetailProductFragment)
-            } else {
-                val action =
-                    MainFragmentDirections.actionMainFragmentToDetailProductFragment(data.id)
-                findNavController().navigate(action)
-            }
-
-        }
-        if (dataProduct != null) {
-            adapter.submitData(dataProduct)
-        }
-        binding.rvProductSale.adapter = adapter
     }
 
 }
