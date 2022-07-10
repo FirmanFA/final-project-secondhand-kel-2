@@ -9,4 +9,6 @@ class ProductSaleListRepository(private val apiHelper: ApiHelper) {
     suspend fun getAuth() = apiHelper.getAuth()
 
     suspend fun getNotification() = apiHelper.getNotification()
+
+    suspend fun getSellerOrder() = apiHelper.getSellerOrder()
 }
