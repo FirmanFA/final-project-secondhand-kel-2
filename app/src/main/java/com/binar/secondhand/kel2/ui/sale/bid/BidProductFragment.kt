@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
+import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBidProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
@@ -64,13 +65,14 @@ class BidProductFragment :
 
     }
 
-    private fun showBidProduct(data: GetNotificationResponse?) {
+    private fun showBidProduct(data: GetOrderResponse?) {
         val filteredData = data?.filter {
-            it.status == "bid"
+            it.status == "pending"
         }
         val adapter = BidProductAdapter(
             object : BidProductAdapter.OnClickListener {
-                override fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem) {
+
+                override fun onClickItem(data: GetOrderResponse.GetOrderResponseItem) {
                     val id = data.id
                     findNavController().navigate(R.id.action_mainFragment_to_bidderFragment)
                 }

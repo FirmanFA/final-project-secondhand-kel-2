@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
+import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.repository.ProductSaleListRepository
 import com.binar.secondhand.kel2.data.resource.Resource
@@ -50,14 +51,14 @@ class ProductSaleListViewModel(private val repository: ProductSaleListRepository
         }
     }
 
-    private val _notificationResponse = MutableLiveData<Resource<Response<GetNotificationResponse>>>()
-    val notificationResponse: LiveData<Resource<Response<GetNotificationResponse>>> get() = _notificationResponse
+    private val _notificationResponse = MutableLiveData<Resource<Response<GetOrderResponse>>>()
+    val notificationResponse: LiveData<Resource<Response<GetOrderResponse>>> get() = _notificationResponse
 
     fun getNotification(){
         viewModelScope.launch {
             _notificationResponse.postValue(Resource.loading())
             try {
-                val notification = Resource.success(repository.getNotification())
+                val notification = Resource.success(repository.getSellerOrder())
                 _notificationResponse.postValue(notification)
             }catch (exception : java.lang.Exception){
                 _notificationResponse.postValue(Resource.error(exception.message?: "Error Occurred"))

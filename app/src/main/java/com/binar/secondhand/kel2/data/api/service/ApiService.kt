@@ -106,4 +106,7 @@ interface ApiService {
     //product sale endpoint
     @GET("seller/product")
     suspend fun getSellerProduct():Response<GetSellerProductResponse>
+
+    @GET("seller/order")
+    suspend fun getSellerOrder(): Response<com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse>
 }
