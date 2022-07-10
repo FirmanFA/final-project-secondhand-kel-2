@@ -13,6 +13,14 @@ class GetOrderResponse : ArrayList<GetOrderResponse.GetOrderResponseItem>(){
         val buyerId: Int,
         @SerializedName("price")
         val price: Int,
+        @SerializedName("transaction_date")
+        val transactionDate: String,
+        @SerializedName("product_name")
+        val productName: String,
+        @SerializedName("base_price")
+        val basePrice: String,
+        @SerializedName("image_product")
+        val imageProduct: String,
         @SerializedName("status")
         val status: String,
         @SerializedName("createdAt")
@@ -40,10 +48,29 @@ class GetOrderResponse : ArrayList<GetOrderResponse.GetOrderResponseItem>(){
             @SerializedName("user_id")
             val userId: Int,
             @SerializedName("status")
-            val status: String
-        )
+            val status: String,
+            @SerializedName("User")
+            val user: User
+        ) {
+            data class User(
+                @SerializedName("id")
+                val id: Int,
+                @SerializedName("full_name")
+                val fullName: String,
+                @SerializedName("email")
+                val email: String,
+                @SerializedName("phone_number")
+                val phoneNumber: String,
+                @SerializedName("address")
+                val address: String,
+                @SerializedName("city")
+                val city: String
+            )
+        }
     
         data class User(
+            @SerializedName("id")
+            val id: Int,
             @SerializedName("full_name")
             val fullName: String,
             @SerializedName("email")
@@ -51,7 +78,9 @@ class GetOrderResponse : ArrayList<GetOrderResponse.GetOrderResponseItem>(){
             @SerializedName("phone_number")
             val phoneNumber: String,
             @SerializedName("address")
-            val address: String
+            val address: String,
+            @SerializedName("city")
+            val city: String
         )
     }
 }
