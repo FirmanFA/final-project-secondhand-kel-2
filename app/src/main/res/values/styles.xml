@@ -5,4 +5,10 @@
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
     </style>
+
+    <style name="home_banner_image_appreance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerRadius">14dp</item>
+    </style>
+
 </resources>

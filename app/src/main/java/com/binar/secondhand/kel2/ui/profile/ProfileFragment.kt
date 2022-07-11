@@ -21,6 +21,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -135,7 +136,13 @@ class ProfileFragment :
                             //do something with data here, for example, add to recyclerlist
 
 //                            val data = it.data.body() //this is the data
-                            Toast.makeText(requireContext(), "edit sukses", Toast.LENGTH_SHORT).show()
+                            Snackbar.make(binding.snackbar, "Sukses mengedit akun", Snackbar.LENGTH_LONG)
+                                .setAction("x") {
+                                    // Responds to click on the action
+                                }
+                                .setBackgroundTint(resources.getColor(R.color.Green))
+                                .setActionTextColor(resources.getColor(R.color.white))
+                                .show()
                             //we can get the data like this
                             //val result = data
                         }
@@ -143,7 +150,13 @@ class ProfileFragment :
                         403 ->{
                             //for example if 403 is wrong response "not authorized"
                             //do something for this code, shoing snackbar for example
-                            Toast.makeText(requireContext(), "Error code : 403", Toast.LENGTH_SHORT).show()
+                            Snackbar.make(binding.snackbar, "Error code : 403", Snackbar.LENGTH_LONG)
+                                .setAction("x") {
+                                    // Responds to click on the action
+                                }
+                                .setBackgroundTint(resources.getColor(R.color.Green))
+                                .setActionTextColor(resources.getColor(R.color.white))
+                                .show()
                         }
                     }
                 }
@@ -153,7 +166,13 @@ class ProfileFragment :
                     //error cause, for example, you can toast it to show error
                     binding.pbLoading.visibility = View.GONE
                     val error = it.message
-                    Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(binding.snackbar, "Error get Data : ${error}", Snackbar.LENGTH_LONG)
+                        .setAction("x") {
+                            // Responds to click on the action
+                        }
+                        .setBackgroundTint(resources.getColor(R.color.Green))
+                        .setActionTextColor(resources.getColor(R.color.white))
+                        .show()
                 }
             }
         }
@@ -237,7 +256,13 @@ class ProfileFragment :
                 Status.ERROR ->{
                     binding.pbLoading.visibility = View.GONE
                     val error = it.message
-                    Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(binding.snackbar, "Error get Data : ${error}", Snackbar.LENGTH_LONG)
+                        .setAction("x") {
+                            // Responds to click on the action
+                        }
+                        .setBackgroundTint(resources.getColor(R.color.Green))
+                        .setActionTextColor(resources.getColor(R.color.white))
+                        .show()
                 }
             }
         }

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
+import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
 import com.binar.secondhand.kel2.databinding.NotificationContentBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -20,21 +21,21 @@ import java.util.*
 
 class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerView.Adapter<BidProductAdapter.ViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<GetNotificationResponse.GetNotificationResponseItem>(){
+    private val diffCallback = object : DiffUtil.ItemCallback<GetOrderResponse.GetOrderResponseItem>(){
         override fun areItemsTheSame(
-            oldItem: GetNotificationResponse.GetNotificationResponseItem,
-            newItem: GetNotificationResponse.GetNotificationResponseItem
+            oldItem: GetOrderResponse.GetOrderResponseItem,
+            newItem: GetOrderResponse.GetOrderResponseItem
         ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: GetNotificationResponse.GetNotificationResponseItem,
-            newItem: GetNotificationResponse.GetNotificationResponseItem
+            oldItem: GetOrderResponse.GetOrderResponseItem,
+            newItem: GetOrderResponse.GetOrderResponseItem
         ): Boolean = oldItem.hashCode() == newItem.hashCode()
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    fun submitData(value: List<GetNotificationResponse.GetNotificationResponseItem>?) = differ.submitList(value)
+    fun submitData(value: List<GetOrderResponse.GetOrderResponseItem>?) = differ.submitList(value)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BidProductAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -50,7 +51,7 @@ class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerVie
 
     inner class ViewHolder(private val binding: NotificationContentBinding) :
         RecyclerView.ViewHolder(binding.root){
-        fun bind(data: GetNotificationResponse.GetNotificationResponseItem){
+        fun bind(data: GetOrderResponse.GetOrderResponseItem){
             binding.apply {
                 val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'", Locale.ROOT)
                 val date = format.parse(data.transactionDate) as Date
@@ -68,12 +69,12 @@ class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerVie
                 }
                 val formatter: NumberFormat = DecimalFormat("#,###")
                 val myNumber = data.product.basePrice
-                val myNumber2 = data.bidPrice
+                val myNumber2 = data.price
                 val formattedNumber: String = formatter.format(myNumber).toString()
                 val formattedNumber2: String = formatter.format(myNumber2).toString()
 
                 Glide.with(binding.root)
-                    .load(data.imageUrl)
+                    .load(data.imageProduct)
                     .centerCrop()
                     .placeholder(shimmerDrawable)
                     .transform(CenterCrop(), RoundedCorners(16))
@@ -90,6 +91,6 @@ class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerVie
         }
     }
     interface OnClickListener{
-        fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem)
+        fun onClickItem(data: GetOrderResponse.GetOrderResponseItem)
     }
 }

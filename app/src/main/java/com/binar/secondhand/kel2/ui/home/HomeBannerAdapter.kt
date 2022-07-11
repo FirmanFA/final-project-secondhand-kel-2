@@ -23,7 +23,7 @@ class HomeBannerAdapter(private val onClick: (GetBannerResponseItem) -> Unit) :
             binding.root.setOnClickListener {
                 onClick(currentBanner)
             }
-            Glide.with(binding.root).load(currentBanner.imageUrl).into(binding.root)
+            Glide.with(binding.ivBanner).load(currentBanner.imageUrl).into(binding.ivBanner)
 
         }
 
