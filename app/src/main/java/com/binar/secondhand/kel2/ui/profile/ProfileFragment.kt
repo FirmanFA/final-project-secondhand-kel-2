@@ -16,6 +16,7 @@ import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.utils.URIPathHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.Shimmer
@@ -165,23 +166,23 @@ class ProfileFragment :
                     //loading state, misal menampilkan progressbar
                     binding.pbLoading.visibility = View.VISIBLE
 
-                    val shimmer =
-                        Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
-                            .setDuration(1800) // how long the shimmering animation takes to do one full sweep
-                            .setBaseAlpha(0.7f) //the alpha of the underlying children
-                            .setHighlightAlpha(0.6f) // the shimmer alpha amount
-                            .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-                            .setAutoStart(true)
-                            .build()
-                    val shimmerDrawable = ShimmerDrawable().apply {
-                        setShimmer(shimmer)
-                    }
-
-                    Glide.with(this)
-                        .load(R.drawable.round_camera)
-                        .placeholder(shimmerDrawable)
-                        .circleCrop()
-                        .into(binding.ivCam)
+//                    val shimmer =
+//                        Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
+//                            .setDuration(1800) // how long the shimmering animation takes to do one full sweep
+//                            .setBaseAlpha(0.7f) //the alpha of the underlying children
+//                            .setHighlightAlpha(0.6f) // the shimmer alpha amount
+//                            .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+//                            .setAutoStart(true)
+//                            .build()
+//                    val shimmerDrawable = ShimmerDrawable().apply {
+//                        setShimmer(shimmer)
+//                    }
+//
+//                    Glide.with(this)
+//                        .load(R.drawable.round_camera)
+//                        .placeholder(shimmerDrawable)
+//                        .circleCrop()
+//                        .into(binding.ivCam)
                 }
 
                 Status.SUCCESS -> {
@@ -213,6 +214,7 @@ class ProfileFragment :
                                     Glide.with(this)
                                         .load(R.drawable.round_camera)
                                         .placeholder(shimmerDrawable)
+                                        .transform(CircleCrop(), RoundedCorners(50))
                                         .circleCrop()
                                         .into(binding.ivCam)
                                 }
@@ -220,6 +222,7 @@ class ProfileFragment :
                                 Glide.with(requireContext())
                                     .load(it.data.body()?.imageUrl)
                                     .placeholder(shimmerDrawable)
+                                    .transform(CircleCrop(), RoundedCorners(50))
                                     .circleCrop()
                                     .into(binding.ivCam)
 //                                Glide.with(this)
