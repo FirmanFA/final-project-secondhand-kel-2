@@ -58,7 +58,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 " ${productResponse?.size?:0} ditemukan"
         val adapter = SearchAdapter {
             //onclick item
-            val action = MainFragmentDirections.actionMainFragmentToDetailProductFragment(it.id)
+            val action = SearchFragmentDirections.actionSearchFragmentToDetailProductFragment(it.id)
             findNavController().navigate(action)
         }
 
