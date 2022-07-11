@@ -120,12 +120,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             when (it.status) {
 
                 Status.LOADING -> {
-                    binding.pbCategory.visibility = View.VISIBLE
+//                    binding.pbCategory.visibility = View.VISIBLE
                 }
 
                 Status.SUCCESS -> {
 
-                    binding.pbCategory.visibility = View.GONE
+//                    binding.pbCategory.visibility = View.GONE
 
                     when (it.data?.code()) {
                         200 -> {
@@ -158,7 +158,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
 
                 Status.ERROR -> {
-                    binding.pbCategory.visibility = View.GONE
+//                    binding.pbCategory.visibility = View.GONE
                     showSnackbar("${it.message}")
                 }
             }
