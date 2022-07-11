@@ -97,4 +97,15 @@ dependencies {
     implementation 'com.github.dhaval2404:imagepicker:2.1'
     //simmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    //Lottie Animation
+    implementation "com.airbnb.android:lottie:5.0.3"
+    //Loading Screen
+    implementation "com.github.sakshampruthi:custom-loading-screen:1.16"
+
+    // Optional -- Mockito framework
+    testImplementation "org.mockito:mockito-core:4.5.1"
+    // Optional -- mockito-kotlin
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+    // Optional -- Mockk framework
+    testImplementation "io.mockk:mockk:1.12.4"
 }
