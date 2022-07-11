@@ -1,6 +1,7 @@
 package com.binar.secondhand.kel2.di
 
 
+import com.binar.secondhand.kel2.ui.account.AccountViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
 import com.binar.secondhand.kel2.ui.detail.BuyerPenawaranViewModel
@@ -45,4 +46,6 @@ val viewModelModule = module {
     viewModelOf(::SearchPageViewModel)
 
     viewModelOf(::SearchViewModel)
+
+    viewModelOf(::AccountViewModel)
 }
