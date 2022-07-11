@@ -28,6 +28,10 @@ class SearchPageFragment :
 
         setUpSearchBarListener()
 
+        binding.ivBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
         binding.etSearch.editText?.requestFocus()
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(binding.etSearch.editText, InputMethodManager.SHOW_IMPLICIT)
@@ -102,11 +106,13 @@ class SearchPageFragment :
 
     private fun searchProduct(query: String) {
         //insert data to room
-        searchPageViewModel.insertSearchHistory(SearchHistoryEntity(searchKeyword = query))
+        if (query.isNotEmpty()){
+            searchPageViewModel.insertSearchHistory(SearchHistoryEntity(searchKeyword = query))
 
-        val action = SearchPageFragmentDirections
-            .actionSearchPageFragmentToSearchFragment(query)
-        findNavController().navigate(action)
+            val action = SearchPageFragmentDirections
+                .actionSearchPageFragmentToSearchFragment(query)
+            findNavController().navigate(action)
+        }
     }
 
 
