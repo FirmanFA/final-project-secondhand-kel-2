@@ -25,6 +25,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         setUpSearchBarListener()
         setUpObserver()
         searchViewModel.getProduct(searchKeyword = args.querySearch)
+
+        binding.ivBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
     }
 
     private fun setUpObserver() {
