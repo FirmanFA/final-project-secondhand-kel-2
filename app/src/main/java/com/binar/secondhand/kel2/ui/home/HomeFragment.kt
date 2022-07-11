@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
@@ -15,6 +16,7 @@ import com.binar.secondhand.kel2.databinding.FragmentHomeBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
+import com.binar.secondhand.kel2.utils.HorizontalMarginItemDecoration
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -24,6 +26,7 @@ import com.google.android.material.tabs.TabLayout
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.NumberFormat
+import kotlin.math.abs
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
@@ -75,6 +78,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             override fun onTabReselected(tab: TabLayout.Tab?) {}
 
         })
+    }
+
+    private fun setupBannerViewPager(){
+
+
     }
 
     private fun setUpObserver() {
@@ -237,9 +245,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 //onclick item
             }
 
-            adapter.submitList(data)
-
             binding.vpHomeBanner.adapter = adapter
+            binding.vpHomeBanner.offscreenPageLimit = 1
+            val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
+            val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+            val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
+            val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
+
+                page.translationX = -pageTranslationX * position
+                page.scaleY = 1 - (0.25f * abs(position))
+
+            }
+            binding.vpHomeBanner.setPageTransformer(pageTransformer)
+
+            val itemDecoration = HorizontalMarginItemDecoration(
+                requireContext(),
+                R.dimen.viewpager_current_item_horizontal_margin
+            )
+
+            binding.vpHomeBanner.addItemDecoration(itemDecoration)
+
+            adapter.submitList(data)
         }
     }
 
