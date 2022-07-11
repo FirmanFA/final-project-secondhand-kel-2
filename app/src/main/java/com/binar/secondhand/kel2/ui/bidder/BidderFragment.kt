@@ -12,3 +12,4 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
     }
 
 }
+// blm ada progress
