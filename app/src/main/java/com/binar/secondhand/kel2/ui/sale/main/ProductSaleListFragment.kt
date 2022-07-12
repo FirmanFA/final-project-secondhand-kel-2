@@ -1,10 +1,13 @@
 package com.binar.secondhand.kel2.ui.sale.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.resource.Status
@@ -17,6 +20,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,6 +36,18 @@ class ProductSaleListFragment :
         super.onViewCreated(view, savedInstanceState)
 
         MainFragment.activePage = R.id.main_sale_list
+        if (MainFragment.statusTerbit == "sukses") {
+            val snackbar =
+                Snackbar.make(binding.snackbar, "Produk Berhasil Terbit", Snackbar.LENGTH_LONG)
+            snackbar.setAction("x") {
+                // Responds to click on the action
+                snackbar.dismiss()
+            }
+            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.Green))
+            .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            .show()
+            MainFragment.statusTerbit = ""
+        }
 
         val token = getKoin().getProperty("access_token", "")
         if (token == "") {
@@ -50,8 +67,8 @@ class ProductSaleListFragment :
         }
 
         binding.vpList.adapter = ProductViewPagerAdapter(this)
-        TabLayoutMediator(binding.tabProductFilter,binding.vpList){ tab, pos ->
-            when(pos){
+        TabLayoutMediator(binding.tabProductFilter, binding.vpList) { tab, pos ->
+            when (pos) {
                 0 -> {
                     tab.text = "Product"
                     tab.setIcon(R.drawable.ic_product)
