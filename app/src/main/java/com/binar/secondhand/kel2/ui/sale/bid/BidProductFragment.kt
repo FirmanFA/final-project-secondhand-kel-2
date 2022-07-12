@@ -10,6 +10,7 @@ import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBidProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.binar.secondhand.kel2.ui.sale.main.ProductSaleListViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -74,7 +75,10 @@ class BidProductFragment :
 
                 override fun onClickItem(data: GetOrderResponse.GetOrderResponseItem) {
                     val id = data.id
-                    findNavController().navigate(R.id.action_mainFragment_to_bidderFragment)
+                    val action = MainFragmentDirections.actionMainFragmentToBidderFragment(
+                        id
+                    )
+                    findNavController().navigate(action)
                 }
             })
         adapter.submitData(filteredData)
