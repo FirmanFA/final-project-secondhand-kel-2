@@ -16,6 +16,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     companion object{
         var activePage = 0
+        var statusTerbit = ""
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
