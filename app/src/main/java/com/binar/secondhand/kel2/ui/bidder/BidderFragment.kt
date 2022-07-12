@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
+import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBidderBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
@@ -30,7 +31,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
         loadBidder()
 
         binding.btnTolak.setOnClickListener {
-            bidderViewModel.bidder(id)
+            bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "declined"))
         }
     }
 
@@ -61,6 +62,18 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
 
                     }
 
+                }
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), "Unknown Error", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        bidderViewModel.status.observe(viewLifecycleOwner){
+            when(it.status){
+                Status.SUCCESS -> {
+                    Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+                    bidderViewModel.bidder(args.id)
                 }
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), "Unknown Error", Toast.LENGTH_SHORT).show()
