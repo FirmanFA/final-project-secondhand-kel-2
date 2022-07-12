@@ -97,6 +97,12 @@
         <action
             android:id="@+id/action_mainFragment_to_searchPageFragment"
             app:destination="@id/searchPageFragment" />
+        <action
+            android:id="@+id/action_mainFragment_self"
+            app:destination="@id/mainFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/detailProductFragment"
@@ -145,6 +151,12 @@
         <argument
             android:name="category"
             app:argType="string" />
+        <action
+            android:id="@+id/action_previewFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/previewFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
