@@ -45,7 +45,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
-        android:visibility="gone"
         android:text="Muhamad Lorem Ipsum"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -53,6 +52,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_elipse_cam" />
+
+    <TextView
+        android:id="@+id/tv_no_handphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="+6282222333666"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_nama" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
@@ -63,7 +75,7 @@
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_nama">
+        app:layout_constraintTop_toBottomOf="@id/tv_no_handphone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,6 +105,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/line_one"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="18dp"
@@ -122,6 +135,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/line_two"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="18dp"
@@ -151,6 +165,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/line_three"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="18dp"
@@ -168,6 +183,44 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/iv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32999998" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp"
+        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:text="Silakan Login Dahulu"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_login" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp"
+        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_login" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

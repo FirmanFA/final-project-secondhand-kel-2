@@ -8,6 +8,4 @@ class LoginRepository(private val apiHelper: ApiHelper) {
 
     suspend fun postLogin(request: PostLoginRequest) = apiHelper.postLogin(request)
 
-    suspend fun postRegister(request: PostRegisterRequest) = apiHelper.postRegister(request)
-
 }
