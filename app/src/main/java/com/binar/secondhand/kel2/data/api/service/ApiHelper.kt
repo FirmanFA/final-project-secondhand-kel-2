@@ -4,7 +4,6 @@ import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginRequest
 import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassRequest
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
-import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -36,7 +35,7 @@ class ApiHelper(val apiService: ApiService) {
 
     suspend fun putPass(request: PutPassRequest) = apiService.changePassword(request)
 
-    suspend fun getNotification(type: String = "") = apiService.getNotification(type)
+    suspend fun getNotification() = apiService.getNotification()
 
     suspend fun getBanner() = apiService.getBanner()
 
@@ -50,8 +49,6 @@ class ApiHelper(val apiService: ApiService) {
         searchKeyword
     )
     suspend fun getProductDetail(productId: Int) = apiService.getProductDetail(productId)
-    suspend fun getOrderProductId(productId: Int) = apiService.getOrderProductId(productId)
-
     suspend fun getUserProfile(userId: Int) = apiService.getUserProfile(userId)
     suspend fun getBuyerOrder() = apiService.getBuyerOrder()
     suspend fun postBuyerOrder(requestBuyerOrder: PostOrderRequest) = apiService.postBuyerOrder(requestBuyerOrder)
