@@ -78,29 +78,36 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
                     .placeholder(shimmerDrawable)
                     .transform(CenterCrop(), RoundedCorners(12))
                     .into(binding.ivProduct)
-                tvTitle.text =  data.product.name
+                tvTitle.text =  data.productName
                 val formatter: NumberFormat = DecimalFormat("#,###")
-                val myNumber = data.product.basePrice
+                val myNumber = data.basePrice.toInt()
                 val formattedNumber: String = formatter.format(myNumber).toString()
-                tvPrice.text = "Rp ${formattedNumber}"
+                tvPrice.text = "Rp $formattedNumber"
                 when (data.status) {
                     "create" -> {
                         tvNego.visibility = View.GONE
                         tvStatus.text = "Berhasil diterbitkan"
                     }
                     "accepted" -> {
-                        val formatter: NumberFormat = DecimalFormat("#,###")
-                        val myNumber = data.bidPrice
-                        val formattedNumber: String = formatter.format(myNumber).toString()
-                        tvNego.text = "Berhasil ditawar Rp ${formattedNumber}"
+                        val bidPrice = data.bidPrice
+                        val formattedBidPrice: String = formatter.format(bidPrice).toString()
+                        tvNego.visibility = View.VISIBLE
+                        tvNego.text = "Berhasil ditawar Rp $formattedBidPrice"
                         tvPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                         tvStatus.text = "Penawaran produk"
                     }
-                    else -> {
-                        val formatter: NumberFormat = DecimalFormat("#,###")
-                        val myNumber = data.bidPrice
-                        val formattedNumber: String = formatter.format(myNumber).toString()
-                        tvNego.text = "Ditawar Rp ${formattedNumber}"
+                    "bid" -> {
+                        val bidPrice = data.bidPrice
+                        val formattedBidPrice: String = formatter.format(bidPrice).toString()
+                        tvNego.visibility = View.VISIBLE
+                        tvNego.text = "Ditawar Rp $formattedBidPrice"
+                        tvStatus.text = "Penawaran produk"
+                    }
+                    "declined" -> {
+                        val bidPrice = data.bidPrice
+                        val formattedBidPrice: String = formatter.format(bidPrice).toString()
+                        tvNego.visibility = View.VISIBLE
+                        tvNego.text = "Penawaranmu Rp $formattedBidPrice tertolak!"
                         tvStatus.text = "Penawaran produk"
                     }
                 }
@@ -111,6 +118,7 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
             }
         }
     }
+
     interface OnClickListener{
         fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem)
     }
