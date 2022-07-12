@@ -75,4 +75,6 @@ class ApiHelper(val apiService: ApiService) {
     suspend fun getSellerProduct() = apiService.getSellerProduct()
 
     suspend fun getSellerOrder() = apiService.getSellerOrder()
+
+    suspend fun getSellerOrderId(id:Int) = apiService.getSellerOrderId(id)
 }
