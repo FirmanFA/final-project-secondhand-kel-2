@@ -88,6 +88,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
             val dialogFragment = LogoutFragment{
                 preferences.edit().clear().apply()
                 getKoin().setProperty("access_token","")
+                findNavController().navigate(R.id.action_mainFragment_self)
                 // Using find nav still error
 //                findNavController().navigate(R.id.action_logoutFragment_to_mainFragment)
 //                if (it.findNavController().currentDestination?.id == R.id.logoutFragment) {

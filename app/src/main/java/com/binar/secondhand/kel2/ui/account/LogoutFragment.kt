@@ -40,7 +40,7 @@ class LogoutFragment(private val onLogout: () -> Unit) : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        MainFragment.activePage = R.id.main_account
+        MainFragment.activePage = R.id.main_account
 
 //        preferences =
 //            this.requireActivity().getSharedPreferences(LoginFragment.LOGINUSER, Context.MODE_PRIVATE)
