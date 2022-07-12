@@ -11,6 +11,8 @@ import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentLoginBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.saksham.customloadingdialog.hideDialog
+import com.saksham.customloadingdialog.showDialog
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.java.KoinJavaComponent
@@ -61,11 +63,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             when (it.status) {
 
                 Status.LOADING -> {
-                    binding.pbLoading.visibility = View.VISIBLE
+//                    binding.pbLoading.visibility = View.VISIBLE
+                    showDialog(context,           //context or this
+                        false,                    //dismiss dialog onBackPressed
+                        R.raw.loading       //lottie file json stored in res/raw
+                    )
                 }
 
                 Status.SUCCESS -> {
-                    binding.pbLoading.visibility = View.GONE
+//                    binding.pbLoading.visibility = View.GONE
+                    hideDialog()
                     when (it.data?.code()) {
                         //jika code response 200
                         201 -> {
