@@ -82,8 +82,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun searchProduct() {
         val currentDestination =
-            this.findNavController().currentDestination == this.findNavController()
-                .findDestination(R.id.searchFragment)
+            this.findNavController().currentDestination?.id == R.id.searchFragment
         if (currentDestination){
             this.findNavController().navigate(R.id.action_searchFragment_to_searchPageFragment)
         }

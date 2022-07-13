@@ -1,6 +1,7 @@
 package com.binar.secondhand.kel2.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.inputmethod.EditorInfo
@@ -64,10 +65,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         binding.etSearch.setOnClickListener {
 
             val currentDestination =
-                it.findNavController().currentDestination == this.findNavController()
-                    .findDestination(R.id.mainFragment)
+                this.findNavController().currentDestination?.id == R.id.mainFragment
             if (currentDestination){
-                it.findNavController().navigate(R.id.action_mainFragment_to_searchPageFragment)
+                this.findNavController().navigate(R.id.action_mainFragment_to_searchPageFragment)
             }
 
 
