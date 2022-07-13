@@ -129,7 +129,11 @@
         android:id="@+id/bidderFragment"
         android:name="com.binar.secondhand.kel2.ui.bidder.BidderFragment"
         android:label="fragment_bidder"
-        tools:layout="@layout/fragment_bidder" />
+        tools:layout="@layout/fragment_bidder" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/previewFragment"
         android:name="com.binar.secondhand.kel2.ui.preview.PreviewFragment"

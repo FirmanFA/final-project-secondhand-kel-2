@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,306 +7,312 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.register.RegisterFragment">
 
-        <ImageView
-            android:id="@+id/iv_card"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/register_card"
-            android:layout_marginTop="120dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/register_card"
+                    android:layout_marginTop="120dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/elipse_wide"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/elipse"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-<!--        <ImageView-->
-<!--            android:id="@+id/btn_back"-->
-<!--            android:layout_width="24dp"-->
-<!--            android:layout_height="24dp"-->
-<!--            android:src="@drawable/ic_fi_arrow_left"-->
-<!--            android:background="@color/white"-->
-<!--            android:layout_marginTop="28dp"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent" />-->
-
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_logo"
-            android:layout_marginTop="35dp"
-            android:layout_marginStart="56dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_second_hand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="second hand"
-            android:textSize="32sp"
-            android:textFontWeight="600"
-            android:textColor="#193C8D"
-            android:fontFamily="@font/poppins_regular"
-            android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@id/iv_logo"
-            app:layout_constraintBottom_toBottomOf="@id/iv_logo"
-            app:layout_constraintStart_toEndOf="@+id/iv_logo" />
-
-        <TextView
-            android:id="@+id/tv_mendaftar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/montserrat_alternates_bold"
-            android:text="Mendaftar dengan kami !"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@id/iv_card"
-            app:layout_constraintStart_toStartOf="@id/iv_card"
-            app:layout_constraintTop_toTopOf="@id/iv_card" />
-
-        <TextView
-            android:id="@+id/tv_informasi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/montserrat_alternates_semibold"
-            android:text="Informasi anda aman bersama kami"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/iv_card"
-            app:layout_constraintStart_toStartOf="@id/iv_card"
-            app:layout_constraintTop_toBottomOf="@id/tv_mendaftar" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nama_container"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="30dp"
-            app:hintEnabled="false"
-            app:hintAnimationEnabled="false"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            android:layout_marginTop="24dp"
-            app:boxBackgroundColor="#FAFAFA"
-            app:layout_constraintTop_toBottomOf="@id/tv_informasi"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_nama"
-                android:textSize="14sp"
-                android:fontFamily="@font/poppins_regular"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Masukkan nama lengkap anda"
-                android:inputType="textEmailAddress" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_container"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="30dp"
-            app:hintEnabled="false"
-            app:endIconMode="custom"
-            app:endIconTint="@color/black"
-            app:endIconDrawable="@drawable/ic_et_email"
-            app:hintAnimationEnabled="false"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            android:layout_marginTop="16dp"
-            app:boxBackgroundColor="#FAFAFA"
-            app:layout_constraintTop_toBottomOf="@id/nama_container"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_email"
-                android:textSize="14sp"
-                android:fontFamily="@font/poppins_regular"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Masukkan alamat email anda"
-                android:inputType="textEmailAddress" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password_container"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="30dp"
-            app:hintAnimationEnabled="false"
-            app:hintEnabled="false"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxBackgroundColor="#FAFAFA"
-            android:layout_marginTop="16dp"
-            app:passwordToggleTint="@color/black"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/password_toggle_drawable"
-            app:layout_constraintTop_toBottomOf="@id/email_container"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_passowrd"
-                android:textSize="14sp"
-                android:fontFamily="@font/poppins_regular"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Masukkan password anda"
-                android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/konfirmasi_password_container"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="30dp"
-            app:hintAnimationEnabled="false"
-            app:hintEnabled="false"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxBackgroundColor="#FAFAFA"
-            android:layout_marginTop="16dp"
-            app:passwordToggleTint="@color/black"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/password_toggle_drawable"
-            app:layout_constraintTop_toBottomOf="@id/password_container"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_konfirmasi_passowrd"
-                android:textSize="14sp"
-                android:fontFamily="@font/poppins_regular"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Konfirmasi password anda"
-                android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_signup"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/button_background"
-            android:text="Sign Up"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:fontFamily="@font/poppins_regular"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/konfirmasi_password_container"/>
-
-        <TextView
-            android:id="@+id/tv_sudah_memiliki_akun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="84dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="@font/montserrat_alternates"
-            android:text="Sudah memiliki akun ?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@id/tv_signin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_signup" />
-
-        <TextView
-            android:id="@+id/tv_signin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="84dp"
-            android:fontFamily="@font/montserrat_alternates_semibold"
-            android:text="Sign In"
-            android:textColor="#193C8D"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tv_sudah_memiliki_akun"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_sudah_memiliki_akun"
-            app:layout_constraintTop_toTopOf="@id/tv_sudah_memiliki_akun" />
-
-        <ProgressBar
-            android:id="@+id/pb_loading"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="30dp"
-            android:orientation="vertical">
-
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="Dengan mendaftar, Anda menyetujui"/>
+                    android:src="@drawable/elipse_wide"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:id="@+id/tv_privacy_policy"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kebijakan Privasi"
+                    android:src="@drawable/elipse"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <!--        <ImageView-->
+                <!--            android:id="@+id/btn_back"-->
+                <!--            android:layout_width="24dp"-->
+                <!--            android:layout_height="24dp"-->
+                <!--            android:src="@drawable/ic_fi_arrow_left"-->
+                <!--            android:background="@color/white"-->
+                <!--            android:layout_marginTop="28dp"-->
+                <!--            android:layout_marginStart="16dp"-->
+                <!--            app:layout_constraintTop_toTopOf="parent"-->
+                <!--            app:layout_constraintStart_toStartOf="parent" />-->
+
+                <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_logo"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="56dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_second_hand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="second hand"
+                    android:textSize="32sp"
+                    android:textFontWeight="600"
                     android:textColor="#193C8D"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/montserrat_alternates_semibold"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toTopOf="@id/iv_logo"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_logo"
+                    app:layout_constraintStart_toEndOf="@+id/iv_logo" />
+
+                <TextView
+                    android:id="@+id/tv_mendaftar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/montserrat_alternates_bold"
+                    android:text="Mendaftar dengan kami !"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@id/iv_card"
+                    app:layout_constraintStart_toStartOf="@id/iv_card"
+                    app:layout_constraintTop_toTopOf="@id/iv_card" />
+
+                <TextView
+                    android:id="@+id/tv_informasi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/montserrat_alternates_semibold"
+                    android:text="Informasi anda aman bersama kami"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/iv_card"
+                    app:layout_constraintStart_toStartOf="@id/iv_card"
+                    app:layout_constraintTop_toBottomOf="@id/tv_mendaftar" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nama_container"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="30dp"
+                    app:hintEnabled="false"
+                    app:hintAnimationEnabled="false"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    android:layout_marginTop="24dp"
+                    app:boxBackgroundColor="#FAFAFA"
+                    app:layout_constraintTop_toBottomOf="@id/tv_informasi"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_nama"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Masukkan nama lengkap anda"
+                            android:inputType="textEmailAddress" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/email_container"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="30dp"
+                    app:hintEnabled="false"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/black"
+                    app:endIconDrawable="@drawable/ic_et_email"
+                    app:hintAnimationEnabled="false"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    android:layout_marginTop="16dp"
+                    app:boxBackgroundColor="#FAFAFA"
+                    app:layout_constraintTop_toBottomOf="@id/nama_container"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_email"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Masukkan alamat email anda"
+                            android:inputType="textEmailAddress" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password_container"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="30dp"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxBackgroundColor="#FAFAFA"
+                    android:layout_marginTop="16dp"
+                    app:passwordToggleTint="@color/black"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleDrawable="@drawable/password_toggle_drawable"
+                    app:layout_constraintTop_toBottomOf="@id/email_container"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_passowrd"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Masukkan password anda"
+                            android:inputType="textPassword" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/konfirmasi_password_container"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="30dp"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxBackgroundColor="#FAFAFA"
+                    android:layout_marginTop="16dp"
+                    app:passwordToggleTint="@color/black"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleDrawable="@drawable/password_toggle_drawable"
+                    app:layout_constraintTop_toBottomOf="@id/password_container"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_konfirmasi_passowrd"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Konfirmasi password anda"
+                            android:inputType="textPassword" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/button_background"
+                    android:text="Sign Up"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/poppins_regular"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_sudah_memiliki_akun" />
+                    app:layout_constraintTop_toBottomOf="@id/konfirmasi_password_container"/>
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_sudah_memiliki_akun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="84dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/montserrat_alternates"
+                    android:text="Sudah memiliki akun ?"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_signin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_signup" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_signin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="84dp"
+                    android:fontFamily="@font/montserrat_alternates_semibold"
+                    android:text="Sign In"
+                    android:textColor="#193C8D"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_sudah_memiliki_akun"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_sudah_memiliki_akun"
+                    app:layout_constraintTop_toTopOf="@id/tv_sudah_memiliki_akun" />
+
+                <ProgressBar
+                    android:id="@+id/pb_loading"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_sudah_memiliki_akun"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="Dengan mendaftar, Anda menyetujui"/>
+
+                        <TextView
+                            android:id="@+id/tv_privacy_policy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kebijakan Privasi"
+                            android:textColor="#193C8D"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/montserrat_alternates_semibold"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_sudah_memiliki_akun" />
+
+                </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

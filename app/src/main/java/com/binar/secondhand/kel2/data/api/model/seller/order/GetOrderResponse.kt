@@ -14,7 +14,7 @@ class GetOrderResponse : ArrayList<GetOrderResponse.GetOrderResponseItem>(){
         @SerializedName("price")
         val price: Int,
         @SerializedName("transaction_date")
-        val transactionDate: String?,
+        val transactionDate: String,
         @SerializedName("product_name")
         val productName: String,
         @SerializedName("base_price")

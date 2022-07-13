@@ -7,7 +7,9 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
+import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
+import retrofit2.http.Path
 
 class Repository(private val apiHelper: ApiHelper) {
 
@@ -54,4 +56,7 @@ class Repository(private val apiHelper: ApiHelper) {
         location,
         image
     )
+    suspend fun getSellerOrderId(id:Int) = apiHelper.getSellerOrderId(id)
+
+    suspend fun patchSellerOrderId(id:Int, request: PatchSellerOrderIdRequest) = apiHelper.patchSellerOrderId(id, request)
 }
