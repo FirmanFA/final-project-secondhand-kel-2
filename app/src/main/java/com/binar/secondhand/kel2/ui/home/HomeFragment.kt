@@ -2,6 +2,7 @@ package com.binar.secondhand.kel2.ui.home
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
@@ -40,9 +41,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         setUpSearchBarListener()
         setUpObserver()
 
-        val token = getKoin().getProperty("access_token","")
+        val token = getKoin().getProperty("access_token", "")
 
-        if (token.isNotEmpty()){
+        if (token.isNotEmpty()) {
             homeViewModel.getAuth()
             binding.tvUserName.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_profileFragment2)
@@ -50,7 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             binding.ivProfilePhoto.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_profileFragment2)
             }
-        }else{
+        } else {
             binding.tvUserName.text = "Click to login"
             binding.tvUserName.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
@@ -67,9 +68,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         binding.tabHomeCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 //do filter product here
-                if (tab?.id == -1){
+                if (tab?.id == -1) {
                     homeViewModel.getHomeProduct()
-                }else{
+                } else {
                     homeViewModel.getHomeProduct(categoryId = tab?.id)
                 }
             }
@@ -80,7 +81,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         })
     }
 
-    private fun setupBannerViewPager(){
+    private fun setupBannerViewPager() {
 
 
     }
@@ -103,7 +104,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                             showHomeBanner(data)
                         }
 
-                        else ->{
+                        else -> {
                             showSnackbar("Error occured: ${it.data?.code()}")
                         }
                     }
@@ -121,11 +122,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
                 Status.LOADING -> {
 //                    binding.pbCategory.visibility = View.VISIBLE
+                    binding.shimmerCategory.visibility = View.VISIBLE
+                    binding.shimmerCategory.startShimmer()
                 }
 
                 Status.SUCCESS -> {
 
 //                    binding.pbCategory.visibility = View.GONE
+                    binding.shimmerCategory.visibility = View.GONE
+                    binding.shimmerCategory.stopShimmer()
 
                     when (it.data?.code()) {
                         200 -> {
@@ -151,7 +156,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                             }
                         }
 
-                        else ->{
+                        else -> {
                             showSnackbar("Error occured: ${it.data?.code()}")
                         }
                     }
@@ -159,6 +164,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
                 Status.ERROR -> {
 //                    binding.pbCategory.visibility = View.GONE
+                    binding.shimmerCategory.visibility = View.GONE
+                    binding.shimmerCategory.stopShimmer()
                     showSnackbar("${it.message}")
                 }
             }
@@ -168,12 +175,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             when (it.status) {
 
                 Status.LOADING -> {
+                    binding.rvHomeProduct.visibility = View.GONE
                     binding.pbHomeProduct.visibility = View.VISIBLE
                 }
 
                 Status.SUCCESS -> {
 
                     binding.pbHomeProduct.visibility = View.GONE
+                    binding.rvHomeProduct.visibility = View.VISIBLE
 
                     when (it.data?.code()) {
                         200 -> {
@@ -182,7 +191,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                             showHomeProductList(data)
 
                         }
-                        else ->{
+                        else -> {
                             showSnackbar("Error occured: ${it.data?.code()}")
                         }
                     }
@@ -190,6 +199,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
                 Status.ERROR -> {
                     binding.pbHomeProduct.visibility = View.GONE
+                    binding.rvHomeProduct.visibility = View.VISIBLE
                     showSnackbar("${it.message}")
                 }
             }
@@ -229,13 +239,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun showHomeBanner(data: GetBannerResponse?) {
-        if (data?.size == 0){
+        if (data?.size == 0) {
             binding.apply {
                 ivEmpty.visibility = View.VISIBLE
                 tvEmpty.visibility = View.VISIBLE
                 rvHomeProduct.visibility = View.INVISIBLE
             }
-        }else{
+        } else {
             binding.apply {
                 ivEmpty.visibility = View.GONE
                 tvEmpty.visibility = View.GONE
@@ -248,7 +258,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             binding.vpHomeBanner.adapter = adapter
             binding.vpHomeBanner.offscreenPageLimit = 1
             val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
-            val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+            val currentItemHorizontalMarginPx =
+                resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
             val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
             val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
 
