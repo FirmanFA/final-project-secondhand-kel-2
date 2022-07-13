@@ -33,9 +33,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun setUpObserver() {
-        searchViewModel.searchResponse.observe(viewLifecycleOwner){
+        searchViewModel.searchResponse.observe(viewLifecycleOwner) {
             when (it.status) {
-                Status.LOADING ->{
+                Status.LOADING -> {
 
                 }
 
@@ -46,7 +46,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                             showProductList(data)
                         }
 
-                        else ->{
+                        else -> {
                             showSnackbar("Error occured: ${it.data?.code()}")
                         }
                     }
@@ -60,7 +60,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun showProductList(productResponse: GetProductResponse?) {
         binding.tvSearchResult.text = "Hasil pencarian untuk ${args.querySearch}," +
-                " ${productResponse?.size?:0} ditemukan"
+                " ${productResponse?.size ?: 0} ditemukan"
         val adapter = SearchAdapter {
             //onclick item
             val action = SearchFragmentDirections.actionSearchFragmentToDetailProductFragment(it.id)
@@ -74,13 +74,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun setUpSearchBarListener() {
         binding.etSearch.editText?.setOnFocusChangeListener { view, b ->
-            if (b){
+            if (b) {
                 searchProduct()
             }
         }
     }
 
     private fun searchProduct() {
-        findNavController().navigate(R.id.action_searchFragment_to_searchPageFragment)
+        val currentDestination =
+            this.findNavController().currentDestination == this.findNavController()
+                .findDestination(R.id.searchFragment)
+        if (currentDestination){
+            this.findNavController().navigate(R.id.action_searchFragment_to_searchPageFragment)
+        }
     }
 }
