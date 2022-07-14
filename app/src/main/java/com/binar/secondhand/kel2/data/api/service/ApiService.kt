@@ -118,4 +118,7 @@ interface ApiService {
 
     @PATCH("seller/order/{id}")
     suspend fun patchSellerOrderId(@Path("id")id:Int,@Body request: PatchSellerOrderIdRequest): Response<PatchSellerOrderIdResponse>
+
+    @DELETE("seller/product/{id}")
+    suspend fun deleteSellerProductId(@Path("id")id:Int): Response<Unit>
 }

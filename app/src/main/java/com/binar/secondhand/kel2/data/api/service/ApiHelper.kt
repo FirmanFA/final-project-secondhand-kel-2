@@ -80,4 +80,6 @@ class ApiHelper(val apiService: ApiService) {
     suspend fun getSellerOrderId(id:Int) = apiService.getSellerOrderId(id)
 
     suspend fun patchSellerOrderId(id:Int, request: PatchSellerOrderIdRequest) = apiService.patchSellerOrderId(id, request)
+
+    suspend fun deleteSellerProduct(id:Int) = apiService.deleteSellerProductId(id)
 }
