@@ -1,9 +1,12 @@
 package com.binar.secondhand.kel2.ui.notification
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
@@ -12,7 +15,9 @@ import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentNotificationBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
+import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.binar.secondhand.kel2.ui.sale.bid.BidProductAdapter
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -35,6 +40,7 @@ class NotificationFragment :
             binding.shimmerNotification.visibility = View.GONE
             binding.rvNotification.visibility = View.GONE
             binding.tvNotification.visibility = View.GONE
+            binding.tvLogin.text = "Silakan Login Dahulu"
 
             binding.btnLogin.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
@@ -50,9 +56,33 @@ class NotificationFragment :
             notificationViewModel.getNotification()
         }
 
+        binding.ivFilter.setOnClickListener {
+            //do filter
+            val popupMenu = PopupMenu(requireContext(), binding.ivFilter)
+            popupMenu.menuInflater.inflate(R.menu.notification_filter_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.notification_all -> {
+                        notificationViewModel.getNotification()
+                        binding.tvFilter.text = "All Notification"
+                    }
+                    R.id.notification_buyer -> {
+                        notificationViewModel.getNotification("buyer")
+                        binding.tvFilter.text = "Buyer Notification"
+                    }
+                    R.id.notification_seller -> {
+                        notificationViewModel.getNotification("seller")
+                        binding.tvFilter.text = "Seller Notification"
+                    }
+                }
+                true
+            }
+            popupMenu.show()
+        }
+
     }
 
-    private fun setUpObserver(){
+    private fun setUpObserver() {
 
         notificationViewModel.notificationResponse.observe(viewLifecycleOwner) {
             when (it.status) {
@@ -60,6 +90,9 @@ class NotificationFragment :
                     binding.shimmerNotification.startShimmer()
                     binding.shimmerNotification.visibility = View.VISIBLE
                     binding.rvNotification.visibility = View.GONE
+                    binding.ivLogin.visibility = View.GONE
+                    binding.tvLogin.visibility = View.GONE
+                    binding.btnLogin.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
                     binding.shimmerNotification.stopShimmer()
@@ -72,6 +105,9 @@ class NotificationFragment :
                             binding.tvLogin.visibility = View.VISIBLE
                             binding.rvNotification.visibility = View.GONE
                         } else {
+                            binding.ivLogin.visibility = View.GONE
+                            binding.tvLogin.visibility = View.GONE
+                            binding.btnLogin.visibility = View.GONE
                             showBidProduct(it.data.body())
                         }
                     }
@@ -91,9 +127,40 @@ class NotificationFragment :
     private fun showBidProduct(data: GetNotificationResponse?) {
         val adapter = NotificationAdapter(
             object : NotificationAdapter.OnClickListener {
-                override fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem) {
-                    val id = data.id
-                    findNavController().navigate(R.id.action_mainFragment_to_bidderFragment)
+                override fun onClickItem(
+                    data: GetNotificationResponse.GetNotificationResponseItem,
+                ) {
+                    if (data.product != null) {
+                        val id = data.productId
+                        val action =
+                            MainFragmentDirections.actionMainFragmentToDetailProductFragment(id)
+                        findNavController().navigate(action)
+                    } else {
+                        val snackbar =
+                            Snackbar.make(
+                                binding.snackbar,
+                                "Product Ini Sudah Tidak Tersedia!",
+                                Snackbar.LENGTH_LONG
+                            )
+                        snackbar.setAction("x") {
+                            // Responds to click on the action
+                            snackbar.dismiss()
+                        }
+                            .setBackgroundTint(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.red
+                                )
+                            )
+                            .setActionTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
+                            )
+                            .show()
+                    }
+
                 }
             })
 

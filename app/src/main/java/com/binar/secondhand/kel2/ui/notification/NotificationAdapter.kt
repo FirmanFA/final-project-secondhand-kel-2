@@ -86,12 +86,14 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
                 when (data.status) {
                     "create" -> {
                         tvNego.visibility = View.GONE
+                        tvCallNotice.visibility = View.GONE
                         tvStatus.text = "Berhasil diterbitkan"
                     }
                     "accepted" -> {
                         val bidPrice = data.bidPrice
                         val formattedBidPrice: String = formatter.format(bidPrice).toString()
                         tvNego.visibility = View.VISIBLE
+                        tvCallNotice.visibility = View.VISIBLE
                         tvNego.text = "Berhasil ditawar Rp $formattedBidPrice"
                         tvPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                         tvStatus.text = "Penawaran produk"
@@ -100,6 +102,7 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
                         val bidPrice = data.bidPrice
                         val formattedBidPrice: String = formatter.format(bidPrice).toString()
                         tvNego.visibility = View.VISIBLE
+                        tvCallNotice.visibility = View.GONE
                         tvNego.text = "Ditawar Rp $formattedBidPrice"
                         tvStatus.text = "Penawaran produk"
                     }
@@ -107,6 +110,7 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
                         val bidPrice = data.bidPrice
                         val formattedBidPrice: String = formatter.format(bidPrice).toString()
                         tvNego.visibility = View.VISIBLE
+                        tvCallNotice.visibility = View.GONE
                         tvNego.text = "Penawaranmu Rp $formattedBidPrice tertolak!"
                         tvStatus.text = "Penawaran produk"
                     }
