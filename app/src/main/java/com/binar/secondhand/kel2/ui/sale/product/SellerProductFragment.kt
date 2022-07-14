@@ -8,6 +8,7 @@ import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProd
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentSellerProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.binar.secondhand.kel2.ui.sale.main.ProductSaleListViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -60,17 +61,22 @@ class SellerProductFragment :
     }
 
     private fun showProduct(dataProduct: GetSellerProductResponse?) {
-        val adapter = SellerProductAdapter { data, position ->
-
+        val adapter = SellerProductAdapter ({ data, position ->
             if (position == 0) {
-                findNavController().navigate(R.id.action_mainFragment_to_sellerDetailProductFragment)
+                MainFragment.activePage = R.id.main_sell
+                findNavController().navigate(R.id.action_mainFragment_self)
             } else {
                 val action =
                     MainFragmentDirections.actionMainFragmentToDetailProductFragment(data.id)
                 findNavController().navigate(action)
             }
-
-        }
+        },{
+          productSaleListViewModel.deleteProduct(it)
+            findNavController().navigate(R.id.action_mainFragment_self)
+        },{_ , id ->
+            val actionToEditFragment = MainFragmentDirections.actionMainFragmentToEditFragment(id)
+            findNavController().navigate(actionToEditFragment)
+        })
         if (dataProduct != null) {
             adapter.submitData(dataProduct)
         }

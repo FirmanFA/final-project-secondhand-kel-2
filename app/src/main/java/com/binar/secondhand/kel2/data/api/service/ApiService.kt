@@ -46,15 +46,15 @@ interface ApiService {
     @PUT("auth/user")
     suspend fun putAuth(
         @Part("full_name") fullname: RequestBody,
-        @Part("email") email: RequestBody? = null,
-        @Part("password") password: RequestBody? = null,
+        @Part("email") email: RequestBody ?= null,
+        @Part("password") password: RequestBody ?= null,
         @Part("phone_number") phone_number: RequestBody,
         @Part("address") address: RequestBody,
         @Part("city") city: RequestBody,
         @Part image: MultipartBody.Part?
     ): Response<PutAuthResponse>
 
-    @PUT("auth/change-password")
+    @PUT ("auth/change-password")
     suspend fun changePassword(@Body request: PutPassRequest): Response<PutPassResponse>
 
     @GET("notification")
@@ -62,16 +62,16 @@ interface ApiService {
             Response<GetNotificationResponse>
 
     @GET("buyer/product/{id}")
-    suspend fun getProductId(@Path("id") id: Int): Response<GetProductIdResponse>
+    suspend fun getProductId(@Path("id")id:Int): Response<GetProductIdResponse>
 
     @GET("seller/product/{id}")
     suspend fun getProductId(): Response<GetProductIdResponse>
 
     @GET("buyer/product/{product_id}")
-    suspend fun getProductDetail(@Path("product_id") productid: Int): Response<GetProductIdResponse>
+    suspend fun getProductDetail(@Path("product_id")productid:Int): Response<GetProductIdResponse>
 
     @GET("buyer/product/{user_id}")
-    suspend fun getUserProfile(@Path("user_id") userid: Int): Response<UserProduct>
+    suspend fun getUserProfile(@Path("user_id")userid:Int): Response<UserProduct>
 
 
     @GET("buyer/order")
@@ -86,8 +86,8 @@ interface ApiService {
     @POST("seller/product")
     suspend fun postProduct(
         @Part("name") name: RequestBody,
-        @Part("description") description: RequestBody? = null,
-        @Part("base_price") base_price: RequestBody? = null,
+        @Part("description") description: RequestBody ?= null,
+        @Part("base_price") base_price: RequestBody ?= null,
         @Part("category_ids") category_ids: RequestBody,
         @Part("location") location: RequestBody,
         @Part image: MultipartBody.Part?
@@ -109,17 +109,17 @@ interface ApiService {
 
     //product sale endpoint
     @GET("seller/product")
-    suspend fun getSellerProduct(): Response<GetSellerProductResponse>
+    suspend fun getSellerProduct():Response<GetSellerProductResponse>
 
     @GET("seller/order")
     suspend fun getSellerOrder(): Response<com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse>
 
     @GET("seller/order/{id}")
-    suspend fun getSellerOrderId(@Path("id") id: Int): Response<SellerOrderIdResponse>
+    suspend fun getSellerOrderId(@Path("id")id:Int): Response<SellerOrderIdResponse>
 
     @PATCH("seller/order/{id}")
-    suspend fun patchSellerOrderId(
-        @Path("id") id: Int,
-        @Body request: PatchSellerOrderIdRequest
-    ): Response<PatchSellerOrderIdResponse>
+    suspend fun patchSellerOrderId(@Path("id")id:Int,@Body request: PatchSellerOrderIdRequest): Response<PatchSellerOrderIdResponse>
+
+    @DELETE("seller/product/{id}")
+    suspend fun deleteSellerProductId(@Path("id")id:Int): Response<Unit>
 }
