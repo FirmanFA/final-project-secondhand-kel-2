@@ -76,6 +76,10 @@ class ProfileFragment :
             openImagePicker()
         }
 
+        binding.ivBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.btnSave.setOnClickListener {
             binding.apply {
                 val name = etName.editText?.text.toString()
