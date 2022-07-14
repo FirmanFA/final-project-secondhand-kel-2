@@ -130,5 +130,11 @@
     <string name="seller_name">Seller Name</string>
     <string name="silahkan_login_untuk_melanjutkan_penawaran">Silahkan login untuk melanjutkan penawaran</string>
     <string name="login">Login</string>
+    <string name="yeay_kamu_berhasil_mendapatkan_harga_yang_sesuai">Yeay kamu berhasil mendapatkan harga yang sesuai</string>
+    <string name="segera_hubungi_pembeli_melalui_whatsapp_untuk_transaksi_selanjutnya">Segera hubungi pembeli melalui whatsapp untuk transaksi selanjutnya</string>
+    <string name="product_match">Product match</string>
+    <string name="name_buyer">Name buyer</string>
+    <string name="city">City</string>
+    <string name="hubungi_via_whatsapp">Hubungi via Whatsapp</string>
 
 </resources>

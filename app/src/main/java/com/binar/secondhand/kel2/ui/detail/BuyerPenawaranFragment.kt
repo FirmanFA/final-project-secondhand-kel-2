@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
@@ -19,6 +20,7 @@ import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBuyerPenawaranBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.ref.WeakReference
@@ -163,6 +165,19 @@ class BuyerPenawaranFragment(
                             it.data.body()?.createdAt
                             it.data.body()?.updatedAt
 //                            etMoney.text.clear()
+                            getActivity()?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(R.id.snackbar_detail),
+                                    "Harga tawaranmu berhasil dikirim ke penjual",
+                                    Snackbar.LENGTH_LONG
+                                )
+                                    .setAction("x") {
+                                        // Responds to click on the action
+                                    }
+                                    .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.Green))
+                                    .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                                    .show()
+                            }
 
 
                             Toast.makeText(context, "Penawaran Anda Diterima", Toast.LENGTH_SHORT).show()

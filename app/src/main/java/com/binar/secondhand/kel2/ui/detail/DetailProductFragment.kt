@@ -25,7 +25,9 @@ class DetailProductFragment :
     private val viewModel: DetailProductViewModel by viewModel()
     private val args: DetailProductFragmentArgs by navArgs()
     private var isBid = false
-
+    private var pending = false
+    private var accepted = false
+    private var available = false
 
 
     @SuppressLint("ResourceAsColor", "SetTextI18n")
@@ -58,28 +60,44 @@ class DetailProductFragment :
 
         viewModel.getBuyerOrder.observe(viewLifecycleOwner) {
             for (data in 0 until (it.data?.size ?: 0)) {
-                if (it.data?.get(data)?.productId == productId) {
-                    isBid = true
+                if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "pending") {
+                    pending = true
+
                 }
             }
-            if (isBid) {
-                Snackbar.make(binding.snackbar, "Harga tawaranmu berhasil dikirim ke penjual", Snackbar.LENGTH_LONG)
-                    .setAction("x") {
-                        // Responds to click on the action
-                    }
-                    .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.Green))
-                    .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                    .show()
+            for (data in 0 until (it.data?.size ?: 0)) {
+                if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "accepted") {
+                    accepted = true
+
+                }
+            }
+            for (data in 0 until (it.data?.size ?: 0)) {
+                if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "declined") {
+                    available = true
+
+                }
+            }
+            if (accepted){
+                binding.btnTertarik.isEnabled = true
+                binding.btnTertarik.text = "Penawaran anda telah berhasil"
+                binding.btnTertarik.backgroundTintList =
+                    requireContext().getColorStateList(R.color.Green)
+            }else if(pending) {
                 binding.btnTertarik.isEnabled = false
                 binding.btnTertarik.text = "Menunggu Respon Penjual"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.grey)
-            }
-            else{
+
+            }else if(available) {
+                binding.btnTertarik.isEnabled = true
+                binding.btnTertarik.backgroundTintList =
+                    requireContext().getColorStateList(R.color.primary_blue)
+            }else{
                 binding.btnTertarik.isEnabled = true
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.primary_blue)
             }
+
         }
 
     }
