@@ -58,7 +58,8 @@ interface ApiService {
     suspend fun changePassword(@Body request: PutPassRequest): Response<PutPassResponse>
 
     @GET("notification")
-    suspend fun getNotification(): Response<GetNotificationResponse>
+    suspend fun getNotification(@Query("notification_type") type: String = ""):
+            Response<GetNotificationResponse>
 
     @GET("buyer/product/{id}")
     suspend fun getProductId(@Path("id")id:Int): Response<GetProductIdResponse>
