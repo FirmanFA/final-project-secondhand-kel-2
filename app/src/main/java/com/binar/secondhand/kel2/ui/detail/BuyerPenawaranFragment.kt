@@ -29,7 +29,7 @@ import java.text.NumberFormat
 
 
 class BuyerPenawaranFragment(
-    productId: Int,
+    private val productId: Int,
     product: String,
     imageProduct: String,
     price: String,
@@ -38,11 +38,10 @@ class BuyerPenawaranFragment(
 
     private var _binding: FragmentBuyerPenawaranBinding? = null
     private val binding get() = _binding!!
-    private val productId = productId
     private val product = product
     private val imageProduct = imageProduct
     private var price = price
-    private val viewModel: BuyerPenawaranViewModel by viewModel()
+    private val viewModel: DetailProductViewModel by viewModel()
     lateinit var etMoney: EditText
 
 
@@ -134,7 +133,6 @@ class BuyerPenawaranFragment(
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-
                     binding.progressBar.visibility = View.GONE
                     when (it.data?.code()){
                         201 -> {
@@ -144,7 +142,7 @@ class BuyerPenawaranFragment(
                             it.data.body()?.status
                             it.data.body()?.createdAt
                             it.data.body()?.updatedAt
-//                            etMoney.text.clear()
+
                             getActivity()?.let { it1 ->
                                 Snackbar.make(
                                     it1.findViewById(R.id.snackbar_detail),
