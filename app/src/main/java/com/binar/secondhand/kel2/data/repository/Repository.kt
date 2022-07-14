@@ -59,4 +59,5 @@ class Repository(private val apiHelper: ApiHelper) {
     suspend fun getSellerOrderId(id:Int) = apiHelper.getSellerOrderId(id)
 
     suspend fun patchSellerOrderId(id:Int, request: PatchSellerOrderIdRequest) = apiHelper.patchSellerOrderId(id, request)
+
 }
