@@ -27,7 +27,10 @@ class DetailProductFragment :
     private var isBid = false
     private var pending = false
     private var accepted = false
-    private var available = false
+    private var decline = false
+    private var imageProduct = ""
+    private var product = ""
+
 
 
     @SuppressLint("ResourceAsColor", "SetTextI18n")
@@ -47,16 +50,7 @@ class DetailProductFragment :
             findNavController().popBackStack()
         }
 
-        binding.btnTertarik.setOnClickListener {
 
-            val modal = BuyerPenawaranFragment(
-                productId,
-                refreshButton = { viewModel.getBuyerOrder() }
-            )
-            modal.show(parentFragmentManager, "Tag")
-
-
-        }
 
         viewModel.getBuyerOrder.observe(viewLifecycleOwner) {
             for (data in 0 until (it.data?.size ?: 0)) {
@@ -73,7 +67,7 @@ class DetailProductFragment :
             }
             for (data in 0 until (it.data?.size ?: 0)) {
                 if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "declined") {
-                    available = true
+                    decline = true
 
                 }
             }
@@ -88,7 +82,7 @@ class DetailProductFragment :
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.grey)
 
-            }else if(available) {
+            }else if(decline) {
                 binding.btnTertarik.isEnabled = true
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.primary_blue)
@@ -138,15 +132,27 @@ class DetailProductFragment :
                         tvTitle.text = it.data?.body()?.name
                         binding.tvPrice.text = "Rp. $formattedNumber"
                         val price = tvPrice.text.toString().replace("Rp. ", "").replace(".", "")
-
                         tvPrice.text = "Rp. $price"
-
-
-
                         tvDesc.text = it.data?.body()?.description.toString()
-
                         tvName.text = it.data?.body()?.user?.fullName.toString()
                         tvLocation.text = it.data?.body()?.user?.address.toString()
+
+
+                        product = it.data?.body()?.name.toString()
+                        imageProduct = it.data?.body()?.imageUrl.toString()
+                    }
+                    binding.btnTertarik.setOnClickListener {
+
+                        val modal = BuyerPenawaranFragment(
+                            args.productId,
+                            product,
+                            imageProduct,
+                            price,
+                            refreshButton = { viewModel.getBuyerOrder() }
+                        )
+                        modal.show(parentFragmentManager, "Tag")
+
+
                     }
                 }
                 Status.ERROR -> {
