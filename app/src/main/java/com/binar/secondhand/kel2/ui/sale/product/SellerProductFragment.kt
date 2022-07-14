@@ -73,7 +73,10 @@ class SellerProductFragment :
         },{
           productSaleListViewModel.deleteProduct(it)
             findNavController().navigate(R.id.action_mainFragment_self)
-        },{_ , id ->})
+        },{_ , id ->
+            val actionToEditFragment = MainFragmentDirections.actionMainFragmentToEditFragment(id)
+            findNavController().navigate(actionToEditFragment)
+        })
         if (dataProduct != null) {
             adapter.submitData(dataProduct)
         }

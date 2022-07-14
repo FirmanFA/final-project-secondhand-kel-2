@@ -45,6 +45,7 @@ class SellerProductAdapter(
             }
 
             binding.btnUbah.setOnClickListener {
+                edit(currentGetProductResponseItem, position)
             }
 
             binding.root.setOnClickListener {
