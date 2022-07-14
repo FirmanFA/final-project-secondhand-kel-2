@@ -1,6 +1,7 @@
 package com.binar.secondhand.kel2.ui.splash
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,6 +16,8 @@ import com.binar.secondhand.kel2.ui.notification.NotificationViewModel
 
 class SplashFragment : Fragment() {
 
+    private val sharedPref = "splashScreen"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,17 +29,18 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Handler(Looper.getMainLooper()).postDelayed({
-            if(onBoardingFinished()){
-                findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
-            }else{
+            val splashScreen: SharedPreferences = requireContext().getSharedPreferences(sharedPref, Context.MODE_PRIVATE)
+            val isFirstTime: Boolean = splashScreen.getBoolean("isFirstTime", true)
+
+            if (isFirstTime){
+                val editor : SharedPreferences.Editor = splashScreen.edit()
+                editor.putBoolean("isFirstTime", false)
+                editor.apply()
                 findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
+            } else {
+                findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
             }
-        }, 3000)
+        }, 2000)
 
-    }
-
-    private fun onBoardingFinished(): Boolean{
-        val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
-        return sharedPref.getBoolean("Finished", false)
     }
 }
