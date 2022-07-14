@@ -14,7 +14,11 @@ import com.facebook.shimmer.ShimmerDrawable
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
-class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) -> Unit) :
+class SellerProductAdapter(
+    private val onClick: (GetProductResponseItem, Int) -> Unit,
+    private val delete: (Int) -> Unit,
+    private val edit: (GetProductResponseItem, Int) -> Unit
+) :
     ListAdapter<GetProductResponseItem, SellerProductAdapter.ViewHolder>(CommunityComparator()) {
 
     class ViewHolder(private val binding: ProductSaleListLayoutBinding) :
@@ -23,6 +27,8 @@ class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) ->
         fun bind(
             currentGetProductResponseItem: GetProductResponseItem,
             onClick: (GetProductResponseItem, Int) -> Unit,
+            delete: (Int) -> Unit,
+            edit: (GetProductResponseItem, Int) -> Unit,
             position: Int
         ) {
 
@@ -34,16 +40,24 @@ class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) ->
                 binding.clProductItem.visibility = View.VISIBLE
             }
 
+            binding.btnHapus.setOnClickListener {
+                delete(currentGetProductResponseItem.id)
+            }
+
+            binding.btnUbah.setOnClickListener {
+            }
+
             binding.root.setOnClickListener {
                 onClick(currentGetProductResponseItem, position)
             }
-            val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
-                .setDuration(1800) // how long the shimmering animation takes to do one full sweep
-                .setBaseAlpha(0.7f) //the alpha of the underlying children
-                .setHighlightAlpha(0.6f) // the shimmer alpha amount
-                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-                .setAutoStart(true)
-                .build()
+            val shimmer =
+                Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
+                    .setDuration(1800) // how long the shimmering animation takes to do one full sweep
+                    .setBaseAlpha(0.7f) //the alpha of the underlying children
+                    .setHighlightAlpha(0.6f) // the shimmer alpha amount
+                    .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                    .setAutoStart(true)
+                    .build()
             val shimmerDrawable = ShimmerDrawable().apply {
                 setShimmer(shimmer)
             }
@@ -51,9 +65,10 @@ class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) ->
                 .placeholder(shimmerDrawable)
                 .into(binding.imvProductImage)
             binding.tvProductName.text = currentGetProductResponseItem.name
-            binding.tvProductCategory.text = currentGetProductResponseItem.categories?.joinToString{
-                it.name
-            }
+            binding.tvProductCategory.text =
+                currentGetProductResponseItem.categories?.joinToString {
+                    it.name
+                }
             val formatter: NumberFormat = DecimalFormat("#,###")
             val myNumber = currentGetProductResponseItem.basePrice
             val formattedNumber: String = formatter.format(myNumber).toString()
@@ -87,24 +102,26 @@ class SellerProductAdapter(private val onClick: (GetProductResponseItem, Int) ->
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), onClick, position)
+        holder.bind(getItem(position), onClick, delete, edit, position)
     }
 
-    fun submitData(listProduct: List<GetProductResponseItem>){
+    fun submitData(listProduct: List<GetProductResponseItem>) {
         val data = mutableListOf<GetProductResponseItem>()
-        data.add( GetProductResponseItem(
-            0,
-            listOf(),
-            "",
-            0,
-            "",
-            "",
-            "",
-            "",
-            "",
-            0,
-            ""
-        ))
+        data.add(
+            GetProductResponseItem(
+                0,
+                listOf(),
+                "",
+                0,
+                "",
+                "",
+                "",
+                "",
+                "",
+                0,
+                ""
+            )
+        )
         data.addAll(listProduct)
         submitList(data)
     }

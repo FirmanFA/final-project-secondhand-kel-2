@@ -11,4 +11,6 @@ class ProductSaleListRepository(private val apiHelper: ApiHelper) {
     suspend fun getNotification() = apiHelper.getNotification()
 
     suspend fun getSellerOrder() = apiHelper.getSellerOrder()
+
+    suspend fun deleteSellerProductId(id: Int) = apiHelper.deleteSellerProduct(id)
 }
