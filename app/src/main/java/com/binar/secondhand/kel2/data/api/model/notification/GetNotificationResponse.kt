@@ -14,27 +14,31 @@ class GetNotificationResponse : ArrayList<GetNotificationResponse.GetNotificatio
         @SerializedName("base_price")
         val basePrice: String,
         @SerializedName("bid_price")
-        val bidPrice: Int,
+        val bidPrice: Int?,
         @SerializedName("image_url")
         val imageUrl: String,
         @SerializedName("transaction_date")
-        val transactionDate: String,
+        val transactionDate: String?,
         @SerializedName("status")
         val status: String,
         @SerializedName("seller_name")
         val sellerName: String,
         @SerializedName("buyer_name")
-        val buyerName: String,
+        val buyerName: String?,
         @SerializedName("receiver_id")
         val receiverId: Int,
         @SerializedName("read")
         val read: Boolean,
+        @SerializedName("notification_type")
+        val notificationType: String?,
+        @SerializedName("order_id")
+        val orderId: Int?,
         @SerializedName("createdAt")
         val createdAt: String,
         @SerializedName("updatedAt")
         val updatedAt: String,
         @SerializedName("Product")
-        val product: Product,
+        val product: Product?,
         @SerializedName("User")
         val user: User
     ) {

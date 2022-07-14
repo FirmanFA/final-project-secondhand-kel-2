@@ -36,7 +36,7 @@ class ApiHelper(val apiService: ApiService) {
 
     suspend fun putPass(request: PutPassRequest) = apiService.changePassword(request)
 
-    suspend fun getNotification() = apiService.getNotification()
+    suspend fun getNotification(type: String = "") = apiService.getNotification(type)
 
     suspend fun getBanner() = apiService.getBanner()
 
