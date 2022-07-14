@@ -40,6 +40,7 @@ class NotificationFragment :
             binding.shimmerNotification.visibility = View.GONE
             binding.rvNotification.visibility = View.GONE
             binding.tvNotification.visibility = View.GONE
+            binding.tvLogin.text = "Silakan Login Dahulu"
 
             binding.btnLogin.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
@@ -89,6 +90,9 @@ class NotificationFragment :
                     binding.shimmerNotification.startShimmer()
                     binding.shimmerNotification.visibility = View.VISIBLE
                     binding.rvNotification.visibility = View.GONE
+                    binding.ivLogin.visibility = View.GONE
+                    binding.tvLogin.visibility = View.GONE
+                    binding.btnLogin.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
                     binding.shimmerNotification.stopShimmer()
@@ -101,6 +105,9 @@ class NotificationFragment :
                             binding.tvLogin.visibility = View.VISIBLE
                             binding.rvNotification.visibility = View.GONE
                         } else {
+                            binding.ivLogin.visibility = View.GONE
+                            binding.tvLogin.visibility = View.GONE
+                            binding.btnLogin.visibility = View.GONE
                             showBidProduct(it.data.body())
                         }
                     }
