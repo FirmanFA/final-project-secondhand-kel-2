@@ -69,8 +69,16 @@ class BidderBerhasilFragment (
 
     private fun directToWa() {
         if (isWhatappInstalled()) {
+            val formattedPhone = if (phone?.get(0) == '0'){
+                phone?.drop(0)
+                "62$phone"
+            }else if(phone?.get(0) == '6' && phone?.get(1) == '2'){
+                phone
+            }else{
+                "62$phone"
+            }
             val i = Intent(
-                Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=" + "$phone" + "&text=" + "")
+                Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=$formattedPhone&text=")
             )
             startActivity(i)
         } else {
