@@ -18,6 +18,12 @@ val databaseModule = module {
     single {
         get<AppDatabase>().searchHistoryDao()
     }
+    single {
+        get<AppDatabase>().productDao()
+    }
+    single {
+        get<AppDatabase>().remoteKeysDao()
+    }
 
     singleOf(::DbHelper)
 

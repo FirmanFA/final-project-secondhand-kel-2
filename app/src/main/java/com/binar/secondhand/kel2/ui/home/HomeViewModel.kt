@@ -1,39 +1,27 @@
 package com.binar.secondhand.kel2.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.insertSeparators
+import androidx.paging.map
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponseItem
 import com.binar.secondhand.kel2.data.repository.HomeRepository
 import com.binar.secondhand.kel2.data.resource.Resource
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
+class HomeViewModel(private val repository: HomeRepository
+) : ViewModel() {
 
-    private val _getBannerResponse = MutableLiveData<Resource<Response<GetBannerResponse>>>()
-    val getBannerResponse: LiveData<Resource<Response<GetBannerResponse>>> get() = _getBannerResponse
-
-    fun getHomeBanner() {
-        viewModelScope.launch {
-            _getBannerResponse.postValue(Resource.loading())
-            try {
-                val dataExample = Resource.success(repository.getBanner())
-                _getBannerResponse.postValue(dataExample)
-            } catch (exp: Exception) {
-                _getBannerResponse.postValue(
-                    Resource.error(
-                        exp.localizedMessage ?: "Error occured"
-                    )
-                )
-            }
-        }
-    }
-
+    private fun getProducts(): Flow<PagingData<UiModel>> =
+        repository.getProductStream()
+            .map { pagingData -> pagingData.map { UiModel.ProductItem(it) } }
 
     private val _getHomeProductResponse =
         MutableLiveData<Resource<Response<GetProductResponse>>>()
@@ -62,6 +50,29 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
             }
         }
     }
+
+
+    //banner
+    private val _getBannerResponse = MutableLiveData<Resource<Response<GetBannerResponse>>>()
+    val getBannerResponse: LiveData<Resource<Response<GetBannerResponse>>> get() = _getBannerResponse
+
+    fun getHomeBanner() {
+        viewModelScope.launch {
+            _getBannerResponse.postValue(Resource.loading())
+            try {
+                val dataExample = Resource.success(repository.getBanner())
+                _getBannerResponse.postValue(dataExample)
+            } catch (exp: Exception) {
+                _getBannerResponse.postValue(
+                    Resource.error(
+                        exp.localizedMessage ?: "Error occured"
+                    )
+                )
+            }
+        }
+    }
+
+
 
 
     private val _getCategoryResponse =
@@ -100,4 +111,8 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
     }
 
 
+}
+
+sealed class UiModel {
+    data class ProductItem(val products: GetProductResponseItem) : UiModel()
 }
