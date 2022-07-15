@@ -20,6 +20,7 @@ import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
 import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
 import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.order.SellerOrderIdResponse
+import com.binar.secondhand.kel2.data.api.model.seller.order.id.GetOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdResponse
@@ -69,6 +70,9 @@ interface ApiService {
 
     @GET("buyer/product/{product_id}")
     suspend fun getProductDetail(@Path("product_id")productid:Int): Response<GetProductIdResponse>
+
+    @GET("seller/order/{product_id}")
+    suspend fun getOrderProductId(@Path("product_id")productid:Int): Response<GetOrderIdResponse>
 
     @GET("buyer/product/{user_id}")
     suspend fun getUserProfile(@Path("user_id")userid:Int): Response<UserProduct>
