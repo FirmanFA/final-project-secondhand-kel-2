@@ -57,7 +57,23 @@ class Repository(private val apiHelper: ApiHelper) {
         image
     )
     suspend fun getSellerOrderId(id:Int) = apiHelper.getSellerOrderId(id)
-
     suspend fun patchSellerOrderId(id:Int, request: PatchSellerOrderIdRequest) = apiHelper.patchSellerOrderId(id, request)
+    suspend fun putProduct(
+        id: Int,
+        name: RequestBody,
+        description: RequestBody,
+        base_price: RequestBody,
+        category_ids: RequestBody,
+        location: RequestBody,
+        image: MultipartBody.Part?
+    ) = apiHelper.putProduct(
+        id,
+        name,
+        description,
+        base_price,
+        category_ids,
+        location,
+        image
+    )
 
 }
