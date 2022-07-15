@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import androidx.paging.PagingData
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
@@ -25,6 +28,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.NumberFormat
@@ -39,7 +46,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         MainFragment.activePage = R.id.main_home
 
-        setUpSearchBarListener()
         setUpObserver()
 
         val token = getKoin().getProperty("access_token", "")
@@ -58,6 +64,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
             }
         }
+
+//        binding.
 
         homeViewModel.getHomeBanner()
         homeViewModel.getHomeCategory()
@@ -295,32 +303,144 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             findNavController().navigate(action)
         }
 
-        adapter.submitList(productResponse)
+//        adapter.submitList(productResponse)
 
         binding.rvHomeProduct.adapter = adapter
 
     }
 
-
-    private fun setUpSearchBarListener() {
-//        binding.etSearch.setEndIconOnClickListener {
-//            //do search
-//            searchProduct(binding.etSearch.editText?.text.toString())
-//        }
-//
-//        binding.etSearch.editText?.setOnEditorActionListener { _, i, _ ->
-//
-//            if (i == EditorInfo.IME_ACTION_SEARCH) {
-//                //do something with search
-//                searchProduct(binding.etSearch.editText?.text.toString())
-//            }
-//
-//            true
-//        }
+    private fun FragmentHomeBinding.bindState(
+        uiState: StateFlow<UiState>,
+        pagingData: Flow<PagingData<UiModel>>,
+        uiActions: (UiAction) -> Unit
+    ) {
+        val repoAdapter = HomeProductAdapter {}
+        val header = ProductLoadStateAdapter { repoAdapter.retry() }
+        list.adapter = repoAdapter.withLoadStateHeaderAndFooter(
+            header = header,
+            footer = ReposLoadStateAdapter { repoAdapter.retry() }
+        )
+        bindSearch(
+            uiState = uiState,
+            onQueryChanged = uiActions
+        )
+        bindList(
+            header = header,
+            repoAdapter = repoAdapter,
+            uiState = uiState,
+            pagingData = pagingData,
+            onScrollChanged = uiActions
+        )
     }
 
-    private fun searchProduct(query: String) {
-        //TODO
+    private fun ActivitySearchRepositoriesBinding.bindSearch(
+        uiState: StateFlow<UiState>,
+        onQueryChanged: (UiAction.Search) -> Unit
+    ) {
+        searchRepo.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                updateRepoListFromInput(onQueryChanged)
+                true
+            } else {
+                false
+            }
+        }
+        searchRepo.setOnKeyListener { _, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                updateRepoListFromInput(onQueryChanged)
+                true
+            } else {
+                false
+            }
+        }
+
+        lifecycleScope.launch {
+            uiState
+                .map { it.query }
+                .distinctUntilChanged()
+                .collect(searchRepo::setText)
+        }
+    }
+
+    private fun ActivitySearchRepositoriesBinding.updateRepoListFromInput(onQueryChanged: (UiAction.Search) -> Unit) {
+        searchRepo.text.trim().let {
+            if (it.isNotEmpty()) {
+                list.scrollToPosition(0)
+                onQueryChanged(UiAction.Search(query = it.toString()))
+            }
+        }
+    }
+
+    private fun ActivitySearchRepositoriesBinding.bindList(
+        header: ReposLoadStateAdapter,
+        repoAdapter: ReposAdapter,
+        uiState: StateFlow<UiState>,
+        pagingData: Flow<PagingData<UiModel>>,
+        onScrollChanged: (UiAction.Scroll) -> Unit
+    ) {
+        retryButton.setOnClickListener { repoAdapter.retry() }
+        list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy != 0) onScrollChanged(UiAction.Scroll(currentQuery = uiState.value.query))
+            }
+        })
+        val notLoading = repoAdapter.loadStateFlow
+            .asRemotePresentationState()
+            .map { it == RemotePresentationState.PRESENTED }
+
+        val hasNotScrolledForCurrentSearch = uiState
+            .map { it.hasNotScrolledForCurrentSearch }
+            .distinctUntilChanged()
+
+        val shouldScrollToTop = combine(
+            notLoading,
+            hasNotScrolledForCurrentSearch,
+            Boolean::and
+        )
+            .distinctUntilChanged()
+
+        lifecycleScope.launch {
+            pagingData.collectLatest(repoAdapter::submitData)
+        }
+
+        lifecycleScope.launch {
+            shouldScrollToTop.collect { shouldScroll ->
+                if (shouldScroll) list.scrollToPosition(0)
+            }
+        }
+
+        lifecycleScope.launch {
+            repoAdapter.loadStateFlow.collect { loadState ->
+                // Show a retry header if there was an error refreshing, and items were previously
+                // cached OR default to the default prepend state
+                header.loadState = loadState.mediator
+                    ?.refresh
+                    ?.takeIf { it is LoadState.Error && repoAdapter.itemCount > 0 }
+                    ?: loadState.prepend
+
+                val isListEmpty = loadState.refresh is LoadState.NotLoading && repoAdapter.itemCount == 0
+                // show empty list
+                emptyList.isVisible = isListEmpty
+                // Only show the list if refresh succeeds, either from the the local db or the remote.
+                list.isVisible =  loadState.source.refresh is LoadState.NotLoading || loadState.mediator?.refresh is LoadState.NotLoading
+                // Show loading spinner during initial load or refresh.
+                progressBar.isVisible = loadState.mediator?.refresh is LoadState.Loading
+                // Show the retry state if initial load or refresh fails.
+                retryButton.isVisible = loadState.mediator?.refresh is LoadState.Error && repoAdapter.itemCount == 0
+                // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
+                val errorState = loadState.source.append as? LoadState.Error
+                    ?: loadState.source.prepend as? LoadState.Error
+                    ?: loadState.append as? LoadState.Error
+                    ?: loadState.prepend as? LoadState.Error
+                errorState?.let {
+                    Toast.makeText(
+                        this@SearchRepositoriesActivity,
+                        "\uD83D\uDE28 Wooops ${it.error}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
     }
 
 
