@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class BidderBerhasilFragment (
     orderId: Int,
@@ -64,6 +66,16 @@ class BidderBerhasilFragment (
                      binding.progressBar.visibility = View.VISIBLE
                  }
                  Status.SUCCESS -> {
+                     val price = it.data?.body()?.Product?.base_price.toString()
+                     val ditawar = it.data?.body()?.price.toString()
+                     val formatter: NumberFormat = DecimalFormat("#,###")
+
+                     val myPrice = price.toInt()
+                     val formattedPrice: String = formatter.format(myPrice).toString()
+
+                     val myDitawar = ditawar.toInt()
+                     val formattedDitawar: String = formatter.format(myDitawar).toString()
+
                      binding.tvPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                      binding.progressBar.visibility = View.GONE
                      //sukses mendapat response, progressbar disembunyikan lagi
@@ -78,11 +90,17 @@ class BidderBerhasilFragment (
                          .into(binding.imgProduct)
 
                      binding.apply {
-                         it.data?.body()?.User?.full_name
-                         it.data?.body()?.User?.city
-                         it.data?.body()?.Product?.name
-                         it.data?.body()?.Product?.base_price
-                         it.data?.body()?.price
+                         tvName.text = it.data?.body()?.User?.full_name
+                         tvCity.text = it.data?.body()?.User?.city
+                         tvNameProduct.text = it.data?.body()?.Product?.name
+                         binding.tvPrice.text = "Rp. $formattedPrice"
+                         val price = tvPrice.text.toString().replace("Rp. ", "").replace(".", "")
+                         tvPrice.text = "Rp. $price"
+
+
+                         binding.tvDitawar.text = "Rp. $formattedDitawar"
+                         val ditawar = tvDitawar.text.toString().replace("Rp. ", "").replace(".", "")
+                         tvDitawar.text = "Ditawar Rp. $ditawar"
                      }
                  }
                  Status.ERROR ->{

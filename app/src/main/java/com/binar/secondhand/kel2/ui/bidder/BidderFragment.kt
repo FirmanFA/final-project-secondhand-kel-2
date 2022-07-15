@@ -42,7 +42,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
         bidderViewModel.bidder.observe(viewLifecycleOwner){
             when(it.status){
                 Status.SUCCESS -> {
-                    var orderId = it.data?.body()?.id
+                    var orderId = it.data?.body()?.id.toString().toInt()
                     binding.tvName.text = it.data?.body()?.product?.user?.fullName.toString()
                     binding.tvKota.text = it.data?.body()?.product?.user?.city.toString()
                     Glide.with(this)
@@ -67,7 +67,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
                     }
                     binding.btnTerima.setOnClickListener {
                         val modal = BidderBerhasilFragment(
-                            id
+                            orderId
                         )
                         modal.show(parentFragmentManager, "Tag")
                     }
