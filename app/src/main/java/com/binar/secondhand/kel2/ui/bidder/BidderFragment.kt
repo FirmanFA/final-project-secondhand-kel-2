@@ -19,6 +19,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
 
     private val bidderViewModel: BidderViewModel by viewModel()
     private var orderId: Int? = null
+    private var status: String? = null
 
     val args: BidderFragmentArgs by navArgs()
 
@@ -33,7 +34,19 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
         loadBidder()
 
         binding.btnTolak.setOnClickListener {
-            bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "declined"))
+            status?.let {
+                if (it == "pending") {
+                    bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "declined"))
+                } else {
+                    orderId?.let {
+                        val modal = BidderBerhasilFragment(
+                            it
+                        )
+                        modal.show(parentFragmentManager, "Tag")
+                    }
+                }
+            }
+
         }
 
         binding.btnTerima.setOnClickListener {
@@ -54,6 +67,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
             when(it.status){
                 Status.SUCCESS -> {
                     orderId = it.data?.body()?.id.toString().toInt()
+                    status = it.data?.body()?.status.toString()
                     binding.tvName.text = it.data?.body()?.product?.user?.fullName.toString()
                     binding.tvKota.text = it.data?.body()?.product?.user?.city.toString()
                     Glide.with(this)
