@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
@@ -25,7 +24,7 @@ class BidderBerhasilFragment (
     private var _binding: FragmentBidderBerhasilBinding? = null
     private val binding get() = _binding!!
     private val orderId = orderId
-    private val viewModel: BidderBerhasilViewModel by viewModels ()
+    private val viewModel: BidderBerhasilViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -81,7 +80,6 @@ class BidderBerhasilFragment (
                      binding.apply {
                          it.data?.body()?.User?.full_name
                          it.data?.body()?.User?.city
-
                          it.data?.body()?.Product?.name
                          it.data?.body()?.Product?.base_price
                          it.data?.body()?.price
