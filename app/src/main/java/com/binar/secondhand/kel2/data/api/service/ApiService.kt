@@ -25,6 +25,7 @@ import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProduct
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
+import com.binar.secondhand.kel2.data.api.model.seller.product.put.PutSellerProductIdResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -122,4 +123,16 @@ interface ApiService {
 
     @DELETE("seller/product/{id}")
     suspend fun deleteSellerProductId(@Path("id")id:Int): Response<Unit>
+
+    @Multipart
+    @PUT("seller/product/{id}")
+    suspend fun putProduct(
+        @Path("id")id:Int,
+        @Part("name") name: RequestBody,
+        @Part("description") description: RequestBody ?= null,
+        @Part("base_price") base_price: RequestBody ?= null,
+        @Part("category_ids") category_ids: RequestBody,
+        @Part("location") location: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): Response<PutSellerProductIdResponse>
 }
