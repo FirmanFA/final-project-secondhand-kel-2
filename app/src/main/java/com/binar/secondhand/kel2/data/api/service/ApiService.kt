@@ -106,7 +106,9 @@ interface ApiService {
     suspend fun getProduct(
         @Query("status") status: String? = null,
         @Query("category_id") categoryId: Int? = null,
-        @Query("search") searchKeyword: String? = null
+        @Query("search") searchKeyword: String? = null,
+        @Query("page") page: Int=1,
+        @Query("per_page") itemsPerPage: Int=20
     ): Response<GetProductResponse>
 
     @GET("seller/category")

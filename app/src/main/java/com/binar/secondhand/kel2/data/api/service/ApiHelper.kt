@@ -7,6 +7,7 @@ import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderReques
 import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.Query
 
 
 class ApiHelper(val apiService: ApiService) {
@@ -43,11 +44,15 @@ class ApiHelper(val apiService: ApiService) {
     suspend fun getProduct(
         status: String? = null,
         categoryId: Int? = null,
-        searchKeyword: String? = null
+        searchKeyword: String? = null,
+        page: Int=1,
+        itemsPerPage: Int=20
     ) = apiService.getProduct(
         status,
         categoryId,
-        searchKeyword
+        searchKeyword,
+        page,
+        itemsPerPage
     )
     suspend fun getProductDetail(productId: Int) = apiService.getProductDetail(productId)
     suspend fun getOrderProductId(productId: Int) = apiService.getOrderProductId(productId)
