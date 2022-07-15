@@ -53,7 +53,4 @@ val viewModelModule = module {
     viewModelOf(::BidderViewModel)
 
     viewModelOf(::EditViewModel)
-
-    viewModelOf(::BidderBerhasilViewModel)
-
 }

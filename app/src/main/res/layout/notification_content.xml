@@ -111,7 +111,8 @@
             app:layout_constraintEnd_toEndOf="@+id/tv_nego"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_nego"
-            app:layout_constraintTop_toBottomOf="@+id/tv_nego" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_nego"
+            android:visibility="gone"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

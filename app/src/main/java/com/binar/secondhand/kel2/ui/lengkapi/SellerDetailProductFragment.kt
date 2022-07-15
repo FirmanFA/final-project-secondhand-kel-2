@@ -15,8 +15,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
@@ -37,7 +35,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.android.ext.android.getKoin
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.lang.ref.WeakReference
@@ -49,7 +46,7 @@ class SellerDetailProductFragment :
 
     private val sellerDetailProductViewModel: SellerDetailProductViewModel by viewModel()
 
-    private var imageUri: Uri? = null
+    private var imageUri : Uri?= null
 
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -64,8 +61,7 @@ class SellerDetailProductFragment :
 
                 }
                 ImagePicker.RESULT_ERROR -> {
-                    Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                 }
@@ -75,7 +71,9 @@ class SellerDetailProductFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val etMoney: EditText = binding.etPrice.editText!!
+        lateinit var etMoney: EditText
+
+        etMoney = binding.etPrice.editText!!
 
         //delimiter
         etMoney.addTextChangedListener(object : TextWatcher {
@@ -94,7 +92,7 @@ class SellerDetailProductFragment :
             }
         })
 
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        getActivity()?.getWindow()?.setSoftInputMode(WindowManager.LayoutParams. SOFT_INPUT_ADJUST_NOTHING)
 
         val token = getKoin().getProperty("access_token", "")
 
@@ -141,28 +139,17 @@ class SellerDetailProductFragment :
         }
 
         binding.btnPreview.setOnClickListener {
-            if (binding.etName.editText?.text.toString()
-                    .isEmpty() || binding.etPrice.editText?.text.toString()
-                    .isEmpty() || binding.etCity.editText?.text.toString()
-                    .isEmpty() || binding.etCategory.editText?.text.toString()
-                    .isEmpty() || binding.etDescription.editText?.text.toString().isEmpty()
-            ) {
-                Toast.makeText(
-                    requireContext(),
-                    "Lengkapi data terlebih dahulu",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                val actionToPreviewFragment =
-                    MainFragmentDirections.actionMainFragmentToPreviewFragment(
-                        name = binding.etName.editText?.text.toString(),
-                        price = binding.etPrice.editText?.text.toString().replace("Rp. ", "")
-                            .replace(",", ""),
-                        location = binding.etCity.editText?.text.toString(),
-                        description = binding.etDescription.editText?.text.toString(),
-                        image = imageUri.toString(),
-                        category = binding.etCategory.editText?.text.toString()
-                    )
+            if (binding.etName.editText?.text.toString().isEmpty() || binding.etPrice.editText?.text.toString().isEmpty() || binding.etCity.editText?.text.toString().isEmpty() || binding.etCategory.editText?.text.toString().isEmpty() || binding.etDescription.editText?.text.toString().isEmpty()) {
+                Toast.makeText(requireContext(), "Lengkapi data terlebih dahulu", Toast.LENGTH_SHORT).show()
+            }else{
+                val actionToPreviewFragment = MainFragmentDirections.actionMainFragmentToPreviewFragment(
+                    name = binding.etName.editText?.text.toString(),
+                    price = binding.etPrice.editText?.text.toString().replace("Rp. ", "").replace(",", ""),
+                    location = binding.etCity.editText?.text.toString(),
+                    description = binding.etDescription.editText?.text.toString(),
+                    image = imageUri.toString(),
+                    category = binding.etCategory.editText?.text.toString()
+                )
                 findNavController().navigate(actionToPreviewFragment)
             }
         }
@@ -175,9 +162,9 @@ class SellerDetailProductFragment :
                 val category = etCategory.editText?.text.toString()
                 val description = etDescription.editText?.text.toString()
 
-                val imageFile = if (imageUri == null) {
+                val imageFile = if(imageUri == null) {
                     null
-                } else {
+                }else{
                     File(URIPathHelper.getPath(requireContext(), imageUri!!).toString())
                 }
 
@@ -188,8 +175,8 @@ class SellerDetailProductFragment :
                 val descriptionBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
 
                 val requestImage = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                val imageBody = requestImage?.let {
-                    MultipartBody.Part.createFormData("image", imageFile.name, it)
+                val imageBody = requestImage?.let{
+                    MultipartBody.Part.createFormData("image", imageFile?.name, it)
                 }
 
                 sellerDetailProductViewModel.postProduct(
@@ -234,78 +221,51 @@ class SellerDetailProductFragment :
     }
 
     private fun setUpObservers() {
-        sellerDetailProductViewModel.sellerPostProduct.observe(viewLifecycleOwner) {
-            when (it.status) {
+        sellerDetailProductViewModel.sellerPostProduct.observe(viewLifecycleOwner){
+            when(it.status){
                 Status.LOADING -> {
                 }
                 Status.SUCCESS -> {
-                    when (it.data?.code()) {
+                    when(it.data?.code()){
                         201 -> {
-                            MainFragment.activePage = R.id.main_sale_list
-                            MainFragment.statusTerbit = "sukses"
-                            findNavController().navigate(R.id.action_mainFragment_self)
-                        }
-                        503 -> {
-                            Snackbar.make(
-                                binding.snackbar,
-                                "Server sedang mengalami gangguan, harap coba lagi nanti.",
-                                Snackbar.LENGTH_LONG
-                            )
+                            Snackbar.make(binding.snackbar, "Produk Berhasil Terbit", Snackbar.LENGTH_LONG)
                                 .setAction("x") {
                                     // Responds to click on the action
                                 }
-                                .setBackgroundTint(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.red
-                                    )
-                                )
-                                .setActionTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.white
-                                    )
-                                )
+                                .setBackgroundTint(resources.getColor(R.color.Green))
+                                .setActionTextColor(resources.getColor(R.color.white))
+                                .show()
+                        }
+                        503 -> {
+                            Snackbar.make(binding.snackbar, "Server sedang mengalami gangguan, harap coba lagi nanti.", Snackbar.LENGTH_LONG)
+                                .setAction("x") {
+                                    // Responds to click on the action
+                                }
+                                .setBackgroundTint(resources.getColor(R.color.Green))
+                                .setActionTextColor(resources.getColor(R.color.white))
                                 .show()
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.snackbar,
-                                "Terjadi kesalahan",
-                                Snackbar.LENGTH_LONG
-                            )
+                            Snackbar.make(binding.snackbar, "Terjadi kesalahan", Snackbar.LENGTH_LONG)
                                 .setAction("x") {
                                     // Responds to click on the action
                                 }
-                                .setBackgroundTint(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.red
-                                    )
-                                )
-                                .setActionTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.white
-                                    )
-                                )
+                                .setBackgroundTint(resources.getColor(R.color.Green))
+                                .setActionTextColor(resources.getColor(R.color.white))
                                 .show()
                         }
                     }
                 }
                 Status.ERROR -> {
-                    Toast.makeText(context, "Gagal terbit", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"Gagal terbit", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
-
     fun EditText.setMaskingMoney(currencyText: String) {
 //        set delimiter
-        this.addTextChangedListener(object : MyTextWatcher {
-            val editTextWeakReference: WeakReference<EditText> =
-                WeakReference<EditText>(this@setMaskingMoney)
-
+        this.addTextChangedListener(object: MyTextWatcher{
+            val editTextWeakReference: WeakReference<EditText> = WeakReference<EditText>(this@setMaskingMoney)
             override fun afterTextChanged(editable: Editable?) {
                 val editText = editTextWeakReference.get() ?: return
                 val s = editable.toString()
@@ -320,11 +280,11 @@ class SellerDetailProductFragment :
         })
     }
 
-    interface MyTextWatcher : TextWatcher {
+    interface MyTextWatcher: TextWatcher {
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
     }
 
     fun String.monetize(): String = if (this.isEmpty()) "0"
-    else DecimalFormat("#,###").format(this.replace("[^\\d]".toRegex(), "").toLong())
+    else DecimalFormat("#,###").format(this.replace("[^\\d]".toRegex(),"").toLong())
 }

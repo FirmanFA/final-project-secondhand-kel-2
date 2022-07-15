@@ -1,84 +1,108 @@
 package com.binar.secondhand.kel2.ui.sale.sold
 
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponseItem
+import com.binar.secondhand.kel2.databinding.NotificationContentBinding
 import com.binar.secondhand.kel2.databinding.ProductSaleListLayoutBinding
+import com.binar.secondhand.kel2.ui.sale.bid.BidProductAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
+import java.text.DateFormat
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
-class SoldProductAdapter(private val onClick: (GetProductResponseItem) -> Unit) :
-    ListAdapter<GetProductResponseItem, SoldProductAdapter.ViewHolder>(ProductComparator()) {
+class SoldProductAdapter(private val onItemClick: OnClickListener) :
+    RecyclerView.Adapter<SoldProductAdapter.ViewHolder>() {
 
-    class ViewHolder(private val binding: ProductSaleListLayoutBinding) :
+    private val diffCallback =
+        object : DiffUtil.ItemCallback<GetOrderResponse.GetOrderResponseItem>() {
+            override fun areItemsTheSame(
+                oldItem: GetOrderResponse.GetOrderResponseItem,
+                newItem: GetOrderResponse.GetOrderResponseItem
+            ): Boolean = oldItem.id == newItem.id
+
+            override fun areContentsTheSame(
+                oldItem: GetOrderResponse.GetOrderResponseItem,
+                newItem: GetOrderResponse.GetOrderResponseItem
+            ): Boolean = oldItem.hashCode() == newItem.hashCode()
+        }
+
+    private val differ = AsyncListDiffer(this, diffCallback)
+
+    fun submitData(value: List<GetOrderResponse.GetOrderResponseItem>?) = differ.submitList(value)
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): SoldProductAdapter.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return ViewHolder(NotificationContentBinding.inflate(inflater, parent, false))
+    }
+
+    override fun onBindViewHolder(holder: SoldProductAdapter.ViewHolder, position: Int) {
+        val data = differ.currentList[position]
+        data.let { holder.bind(data) }
+    }
+
+    override fun getItemCount(): Int = differ.currentList.size
+
+    inner class ViewHolder(private val binding: NotificationContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: GetOrderResponse.GetOrderResponseItem) {
+            binding.apply {
+                val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'", Locale.ROOT)
+                val date =
+                    format.parse(data.transactionDate ?: "2022-07-02T17:26:29.984Z") as Date
 
-        fun bind(
-            currentGetProductResponseItem: GetProductResponseItem,
-            onClick: (GetProductResponseItem) -> Unit
-        ) {
+                val shimmer =
+                    Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
+                        .setDuration(1800) // how long the shimmering animation takes to do one full sweep
+                        .setBaseAlpha(0.7f) //the alpha of the underlying children
+                        .setHighlightAlpha(0.6f) // the shimmer alpha amount
+                        .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                        .setAutoStart(true)
+                        .build()
+                val shimmerDrawable = ShimmerDrawable().apply {
+                    setShimmer(shimmer)
+                }
+                val formatter: NumberFormat = DecimalFormat("#,###")
+                val myNumber = data.product.basePrice
+                val myNumber2 = data.price
+                val formattedNumber: String = formatter.format(myNumber).toString()
+                val formattedNumber2: String = formatter.format(myNumber2).toString()
 
-            binding.root.setOnClickListener {
-                onClick(currentGetProductResponseItem)
+                Glide.with(binding.root)
+                    .load(data.product.imageUrl)
+                    .centerCrop()
+                    .placeholder(shimmerDrawable)
+                    .transform(CenterCrop(), RoundedCorners(16))
+                    .into(binding.ivProduct)
+                tvTitle.text = data.product.name
+                tvPrice.text = "Rp $formattedNumber"
+                tvNego.text = "Rp $formattedNumber2"
+                tvStatus.text = data.status
+                tvTime.text = DateFormat.getDateInstance(DateFormat.FULL).format(date)
+                root.setOnClickListener {
+                    onItemClick.onClickItem(data)
+                }
             }
-            val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
-                .setDuration(1800) // how long the shimmering animation takes to do one full sweep
-                .setBaseAlpha(0.7f) //the alpha of the underlying children
-                .setHighlightAlpha(0.6f) // the shimmer alpha amount
-                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-                .setAutoStart(true)
-                .build()
-            val shimmerDrawable = ShimmerDrawable().apply {
-                setShimmer(shimmer)
-            }
-            Glide.with(binding.root).load(currentGetProductResponseItem.imageUrl)
-                .placeholder(shimmerDrawable)
-                .into(binding.imvProductImage)
-            binding.tvProductName.text = currentGetProductResponseItem.name
-            binding.tvProductCategory.text = currentGetProductResponseItem.categories?.joinToString{
-                it.name
-            }
-            val formatter: NumberFormat = DecimalFormat("#,###")
-            val myNumber = currentGetProductResponseItem.basePrice
-            val formattedNumber: String = formatter.format(myNumber).toString()
-            binding.tvProductPrice.text = "Rp. ${formattedNumber}"
-        }
-
-    }
-
-    class ProductComparator : DiffUtil.ItemCallback<GetProductResponseItem>() {
-        override fun areItemsTheSame(
-            oldItem: GetProductResponseItem,
-            newItem: GetProductResponseItem
-        ): Boolean {
-            return oldItem === newItem
-        }
-
-        override fun areContentsTheSame(
-            oldItem: GetProductResponseItem,
-            newItem: GetProductResponseItem
-        ): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ProductSaleListLayoutBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-
-        return ViewHolder(binding)
+    interface OnClickListener {
+        fun onClickItem(data: GetOrderResponse.GetOrderResponseItem)
     }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), onClick)
-    }
-
 }

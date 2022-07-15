@@ -37,7 +37,6 @@ class Repository(private val apiHelper: ApiHelper) {
 
     suspend fun getNotification() = apiHelper.getNotification()
     suspend fun getBuyerOrder() = apiHelper.getBuyerOrder()
-    suspend fun getOrderProductId(productId: Int) = apiHelper.getOrderProductId(productId)
     suspend fun getProductId(id: Int) = apiHelper.getProductId(id)
     suspend fun getProductDetail(productId: Int) = apiHelper.getProductDetail(productId)
     suspend fun getUserProfile(userId: Int) = apiHelper.getUserProfile(userId)
