@@ -1,6 +1,9 @@
 package com.binar.secondhand.kel2.ui.bidder
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +30,7 @@ class BidderBerhasilFragment (
     private val binding get() = _binding!!
     private val orderId = orderId
     private val viewModel: BidderBerhasilViewModel by viewModel()
+    private var phone: String? = null
 
 
     override fun onCreateView(
@@ -57,6 +61,34 @@ class BidderBerhasilFragment (
             setUpObserver()
         }
 
+        binding.btnKirim.setOnClickListener {
+            directToWa()
+        }
+
+    }
+
+    private fun directToWa() {
+        if (isWhatappInstalled()) {
+            val i = Intent(
+                Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=" + "$phone" + "&text=" + "")
+            )
+            startActivity(i)
+        } else {
+            Toast.makeText(requireContext(), "Whatsapp is not installed", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    private fun isWhatappInstalled(): Boolean {
+        val packageManager = requireContext().packageManager
+        val whatsappInstalled: Boolean
+        whatsappInstalled = try {
+            packageManager.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
+        return whatsappInstalled
     }
 
     private fun setUpObserver() {
@@ -66,6 +98,7 @@ class BidderBerhasilFragment (
                      binding.progressBar.visibility = View.VISIBLE
                  }
                  Status.SUCCESS -> {
+                     phone = it.data?.body()?.User?.phone_number.toString()
                      val price = it.data?.body()?.Product?.base_price.toString()
                      val ditawar = it.data?.body()?.price.toString()
                      val formatter: NumberFormat = DecimalFormat("#,###")
