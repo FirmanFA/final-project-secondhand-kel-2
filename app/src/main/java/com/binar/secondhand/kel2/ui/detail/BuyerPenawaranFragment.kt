@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
@@ -19,6 +20,7 @@ import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBuyerPenawaranBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.ref.WeakReference
@@ -27,14 +29,19 @@ import java.text.NumberFormat
 
 
 class BuyerPenawaranFragment(
-    productId: Int,
+    private val productId: Int,
+    product: String,
+    imageProduct: String,
+    price: String,
     private val refreshButton: () -> Unit
 ) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBuyerPenawaranBinding? = null
     private val binding get() = _binding!!
-    private val productId = productId
-    private val viewModel: BuyerPenawaranViewModel by viewModel()
+    private val product = product
+    private val imageProduct = imageProduct
+    private var price = price
+    private val viewModel: DetailProductViewModel by viewModel()
     lateinit var etMoney: EditText
 
 
@@ -63,9 +70,20 @@ class BuyerPenawaranFragment(
         } else {
             binding.dialogLogin.visibility = View.GONE
             binding.dialogBottom.visibility = View.VISIBLE
-            viewModel.getDetailProduct(productId)
             setUpObserver()
         }
+
+        Glide.with(binding.imgProfile)
+            .load(imageProduct)
+            .error(R.drawable.ic_broken)
+            .into(binding.imgProfile)
+        binding.tvName.text = product
+        val formatter: NumberFormat = DecimalFormat("#,###")
+        val myNumber = price.toInt()
+        val formattedNumber: String = formatter.format(myNumber).toString()
+        price = "Rp. $formattedNumber"
+        price.toString().replace("Rp. ", "").replace(".", "")
+        binding.tvPrice.text = price
 
 
 
@@ -108,43 +126,6 @@ class BuyerPenawaranFragment(
 
     @SuppressLint("SetTextI18n")
     private fun setUpObserver() {
-        viewModel.detailProduct.observe(viewLifecycleOwner){
-            val price = it.data?.body()?.basePrice.toString()
-            when(it.status){
-                Status.LOADING -> {
-                    //loading state, misal menampilkan progressbar
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS -> {
-                    val formatter: NumberFormat = DecimalFormat("#,###")
-                    val myNumber = price.toInt()
-                    val formattedNumber: String = formatter.format(myNumber).toString()
-                    //formattedNumber is equal to 1,000,000
-
-                    binding.progressBar.visibility = View.GONE
-                    //sukses mendapat response, progressbar disembunyikan lagi
-                    Glide.with(binding.imgProfile)
-                        .load(it.data?.body()?.imageUrl)
-                        .error(R.drawable.ic_broken)
-                        .into(binding.imgProfile)
-
-                    binding.apply {
-                        val category = arrayListOf<String>()
-                        it.data?.body()?.categories?.forEach { categories ->
-                            category.add(categories.name)
-                        }
-                        tvName.text = it.data?.body()?.name
-                        tvPrice.text = "Rp. $formattedNumber"
-                        tvPrice.text.toString().replace("Rp. ", "").replace(".", "")
-                    }
-                }
-                Status.ERROR ->{
-                    binding.progressBar.visibility = View.GONE
-                    val error = it.message
-                    Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
 
         viewModel.buyerOrder.observe(viewLifecycleOwner){
             when (it.status) {
@@ -152,7 +133,6 @@ class BuyerPenawaranFragment(
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-
                     binding.progressBar.visibility = View.GONE
                     when (it.data?.code()){
                         201 -> {
@@ -162,7 +142,20 @@ class BuyerPenawaranFragment(
                             it.data.body()?.status
                             it.data.body()?.createdAt
                             it.data.body()?.updatedAt
-//                            etMoney.text.clear()
+
+                            getActivity()?.let { it1 ->
+                                Snackbar.make(
+                                    it1.findViewById(R.id.snackbar_detail),
+                                    "Harga tawaranmu berhasil dikirim ke penjual",
+                                    Snackbar.LENGTH_LONG
+                                )
+                                    .setAction("x") {
+                                        // Responds to click on the action
+                                    }
+                                    .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.Green))
+                                    .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                                    .show()
+                            }
 
 
                             Toast.makeText(context, "Penawaran Anda Diterima", Toast.LENGTH_SHORT).show()
