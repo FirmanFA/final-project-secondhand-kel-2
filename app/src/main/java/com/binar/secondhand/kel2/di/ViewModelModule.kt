@@ -2,10 +2,11 @@ package com.binar.secondhand.kel2.di
 
 
 import com.binar.secondhand.kel2.ui.account.AccountViewModel
+import com.binar.secondhand.kel2.ui.bidder.BidderBerhasilFragment
+import com.binar.secondhand.kel2.ui.bidder.BidderBerhasilViewModel
 import com.binar.secondhand.kel2.ui.bidder.BidderViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
-import com.binar.secondhand.kel2.ui.detail.BuyerPenawaranViewModel
 import com.binar.secondhand.kel2.ui.edit.EditViewModel
 import com.binar.secondhand.kel2.ui.home.HomeViewModel
 import com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductViewModel
@@ -34,8 +35,6 @@ val viewModelModule = module {
     viewModelOf(::NotificationViewModel)
 
     viewModelOf(::DetailProductViewModel)
-
-    viewModelOf(::BuyerPenawaranViewModel)
 
     viewModelOf(::SellerDetailProductViewModel)
 
