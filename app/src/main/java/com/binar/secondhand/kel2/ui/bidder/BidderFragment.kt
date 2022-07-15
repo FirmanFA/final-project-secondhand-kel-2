@@ -18,6 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding::inflate) {
 
     private val bidderViewModel: BidderViewModel by viewModel()
+    private var orderId: Int? = null
 
     val args: BidderFragmentArgs by navArgs()
 
@@ -26,6 +27,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
 // tambahin args id nya
         val id = args.id
 
+
         bidderViewModel.bidder(id)
 
         loadBidder()
@@ -33,12 +35,25 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
         binding.btnTolak.setOnClickListener {
             bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "declined"))
         }
+
+        binding.btnTerima.setOnClickListener {
+            orderId?.let {
+                val modal = BidderBerhasilFragment(
+                    it
+                )
+                bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "accepted"))
+                modal.show(parentFragmentManager, "Tag")
+            }
+        }
+
+
     }
 
     private fun loadBidder() {
         bidderViewModel.bidder.observe(viewLifecycleOwner){
             when(it.status){
                 Status.SUCCESS -> {
+                    orderId = it.data?.body()?.id.toString().toInt()
                     binding.tvName.text = it.data?.body()?.product?.user?.fullName.toString()
                     binding.tvKota.text = it.data?.body()?.product?.user?.city.toString()
                     Glide.with(this)
@@ -57,7 +72,9 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
                             binding.btnTolak.visibility = View.GONE
                         }
                         "accepted" ->{
-
+                            binding.tvNego.paintFlags = 0
+                            binding.btnTerima.text = "Whatsapp"
+                            binding.btnTolak.text = "Status"
                         }
 
                     }
