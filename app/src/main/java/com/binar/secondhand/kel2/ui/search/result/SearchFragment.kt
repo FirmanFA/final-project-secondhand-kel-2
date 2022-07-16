@@ -60,14 +60,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun showProductList(productResponse: GetProductResponse?) {
         binding.tvSearchResult.text = "Hasil pencarian untuk ${args.querySearch}," +
-                " ${productResponse?.size ?: 0} ditemukan"
+                " ${productResponse?.productResponseItem?.size ?: 0} ditemukan"
         val adapter = SearchAdapter {
             //onclick item
             val action = SearchFragmentDirections.actionSearchFragmentToDetailProductFragment(it.id)
             findNavController().navigate(action)
         }
 
-        adapter.submitList(productResponse)
+        adapter.submitList(productResponse?.productResponseItem)
 
         binding.rvHomeProduct.adapter = adapter
     }

@@ -6,6 +6,7 @@ import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerRespo
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
 import com.binar.secondhand.kel2.data.api.service.ApiHelper
 import com.binar.secondhand.kel2.data.api.service.ApiService
+import com.binar.secondhand.kel2.data.local.room.database.AppDatabase
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -21,6 +22,7 @@ class HomeRepositoryTest {
     //collaborator
     private lateinit var apiService: ApiService
     private lateinit var apiHelper: ApiHelper
+    private lateinit var appDatabase: AppDatabase
 
     //system under test
     private lateinit var homeRepository: HomeRepository
@@ -29,8 +31,9 @@ class HomeRepositoryTest {
     fun setUp() {
         apiService = mockk()
         apiHelper = mockk()
+        appDatabase = mockk()
 
-        homeRepository = HomeRepository(apiHelper)
+        homeRepository = HomeRepository(apiHelper,appDatabase)
     }
 
     @Test
