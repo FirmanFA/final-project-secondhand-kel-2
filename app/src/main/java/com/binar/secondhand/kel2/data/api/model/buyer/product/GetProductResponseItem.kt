@@ -1,27 +1,49 @@
 package com.binar.secondhand.kel2.data.api.model.buyer.product
 
-
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "product")
 data class GetProductResponseItem(
-    @SerializedName("base_price")
-    val basePrice: Int,
-    @SerializedName("Categories")
-    val categories: List<Category>?,
-    @SerializedName("created_at")
-    val createdAt: String,
-    @SerializedName("id")
+    @PrimaryKey(autoGenerate = true)
+    val productId: Int?=null,
+    @field:SerializedName("id")
     val id: Int,
-    @SerializedName("image_name")
-    val imageName: String,
-    @SerializedName("image_url")
-    val imageUrl: String,
-    @SerializedName("location")
-    val location: String,
-    @SerializedName("name")
+    @field:SerializedName("name")
     val name: String,
-    @SerializedName("updated_at")
+    @field:SerializedName("description")
+    val description: String?,
+    @field:SerializedName("base_price")
+    val basePrice: Int,
+    @field:SerializedName("image_url")
+    val imageUrl: String?,
+    @field:SerializedName("image_name")
+    val imageName: String?,
+    @field:SerializedName("location")
+    val location: String?,
+    @field:SerializedName("user_id")
+    val userId: Int,
+    @field:SerializedName("status")
+    val status: String,
+    @field:SerializedName("createdAt")
+    val createdAt: String,
+    @field:SerializedName("updatedAt")
     val updatedAt: String,
-    @SerializedName("user_id")
-    val userId: Int
-)
+    @ColumnInfo(name = "category_string")
+    var categoryString:String?,
+
+) {
+    @Ignore
+    @field:SerializedName("Categories")
+    val categories: List<Category> = emptyList()
+
+    data class Category(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("name")
+        val name: String
+    )
+}
