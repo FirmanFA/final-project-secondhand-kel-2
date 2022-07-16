@@ -58,10 +58,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
-        binding.btnWishlist.setOnClickListener {
-            Log.d("itemcount", binding.rvHomeProduct.adapter?.itemCount.toString())
-        }
-
         homeViewModel.getHomeBanner()
         homeViewModel.getHomeCategory()
 
@@ -70,10 +66,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             findNavController().navigate(action)
         }
         val productLoadStateAdapter = ProductLoadStateAdapter { productAdapter.retry() }
-
-
-//        binding.
-
 
         binding.bindList(
             header = productLoadStateAdapter,
