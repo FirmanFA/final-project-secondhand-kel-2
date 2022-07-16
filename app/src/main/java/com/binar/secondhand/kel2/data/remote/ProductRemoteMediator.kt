@@ -1,5 +1,6 @@
 package com.binar.secondhand.kel2.data.remote
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -17,7 +18,8 @@ import java.io.IOException
 @OptIn(ExperimentalPagingApi::class)
 class ProductRemoteMediator(
     private val apiHelper: ApiHelper,
-    private val appDatabase: AppDatabase
+    private val appDatabase: AppDatabase,
+    private val category: Int? = null
 ) : RemoteMediator<Int, GetProductResponseItem>() {
 
     private val startPageIndex = 1
@@ -26,7 +28,7 @@ class ProductRemoteMediator(
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, GetProductResponseItem>
+        state: PagingState<Int, GetProductResponseItem>,
     ): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> {
@@ -59,7 +61,7 @@ class ProductRemoteMediator(
 
         try {
             val apiResponse =
-                apiHelper.getProduct(page = page, itemsPerPage = state.config.pageSize)
+                apiHelper.getProduct(categoryId = category, page = page, itemsPerPage = state.config.pageSize)
             val products = apiResponse.body()?.productResponseItem
             val endOfPaginationReached = products?.isEmpty()
 
@@ -79,8 +81,8 @@ class ProductRemoteMediator(
                 }
                 if (products != null) {
                     products.forEach {product->
-                        val categoryString = product.categories?.joinToString { it.name }
-                        product.categoryString = categoryString?:""
+                        val categoryString = product.categories.joinToString { it.name }
+                        product.categoryString = categoryString
                     }
                     appDatabase.productDao().insertAll(products)
                 }

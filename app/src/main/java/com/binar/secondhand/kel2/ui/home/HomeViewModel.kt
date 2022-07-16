@@ -19,9 +19,10 @@ import retrofit2.Response
 class HomeViewModel(private val repository: HomeRepository
 ) : ViewModel() {
 
-    private fun getProducts(): Flow<PagingData<UiModel>> =
-        repository.getProductStream()
+    fun getProducts(categoryId: Int? =null): Flow<PagingData<UiModel.ProductItem>> =
+        repository.getProductStream(categoryId)
             .map { pagingData -> pagingData.map { UiModel.ProductItem(it) } }
+            .cachedIn(viewModelScope)
 
     private val _getHomeProductResponse =
         MutableLiveData<Resource<Response<GetProductResponse>>>()
@@ -112,6 +113,14 @@ class HomeViewModel(private val repository: HomeRepository
 
 
 }
+
+sealed class UiAction {
+    data class Scroll(val position: Int) : UiAction()
+}
+
+data class UiState(
+    val hasNotScrolledForCurrentState: Boolean = false
+)
 
 sealed class UiModel {
     data class ProductItem(val products: GetProductResponseItem) : UiModel()

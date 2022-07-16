@@ -27,14 +27,14 @@ class HomeRepository(
         searchKeyword
     )
 
-    fun getProductStream(): Flow<PagingData<GetProductResponseItem>> {
+    fun getProductStream(categoryId: Int? = null): Flow<PagingData<GetProductResponseItem>> {
 
         val pagingSourceFactory = { appDatabase.productDao().getProducts() }
 
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
-            remoteMediator = ProductRemoteMediator(apiHelper, appDatabase),
+            remoteMediator = ProductRemoteMediator(apiHelper, appDatabase, categoryId),
             pagingSourceFactory = pagingSourceFactory
         ).flow
 

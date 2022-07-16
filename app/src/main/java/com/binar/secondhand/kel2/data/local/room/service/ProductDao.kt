@@ -14,7 +14,7 @@ interface ProductDao {
     suspend fun insertAll(products: List<GetProductResponseItem>)
 
     @Query(
-        "SELECT * FROM product"
+        "SELECT * FROM product ORDER BY productId ASC"
     )
     fun getProducts(): PagingSource<Int, GetProductResponseItem>
 
