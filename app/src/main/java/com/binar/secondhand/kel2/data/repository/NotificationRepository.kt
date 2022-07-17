@@ -6,4 +6,6 @@ class NotificationRepository(private val apiHelper: ApiHelper) {
 
     suspend fun getNotification(type: String = "") = apiHelper.getNotification(type)
 
+    suspend fun readNotification(id: Int) = apiHelper.readNotification(id)
+
 }
