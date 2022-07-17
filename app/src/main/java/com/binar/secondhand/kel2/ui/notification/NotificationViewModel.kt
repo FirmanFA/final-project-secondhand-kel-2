@@ -27,4 +27,19 @@ class NotificationViewModel(private val repository: NotificationRepository): Vie
             }
         }
     }
+
+    private val _readNotification = MutableLiveData<Resource<Response<Unit>>>()
+    val readNotificationResponse: LiveData<Resource<Response<Unit>>> get() = _readNotification
+
+    fun readNotification(id: Int){
+        viewModelScope.launch {
+            _readNotification.postValue(Resource.loading())
+            try {
+                val notification = Resource.success(repository.readNotification(id))
+                _readNotification.postValue(notification)
+            }catch (exception : Exception){
+                _readNotification.postValue(Resource.error(exception.message?: "Error Occurred"))
+            }
+        }
+    }
 }

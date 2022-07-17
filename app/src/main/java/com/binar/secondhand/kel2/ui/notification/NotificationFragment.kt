@@ -121,6 +121,13 @@ class NotificationFragment :
                 }
             }
         }
+        notificationViewModel.readNotificationResponse.observe(viewLifecycleOwner){
+            when(it.status){
+                Status.SUCCESS -> {}
+                Status.ERROR -> {showSnackbar("Error Occured")}
+                Status.LOADING -> {}
+            }
+        }
 
     }
 
@@ -130,6 +137,9 @@ class NotificationFragment :
                 override fun onClickItem(
                     data: GetNotificationResponse.GetNotificationResponseItem,
                 ) {
+
+                    notificationViewModel.readNotification(data.id)
+
                     if (data.product != null) {
                         val id = data.productId
                         val action =
