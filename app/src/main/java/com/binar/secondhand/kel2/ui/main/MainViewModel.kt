@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel(): ViewModel() {
 
-    private val _notificationCount = MutableLiveData<Int>()
-    val notificationCount : LiveData<Int> get() = _notificationCount
+    private val _notificationCount = MutableLiveData<Int?>()
+    val notificationCount : LiveData<Int?> get() = _notificationCount
 
-    fun setNotificationCount(count: Int){
+    fun setNotificationCount(count: Int?){
         _notificationCount.postValue(count)
     }
 
