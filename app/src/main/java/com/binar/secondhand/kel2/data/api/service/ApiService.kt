@@ -141,4 +141,8 @@ interface ApiService {
         @Part("location") location: RequestBody,
         @Part image: MultipartBody.Part?
     ): Response<PutSellerProductIdResponse>
+
+    @PATCH("notification/{id}")
+    suspend fun readNotification(@Path("id") id: Int): Response<Unit>
+
 }

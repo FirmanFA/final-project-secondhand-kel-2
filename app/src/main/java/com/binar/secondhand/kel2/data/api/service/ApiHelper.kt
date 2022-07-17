@@ -7,6 +7,7 @@ import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderReques
 import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.Query
 
 
@@ -106,4 +107,7 @@ class ApiHelper(val apiService: ApiService) {
         location,
         image
     )
+
+    suspend fun readNotification(id: Int) = apiService.readNotification(id)
+
 }

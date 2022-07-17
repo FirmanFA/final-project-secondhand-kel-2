@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.databinding.NotificationContentBinding
@@ -23,27 +24,33 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+class NotificationAdapter(private val onItemClick: OnClickListener) :
+    RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<GetNotificationResponse.GetNotificationResponseItem>(){
-        override fun areItemsTheSame(
-            oldItem: GetNotificationResponse.GetNotificationResponseItem,
-            newItem: GetNotificationResponse.GetNotificationResponseItem
-        ): Boolean = oldItem.id == newItem.id
+    private val diffCallback =
+        object : DiffUtil.ItemCallback<GetNotificationResponse.GetNotificationResponseItem>() {
+            override fun areItemsTheSame(
+                oldItem: GetNotificationResponse.GetNotificationResponseItem,
+                newItem: GetNotificationResponse.GetNotificationResponseItem
+            ): Boolean = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: GetNotificationResponse.GetNotificationResponseItem,
-            newItem: GetNotificationResponse.GetNotificationResponseItem
-        ): Boolean = oldItem.hashCode() == newItem.hashCode()
-    }
+            override fun areContentsTheSame(
+                oldItem: GetNotificationResponse.GetNotificationResponseItem,
+                newItem: GetNotificationResponse.GetNotificationResponseItem
+            ): Boolean = oldItem.hashCode() == newItem.hashCode()
+        }
 
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    fun submitData(value: List<GetNotificationResponse.GetNotificationResponseItem>?) = differ.submitList(value)
+    fun submitData(value: List<GetNotificationResponse.GetNotificationResponseItem>?) =
+        differ.submitList(value)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationAdapter.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): NotificationAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(NotificationContentBinding.inflate(inflater, parent,false))
+        return ViewHolder(NotificationContentBinding.inflate(inflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: NotificationAdapter.ViewHolder, position: Int) {
@@ -54,8 +61,8 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
     override fun getItemCount(): Int = differ.currentList.size
 
     inner class ViewHolder(private val binding: NotificationContentBinding) :
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(data: GetNotificationResponse.GetNotificationResponseItem){
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: GetNotificationResponse.GetNotificationResponseItem) {
             binding.apply {
                 val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'", Locale.ROOT)
                 val date = format.parse(data.createdAt) as Date
@@ -78,7 +85,7 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
                     .placeholder(shimmerDrawable)
                     .transform(CenterCrop(), RoundedCorners(12))
                     .into(binding.ivProduct)
-                tvTitle.text =  data.productName
+                tvTitle.text = data.productName
                 val formatter: NumberFormat = DecimalFormat("#,###")
                 val myNumber = data.basePrice.toInt()
                 val formattedNumber: String = formatter.format(myNumber).toString()
@@ -116,6 +123,21 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
                     }
                 }
                 tvTime.text = DateFormat.getDateInstance(DateFormat.FULL).format(date)
+                if (data.read){
+                    tvTime.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        0,
+                        0,
+                        0,
+                        0
+                    )
+                }else{
+                    tvTime.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.notification_read_status,
+                        0
+                    )
+                }
                 root.setOnClickListener {
                     onItemClick.onClickItem(data)
                 }
@@ -123,7 +145,7 @@ class NotificationAdapter (private val onItemClick: OnClickListener) : RecyclerV
         }
     }
 
-    interface OnClickListener{
+    interface OnClickListener {
         fun onClickItem(data: GetNotificationResponse.GetNotificationResponseItem)
     }
 }
