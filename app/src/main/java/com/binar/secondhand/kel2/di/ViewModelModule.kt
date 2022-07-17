@@ -11,6 +11,7 @@ import com.binar.secondhand.kel2.ui.edit.EditViewModel
 import com.binar.secondhand.kel2.ui.home.HomeViewModel
 import com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductViewModel
 import com.binar.secondhand.kel2.ui.login.LoginViewModel
+import com.binar.secondhand.kel2.ui.main.MainViewModel
 import com.binar.secondhand.kel2.ui.notification.NotificationViewModel
 import com.binar.secondhand.kel2.ui.pass.ChangePassViewModel
 import com.binar.secondhand.kel2.ui.preview.PreviewViewModel
@@ -55,5 +56,7 @@ val viewModelModule = module {
     viewModelOf(::EditViewModel)
 
     viewModelOf(::BidderBerhasilViewModel)
+
+    viewModelOf(::MainViewModel)
 
 }

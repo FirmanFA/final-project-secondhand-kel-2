@@ -10,9 +10,12 @@ import com.binar.secondhand.kel2.ui.home.HomeFragment
 import com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductFragment
 import com.binar.secondhand.kel2.ui.notification.NotificationFragment
 import com.binar.secondhand.kel2.ui.sale.main.ProductSaleListFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
+
+    private val mainViewModel by viewModel<MainViewModel>()
 
     companion object{
         var activePage = 0
