@@ -18,6 +18,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding::inflate) {
 
     private val bidderViewModel: BidderViewModel by viewModel()
+    private var orderId: Int? = null
+    private var status: String? = null
 
     val args: BidderFragmentArgs by navArgs()
 
@@ -32,7 +34,29 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
         loadBidder()
 
         binding.btnTolak.setOnClickListener {
-            bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "declined"))
+            status?.let {
+                if (it == "pending") {
+                    bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "declined"))
+                } else {
+                    orderId?.let {
+                        val modal = BidderBerhasilFragment(
+                            it
+                        )
+                        modal.show(parentFragmentManager, "Tag")
+                    }
+                }
+            }
+
+        }
+
+        binding.btnTerima.setOnClickListener {
+            orderId?.let {
+                val modal = BidderBerhasilFragment(
+                    it
+                )
+                bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "accepted"))
+                modal.show(parentFragmentManager, "Tag")
+            }
         }
 
 
@@ -42,7 +66,8 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
         bidderViewModel.bidder.observe(viewLifecycleOwner){
             when(it.status){
                 Status.SUCCESS -> {
-                    var orderId = it.data?.body()?.id.toString().toInt()
+                    orderId = it.data?.body()?.id.toString().toInt()
+                    status = it.data?.body()?.status.toString()
                     binding.tvName.text = it.data?.body()?.product?.user?.fullName.toString()
                     binding.tvKota.text = it.data?.body()?.product?.user?.city.toString()
                     Glide.with(this)
@@ -61,15 +86,11 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
                             binding.btnTolak.visibility = View.GONE
                         }
                         "accepted" ->{
-
+                            binding.tvNego.paintFlags = 0
+                            binding.btnTerima.text = "Whatsapp"
+                            binding.btnTolak.text = "Status"
                         }
 
-                    }
-                    binding.btnTerima.setOnClickListener {
-                        val modal = BidderBerhasilFragment(
-                            orderId
-                        )
-                        modal.show(parentFragmentManager, "Tag")
                     }
 
                 }

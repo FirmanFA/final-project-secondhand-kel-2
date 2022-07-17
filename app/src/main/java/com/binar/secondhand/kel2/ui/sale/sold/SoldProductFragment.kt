@@ -2,12 +2,15 @@ package com.binar.secondhand.kel2.ui.sale.sold
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentSoldProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
+import com.binar.secondhand.kel2.ui.sale.bid.BidProductAdapter
 import com.binar.secondhand.kel2.ui.sale.main.ProductSaleListViewModel
 import com.binar.secondhand.kel2.ui.sale.product.SellerProductAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -21,55 +24,64 @@ class SoldProductFragment :
         super.onViewCreated(view, savedInstanceState)
 
         setUpObserver()
-        productSaleListViewModel.getSellerProduct()
+        productSaleListViewModel.getNotification()
 
     }
 
     private fun setUpObserver(){
-        productSaleListViewModel.getSellerProductResponse.observe(viewLifecycleOwner) {
+
+        productSaleListViewModel.notificationResponse.observe(viewLifecycleOwner) {
             when (it.status) {
-
                 Status.LOADING -> {
-                    binding.productShimmer.startShimmer()
+                    binding.shimmerNotification.startShimmer()
+                    binding.shimmerNotification.visibility = View.VISIBLE
+                    binding.rvNotification.visibility = View.GONE
                 }
-
                 Status.SUCCESS -> {
-
-                    binding.productShimmer.stopShimmer()
-                    binding.productShimmer.visibility = View.GONE
-
-                    when (it.data?.code()) {
-                        200 -> {
-                            val data = it.data.body()
-                            showProduct(data)
-                        }
-
-                        else -> {
-                            showSnackbar("Error occured: ${it.data?.code()}")
+                    binding.shimmerNotification.stopShimmer()
+                    binding.shimmerNotification.visibility = View.GONE
+                    binding.rvNotification.visibility = View.VISIBLE
+                    if (it.data?.body() != null) {
+                        if (it.data.body()?.size == 0) {
+                            binding.ivEmpty.visibility = View.VISIBLE
+                            binding.tvEmpty.visibility = View.VISIBLE
+                            binding.rvNotification.visibility = View.GONE
+                        } else {
+                            binding.ivEmpty.visibility = View.GONE
+                            binding.tvEmpty.visibility = View.GONE
+                            binding.rvNotification.visibility = View.VISIBLE
+                            showBidProduct(it.data.body())
                         }
                     }
                 }
-
                 Status.ERROR -> {
-                    showSnackbar("${it.message}")
+                    binding.shimmerNotification.stopShimmer()
+                    binding.shimmerNotification.visibility = View.GONE
+                    val error = it.message
+                    Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
+
     }
 
-    private fun showProduct(dataProduct: GetSellerProductResponse?) {
-        val filteredData = dataProduct?.filter { it.status == "sold" }
-        val adapter = SoldProductAdapter { data ->
-
-            val action =
-                MainFragmentDirections.actionMainFragmentToDetailProductFragment(data.id)
-            findNavController().navigate(action)
-
+    private fun showBidProduct(data: GetOrderResponse?) {
+        val filteredData = data?.filter {
+            it.status == "accepted"
         }
-        if (dataProduct != null) {
-            adapter.submitList(filteredData)
-        }
-        binding.rvSellerProduct.adapter = adapter
+        val adapter = BidProductAdapter(
+            object : BidProductAdapter.OnClickListener {
+
+                override fun onClickItem(data: GetOrderResponse.GetOrderResponseItem) {
+                    val id = data.id
+                    val action = MainFragmentDirections.actionMainFragmentToBidderFragment(
+                        id
+                    )
+                    findNavController().navigate(action)
+                }
+            })
+        adapter.submitData(filteredData)
+        binding.rvNotification.adapter = adapter
     }
-
 }
