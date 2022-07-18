@@ -158,12 +158,14 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_category"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_baseline_add_24"
                 android:hint="Pilih ketegori"
                 app:boxCornerRadiusBottomEnd="16dp"
                 app:boxCornerRadiusBottomStart="16dp"
@@ -174,7 +176,8 @@
                 <AutoCompleteTextView
                     android:id="@+id/auto_complete_tv_2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="none"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -296,7 +299,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8sp"
         android:fontFamily="@font/montserrat_alternates_semibold"
-        android:text="Silakan Login Dahulu"
+        android:text="Silakan Sign In Dahulu"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -309,7 +312,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8sp"
         android:fontFamily="@font/montserrat_alternates_semibold"
-        android:text="Login"
+        android:text="Sign In"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
