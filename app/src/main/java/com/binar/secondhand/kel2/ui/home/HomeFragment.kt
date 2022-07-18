@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -23,6 +24,7 @@ import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.binar.secondhand.kel2.utils.HorizontalMarginItemDecoration
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -159,14 +161,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         }
 
                         else -> {
-                            showSnackbar("Error occured: ${it.data?.code()}")
+                            showSnackbar("Internal server error")
                         }
                     }
                 }
 
                 Status.ERROR -> {
                     binding.pbBanner.visibility = View.GONE
-                    showSnackbar("${it.message}")
+                    showSnackbar("Interal server error")
                 }
             }
         }
@@ -211,7 +213,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         }
 
                         else -> {
-                            showSnackbar("Error occured: ${it.data?.code()}")
+                            showSnackbar("Internal server error")
                         }
                     }
                 }
@@ -220,7 +222,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 //                    binding.pbCategory.visibility = View.GONE
                     binding.shimmerCategory.visibility = View.GONE
                     binding.shimmerCategory.stopShimmer()
-                    showSnackbar("${it.message}")
+                    showSnackbar("Internal server error")
                 }
             }
         }
@@ -248,12 +250,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
 
                 Status.ERROR -> {
-                    val error = it.message
-                    Toast.makeText(
-                        requireContext(),
-                        "Error get Data : $error",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
             }
         }

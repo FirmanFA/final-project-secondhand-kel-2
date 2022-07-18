@@ -48,13 +48,13 @@ class SellerProductFragment :
                         }
 
                         else -> {
-                            showSnackbar("Error occured: ${it.data?.code()}")
+                            showSnackbar("Internal server error")
                         }
                     }
                 }
 
                 Status.ERROR -> {
-                    showSnackbar("${it.message}")
+                    showSnackbar("Internal server error")
                 }
             }
         }

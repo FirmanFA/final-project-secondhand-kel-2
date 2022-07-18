@@ -116,7 +116,28 @@ class NotificationFragment :
                     binding.shimmerNotification.stopShimmer()
                     binding.shimmerNotification.visibility = View.GONE
                     val error = it.message
-                    Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT)
+                    val snackbar =
+                        Snackbar.make(
+                            binding.snackbar,
+                            "Internal server error",
+                            Snackbar.LENGTH_LONG
+                        )
+                    snackbar.setAction("x") {
+                        // Responds to click on the action
+                        snackbar.dismiss()
+                    }
+                        .setBackgroundTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.red
+                            )
+                        )
+                        .setActionTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.white
+                            )
+                        )
                         .show()
                 }
             }

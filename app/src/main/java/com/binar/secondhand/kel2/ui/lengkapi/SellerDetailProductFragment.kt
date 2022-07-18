@@ -147,11 +147,29 @@ class SellerDetailProductFragment :
                     .isEmpty() || binding.etCategory.editText?.text.toString()
                     .isEmpty() || binding.etDescription.editText?.text.toString().isEmpty()
             ) {
-                Toast.makeText(
-                    requireContext(),
-                    "Lengkapi data terlebih dahulu",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val snackbar =
+                    Snackbar.make(
+                        binding.snackbar,
+                        "Lengkapi data terlebih dahulu",
+                        Snackbar.LENGTH_LONG
+                    )
+                snackbar.setAction("x") {
+                    // Responds to click on the action
+                    snackbar.dismiss()
+                }
+                    .setBackgroundTint(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.red
+                        )
+                    )
+                    .setActionTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.white
+                        )
+                    )
+                    .show()
             } else {
                 val actionToPreviewFragment =
                     MainFragmentDirections.actionMainFragmentToPreviewFragment(
@@ -294,7 +312,29 @@ class SellerDetailProductFragment :
                     }
                 }
                 Status.ERROR -> {
-                    Toast.makeText(context, "Gagal terbit", Toast.LENGTH_SHORT).show()
+                    val snackbar =
+                        Snackbar.make(
+                            binding.snackbar,
+                            "Gagal terbitkan produk",
+                            Snackbar.LENGTH_LONG
+                        )
+                    snackbar.setAction("x") {
+                        // Responds to click on the action
+                        snackbar.dismiss()
+                    }
+                        .setBackgroundTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.red
+                            )
+                        )
+                        .setActionTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.white
+                            )
+                        )
+                        .show()
                 }
             }
         }
