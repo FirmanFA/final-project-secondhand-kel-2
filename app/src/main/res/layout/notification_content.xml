@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16sp"
             android:text="20 Apr, 14:04"
+            android:drawablePadding="4dp"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_status"
             app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +112,8 @@
             app:layout_constraintEnd_toEndOf="@+id/tv_nego"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_nego"
-            app:layout_constraintTop_toBottomOf="@+id/tv_nego" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_nego"
+            android:visibility="gone"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

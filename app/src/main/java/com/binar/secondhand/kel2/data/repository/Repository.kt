@@ -8,7 +8,9 @@ import okhttp3.RequestBody
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
+import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductIdRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
+import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import retrofit2.http.Path
 
 class Repository(private val apiHelper: ApiHelper) {
@@ -59,6 +61,7 @@ class Repository(private val apiHelper: ApiHelper) {
     )
     suspend fun getSellerOrderId(id:Int) = apiHelper.getSellerOrderId(id)
     suspend fun patchSellerOrderId(id:Int, request: PatchSellerOrderIdRequest) = apiHelper.patchSellerOrderId(id, request)
+    suspend fun patchSellerProductId(id:Int, request: PatchProductIdRequest) = apiHelper.patchSellerProductId(id, request)
     suspend fun putProduct(
         id: Int,
         name: RequestBody,
@@ -76,5 +79,9 @@ class Repository(private val apiHelper: ApiHelper) {
         location,
         image
     )
+    suspend fun getWishlist() = apiHelper.getWishlist()
+    suspend fun deleteWishlist(productId: Int) = apiHelper.deleteWishlist(productId)
+    suspend fun getIdWishlist(productId: Int) = apiHelper.getIdWishlist(productId)
+    suspend fun postWishlist(requestBuyerWishlist: PostWishlistRequest) = apiHelper.postWishlist(requestBuyerWishlist)
 
 }

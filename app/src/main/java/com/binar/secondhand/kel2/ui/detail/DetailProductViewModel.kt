@@ -5,11 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse.GetOrderResponseItem
-import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
+import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
+import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlistRequest
+import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistItem
+import com.binar.secondhand.kel2.data.api.model.wishlist.getId.GetIdWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
+import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlist
 import com.binar.secondhand.kel2.data.repository.Repository
 import com.binar.secondhand.kel2.data.resource.Resource
 import kotlinx.coroutines.launch
@@ -50,23 +57,10 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun getUserProfile(userId: Int)
-    {
-        viewModelScope.launch {
-            _getProfile .postValue(Resource.loading())
-            try {
-                val dataUser = Resource.success(repository.getUserProfile(userId))
-                _getProfile .postValue(dataUser)
-            }catch (exp: Exception){
-                _getProfile .postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
-            }
-        }
-    }
 
 
     private val _buyerOrder = MutableLiveData<Resource<Response<PostOrderResponse>>>()
     val buyerOrder: LiveData<Resource<Response<PostOrderResponse>>> get() = _buyerOrder
-
 
     fun buyerOrder(requestBuyerOrder: PostOrderRequest){
         viewModelScope.launch {
@@ -77,6 +71,70 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
                 _buyerOrder.postValue(Resource.error(e.localizedMessage?:"Error occurred"))
             }
         }
+    }
+
+    private val _postWishlist = MutableLiveData<Resource<Response<PostWishlist>>>()
+    val postWishlist: LiveData<Resource<Response<PostWishlist>>> get() = postWishlist
+
+    fun postWishlist(requestBuyerWishlist: PostWishlistRequest){
+        viewModelScope.launch {
+            _postWishlist.postValue(Resource.loading())
+            try{
+                _postWishlist.postValue(Resource.success(repository.postWishlist(requestBuyerWishlist)))
+            } catch (e:Exception){
+                _postWishlist.postValue(Resource.error(e.localizedMessage?:"Error occurred"))
+            }
+        }
+    }
+
+
+    private val _deleteWishlist = MutableLiveData<Resource<Response<DeleteWishlist>>>()
+    val deleteWishlist : LiveData<Resource<Response<DeleteWishlist>>> get() = _deleteWishlist
+
+    fun deleteWishlist(productId: Int){
+        viewModelScope.launch {
+            _deleteWishlist .postValue(Resource.loading())
+            try {
+                val dataProduct = Resource.success(repository.deleteWishlist(productId))
+                _deleteWishlist.postValue(dataProduct)
+            }catch (exp: Exception){
+                _deleteWishlist.postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
+            }
+        }
+    }
+
+    private val _getIdWishlist :  MutableLiveData<Resource<Response<GetIdWishlist>>> = MutableLiveData()
+    val getIdWishlist : LiveData<Resource<Response<GetIdWishlist>>> get() = _getIdWishlist
+
+    fun getIdWishlist(productId: Int){
+        viewModelScope.launch {
+            _getIdWishlist.postValue(Resource.loading())
+            try {
+                val getWishlist = Resource.success(repository.getIdWishlist(productId))
+                _getIdWishlist.postValue(getWishlist)
+            }catch (exception : Exception){
+                _getIdWishlist.postValue(Resource.error(exception.message?: "Error Occurred"))
+            }
+        }
+    }
+
+    private val _getWishlist :  MutableLiveData<Resource<Response<GetWishlist>>> = MutableLiveData()
+    val getWishlist : LiveData<Resource<Response<GetWishlist>>> get() = _getWishlist
+
+    fun getWishlist(){
+        viewModelScope.launch {
+            _getWishlist.postValue(Resource.loading())
+            try {
+                val getWishlist = Resource.success(repository.getWishlist())
+                _getWishlist.postValue(getWishlist)
+            }catch (exception : Exception){
+                _getWishlist.postValue(Resource.error(exception.message?: "Error Occurred"))
+            }
+        }
+    }
+
+    interface OnClickListener{
+        fun onClickItem(data: GetWishlistItem)
     }
 
 }

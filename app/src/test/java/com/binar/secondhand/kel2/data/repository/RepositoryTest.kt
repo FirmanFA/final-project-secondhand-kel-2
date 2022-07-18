@@ -12,7 +12,6 @@ import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRespon
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
 import com.binar.secondhand.kel2.data.api.service.ApiHelper
 import com.binar.secondhand.kel2.data.api.service.ApiService
 import com.binar.secondhand.kel2.utils.URIPathHelper
@@ -78,10 +77,14 @@ class RepositoryTest {
         val address = "Jakarta Barat"
         val phoneNumber = 822233445
 
+        val imageFile = mockk<File>()
+
         val nameBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
         val cityBody = city.toRequestBody("text/plain".toMediaTypeOrNull())
         val addressBody = address.toRequestBody("text/plain".toMediaTypeOrNull())
         val phoneNumberBody = phoneNumber.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
+//        val requestImage = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
         val imageBody = mockk<MultipartBody.Part>()
 
         every {
@@ -263,56 +266,22 @@ class RepositoryTest {
         }
     }
 
-    @Test
-    fun postProduct(): Unit = runBlocking {
-        val responsePostProduct = mockk<Response<PostProductResponse>>()
-
-        val name = "Coba"
-        val description = "Baju"
-        val price = 100000
-        val category = "Pakaian"
-        val city = "Jakarta"
-
-        val nameBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
-        val priceBody = price.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-        val cityBody = city.toRequestBody("text/plain".toMediaTypeOrNull())
-        val categoryBody = category.toRequestBody("text/plain".toMediaTypeOrNull())
-        val descriptionBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
-        val imageBody = mockk<MultipartBody.Part>()
-
-        every {
-            runBlocking {
-                apiHelper.postProduct(
-                    name = nameBody,
-                    base_price = priceBody,
-                    location = cityBody,
-                    category_ids = categoryBody,
-                    description = descriptionBody,
-                    image = imageBody
-                )
-            }
-        } returns responsePostProduct
-
-        repository.postProduct(
-            name = nameBody,
-            base_price = priceBody,
-            location = cityBody,
-            category_ids = categoryBody,
-            description = descriptionBody,
-            image = imageBody
-        )
-
-        verify {
-            runBlocking {
-                apiHelper.postProduct(
-                    name = nameBody,
-                    base_price = priceBody,
-                    location = cityBody,
-                    category_ids = categoryBody,
-                    description = descriptionBody,
-                    image = imageBody
-                )
-            }
-        }
-    }
+//    @Test
+//    fun postProduct(): Unit = runBlocking {
+//        val responseGetAuth = mockk<Response<GetAuthResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.postProduct()
+//            }
+//        } returns responseGetAuth
+//
+//        repository.postProduct()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.postProduct()
+//            }
+//        }
+//    }
 }
