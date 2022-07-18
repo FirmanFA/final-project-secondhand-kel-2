@@ -7,9 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
@@ -19,11 +16,9 @@ import com.binar.secondhand.kel2.databinding.FragmentNotificationBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
-import com.binar.secondhand.kel2.ui.main.MainViewModel
 import com.binar.secondhand.kel2.ui.sale.bid.BidProductAdapter
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.getKoin
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,7 +27,6 @@ class NotificationFragment :
     BaseFragment<FragmentNotificationBinding>(FragmentNotificationBinding::inflate) {
 
     private val notificationViewModel: NotificationViewModel by viewModel()
-    private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,8 +40,7 @@ class NotificationFragment :
             binding.shimmerNotification.visibility = View.GONE
             binding.rvNotification.visibility = View.GONE
             binding.tvNotification.visibility = View.GONE
-            binding.tvFilter.visibility = View.GONE
-            binding.ivFilter.visibility = View.GONE
+            binding.tvLogin.text = "Silakan Login Dahulu"
 
             binding.btnLogin.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
@@ -117,10 +110,6 @@ class NotificationFragment :
                             binding.btnLogin.visibility = View.GONE
                             showBidProduct(it.data.body())
                         }
-                        val unreadCount = it.data.body()?.filter { notificationResponseItem ->
-                            !notificationResponseItem.read
-                        }
-                        mainViewModel.setNotificationCount(unreadCount?.size)
                     }
                 }
                 Status.ERROR -> {
@@ -132,15 +121,6 @@ class NotificationFragment :
                 }
             }
         }
-        notificationViewModel.readNotificationResponse.observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.SUCCESS -> {}
-                Status.ERROR -> {
-                    showSnackbar("Error Occured")
-                }
-                Status.LOADING -> {}
-            }
-        }
 
     }
 
@@ -150,9 +130,6 @@ class NotificationFragment :
                 override fun onClickItem(
                     data: GetNotificationResponse.GetNotificationResponseItem,
                 ) {
-
-                    notificationViewModel.readNotification(data.id)
-
                     if (data.product != null) {
                         val id = data.productId
                         val action =

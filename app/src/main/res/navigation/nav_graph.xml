@@ -107,9 +107,6 @@
         <action
             android:id="@+id/action_mainFragment_to_editFragment"
             app:destination="@id/editFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_wishlistFragment"
-            app:destination="@id/wishlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailProductFragment"
@@ -217,20 +214,5 @@
         <action
             android:id="@+id/action_editFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/wishlistFragment"
-        android:name="com.binar.secondhand.kel2.ui.wishlist.WishlistFragment"
-        android:label="fragment_wishlist"
-        tools:layout="@layout/fragment_wishlist" >
-        <action
-            android:id="@+id/action_wishlistFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-        <action
-            android:id="@+id/action_wishlistFragment_to_detailProductFragment"
-            app:destination="@id/detailProductFragment" />
-        <action
-            android:id="@+id/action_wishlistFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

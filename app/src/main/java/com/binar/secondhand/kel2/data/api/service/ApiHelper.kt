@@ -5,11 +5,8 @@ import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassRequest
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
-import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductIdRequest
-import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Response
 import retrofit2.http.Query
 
 
@@ -90,8 +87,6 @@ class ApiHelper(val apiService: ApiService) {
 
     suspend fun patchSellerOrderId(id:Int, request: PatchSellerOrderIdRequest) = apiService.patchSellerOrderId(id, request)
 
-    suspend fun patchSellerProductId(id:Int, request: PatchProductIdRequest) = apiService.patchSellerProductId(id, request)
-
     suspend fun deleteSellerProduct(id:Int) = apiService.deleteSellerProductId(id)
 
     suspend fun putProduct(
@@ -111,15 +106,4 @@ class ApiHelper(val apiService: ApiService) {
         location,
         image
     )
-
-    suspend fun readNotification(id: Int) = apiService.readNotification(id)
-
-    suspend fun getIdWishlist(productId: Int) = apiService.getIdWishlist(productId)
-
-    suspend fun postWishlist(requestBuyerWishlist: PostWishlistRequest) = apiService.postWishlist(requestBuyerWishlist)
-
-    suspend fun getWishlist() = apiService.getWishlist()
-
-    suspend fun deleteWishlist(productId: Int) = apiService.deleteWishlist(productId)
-
 }
