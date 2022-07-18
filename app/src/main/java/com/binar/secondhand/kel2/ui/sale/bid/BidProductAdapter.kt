@@ -20,27 +20,32 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerView.Adapter<BidProductAdapter.ViewHolder>() {
+class BidProductAdapter(private val onItemClick: OnClickListener) :
+    RecyclerView.Adapter<BidProductAdapter.ViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<GetOrderResponse.GetOrderResponseItem>(){
-        override fun areItemsTheSame(
-            oldItem: GetOrderResponse.GetOrderResponseItem,
-            newItem: GetOrderResponse.GetOrderResponseItem
-        ): Boolean = oldItem.id == newItem.id
+    private val diffCallback =
+        object : DiffUtil.ItemCallback<GetOrderResponse.GetOrderResponseItem>() {
+            override fun areItemsTheSame(
+                oldItem: GetOrderResponse.GetOrderResponseItem,
+                newItem: GetOrderResponse.GetOrderResponseItem
+            ): Boolean = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: GetOrderResponse.GetOrderResponseItem,
-            newItem: GetOrderResponse.GetOrderResponseItem
-        ): Boolean = oldItem.hashCode() == newItem.hashCode()
-    }
+            override fun areContentsTheSame(
+                oldItem: GetOrderResponse.GetOrderResponseItem,
+                newItem: GetOrderResponse.GetOrderResponseItem
+            ): Boolean = oldItem.hashCode() == newItem.hashCode()
+        }
 
     private val differ = AsyncListDiffer(this, diffCallback)
 
     fun submitData(value: List<GetOrderResponse.GetOrderResponseItem>?) = differ.submitList(value)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BidProductAdapter.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BidProductAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(NotificationContentBinding.inflate(inflater, parent,false))
+        return ViewHolder(NotificationContentBinding.inflate(inflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: BidProductAdapter.ViewHolder, position: Int) {
@@ -51,11 +56,12 @@ class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerVie
     override fun getItemCount(): Int = differ.currentList.size
 
     inner class ViewHolder(private val binding: NotificationContentBinding) :
-        RecyclerView.ViewHolder(binding.root){
-        fun bind(data: GetOrderResponse.GetOrderResponseItem){
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: GetOrderResponse.GetOrderResponseItem) {
             binding.apply {
                 val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'", Locale.ROOT)
-                val date = format.parse(data.transactionDate) as Date
+                val date =
+                    format.parse(data.transactionDate ?: "2022-07-02T17:26:29.984Z") as Date
 
                 val shimmer =
                     Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
@@ -75,12 +81,12 @@ class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerVie
                 val formattedNumber2: String = formatter.format(myNumber2).toString()
 
                 Glide.with(binding.root)
-                    .load(data.imageProduct)
+                    .load(data.product.imageUrl)
                     .centerCrop()
                     .placeholder(shimmerDrawable)
                     .transform(CenterCrop(), RoundedCorners(16))
                     .into(binding.ivProduct)
-                tvTitle.text =  data.product.name
+                tvTitle.text = data.product.name
                 tvPrice.text = "Rp $formattedNumber"
                 tvNego.text = "Rp $formattedNumber2"
                 tvStatus.text = data.status
@@ -91,7 +97,8 @@ class BidProductAdapter (private val onItemClick: OnClickListener) : RecyclerVie
             }
         }
     }
-    interface OnClickListener{
+
+    interface OnClickListener {
         fun onClickItem(data: GetOrderResponse.GetOrderResponseItem)
     }
 }

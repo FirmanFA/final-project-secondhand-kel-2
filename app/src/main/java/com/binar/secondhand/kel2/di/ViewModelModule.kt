@@ -2,8 +2,6 @@ package com.binar.secondhand.kel2.di
 
 
 import com.binar.secondhand.kel2.ui.account.AccountViewModel
-import com.binar.secondhand.kel2.ui.bidder.BidderBerhasilFragment
-import com.binar.secondhand.kel2.ui.bidder.BidderBerhasilViewModel
 import com.binar.secondhand.kel2.ui.bidder.BidderViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import com.binar.secondhand.kel2.ui.bidder.bottomDialog.BidderBerhasilViewModel
