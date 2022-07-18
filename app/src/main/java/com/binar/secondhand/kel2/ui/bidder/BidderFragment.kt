@@ -10,6 +10,7 @@ import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBidderBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.bidder.bottomDialog.BidderBerhasilFragment
+import com.binar.secondhand.kel2.ui.bidder.bottomDialog.BidderStatusFragment
 import com.binar.secondhand.kel2.ui.preview.PreviewFragmentArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -40,7 +41,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
                     bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "declined"))
                 } else {
                     orderId?.let {
-                        val modal = BidderBerhasilFragment(
+                        val modal = BidderStatusFragment(
                             it
                         )
                         modal.show(parentFragmentManager, "Tag")
