@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
@@ -20,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -173,9 +175,29 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
             }
 
             Status.ERROR ->{
-//                binding.pbLoading.visibility = View.GONE
-                val error = it.message
-                Toast.makeText(requireContext(), "Error get Data : ${error}", Toast.LENGTH_SHORT).show()
+                val snackbar =
+                    Snackbar.make(
+                        binding.snackbar,
+                        "Internal server error",
+                        Snackbar.LENGTH_LONG
+                    )
+                snackbar.setAction("x") {
+                    // Responds to click on the action
+                    snackbar.dismiss()
+                }
+                    .setBackgroundTint(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.red
+                        )
+                    )
+                    .setActionTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.white
+                        )
+                    )
+                    .show()
             }
         }
     }
