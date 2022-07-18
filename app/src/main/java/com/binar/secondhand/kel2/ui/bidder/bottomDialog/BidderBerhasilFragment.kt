@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBidderBerhasilBinding
+import com.binar.secondhand.kel2.ui.bidder.BidderViewModel
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.ext.android.getKoin
@@ -25,7 +26,7 @@ class BidderBerhasilFragment (
     private var _binding: FragmentBidderBerhasilBinding? = null
     private val binding get() = _binding!!
     private val orderId = orderId
-    private val viewModel: BidderBerhasilViewModel by viewModel()
+    private val viewModel: BidderViewModel by viewModel()
 
 
     override fun onCreateView(
