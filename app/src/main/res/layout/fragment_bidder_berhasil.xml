@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/rounded_dialog"
-    tools:context=".ui.bidder.BidderBerhasilFragment">
+    tools:context=".ui.bidder.bottomDialog.BidderBerhasilFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dialogLogin"

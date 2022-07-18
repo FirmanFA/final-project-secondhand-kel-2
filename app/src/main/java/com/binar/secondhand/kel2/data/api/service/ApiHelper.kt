@@ -5,6 +5,7 @@ import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassRequest
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
+import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -109,5 +110,13 @@ class ApiHelper(val apiService: ApiService) {
     )
 
     suspend fun readNotification(id: Int) = apiService.readNotification(id)
+
+    suspend fun getIdWishlist(productId: Int) = apiService.getIdWishlist(productId)
+
+    suspend fun postWishlist(requestBuyerWishlist: PostWishlistRequest) = apiService.postWishlist(requestBuyerWishlist)
+
+    suspend fun getWishlist() = apiService.getWishlist()
+
+    suspend fun deleteWishlist(productId: Int) = apiService.deleteWishlist(productId)
 
 }
