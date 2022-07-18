@@ -9,6 +9,7 @@ import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdR
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBidderBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.bidder.bottomDialog.BidderBerhasilFragment
 import com.binar.secondhand.kel2.ui.preview.PreviewFragmentArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners

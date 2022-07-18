@@ -1,4 +1,4 @@
-package com.binar.secondhand.kel2.ui.bidder
+package com.binar.secondhand.kel2.ui.bidder.bottomDialog
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

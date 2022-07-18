@@ -5,56 +5,149 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
+import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
+import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistItem
+import com.binar.secondhand.kel2.data.resource.Status
+import com.binar.secondhand.kel2.databinding.FragmentNotificationBinding
+import com.binar.secondhand.kel2.databinding.FragmentWishlistBinding
+import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
+import com.binar.secondhand.kel2.ui.notification.NotificationAdapter
+import com.binar.secondhand.kel2.ui.notification.NotificationViewModel
+import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.getKoin
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [WishlistFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class WishlistFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class WishlistFragment :
+    BaseFragment<FragmentWishlistBinding>(FragmentWishlistBinding::inflate) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val wishlistViewModel: WishlistViewModel by viewModel()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val token = getKoin().getProperty("access_token", "")
+
+        if (token == "") {
+            binding.shimmerNotification.stopShimmer()
+            binding.shimmerNotification.visibility = View.GONE
+            binding.rvWhistlist.visibility = View.GONE
+            binding.tvFavourite.visibility = View.GONE
+            binding.tvLogin.text = "Silakan Login Dahulu"
+
+            binding.btnLogin.setOnClickListener {
+                it.findNavController().navigate(R.id.action_wishlistFragment_to_loginFragment)
+            }
+
+        } else {
+            binding.ivLogin.visibility = View.GONE
+            binding.tvLogin.visibility = View.GONE
+            binding.btnLogin.visibility = View.GONE
+            binding.rvWhistlist.visibility = View.VISIBLE
+            binding.shimmerNotification.visibility = View.GONE
+            setUpObserver()
+            wishlistViewModel.getWishlist()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_wishlist, container, false)
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment WishlistFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            WishlistFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun setUpObserver() {
+
+        wishlistViewModel.getWishlist.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.shimmerNotification.startShimmer()
+                    binding.shimmerNotification.visibility = View.VISIBLE
+                    binding.rvWhistlist.visibility = View.GONE
+                    binding.ivLogin.visibility = View.GONE
+                    binding.tvLogin.visibility = View.GONE
+                    binding.btnLogin.visibility = View.GONE
+                }
+                Status.SUCCESS -> {
+                    binding.shimmerNotification.stopShimmer()
+                    binding.shimmerNotification.visibility = View.GONE
+                    binding.rvWhistlist.visibility = View.VISIBLE
+                    if (it.data?.body() != null) {
+                        if (it.data.body()?.size == 0) {
+                            binding.tvLogin.text = "Tidak ada notifikasi"
+                            binding.ivLogin.visibility = View.VISIBLE
+                            binding.tvLogin.visibility = View.VISIBLE
+                            binding.rvWhistlist.visibility = View.GONE
+                        } else {
+                            binding.ivLogin.visibility = View.GONE
+                            binding.tvLogin.visibility = View.GONE
+                            binding.btnLogin.visibility = View.GONE
+                            showBidProduct(it.data.body())
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    binding.shimmerNotification.stopShimmer()
+                    binding.shimmerNotification.visibility = View.GONE
+                    val error = it.message
+                    Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
+        }
+
     }
+
+    private fun showBidProduct(data: GetWishlist?) {
+        val adapter = WishlistAdapter(
+            object : WishlistAdapter.OnClickListener {
+                override fun onClickItem(
+                    data: GetWishlistItem
+                ) {
+                    if (data.Product != null) {
+                        val id = data.product_id
+                        val action =
+                            WishlistFragmentDirections.actionWishlistFragmentToDetailProductFragment(id)
+                        findNavController().navigate(action)
+                    } else {
+                        val snackbar =
+                            Snackbar.make(
+                                binding.snackbar,
+                                "Product Ini Sudah Tidak Tersedia!",
+                                Snackbar.LENGTH_LONG
+                            )
+                        snackbar.setAction("x") {
+                            // Responds to click on the action
+                            snackbar.dismiss()
+                        }
+                            .setBackgroundTint(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.red
+                                )
+                            )
+                            .setActionTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
+                            )
+                            .show()
+                    }
+
+                }
+
+            })
+
+        adapter.submitData(data?.sortedByDescending {
+            val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'", Locale.ROOT)
+            format.parse(it.createdAt)
+        })
+        binding.rvWhistlist.adapter = adapter
+    }
+
+
 }
