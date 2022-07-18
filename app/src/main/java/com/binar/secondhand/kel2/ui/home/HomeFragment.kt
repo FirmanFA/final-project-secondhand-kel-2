@@ -97,10 +97,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             )
         }
 
-        binding.btnWishlist.setOnClickListener{
-            it.findNavController().navigate(R.id.action_mainFragment_to_wishlistFragment)
-        }
-
 
         binding.etSearch.setOnClickListener {
 

@@ -4,17 +4,15 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.binar.secondhand.kel2.R
-import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlistRequest
-import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistItem
-import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.DetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
@@ -26,11 +24,10 @@ class DetailProductFragment :
 //    private val binding get() = _binding!!
     private val viewModel: DetailProductViewModel by viewModel()
     private val args: DetailProductFragmentArgs by navArgs()
-    private var bid = false
+    private var isBid = false
     private var pending = false
     private var accepted = false
     private var decline = false
-    private var favourite = false
     private var imageProduct = ""
     private var product = ""
 
@@ -49,28 +46,8 @@ class DetailProductFragment :
         viewModel.getDetailProduct(productId)
         viewModel.getBuyerOrder()
 
-
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
-        }
-
-        binding.ivfav.setOnClickListener{
-//            viewModel.getIdWishlist(productId)
-        }
-
-
-        viewModel.getIdWishlist.observe(viewLifecycleOwner){
-            if(it.data?.body()?.product_id == productId){
-                favourite = true
-                binding.ivfav.setImageResource(R.drawable.ic_fav_full)
-//                viewModel.deleteWishlist(productId)
-            }
-            else{
-                favourite = false
-                binding.ivfav.setImageResource(R.drawable.ic_fav)
-//                val addFav = PostWishlistRequest(productId)
-//                viewModel.postWishlist(addFav)
-            }
         }
 
 
@@ -79,12 +56,6 @@ class DetailProductFragment :
             for (data in 0 until (it.data?.size ?: 0)) {
                 if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "pending") {
                     pending = true
-
-                }
-            }
-            for (data in 0 until (it.data?.size ?: 0)) {
-                if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "bid") {
-                    bid = true
 
                 }
             }
@@ -101,7 +72,7 @@ class DetailProductFragment :
                 }
             }
             if (accepted){
-                binding.btnTertarik.isEnabled = false
+                binding.btnTertarik.isEnabled = true
                 binding.btnTertarik.text = "Penawaran anda telah berhasil"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.Green)
@@ -111,15 +82,7 @@ class DetailProductFragment :
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.grey)
 
-
-            }else if(bid) {
-                binding.btnTertarik.isEnabled = true
-                binding.btnTertarik.text = "Naikan Tawaranmu pada Produk"
-                binding.btnTertarik.backgroundTintList =
-                    requireContext().getColorStateList(R.color.primary_blue)
-            }
-
-            else if(decline) {
+            }else if(decline) {
                 binding.btnTertarik.isEnabled = true
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.primary_blue)
@@ -136,7 +99,6 @@ class DetailProductFragment :
 
     @SuppressLint("CheckResult", "SetTextI18n")
     private fun setUpObserver() {
-
         viewModel.detailProduct.observe(viewLifecycleOwner) { it ->
             val price = it.data?.body()?.basePrice.toString()
             when (it.status) {

@@ -101,6 +101,7 @@ class BuyerPenawaranFragment(
                     etMoney.setMaskingMoney("Rp. ")
                     Selection.setSelection(etMoney.text, etMoney.text!!.length)
                 }
+
             }
         })
 
@@ -130,13 +131,17 @@ class BuyerPenawaranFragment(
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.visibility = View.VISIBLE
-                    binding.dialogBottom.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.dialogBottom.visibility = View.VISIBLE
                     when (it.data?.code()){
                         201 -> {
+                            it.data.body()?.id
+                            it.data.body()?.buyerId
+                            it.data.body()?.productId
+                            it.data.body()?.status
+                            it.data.body()?.createdAt
+                            it.data.body()?.updatedAt
 
                             getActivity()?.let { it1 ->
                                 Snackbar.make(
@@ -174,7 +179,6 @@ class BuyerPenawaranFragment(
                 }
                 Status.ERROR -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.dialogBottom.visibility = View.VISIBLE
                     when (it.data?.code()){
                         500 ->{
                             val error = it.message

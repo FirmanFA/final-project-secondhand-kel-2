@@ -137,11 +137,5 @@
     <string name="city">City</string>
     <string name="hubungi_via_whatsapp">Hubungi via Whatsapp</string>
     <string name="ditawar_rp_2_000_000">Ditawar Rp 2.000.000</string>
-    <string name="berhasil_terjual">Berhasil terjual</string>
-    <string name="perbarui_status_penjualan_produkmu">Perbarui status penjualan produkmu</string>
-    <string name="kamu_telah_sepakat_menjual_produk_ini_kepada_pembeli">Kamu telah sepakat menjual produk ini kepada pembeli</string>
-    <string name="batalkan_transaksi">Batalkan transaksi</string>
-    <string name="kamu_membatalkan_transaksi_produk_ini_dengan_pembeli">Kamu membatalkan transaksi produk ini dengan pembeli</string>
-    <string name="silakan_login_dahulu">Silakan Login Dahulu</string>
 
 </resources>
