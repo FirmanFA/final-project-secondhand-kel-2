@@ -8,11 +8,23 @@
     android:fitsSystemWindows="true"
     android:background="?android:windowBackground">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/snackbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <TextView
-        android:id="@+id/tv_notification"
+        android:id="@+id/tv_favourite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Keranjangku"
+        android:text="Favorite"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -20,19 +32,100 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="16sp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_notification"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_filter"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:text="All Favourite Product"
+        android:elevation="-1dp"
+        android:textSize="16sp"
+        android:layout_marginVertical="8dp"
+        android:textStyle="bold"
+        android:textColor="@color/blue_redesign"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_favourite"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_whistlist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingVertical="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         tools:listitem="@layout/wishlist_item"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_notification"
+        app:layout_constraintTop_toBottomOf="@id/tv_filter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="48dp"/>
+        />
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_notification"
+        android:layout_width="0dp"
+        android:layout_height="508dp"
+        android:layout_margin="16sp"
+        android:layout_marginTop="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shimmer_auto_start="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/shimmer_wishlist_item" />
+            <include layout="@layout/shimmer_notification_item" />
+            <include layout="@layout/shimmer_notification_item" />
+            <include layout="@layout/shimmer_notification_item" />
+            <include layout="@layout/shimmer_notification_item" />
+            <include layout="@layout/shimmer_notification_item" />
+            <include layout="@layout/shimmer_notification_item" />
+            <include layout="@layout/shimmer_notification_item" />
+            <include layout="@layout/shimmer_notification_item" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <ImageView
+        android:id="@+id/iv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32999998" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp"
+        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:text="@string/silakan_login_dahulu"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_login" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp"
+        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_login" />
 
 
 

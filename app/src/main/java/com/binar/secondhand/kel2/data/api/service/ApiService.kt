@@ -26,6 +26,11 @@ import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProduct
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.put.PutSellerProductIdResponse
+import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.getId.GetIdWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -138,5 +143,17 @@ interface ApiService {
 
     @PATCH("notification/{id}")
     suspend fun readNotification(@Path("id") id: Int): Response<Unit>
+
+    @GET("buyer/wishlist")
+    suspend fun getWishlist(): Response<GetWishlist>
+
+    @GET("buyer/wishlist/{product_id}")
+    suspend fun getIdWishlist(@Path("product_id")productid:Int): Response<GetIdWishlist>
+
+    @DELETE("buyer/wishlist}")
+    suspend fun deleteWishlist(@Path("id")id:Int): Response<DeleteWishlist>
+
+    @POST("buyer/wishlist")
+    suspend fun postWishlist(@Body request: PostWishlistRequest): Response<PostWishlist>
 
 }
