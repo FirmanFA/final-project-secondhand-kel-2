@@ -46,7 +46,8 @@ class NotificationFragment :
             binding.shimmerNotification.visibility = View.GONE
             binding.rvNotification.visibility = View.GONE
             binding.tvNotification.visibility = View.GONE
-            binding.tvLogin.text = "Silakan Login Dahulu"
+            binding.tvFilter.visibility = View.GONE
+            binding.ivFilter.visibility = View.GONE
 
             binding.btnLogin.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)

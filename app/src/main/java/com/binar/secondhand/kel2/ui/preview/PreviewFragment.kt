@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentPreviewBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.utils.URIPathHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -24,7 +26,7 @@ import java.io.File
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
-class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBinding::inflate){
+class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBinding::inflate) {
 
     val args: PreviewFragmentArgs by navArgs()
 
@@ -47,9 +49,9 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
             val category = args.category
             val image = args.image.toUri()
 
-            val imageFile = if(image == null) {
+            val imageFile = if (image == null) {
                 null
-            }else{
+            } else {
                 File(URIPathHelper.getPath(requireContext(), image!!).toString())
             }
             val nameBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -58,7 +60,7 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
             val categoryBody = category.toRequestBody("text/plain".toMediaTypeOrNull())
             val descriptionBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
             val requestImage = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            val imageBody = requestImage?.let{
+            val imageBody = requestImage?.let {
                 MultipartBody.Part.createFormData("image", imageFile?.name, it)
             }
             previewViewModel.terbit(
@@ -76,20 +78,10 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
         previewViewModel.terbit.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Snackbar.make(binding.snackbar, "Produk Berhasil Terbit", Snackbar.LENGTH_LONG)
-                        .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>(){
-                            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                                super.onDismissed(transientBottomBar, event)
-                                requireActivity().onBackPressed()
-                            }
-                        })
-                        .setAction("x") {
-                            // Responds to click on the action
-                            requireActivity().onBackPressed()
-                        }
-                        .setBackgroundTint(resources.getColor(R.color.Green))
-                        .setActionTextColor(resources.getColor(R.color.white))
-                        .show()
+                    MainFragment.activePage = R.id.main_sale_list
+                    MainFragment.statusTerbit = "sukses"
+                    findNavController()
+                        .navigate(R.id.action_previewFragment_to_mainFragment)
 
                 }
                 Status.ERROR -> {
@@ -108,48 +100,52 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
     }
 
     private fun profileAuth() {
-       previewViewModel.getAuthResponse.observe(viewLifecycleOwner){
-           val name = args.name
-           val price = args.price
-           val description = args.description
-           val location = args.location
-           val category = args.category
-           val image = args.image.toUri()
+        previewViewModel.getAuthResponse.observe(viewLifecycleOwner) {
+            val name = args.name
+            val price = args.price
+            val description = args.description
+            val location = args.location
+            val category = args.category
+            val image = args.image.toUri()
 
-           when(it.status){
-               Status.LOADING -> {
-               }
-               Status.SUCCESS -> {
-                   when(it.data?.code()){
-                       200 -> {
-                           val formatter: NumberFormat = DecimalFormat("#,###")
-                           val myNumber = price.toInt()
-                           val formattedNumber: String = formatter.format(myNumber).toString()
+            when (it.status) {
+                Status.LOADING -> {
+                }
+                Status.SUCCESS -> {
+                    when (it.data?.code()) {
+                        200 -> {
+                            val formatter: NumberFormat = DecimalFormat("#,###")
+                            val myNumber = price.toInt()
+                            val formattedNumber: String = formatter.format(myNumber).toString()
                             //formattedNumber is equal to 1,000,000
-                           binding.tvTitle.text = name
-                           binding.tvPrice.text = "Rp. $formattedNumber"
-                           binding.tvLocation.text = location
-                           binding.tvDesc.text = description
-                           binding.tvCategory.text = category
-                           binding.tvName.text = it.data?.body()?.fullName
+                            binding.tvTitle.text = name
+                            binding.tvPrice.text = "Rp. $formattedNumber"
+                            binding.tvLocation.text = location
+                            binding.tvDesc.text = description
+                            binding.tvCategory.text = category
+                            binding.tvName.text = it.data?.body()?.fullName
 
-                           Glide.with(this)
-                               .load(it.data?.body()?.imageUrl)
-                               .centerCrop()
-                               .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
-                               .into(binding.imgProfile)
+                            Glide.with(this)
+                                .load(it.data?.body()?.imageUrl)
+                                .centerCrop()
+                                .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
+                                .into(binding.imgProfile)
 
-                           Glide.with(this)
-                               .load(image)
-                               .centerCrop()
-                               .into(binding.ivBackdrop)
-                       }
-                       else -> {
-                           Toast.makeText(requireContext(), "${it.data?.message()}", Toast.LENGTH_SHORT).show()
-                       }
-                   }
-               }
-           }
-       }
+                            Glide.with(this)
+                                .load(image)
+                                .centerCrop()
+                                .into(binding.ivBackdrop)
+                        }
+                        else -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "${it.data?.message()}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
+        }
     }
 }
