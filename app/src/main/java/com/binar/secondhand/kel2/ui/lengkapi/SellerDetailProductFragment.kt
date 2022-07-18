@@ -52,7 +52,9 @@ class SellerDetailProductFragment :
     private val sellerDetailProductViewModel: SellerDetailProductViewModel by viewModel()
 
     private var imageUri: Uri? = null
-    private val listCategory = ArrayList<GetCategoryResponseItem>()
+    private val listCategory = ArrayList<Pair<Boolean,GetCategoryResponseItem>>()
+    private val listSelectedCategory = ArrayList<GetCategoryResponseItem>()
+    private val listSelectedCategoryId = ArrayList<Int>()
 
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -80,8 +82,12 @@ class SellerDetailProductFragment :
 
         val etMoney: EditText = binding.etPrice.editText!!
 
-        binding.etCategory.setEndIconOnClickListener {
-            val selectCategoryDialog = CategoryBottomDialog(listCategory)
+        binding.btnAddCategory.isEnabled = false
+        binding.btnAddCategory.setOnClickListener {
+            val selectCategoryDialog = CategoryBottomDialog(listCategory){
+                listSelectedCategory.addAll(it)
+
+            }
             selectCategoryDialog.show(parentFragmentManager, "select_category")
         }
 
@@ -115,7 +121,8 @@ class SellerDetailProductFragment :
             binding.tvCity.visibility = View.GONE
             binding.etCity.visibility = View.GONE
             binding.tvKategori.visibility = View.GONE
-            binding.etCategory.visibility = View.GONE
+            binding.chipGroupSelectedCategory.visibility = View.GONE
+            binding.btnAddCategory.visibility = View.GONE
             binding.tvDescription.visibility = View.GONE
             binding.etDescription.visibility = View.GONE
             binding.tvPhoto.visibility = View.GONE
@@ -153,7 +160,7 @@ class SellerDetailProductFragment :
             if (binding.etName.editText?.text.toString()
                     .isEmpty() || binding.etPrice.editText?.text.toString()
                     .isEmpty() || binding.etCity.editText?.text.toString()
-                    .isEmpty() || binding.etCategory.editText?.text.toString()
+//                    .isEmpty() || binding.etCategory.editText?.text.toString()
                     .isEmpty() || binding.etDescription.editText?.text.toString().isEmpty()
             ) {
                 Toast.makeText(
@@ -170,7 +177,8 @@ class SellerDetailProductFragment :
                         location = binding.etCity.editText?.text.toString(),
                         description = binding.etDescription.editText?.text.toString(),
                         image = imageUri.toString(),
-                        category = binding.etCategory.editText?.text.toString()
+//                        category = binding.etCategory.editText?.text.toString()
+                        category = ""
                     )
                 findNavController().navigate(actionToPreviewFragment)
             }
@@ -181,7 +189,8 @@ class SellerDetailProductFragment :
                 val name = etName.editText?.text.toString()
                 val price = etPrice.editText?.text.toString().replace("Rp. ", "").replace(",", "")
                 val city = etCity.editText?.text.toString()
-                val category = etCategory.editText?.text.toString()
+//                val category = etCategory.editText?.text.toString()
+                val category = ""
                 val description = etDescription.editText?.text.toString()
 
                 val imageFile = if (imageUri == null) {
@@ -318,7 +327,22 @@ class SellerDetailProductFragment :
 
                     when (it.data?.code()) {
                         200 -> {
-                            it.data.body()?.let { it1 -> listCategory.addAll(it1) }
+//                            it.data.body()?.let { it1 -> listCategory.addAll(it1) }
+//                            binding.etCategory.isEnabled = true
+                            val rawCategory = it.data.body()
+                            rawCategory?.forEach { getCategoryResponseItem ->
+                                if (listSelectedCategoryId.contains(getCategoryResponseItem.id)){
+                                    listCategory.add(Pair(true,getCategoryResponseItem))
+                                }else{
+                                    listCategory.add(Pair(false,getCategoryResponseItem))
+                                }
+//                                if (listSelectedCategory.contains(getCategoryResponseItem)){
+//                                        listCategory.add(Pair(true,getCategoryResponseItem))
+//                                }else{
+//                                    listCategory.add(Pair(false,getCategoryResponseItem))
+//                                }
+                            }
+                            binding.btnAddCategory.isEnabled = true
                         }
                     }
                 }
