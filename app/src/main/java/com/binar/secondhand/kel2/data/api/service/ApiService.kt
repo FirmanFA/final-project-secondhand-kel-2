@@ -22,6 +22,8 @@ import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdR
 import com.binar.secondhand.kel2.data.api.model.seller.order.SellerOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.order.id.GetOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
+import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductId
+import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductIdRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
@@ -131,6 +133,9 @@ interface ApiService {
 
     @PATCH("seller/order/{id}")
     suspend fun patchSellerOrderId(@Path("id")id:Int,@Body request: PatchSellerOrderIdRequest): Response<PatchSellerOrderIdResponse>
+
+    @PATCH("seller/product/{id}")
+    suspend fun patchSellerProductId(@Path("id")id:Int,@Body request: PatchProductIdRequest): Response<PatchProductId>
 
     @DELETE("seller/product/{id}")
     suspend fun deleteSellerProductId(@Path("id")id:Int): Response<Unit>

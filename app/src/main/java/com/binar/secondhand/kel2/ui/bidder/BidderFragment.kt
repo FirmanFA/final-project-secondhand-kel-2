@@ -42,7 +42,8 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
                 } else {
                     orderId?.let {
                         val modal = BidderStatusFragment(
-                            it
+                            it,
+                            1147
                         )
                         modal.show(parentFragmentManager, "Tag")
                     }
@@ -105,6 +106,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
         bidderViewModel.status.observe(viewLifecycleOwner){
             when(it.status){
                 Status.SUCCESS -> {
+                    Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
                     bidderViewModel.bidder(args.id)
                 }
                 Status.ERROR -> {

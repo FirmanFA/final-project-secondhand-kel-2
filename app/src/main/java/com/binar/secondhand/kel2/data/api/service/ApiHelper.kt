@@ -5,6 +5,7 @@ import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassRequest
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
+import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductIdRequest
 import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -88,6 +89,8 @@ class ApiHelper(val apiService: ApiService) {
     suspend fun getSellerOrderId(id:Int) = apiService.getSellerOrderId(id)
 
     suspend fun patchSellerOrderId(id:Int, request: PatchSellerOrderIdRequest) = apiService.patchSellerOrderId(id, request)
+
+    suspend fun patchSellerProductId(id:Int, request: PatchProductIdRequest) = apiService.patchSellerProductId(id, request)
 
     suspend fun deleteSellerProduct(id:Int) = apiService.deleteSellerProductId(id)
 
