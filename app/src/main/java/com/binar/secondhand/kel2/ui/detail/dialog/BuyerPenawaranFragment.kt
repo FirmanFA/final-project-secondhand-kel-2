@@ -128,7 +128,6 @@ class BuyerPenawaranFragment(
 
     @SuppressLint("SetTextI18n")
     private fun setUpObserver() {
-
         viewModel.buyerOrder.observe(viewLifecycleOwner){
             when (it.status) {
                 Status.LOADING -> {

@@ -7,11 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse.GetOrderResponseItem
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetBuyerOrderId
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
-import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
-import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlist
-import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlistRequest
 import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistItem
 import com.binar.secondhand.kel2.data.api.model.wishlist.getId.GetIdWishlist
@@ -33,6 +31,9 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
     private val _getBuyerOrder :  MutableLiveData<Resource<List<GetOrderResponseItem>>> = MutableLiveData()
     val getBuyerOrder : LiveData<Resource<List<GetOrderResponseItem>>> get() = _getBuyerOrder
 
+    private val _orderProduct = MutableLiveData<Resource<Response<GetBuyerOrderId>>>()
+    val orderProduct: LiveData<Resource<Response<GetBuyerOrderId>>> get() = _orderProduct
+
 
     fun getDetailProduct(productId: Int){
         viewModelScope.launch {
@@ -42,6 +43,18 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
                 _detailProduct.postValue(dataProduct)
             }catch (exp: Exception){
                 _detailProduct.postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
+            }
+        }
+    }
+
+    fun getProductOrder(productId: Int){
+        viewModelScope.launch {
+            _orderProduct.postValue(Resource.loading())
+            try {
+                val dataProduct = Resource.success(repository.getProductOrder(productId))
+                _orderProduct.postValue(dataProduct)
+            }catch (exp: Exception){
+                _orderProduct.postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
             }
         }
     }
