@@ -18,15 +18,19 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.binar.secondhand.kel2.R
+import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponseItem
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentEditBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.lengkapi.CategoryBottomDialog
 import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.utils.URIPathHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -41,10 +45,11 @@ import java.text.DecimalFormat
 class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::inflate) {
 
     val args: EditFragmentArgs by navArgs()
-
     private val editViewModel: EditViewModel by viewModel()
-
     private var imageUri: Uri? = null
+    private val listCategory = ArrayList<Pair<Boolean, GetCategoryResponseItem>>()
+    private val listSelectedCategory = ArrayList<GetCategoryResponseItem>()
+    private val listSelectedCategoryId = ArrayList<Int>()
 
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -67,12 +72,41 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
             }
         }
 
+    private fun ChipGroup.addChip(category: GetCategoryResponseItem) {
+
+        Chip(context).apply {
+            id = category.id
+            text = category.name
+            isClickable = true
+            isCloseIconVisible = true
+            setOnCloseIconClickListener {
+                listSelectedCategory.remove(category)
+                removeView(it)
+            }
+            addView(this)
+
+        }
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val id = args.id
 
         val etMoney: EditText = binding.etPrice.editText!!
+
+        binding.btnAddCategory.isEnabled = false
+        binding.btnAddCategory.setOnClickListener {
+            val selectCategoryDialog = CategoryBottomDialog(listCategory) {
+                listSelectedCategory.clear()
+                listSelectedCategory.addAll(it)
+                listSelectedCategory.forEach { category ->
+                    binding.chipGroupSelectedCategory.addChip(category)
+                }
+            }
+            selectCategoryDialog.show(parentFragmentManager, "select_category")
+        }
 
         //delimiter
         etMoney.addTextChangedListener(object : TextWatcher {
@@ -93,33 +127,12 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
 
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
-        val token = getKoin().getProperty("access_token", "")
-
-        if (token == "") {
-            binding.tvProduct.visibility = View.GONE
-            binding.tvName.visibility = View.GONE
-            binding.etName.visibility = View.GONE
-            binding.tvPrice.visibility = View.GONE
-            binding.etPrice.visibility = View.GONE
-            binding.tvCity.visibility = View.GONE
-            binding.etCity.visibility = View.GONE
-            binding.tvKategori.visibility = View.GONE
-            binding.etCategory.visibility = View.GONE
-            binding.tvDescription.visibility = View.GONE
-            binding.etDescription.visibility = View.GONE
-            binding.tvPhoto.visibility = View.GONE
-            binding.ivPhoto.visibility = View.GONE
-            binding.btnTerbit.visibility = View.GONE
-
-            Log.d("list", "token kosong")
-
-        }
-
         val city = resources.getStringArray(R.array.city)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, city)
         binding.autoCompleteTv.setAdapter(arrayAdapter)
 
         setUpObservers()
+        editViewModel.getCategory()
 
         binding.ivPhoto.setOnClickListener {
             openImagePicker()
@@ -130,7 +143,9 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
                 val name = etName.editText?.text.toString()
                 val price = etPrice.editText?.text.toString().replace("Rp. ", "").replace(",", "")
                 val city = etCity.editText?.text.toString()
-                val category = etCategory.editText?.text.toString()
+                val listCategoryRequest = listSelectedCategory.joinToString {
+                    it.id.toString()
+                }.toRequestBody("text/plain".toMediaTypeOrNull())
                 val description = etDescription.editText?.text.toString()
 
                 val imageFile = if (imageUri == null) {
@@ -142,7 +157,6 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
                 val nameBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
                 val priceBody = price.toRequestBody("text/plain".toMediaTypeOrNull())
                 val cityBody = city.toRequestBody("text/plain".toMediaTypeOrNull())
-                val categoryBody = category.toRequestBody("text/plain".toMediaTypeOrNull())
                 val descriptionBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
 
                 val requestImage = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
@@ -155,7 +169,7 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
                     name = nameBody,
                     base_price = priceBody,
                     location = cityBody,
-                    category_ids = categoryBody,
+                    category_ids = listCategoryRequest,
                     description = descriptionBody,
                     image = imageBody
                 )
@@ -255,6 +269,41 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
                 }
                 Status.ERROR -> {
                     Toast.makeText(context, "Gagal terbit", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        editViewModel.getCategoryResponse.observe(viewLifecycleOwner) {
+            when (it.status) {
+
+                Status.LOADING -> {
+                }
+
+                Status.SUCCESS -> {
+
+                    when (it.data?.code()) {
+                        200 -> {
+//                            it.data.body()?.let { it1 -> listCategory.addAll(it1) }
+//                            binding.etCategory.isEnabled = true
+                            val rawCategory = it.data.body()
+                            rawCategory?.forEach { getCategoryResponseItem ->
+                                if (listSelectedCategoryId.contains(getCategoryResponseItem.id)) {
+                                    listCategory.add(Pair(true, getCategoryResponseItem))
+                                } else {
+                                    listCategory.add(Pair(false, getCategoryResponseItem))
+                                }
+//                                if (listSelectedCategory.contains(getCategoryResponseItem)){
+//                                        listCategory.add(Pair(true,getCategoryResponseItem))
+//                                }else{
+//                                    listCategory.add(Pair(false,getCategoryResponseItem))
+//                                }
+                            }
+                            binding.btnAddCategory.isEnabled = true
+                        }
+                    }
+                }
+
+                Status.ERROR -> {
                 }
             }
         }
