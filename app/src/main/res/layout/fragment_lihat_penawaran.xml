@@ -6,50 +6,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/rounded_dialog"
-    tools:context=".ui.detail.dialog.BuyerPenawaranFragment">
+    tools:context=".ui.detail.dialog.LihatPenawaranFragment">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/dialogLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        tools:ignore="MissingConstraints">
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/silahkan_login_untuk_melanjutkan_penawaran"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Button
-            android:id="@+id/btnLogin"
-            android:backgroundTint="@color/primary_blue"
-            android:textColor="@color/white"
-            android:text="@string/login"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-        </Button>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dialogBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-
         tools:ignore="MissingConstraints">
         <ProgressBar
             android:id="@+id/progressBar"
@@ -60,38 +25,68 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <ImageView
-            android:layout_marginTop="8dp"
-            android:id="@+id/imageView5"
-            android:layout_width="60dp"
-            android:layout_height="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_baseline_remove_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:paddingVertical="20dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/yellow_gradient"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_pending"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/circle">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Menunggu Respon Penjual"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:layout_marginStart="55dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_icon"
+                tools:layout_editor_absoluteY="16dp">
+            </TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/masukan_harga_tawarmu"
+            android:text="Detail Penawaranmu"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toBottomOf="@id/image"
+            app:layout_constraintStart_toStartOf="parent" />
         <TextView
-            android:id="@+id/tvHargaTawaran"
+            android:id="@+id/tvDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/tawaran"
+            android:layout_marginTop="4dp"
+            android:text="Berikut adalah tawaran terakhir anda, anda bisa mengubahnya jika mau"
+            android:textColor="@color/grey"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -101,7 +96,7 @@
             app:cardElevation="2dp"
             android:id="@+id/btn_product"
             android:backgroundTint="@color/white1"
-            app:layout_constraintTop_toBottomOf="@+id/tvHargaTawaran"
+            app:layout_constraintTop_toBottomOf="@+id/tvDesc"
             tools:ignore="MissingConstraints">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -143,53 +138,46 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_name" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-        <TextView
-            android:id="@+id/tvHargaTawar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Harga Tawar"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@+id/btn_product" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxStrokeColor="@color/black"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintTop_toBottomOf="@id/tvHargaTawar"
-            android:hint="Rp. 0,00">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@id/etHargaTawar"
-                android:layout_width="match_parent"
-                android:inputType="number"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_kirim"
+            android:id="@+id/btn_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="28dp"
+            android:paddingVertical="8dp"
+            android:layout_marginTop="24dp"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:background="@drawable/btn_tertarik"
+            android:text="Update Penawaran"
+            android:textColor="#ffffff"
+            app:backgroundTint="@color/orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_product" />
+
+        <Button
+            android:id="@+id/btn_delete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingHorizontal="28dp"
             android:paddingVertical="8dp"
             android:layout_marginTop="12dp"
+            android:textSize="16sp"
+            android:textAllCaps="false"
             android:background="@drawable/btn_tertarik"
-            android:text="@string/kirim"
+            android:text="Batalkan Penawaran"
             android:textColor="#ffffff"
-            app:backgroundTint="@color/purple_500"
+            app:backgroundTint="@color/red"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textField" />
+            app:layout_constraintTop_toBottomOf="@id/btn_edit" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="16dp"
-            app:layout_constraintTop_toBottomOf="@id/btn_kirim"
+            app:layout_constraintTop_toBottomOf="@id/btn_delete"
             android:orientation="horizontal"
             tools:ignore="MissingConstraints">
 

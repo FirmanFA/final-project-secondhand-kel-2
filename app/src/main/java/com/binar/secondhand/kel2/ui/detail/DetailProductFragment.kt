@@ -4,16 +4,13 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.binar.secondhand.kel2.R
-import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlistRequest
-import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistItem
-import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.DetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.detail.dialog.BuyerPenawaranFragment
 import com.bumptech.glide.Glide
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -102,11 +99,15 @@ class DetailProductFragment :
             }
             if (accepted){
                 binding.btnTertarik.isEnabled = false
+                binding.btnEditTertarik.visibility = View.GONE
                 binding.btnTertarik.text = "Penawaran anda telah berhasil"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.Green)
             }else if(pending) {
                 binding.btnTertarik.isEnabled = false
+                binding.btnEditTertarik.visibility = View.VISIBLE
+                binding.btnEditTertarik.backgroundTintList =
+                    requireContext().getColorStateList(R.color.orange)
                 binding.btnTertarik.text = "Menunggu Respon Penjual"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.grey)
@@ -114,6 +115,7 @@ class DetailProductFragment :
 
             }else if(bid) {
                 binding.btnTertarik.isEnabled = true
+                binding.btnEditTertarik.visibility = View.VISIBLE
                 binding.btnTertarik.text = "Naikan Tawaranmu pada Produk"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.primary_blue)
@@ -121,10 +123,12 @@ class DetailProductFragment :
 
             else if(decline) {
                 binding.btnTertarik.isEnabled = true
+                binding.btnEditTertarik.visibility = View.GONE
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.primary_blue)
             }else{
                 binding.btnTertarik.isEnabled = true
+                binding.btnEditTertarik.visibility = View.GONE
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.primary_blue)
             }

@@ -18,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BidderStatusFragment (
     orderId: Int,
-    productId: Int,
+    productId: Int?
 ) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBidderStatusBinding? = null
@@ -57,7 +57,9 @@ class BidderStatusFragment (
         binding.btnKirim.setOnClickListener {
             if (binding.radioGroup.checkedRadioButtonId != -1) {
                 if(binding.rbBerhasil.isChecked){
-                    viewModel.statusProduct(productId, PatchProductIdRequest(status = "seller"))
+                    if (productId != null) {
+                        viewModel.statusProduct(productId, PatchProductIdRequest(status = "seller"))
+                    }
                     Toast.makeText(context, "Produk anda berhasil terjual", Toast.LENGTH_SHORT).show()
                     dismiss()
                 } else if(binding.rbBatalkan.isChecked){

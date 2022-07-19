@@ -44,6 +44,8 @@ class Repository(private val apiHelper: ApiHelper) {
     suspend fun getProductDetail(productId: Int) = apiHelper.getProductDetail(productId)
     suspend fun getUserProfile(userId: Int) = apiHelper.getUserProfile(userId)
     suspend fun postBuyerOrder(requestBuyerOrder: PostOrderRequest) = apiHelper.postBuyerOrder(requestBuyerOrder)
+    suspend fun deleteOrder(productId: Int) = apiHelper.deleteOrder(productId)
+
     suspend fun postProduct(
         name: RequestBody,
         description: RequestBody,

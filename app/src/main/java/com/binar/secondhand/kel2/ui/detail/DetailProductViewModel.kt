@@ -73,6 +73,21 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
+    private val _deleteOrder = MutableLiveData<Resource<Response<Unit>>>()
+    val deleteOrder: LiveData<Resource<Response<Unit>>> get() = _deleteOrder
+
+    fun deleteOrder(productId: Int){
+        viewModelScope.launch {
+            _deleteOrder.postValue(Resource.loading())
+            try {
+                val dataProduct = Resource.success(repository.deleteOrder(productId))
+                _deleteOrder.postValue(dataProduct)
+            }catch (exp: Exception){
+                _deleteOrder.postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
+            }
+        }
+    }
+
     private val _postWishlist = MutableLiveData<Resource<Response<PostWishlist>>>()
     val postWishlist: LiveData<Resource<Response<PostWishlist>>> get() = postWishlist
 
@@ -88,8 +103,8 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
     }
 
 
-    private val _deleteWishlist = MutableLiveData<Resource<Response<DeleteWishlist>>>()
-    val deleteWishlist : LiveData<Resource<Response<DeleteWishlist>>> get() = _deleteWishlist
+    private val _deleteWishlist = MutableLiveData<Resource<Response<Unit>>>()
+    val deleteWishlist: LiveData<Resource<Response<Unit>>> get() = _deleteWishlist
 
     fun deleteWishlist(productId: Int){
         viewModelScope.launch {

@@ -22,6 +22,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
     private val bidderViewModel: BidderViewModel by viewModel()
     private var orderId: Int? = null
     private var status: String? = null
+    private var productId: Int? = null
 
     val args: BidderFragmentArgs by navArgs()
 
@@ -43,7 +44,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
                     orderId?.let {
                         val modal = BidderStatusFragment(
                             it,
-                            1147
+                            productId
                         )
                         modal.show(parentFragmentManager, "Tag")
                     }
@@ -70,6 +71,7 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
             when(it.status){
                 Status.SUCCESS -> {
                     orderId = it.data?.body()?.id.toString().toInt()
+                    productId = it.data?.body()?.productId.toString().toInt()
                     status = it.data?.body()?.status.toString()
                     binding.tvName.text = it.data?.body()?.product?.user?.fullName.toString()
                     binding.tvKota.text = it.data?.body()?.product?.user?.city.toString()

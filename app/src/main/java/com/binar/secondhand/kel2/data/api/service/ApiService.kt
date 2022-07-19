@@ -94,6 +94,9 @@ interface ApiService {
         @Body requestBuyerOrder: PostOrderRequest
     ): Response<PostOrderResponse>
 
+    @DELETE("buyer/order/{id}")
+    suspend fun deleteOrder(@Path("id")id:Int): Response<Unit>
+
     @Multipart
     @POST("seller/product")
     suspend fun postProduct(
@@ -162,7 +165,7 @@ interface ApiService {
     suspend fun getIdWishlist(@Path("product_id")productid:Int): Response<GetIdWishlist>
 
     @DELETE("buyer/wishlist}")
-    suspend fun deleteWishlist(@Path("id")id:Int): Response<DeleteWishlist>
+    suspend fun deleteWishlist(@Path("id")id:Int): Response<Unit>
 
     @POST("buyer/wishlist")
     suspend fun postWishlist(@Body request: PostWishlistRequest): Response<PostWishlist>
