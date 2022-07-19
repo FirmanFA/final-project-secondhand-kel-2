@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -47,25 +48,23 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
             val category = args.category
             val image = args.image.toUri()
 
-            val imageFile = if(image == null) {
-                null
-            }else{
-                File(URIPathHelper.getPath(requireContext(), image!!).toString())
-            }
+            val imageFile = File(URIPathHelper.getPath(requireContext(), image).toString())
             val nameBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
             val priceBody = price.toRequestBody("text/plain".toMediaTypeOrNull())
             val cityBody = city.toRequestBody("text/plain".toMediaTypeOrNull())
-            val categoryBody = category.toRequestBody("text/plain".toMediaTypeOrNull())
+            val listCategoryRequest = category.joinToString {
+                it.id.toString()
+            }.toRequestBody("text/plain".toMediaTypeOrNull())
             val descriptionBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
-            val requestImage = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            val imageBody = requestImage?.let{
-                MultipartBody.Part.createFormData("image", imageFile?.name, it)
+            val requestImage = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val imageBody = requestImage.let{
+                MultipartBody.Part.createFormData("image", imageFile.name, it)
             }
             previewViewModel.terbit(
                 name = nameBody,
                 base_price = priceBody,
                 location = cityBody,
-                category_ids = categoryBody,
+                category_ids = listCategoryRequest,
                 description = descriptionBody,
                 image = imageBody
             )
@@ -130,7 +129,7 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
                            binding.tvPrice.text = "Rp. $formattedNumber"
                            binding.tvLocation.text = location
                            binding.tvDesc.text = description
-                           binding.tvCategory.text = category
+                           binding.tvCategory.text = category.joinToString { categoryName -> categoryName.name }
                            binding.tvName.text = it.data?.body()?.fullName
 
                            Glide.with(this)

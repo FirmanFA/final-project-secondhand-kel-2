@@ -32,10 +32,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.android.ext.android.getKoin
@@ -52,7 +55,7 @@ class SellerDetailProductFragment :
     private val sellerDetailProductViewModel: SellerDetailProductViewModel by viewModel()
 
     private var imageUri: Uri? = null
-    private val listCategory = ArrayList<Pair<Boolean,GetCategoryResponseItem>>()
+    private val listCategory = ArrayList<Pair<Boolean, GetCategoryResponseItem>>()
     private val listSelectedCategory = ArrayList<GetCategoryResponseItem>()
     private val listSelectedCategoryId = ArrayList<Int>()
 
@@ -77,6 +80,23 @@ class SellerDetailProductFragment :
             }
         }
 
+    private fun ChipGroup.addChip(category: GetCategoryResponseItem) {
+
+        Chip(context).apply {
+            id = category.id
+            text = category.name
+            isClickable = true
+            isCloseIconVisible = true
+            setOnCloseIconClickListener {
+                listSelectedCategory.remove(category)
+                removeView(it)
+            }
+            addView(this)
+
+        }
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -84,12 +104,19 @@ class SellerDetailProductFragment :
 
         binding.btnAddCategory.isEnabled = false
         binding.btnAddCategory.setOnClickListener {
-            val selectCategoryDialog = CategoryBottomDialog(listCategory){
+            val selectCategoryDialog = CategoryBottomDialog(listCategory) {
+                listSelectedCategory.clear()
                 listSelectedCategory.addAll(it)
-
+                listSelectedCategory.forEach { category ->
+                    binding.chipGroupSelectedCategory.addChip(category)
+                }
             }
             selectCategoryDialog.show(parentFragmentManager, "select_category")
         }
+
+//        listSelectedCategory.forEach {
+//            binding.chipGroupSelectedCategory.addChip(it)
+//        }
 
         //delimiter
         etMoney.addTextChangedListener(object : TextWatcher {
@@ -108,7 +135,7 @@ class SellerDetailProductFragment :
             }
         })
 
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+//        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
         val token = getKoin().getProperty("access_token", "")
 
@@ -160,8 +187,8 @@ class SellerDetailProductFragment :
             if (binding.etName.editText?.text.toString()
                     .isEmpty() || binding.etPrice.editText?.text.toString()
                     .isEmpty() || binding.etCity.editText?.text.toString()
-//                    .isEmpty() || binding.etCategory.editText?.text.toString()
-                    .isEmpty() || binding.etDescription.editText?.text.toString().isEmpty()
+                    .isEmpty() || listSelectedCategory.size == 0
+                || binding.etDescription.editText?.text.toString().isEmpty()
             ) {
                 Toast.makeText(
                     requireContext(),
@@ -178,7 +205,7 @@ class SellerDetailProductFragment :
                         description = binding.etDescription.editText?.text.toString(),
                         image = imageUri.toString(),
 //                        category = binding.etCategory.editText?.text.toString()
-                        category = ""
+                        category = listSelectedCategory.toTypedArray()
                     )
                 findNavController().navigate(actionToPreviewFragment)
             }
@@ -189,8 +216,6 @@ class SellerDetailProductFragment :
                 val name = etName.editText?.text.toString()
                 val price = etPrice.editText?.text.toString().replace("Rp. ", "").replace(",", "")
                 val city = etCity.editText?.text.toString()
-//                val category = etCategory.editText?.text.toString()
-                val category = ""
                 val description = etDescription.editText?.text.toString()
 
                 val imageFile = if (imageUri == null) {
@@ -202,8 +227,13 @@ class SellerDetailProductFragment :
                 val nameBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
                 val priceBody = price.toRequestBody("text/plain".toMediaTypeOrNull())
                 val cityBody = city.toRequestBody("text/plain".toMediaTypeOrNull())
-                val categoryBody = category.toRequestBody("text/plain".toMediaTypeOrNull())
                 val descriptionBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
+
+//                val listCategoryRequest = ArrayList<RequestBody>()
+
+                val listCategoryRequest = listSelectedCategory.joinToString {
+                    it.id.toString()
+                }.toRequestBody("text/plain".toMediaTypeOrNull())
 
                 val requestImage = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 val imageBody = requestImage?.let {
@@ -214,7 +244,7 @@ class SellerDetailProductFragment :
                     name = nameBody,
                     base_price = priceBody,
                     location = cityBody,
-                    category_ids = categoryBody,
+                    category_ids = listCategoryRequest,
                     description = descriptionBody,
                     image = imageBody
                 )
@@ -312,7 +342,7 @@ class SellerDetailProductFragment :
                     }
                 }
                 Status.ERROR -> {
-                    Toast.makeText(context, "Gagal terbit", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Gagal terbit ${it.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -331,10 +361,10 @@ class SellerDetailProductFragment :
 //                            binding.etCategory.isEnabled = true
                             val rawCategory = it.data.body()
                             rawCategory?.forEach { getCategoryResponseItem ->
-                                if (listSelectedCategoryId.contains(getCategoryResponseItem.id)){
-                                    listCategory.add(Pair(true,getCategoryResponseItem))
-                                }else{
-                                    listCategory.add(Pair(false,getCategoryResponseItem))
+                                if (listSelectedCategoryId.contains(getCategoryResponseItem.id)) {
+                                    listCategory.add(Pair(true, getCategoryResponseItem))
+                                } else {
+                                    listCategory.add(Pair(false, getCategoryResponseItem))
                                 }
 //                                if (listSelectedCategory.contains(getCategoryResponseItem)){
 //                                        listCategory.add(Pair(true,getCategoryResponseItem))
