@@ -76,6 +76,9 @@ class CategoryBottomDialog(
         binding.rvSelectCategory.adapter = adapter
 
         binding.btnSave.setOnClickListener {
+            val dialogSheet = dialog as? BottomSheetDialog
+            dialogSheet?.dismissWithAnimation = true
+            dialogSheet?.dismiss()
             onSave(listSelectedCategory)
         }
 
