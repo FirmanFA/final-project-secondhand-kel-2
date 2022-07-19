@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".ui.detail.dialog.DialogInputFragment">
+    tools:context=".ui.detail.dialog.DialogDeleteFragment">
 
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pb_banner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"

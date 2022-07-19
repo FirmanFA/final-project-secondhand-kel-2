@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import com.binar.secondhand.kel2.R
-import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetBuyerOrderId
-import com.binar.secondhand.kel2.data.api.model.wishlist.get.Product
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentLihatPenawaranBinding
 import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
@@ -37,11 +34,10 @@ class LihatPenawaranFragment(
     private var price = price
     private val status = status
     private val viewModel: DetailProductViewModel by viewModel()
-    lateinit var etMoney: EditText
     private var bid = false
     private var pending = false
     private var accepted = false
-    private var decline = false
+    private var declined = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +56,12 @@ class LihatPenawaranFragment(
         }
 
         binding.btnDelete.setOnClickListener{
-            viewModel.deleteOrder(productId)
+
+            val modal = DialogDeleteFragment(
+                orderId,
+                refreshButton = { viewModel.getBuyerOrder() }
+            )
+            modal.show(parentFragmentManager, "Tag")
         }
         viewModel.getProductOrder(orderId)
         viewModel.getBuyerOrder()
@@ -79,18 +80,22 @@ class LihatPenawaranFragment(
             else if (status == "accepted"){
                 accepted = true
             }
-            else if (status == "decline"){
-                decline = true
+            else if (status == "declined"){
+                declined = true
             }
             else if (status == "bid"){
                 bid = true
             }
             if (accepted){
-                binding.btnEdit.isEnabled = false
-                binding.btnDelete.isEnabled = false
+                binding.btnEdit.isEnabled = true
+                binding.btnDelete.isEnabled = true
                 binding.image.setBackgroundResource(R.drawable.green_gradient)
                 binding.imgIcon.setImageResource(R.drawable.ic_succes)
                 binding.tvStatus.text = "Penawaran anda Diterima"
+                binding.btnEdit.backgroundTintList =
+                    requireContext().getColorStateList(R.color.grey)
+                binding.btnDelete.backgroundTintList =
+                    requireContext().getColorStateList(R.color.grey)
 
             }else if(pending) {
                 binding.btnEdit.isEnabled = true
@@ -107,17 +112,18 @@ class LihatPenawaranFragment(
                 binding.tvStatus.text = "Menunggu Respon Penjual"
             }
 
-            else if(decline) {
-                binding.btnEdit.isEnabled = true
+            else if(declined) {
+                binding.btnEdit.isEnabled = false
                 binding.btnDelete.isEnabled = true
                 binding.image.setBackgroundResource(R.drawable.red_gradient)
                 binding.imgIcon.setImageResource(R.drawable.ic_failed)
                 binding.tvStatus.text = "Penawaran Anda Ditolak"
+                binding.btnEdit.backgroundTintList =
+                    requireContext().getColorStateList(R.color.grey)
             }else{
                 binding.btnEdit.isEnabled = false
                 binding.btnDelete.isEnabled = false
                 binding.image.setBackgroundResource(R.color.grey)
-                binding.imgIcon.setImageResource(R.drawable.notification_gradient)
                 binding.tvStatus.text = "Penawaran tidak diketahui"
             }
 
@@ -132,34 +138,31 @@ class LihatPenawaranFragment(
                 Status.LOADING ->{
                     binding.progressBar.visibility = View.VISIBLE
                     binding.image.visibility = View.GONE
-                    binding.image.visibility = View.GONE
+                    binding.content.visibility = View.GONE
 
                 }
                 Status.SUCCESS ->{
                     binding.progressBar.visibility = View.GONE
                     binding.image.visibility = View.VISIBLE
-                    binding.image.visibility = View.VISIBLE
+                    binding.content.visibility = View.VISIBLE
 
-                    when(it.data?.code()){
-                        200 -> {
-                            Glide.with(binding.imgProfile)
-                                .load(imageProduct)
-                                .error(R.drawable.ic_broken)
-                                .into(binding.imgProfile)
-                            binding.tvName.text = product
-                            val formatter: NumberFormat = DecimalFormat("#,###")
-                            val myNumber = price.toInt()
-                            val formattedNumber: String = formatter.format(myNumber).toString()
-                            this.price = "Rp. $formattedNumber"
-                            price.toString().replace("Rp. ", "").replace(".", "")
-                            binding.tvPrice.text = price
-                        }
-                    }
+                    Glide.with(binding.imgProfile)
+                        .load(imageProduct)
+                        .error(R.drawable.ic_broken)
+                        .into(binding.imgProfile)
+                    binding.tvName.text = product
+                    val formatter: NumberFormat = DecimalFormat("#,###")
+                    val myNumber = price.toInt()
+                    val formattedNumber: String = formatter.format(myNumber).toString()
+                    this.price = "Rp. $formattedNumber"
+                    price.toString().replace("Rp. ", "").replace(".", "")
+                    binding.tvPrice.text = price
+
                 }
                 Status.ERROR ->{
                     binding.progressBar.visibility = View.VISIBLE
                     binding.image.visibility = View.GONE
-                    binding.image.visibility = View.GONE
+                    binding.content.visibility = View.GONE
                     val error = it.message
                     Toast.makeText(
                         requireContext(),

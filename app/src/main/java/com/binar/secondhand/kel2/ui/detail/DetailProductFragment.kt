@@ -27,7 +27,7 @@ class DetailProductFragment :
     private var bid = false
     private var pending = false
     private var accepted = false
-    private var decline = false
+    private var declined = false
     private var favourite = false
     private var price = ""
     private var imageProduct = ""
@@ -138,11 +138,11 @@ class DetailProductFragment :
         viewModel.getBuyerOrder.observe(viewLifecycleOwner) {it ->
             for (data in 0 until (it.data?.size ?: 0)) {
                 if (it.data?.get(data)?.productId == args.productId) {
-                    orderId = it.data?.get(data)?.id?.toInt()
-                    product = it.data?.get(data)?.productName.toString()
-                    imageProduct = it.data?.get(data)?.product?.imageUrl.toString()
-                    price = it.data?.get(data)?.price.toString()
-                    status = it.data?.get(data)?.status.toString()
+                    orderId = it.data.get(data).id
+                    product = it.data.get(data).productName.toString()
+                    imageProduct = it.data.get(data).product.imageUrl
+                    price = it.data.get(data).price.toString()
+                    status = it.data.get(data).status
 
                 }
 
@@ -168,11 +168,11 @@ class DetailProductFragment :
             }
             for (data in 0 until (it.data?.size ?: 0)) {
                 if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "declined") {
-                    decline = true
+                    declined = true
 
                 }
             }
-            if (accepted||pending||bid||decline) {
+            if (accepted||pending||bid||declined) {
                 binding.btnTertarik.setOnClickListener {
                     val modal = LihatPenawaranFragment(
                         args.productId,
@@ -184,7 +184,6 @@ class DetailProductFragment :
                         refreshButton = { viewModel.getBuyerOrder() }
                     )
                     modal.show(parentFragmentManager, "Tag")
-
                 }
             }
             else{
@@ -211,20 +210,21 @@ class DetailProductFragment :
 
             }else if(pending) {
                 binding.btnEditTertarik.visibility = View.GONE
-                binding.btnTertarik.text = "Menunggu Respon Penjual"
+                binding.btnTertarik.text = "Menunggu respon penjual"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.orange)
 
 
             }else if(bid) {
                 binding.btnEditTertarik.visibility = View.GONE
-                binding.btnTertarik.text = "Naikan Tawaranmu pada Produk"
+                binding.btnTertarik.text = "Naikan tawaranmu pada Produk"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.orange)
             }
 
-            else if(decline) {
+            else if(declined) {
                 binding.btnEditTertarik.visibility = View.GONE
+                binding.btnTertarik.text = "Penawaran anda ditolak"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.red)
             }else{
