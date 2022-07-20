@@ -1,6 +1,7 @@
 package com.binar.secondhand.kel2.ui.detail
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -40,7 +41,7 @@ class DetailProductFragment(private val refreshButton: () -> Unit) :
     private var status = ""
     private var basePrice = ""
     private var wishlist = true
-    private var wishlistId = ""
+    private var wishlistId = 0
 
 
 
@@ -50,6 +51,7 @@ class DetailProductFragment(private val refreshButton: () -> Unit) :
         val productId = args.productId
         binding.tvPrice
         setUpObserver()
+        observerWishlist()
         getKoin().getProperty("access_token", "")
 
         viewModel.getDetailProduct(productId)
@@ -232,37 +234,82 @@ class DetailProductFragment(private val refreshButton: () -> Unit) :
 
         }
 
-//        viewModel.getWishlist.observe(viewLifecycleOwner){
-//            for (data in 0 until (it.data?.size ?: 0)) {
-//                if (it.data?.get(data)?.product_id == args.productId) {
-//                    wishlistId = it.data.get(data).id.toString()
-//                }
-//
-//            }
-//            for (data in 0 until (it.data?.size ?: 0)) {
-//                if (it.data?.get(data)?.product_id == args.productId) {
-//                    wishlist = true
-//                    binding.ivfav.setImageResource(R.drawable.ic_fav_full)
-//
-//                    binding.ivfav.setOnClickListener {
-//                        viewModel.deleteWishlist(wishlistId.toInt())
-//                    }
-//                    refreshButton.invoke()
-//                }
-//                else{
-//                    wishlist = false
-//                    binding.ivfav.setImageResource(R.drawable.ic_fav)
-//                    binding.ivfav.setOnClickListener {
-//                        val request = PostWishlistRequest(
-//                            wishlistId.toInt()
-//                        )
-//                        viewModel.postWishlist(request)
-//                        refreshButton.invoke()
-//                    }
-//
-//                }
-//            }
-//        }
+    }
+    private fun observerWishlist() {
+        val id = args.productId
+        viewModel.getWishlist.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+
+                }
+                Status.SUCCESS -> {
+                    if (it.data.isNullOrEmpty()) {
+
+                    } else {
+                        for (idWhishlist in it.data ){
+                            if (idWhishlist.productId == args.productId){
+                                wishlistId = idWhishlist.id
+                            }
+                        }
+
+                        for (data in 0 until (it.data.size ?: 0)) {
+                            if (it.data.get(data).productId == args.productId) {
+                                wishlist = true
+                            }
+                        }
+                        if (wishlist) {
+                            binding.ivfav.setImageResource(R.drawable.ic_fav_full)
+                        } else {
+                            binding.ivfav.setImageResource(R.drawable.ic_fav)
+                        }
+                        binding.ivfav.setOnClickListener {
+                            val request = PostWishlistRequest(id)
+                            if (wishlist) {
+                                viewModel.deleteWishlist(wishlistId)
+                                wishlist = false
+                            } else {
+                                viewModel.postWishlist(request)
+                                wishlist =true
+                            }
+                        }
+
+
+                    }
+
+                }
+                Status.ERROR -> {
+                    AlertDialog.Builder(requireContext()).setMessage(it.message).show()
+                }
+            }
+        }
+
+        viewModel.postWishlist.observe(viewLifecycleOwner) {
+            when (it.status){
+                Status.LOADING ->{
+                }
+                Status.SUCCESS ->{
+                    viewModel.getWishlist()
+                    binding.ivfav.setImageResource(R.drawable.ic_fav_full)
+                    Toast.makeText(requireContext(), "add to wishlist", Toast.LENGTH_SHORT).show()
+
+                }
+                Status.ERROR ->{
+
+                }
+            }
+        }
+        viewModel.deleteWishlist.observe(viewLifecycleOwner){
+            when(it.status){
+                Status.LOADING ->{}
+                Status.SUCCESS ->{
+                    viewModel.getWishlist()
+                    binding.ivfav.setImageResource(R.drawable.ic_fav)
+                    Toast.makeText(requireContext(), "delete from wishlist", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                Status.ERROR ->{}
+            }
+        }
     }
 
 
