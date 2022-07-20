@@ -108,6 +108,7 @@ class SellerDetailProductFragment :
                 listSelectedCategory.clear()
                 listSelectedCategory.addAll(it)
                 listSelectedCategory.forEach { category ->
+                    listSelectedCategoryId.add(category.id)
                     binding.chipGroupSelectedCategory.addChip(category)
                 }
             }
