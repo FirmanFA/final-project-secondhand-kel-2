@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16sp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Akun Saya"
         android:textAlignment="center"
         android:textColor="@color/black"
