@@ -58,8 +58,8 @@ class SoldProductFragment :
                     binding.shimmerNotification.stopShimmer()
                     binding.shimmerNotification.visibility = View.GONE
                     val error = it.message
-                    Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT)
-                        .show()
+//                    Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT)
+//                        .show()
                 }
             }
         }
