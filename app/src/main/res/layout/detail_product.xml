@@ -300,7 +300,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
-        android:background="@color/white"
+
         android:layout_height="match_parent">
         <ProgressBar
             app:layout_constraintTop_toTopOf="parent"

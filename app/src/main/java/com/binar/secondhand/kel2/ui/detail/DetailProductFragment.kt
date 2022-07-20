@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.binar.secondhand.kel2.R
+import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
+import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.DetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
@@ -20,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
-class DetailProductFragment :
+class DetailProductFragment(private val refreshButton: () -> Unit) :
     BaseFragment<DetailProductBinding>(DetailProductBinding::inflate) {
     //    private var _binding: FragmentDetailProductBinding? = null
 //    private val binding get() = _binding!!
@@ -37,6 +39,8 @@ class DetailProductFragment :
     private var orderId = 0
     private var status = ""
     private var basePrice = ""
+    private var wishlist = true
+    private var wishlistId = ""
 
 
 
@@ -45,13 +49,12 @@ class DetailProductFragment :
         super.onViewCreated(view, savedInstanceState)
         val productId = args.productId
         binding.tvPrice
-
         setUpObserver()
         getKoin().getProperty("access_token", "")
 
-
         viewModel.getDetailProduct(productId)
         viewModel.getBuyerOrder()
+        viewModel.getWishlist()
 
 
         binding.ivBack.setOnClickListener {
@@ -61,7 +64,6 @@ class DetailProductFragment :
         binding.ivfav.setOnClickListener{
 //            viewModel.getIdWishlist(productId)
         }
-
 
         viewModel.getIdWishlist.observe(viewLifecycleOwner){
             if(it.data?.body()?.product_id == productId){
@@ -162,33 +164,27 @@ class DetailProductFragment :
                     price = it.data.get(data).price.toString()
                     status = it.data.get(data).status
                     basePrice = it.data.get(data).basePrice.toString()
-
                 }
-
 
             }
             for (data in 0 until (it.data?.size ?: 0)) {
                 if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "pending") {
                     pending = true
-
                 }
             }
             for (data in 0 until (it.data?.size ?: 0)) {
                 if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "bid") {
                     bid = true
-
                 }
             }
             for (data in 0 until (it.data?.size ?: 0)) {
                 if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "accepted") {
                     accepted = true
-
                 }
             }
             for (data in 0 until (it.data?.size ?: 0)) {
                 if (it.data?.get(data)?.productId == args.productId && it.data.get(data).status == "declined") {
                     declined = true
-
                 }
             }
             if (accepted||pending||bid||declined) {
@@ -235,6 +231,38 @@ class DetailProductFragment :
             }
 
         }
+
+//        viewModel.getWishlist.observe(viewLifecycleOwner){
+//            for (data in 0 until (it.data?.size ?: 0)) {
+//                if (it.data?.get(data)?.product_id == args.productId) {
+//                    wishlistId = it.data.get(data).id.toString()
+//                }
+//
+//            }
+//            for (data in 0 until (it.data?.size ?: 0)) {
+//                if (it.data?.get(data)?.product_id == args.productId) {
+//                    wishlist = true
+//                    binding.ivfav.setImageResource(R.drawable.ic_fav_full)
+//
+//                    binding.ivfav.setOnClickListener {
+//                        viewModel.deleteWishlist(wishlistId.toInt())
+//                    }
+//                    refreshButton.invoke()
+//                }
+//                else{
+//                    wishlist = false
+//                    binding.ivfav.setImageResource(R.drawable.ic_fav)
+//                    binding.ivfav.setOnClickListener {
+//                        val request = PostWishlistRequest(
+//                            wishlistId.toInt()
+//                        )
+//                        viewModel.postWishlist(request)
+//                        refreshButton.invoke()
+//                    }
+//
+//                }
+//            }
+//        }
     }
 
 

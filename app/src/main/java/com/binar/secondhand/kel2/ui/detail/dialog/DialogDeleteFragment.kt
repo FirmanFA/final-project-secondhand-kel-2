@@ -84,8 +84,6 @@ class DialogDeleteFragment(
                     }
                     Toast.makeText(context, "Penawaran Anda Telah Dihapus", Toast.LENGTH_SHORT).show()
 
-                    val action =
-                        DetailProductFragmentDirections.actionDetailProductFragmentSelf(productId)
                     refreshButton.invoke()
                     dialog?.dismiss()
 

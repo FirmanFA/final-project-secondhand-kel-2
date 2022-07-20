@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistItem
+import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistResponse
 import com.binar.secondhand.kel2.databinding.WishlistItemBinding
 import com.binar.secondhand.kel2.ui.notification.NotificationAdapter
 import com.bumptech.glide.Glide
@@ -28,21 +29,25 @@ class WishlistAdapter (private  val onItemClick: OnClickListener): RecyclerView.
 
 
 
-    private val diffCallback = object : DiffUtil.ItemCallback<GetWishlistItem>(){
+    private val diffCallback = object : DiffUtil.ItemCallback<GetWishlistResponse>(){
         override fun areItemsTheSame(
-            oldItem: GetWishlistItem,
-            newItem: GetWishlistItem,
+            oldItem: GetWishlistResponse,
+            newItem: GetWishlistResponse,
         ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: GetWishlistItem,
-            newItem: GetWishlistItem,
+            oldItem: GetWishlistResponse,
+            newItem: GetWishlistResponse,
         ): Boolean = oldItem.hashCode() == newItem.hashCode()
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
+    fun submitData(value: List<GetWishlistResponse>?) = differ.submitList(value)
 
-    fun submitData(value: List<GetWishlistItem>?) = differ.submitList(value)
+    interface OnClickListener{
+        fun onClickItem(data : GetWishlistResponse)
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishlistAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -58,7 +63,7 @@ class WishlistAdapter (private  val onItemClick: OnClickListener): RecyclerView.
 
     inner class ViewHolder(private val binding: WishlistItemBinding) :
         RecyclerView.ViewHolder(binding.root){
-        fun bind(data: GetWishlistItem){
+        fun bind(data :GetWishlistResponse){
             binding.apply {
                 val format = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'", Locale.ROOT)
                 val date = format.parse(data.createdAt) as Date
@@ -76,18 +81,18 @@ class WishlistAdapter (private  val onItemClick: OnClickListener): RecyclerView.
                 }
 
                 Glide.with(binding.root)
-                    .load(data.Product.image_url)
+                    .load(data.product.imageUrl)
                     .error(R.drawable.ic_broken)
                     .centerCrop()
                     .placeholder(shimmerDrawable)
                     .transform(CenterCrop(), RoundedCorners(12))
                     .into(binding.ivProduct)
-                tvTitle.text =  data.Product.name
+                tvTitle.text =  data.product.name
                 val formatter: NumberFormat = DecimalFormat("#,###")
-                val myNumber = data.Product.base_price.toInt()
+                val myNumber = data.product.basePrice.toInt()
                 val formattedNumber: String = formatter.format(myNumber).toString()
                 tvPrice.text = "Rp $formattedNumber"
-                tvLocation.text = data.Product.location
+                tvLocation.text = data.product.location
 
                 tvTime.text = DateFormat.getDateInstance(DateFormat.FULL).format(date)
                 root.setOnClickListener {
@@ -97,9 +102,6 @@ class WishlistAdapter (private  val onItemClick: OnClickListener): RecyclerView.
         }
     }
 
-    interface OnClickListener{
-        fun onClickItem(data: GetWishlistItem)
-    }
 
 
 
