@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/montserrat_alternates_bold"
+                    android:fontFamily="@font/montserrat_bold"
                     android:text="Mendaftar dengan kami !"
                     android:textColor="@color/black"
                     android:textSize="14sp"
@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/montserrat_alternates_semibold"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Informasi anda aman bersama kami"
                     android:textColor="@color/black"
                     android:textSize="12sp"
@@ -117,12 +117,12 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_nama"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/poppins_regular"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/montserrat_regular"
                             android:hint="Masukkan nama lengkap anda"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="textEmailAddress"
+                            android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,12 +149,12 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_email"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/poppins_regular"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/montserrat_regular"
                             android:hint="Masukkan alamat email anda"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="textEmailAddress"
+                            android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -181,12 +181,12 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_passowrd"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/poppins_regular"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/montserrat_regular"
                             android:hint="Masukkan password anda"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -213,12 +213,12 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_konfirmasi_passowrd"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/poppins_regular"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/montserrat_regular"
                             android:hint="Konfirmasi password anda"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -230,14 +230,14 @@
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/button_background"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="Sign Up"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:fontFamily="@font/poppins_regular"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/konfirmasi_password_container"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/konfirmasi_password_container" />
 
                 <TextView
                     android:id="@+id/tv_sudah_memiliki_akun"
@@ -246,7 +246,7 @@
                     android:layout_marginStart="84dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="4dp"
-                    android:fontFamily="@font/montserrat_alternates"
+                    android:fontFamily="@font/montserrat_regular"
                     android:text="Sudah memiliki akun ?"
                     android:textColor="@color/black"
                     android:textSize="18sp"
@@ -259,7 +259,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="84dp"
-                    android:fontFamily="@font/montserrat_alternates_semibold"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Sign In"
                     android:textColor="#193C8D"
                     android:textSize="18sp"
@@ -291,23 +291,24 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:text="Dengan mendaftar, Anda menyetujui"/>
+                            android:fontFamily="@font/montserrat_regular"
+                            android:text="Dengan mendaftar, Anda menyetujui"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/tv_privacy_policy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kebijakan Privasi"
-                            android:textColor="#193C8D"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/montserrat_alternates_semibold"
-                            android:textStyle="bold"
                             android:layout_gravity="center"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            app:layout_constraintStart_toStartOf="parent"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="Kebijakan Privasi"
+                            android:textColor="#193C8D"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_sudah_memiliki_akun" />
 
                 </LinearLayout>

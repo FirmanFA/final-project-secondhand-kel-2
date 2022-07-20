@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16sp"
                 android:layout_marginTop="46sp"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Lengkapi Detail Produk"
                 android:textColor="@color/black"
                 android:textSize="14sp"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="40sp"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Nama Produk"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,6 +71,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:hint="Nama Produk"
                     android:singleLine="true" />
 
@@ -82,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Harga Produk"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -108,9 +109,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="Rp 0,00"
                     android:inputType="number"
-                    android:singleLine="true"
-                    android:hint="Rp 0,00"/>
+                    android:singleLine="true" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Lokasi"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -146,6 +148,7 @@
                     android:id="@+id/auto_complete_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
                     android:hint="Pilih Kota" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -157,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Kategori"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -180,16 +183,16 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_gravity=""
+                android:layout_marginTop="8dp"
+                android:drawableEnd="@drawable/ic_baseline_add_24"
+                android:drawableTint="@color/primary_60"
                 android:minWidth="0dp"
                 android:paddingHorizontal="4dp"
                 android:paddingVertical="8dp"
-                android:drawableEnd="@drawable/ic_baseline_add_24"
-                android:drawableTint="@color/Green"
                 android:text="Tambah Kategori"
                 android:textAllCaps="false"
-                android:textColor="@color/Green"
+                android:textColor="@color/primary_60"
                 app:cornerRadius="4dp"
                 app:layout_constraintStart_toStartOf="@+id/tv_kategori"
                 app:layout_constraintTop_toBottomOf="@+id/chip_group_selected_category" />
@@ -200,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Deskripsi"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -225,8 +228,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:hint="Contoh : Jalan Ikan Hiu 33"
+                    android:fontFamily="@font/montserrat_regular"
                     android:gravity="top"
+                    android:hint="Contoh : Jalan Ikan Hiu 33"
                     android:maxLength="256" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -236,6 +240,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16sp"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Foto Produk"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_description" />
@@ -258,8 +263,8 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="24dp"
-                android:backgroundTint="@color/primary_60"
-                android:fontFamily="@font/poppins_medium"
+                android:backgroundTint="@color/primary_blue"
+                android:fontFamily="@font/montserrat_medium"
                 android:paddingHorizontal="24sp"
                 android:paddingVertical="14sp"
                 android:text="Ubah"

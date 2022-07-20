@@ -14,31 +14,34 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         tools:ignore="MissingConstraints">
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/silahkan_login_untuk_melanjutkan_penawaran"
             android:layout_marginTop="32dp"
+            android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
+            android:text="@string/silahkan_login_untuk_melanjutkan_penawaran"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/btnLogin"
-            android:backgroundTint="@color/primary_blue"
-            android:textColor="@color/white"
-            android:text="@string/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:backgroundTint="@color/primary_blue"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/login"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </Button>
+            app:layout_constraintTop_toBottomOf="@id/tv_title"></Button>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -66,8 +69,9 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
             android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/montserrat_bold"
             android:text="@string/perbarui_status_penjualan_produkmu"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -87,63 +91,68 @@
                 android:id="@+id/rb_berhasil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/berhasil_terjual"
-                android:textStyle="bold"
+                android:fontFamily="@font/montserrat_bold"
                 android:paddingStart="16dp"
+                android:text="@string/berhasil_terjual"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:buttonTint="@color/primary_blue"
                 tools:ignore="RtlSymmetry">
 
             </RadioButton>
+
             <TextView
                 android:id="@+id/tv_berhasil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:layout_marginStart="48dp"
-                android:text="@string/kamu_telah_sepakat_menjual_produk_ini_kepada_pembeli">
-            </TextView>
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/kamu_telah_sepakat_menjual_produk_ini_kepada_pembeli"
+                android:textSize="18sp"></TextView>
+
             <RadioButton
                 android:id="@+id/rb_batalkan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/batalkan_transaksi"
-                android:textStyle="bold"
+                android:fontFamily="@font/montserrat_bold"
                 android:paddingStart="16dp"
+                android:text="@string/batalkan_transaksi"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:buttonTint="@color/primary_blue"
                 tools:ignore="RtlSymmetry">
 
             </RadioButton>
+
             <TextView
                 android:id="@+id/tv_batalkan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:layout_marginStart="48dp"
-                android:text="@string/kamu_membatalkan_transaksi_produk_ini_dengan_pembeli">
-            </TextView>
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/kamu_membatalkan_transaksi_produk_ini_dengan_pembeli"
+                android:textSize="18sp"></TextView>
 
         </RadioGroup>
-
 
 
         <Button
             android:id="@+id/btn_kirim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/btn_tertarik"
+            android:fontFamily="@font/montserrat_medium"
             android:paddingHorizontal="28dp"
             android:paddingVertical="8dp"
-            android:layout_marginTop="28dp"
-            android:textAllCaps="false"
-            android:background="@drawable/btn_tertarik"
             android:text="@string/kirim"
+            android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="18sp"
             app:backgroundTint="@color/primary_blue"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radioGroup" />
         <Space
             android:layout_width="match_parent"

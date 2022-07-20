@@ -15,30 +15,34 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         tools:ignore="MissingConstraints">
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/silahkan_login_untuk_melanjutkan_penawaran"
             android:layout_marginTop="32dp"
+            android:fontFamily="montserrat_bold"
             android:gravity="center"
+            android:text="@string/silahkan_login_untuk_melanjutkan_penawaran"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/btnLogin"
-            android:backgroundTint="@color/primary_blue"
-            android:textColor="@color/white"
-            android:text="@string/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:backgroundTint="@color/primary_blue"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/login"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            app:layout_constraintTop_toBottomOf="@id/tv_title">
 
         </Button>
 
@@ -123,19 +127,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="64dp"
-                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/montserrat_bold"
                     android:text="@string/title_product"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/img_profile" />
+
                 <TextView
                     android:id="@+id/tv_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="64dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="@string/rp_1_000_000"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -143,14 +149,16 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_name" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
         <TextView
             android:id="@+id/tvHargaTawar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_medium"
             android:text="Harga Tawar"
-            android:textSize="18sp"
             android:textColor="@color/black"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/tvTitle"
             app:layout_constraintTop_toBottomOf="@+id/btn_product" />
 
@@ -167,8 +175,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@id/etHargaTawar"
                 android:layout_width="match_parent"
-                android:inputType="number"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,15 +185,17 @@
             android:id="@+id/btn_kirim"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="28dp"
-            android:paddingVertical="8dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/btn_tertarik"
+            android:fontFamily="@font/montserrat_medium"
+            android:paddingHorizontal="28dp"
+            android:paddingVertical="8dp"
             android:text="@string/kirim"
+            android:textAllCaps="false"
             android:textColor="#ffffff"
-            app:backgroundTint="@color/purple_500"
-            app:layout_constraintStart_toStartOf="parent"
+            app:backgroundTint="@color/primary_blue"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textField" />
         <Space
             android:layout_width="match_parent"

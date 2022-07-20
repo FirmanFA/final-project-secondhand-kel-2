@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16sp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Akun Saya"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -97,7 +97,7 @@
                     android:id="@+id/tv_ubah_akun"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Ubah Akun"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -127,7 +127,7 @@
                     android:id="@+id/tv_pengaturan_akun"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Pengaturan Akun"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -157,7 +157,7 @@
                     android:id="@+id/tv_keluar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Keluar"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -198,7 +198,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8sp"
-        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:fontFamily="@font/montserrat_semibold"
         android:text="Silakan Sign In Dahulu"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -211,7 +211,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8sp"
-        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:fontFamily="@font/montserrat_semibold"
         android:text="Sign In"
         android:textAllCaps="false"
         android:textSize="16sp"
