@@ -11,7 +11,11 @@ import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentLihatPenawaranBinding
 import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
@@ -24,6 +28,7 @@ class LihatPenawaranFragment(
     product: String,
     imageProduct: String,
     price: String,
+    basePrice: String,
     private val refreshButton: () -> Unit
 ) : BottomSheetDialogFragment() {
 
@@ -32,6 +37,7 @@ class LihatPenawaranFragment(
     private val product = product
     private val imageProduct = imageProduct
     private var price = price
+    private var basePrice = basePrice
     private val status = status
     private val viewModel: DetailProductViewModel by viewModel()
     private var bid = false
@@ -58,10 +64,12 @@ class LihatPenawaranFragment(
         binding.btnDelete.setOnClickListener{
 
             val modal = DialogDeleteFragment(
+                productId,
                 orderId,
                 refreshButton = { viewModel.getBuyerOrder() }
             )
             modal.show(parentFragmentManager, "Tag")
+            dismissNow()
         }
         viewModel.getProductOrder(orderId)
         viewModel.getBuyerOrder()
@@ -87,8 +95,8 @@ class LihatPenawaranFragment(
                 bid = true
             }
             if (accepted){
-                binding.btnEdit.isEnabled = true
-                binding.btnDelete.isEnabled = true
+                binding.btnEdit.isEnabled = false
+                binding.btnDelete.isEnabled = false
                 binding.image.setBackgroundResource(R.drawable.green_gradient)
                 binding.imgIcon.setImageResource(R.drawable.ic_succes)
                 binding.tvStatus.text = "Penawaran anda Diterima"
@@ -132,6 +140,7 @@ class LihatPenawaranFragment(
 
     private fun setUpObserver(){
         viewModel.orderProduct.observe(viewLifecycleOwner){it ->
+            val basePrice = it.data?.body()?.base_price.toString()
             val price = it.data?.body()?.price.toString()
 
             when (it.status){
@@ -148,15 +157,25 @@ class LihatPenawaranFragment(
 
                     Glide.with(binding.imgProfile)
                         .load(imageProduct)
+                        .centerCrop()
+                        .transform(CenterCrop(), RoundedCorners(12))
                         .error(R.drawable.ic_broken)
                         .into(binding.imgProfile)
+
+                    binding.apply {
+
+                    }
                     binding.tvName.text = product
+
                     val formatter: NumberFormat = DecimalFormat("#,###")
-                    val myNumber = price.toInt()
+                    val myNumber = basePrice.toInt()
                     val formattedNumber: String = formatter.format(myNumber).toString()
-                    this.price = "Rp. $formattedNumber"
-                    price.toString().replace("Rp. ", "").replace(".", "")
-                    binding.tvPrice.text = price
+                    this.basePrice = "Rp. $formattedNumber"
+                    basePrice.toString().replace("Rp. ", "").replace(".", "")
+                    binding.tvPrice.text = basePrice
+
+                    binding.textField.editText?.setText(price)
+
 
                 }
                 Status.ERROR ->{

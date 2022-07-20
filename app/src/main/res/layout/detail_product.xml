@@ -235,14 +235,6 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator2"
@@ -286,23 +278,6 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints">
-        <Button
-
-            android:id="@+id/btn_edit_tertarik"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="28dp"
-            android:paddingVertical="8dp"
-            android:textSize="14sp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginHorizontal="16dp"
-            android:backgroundTint="@color/orange"
-            android:background="@drawable/btn_tertarik"
-            android:textColor="#ffffff"
-            android:text="Ubah Penawaran"
-            app:layout_constraintBottom_toTopOf="@id/btn_tertarik"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/btn_tertarik"
@@ -321,6 +296,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+        <ProgressBar
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

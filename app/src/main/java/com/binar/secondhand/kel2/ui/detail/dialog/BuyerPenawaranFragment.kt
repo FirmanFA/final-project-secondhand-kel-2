@@ -21,6 +21,8 @@ import com.binar.secondhand.kel2.ui.MainActivity
 import com.binar.secondhand.kel2.ui.account.LogoutFragment
 import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.getKoin
@@ -77,6 +79,8 @@ class BuyerPenawaranFragment(
 
         Glide.with(binding.imgProfile)
             .load(imageProduct)
+            .centerCrop()
+            .transform(CenterCrop(), RoundedCorners(12))
             .error(R.drawable.ic_broken)
             .into(binding.imgProfile)
         binding.tvName.text = product
@@ -138,7 +142,7 @@ class BuyerPenawaranFragment(
                     binding.progressBar.visibility = View.GONE
                     binding.dialogBottom.visibility = View.VISIBLE
                     when (it.data?.code()){
-                        201 -> {
+                        200 or 201 -> {
 
                             getActivity()?.let { it1 ->
                                 Snackbar.make(

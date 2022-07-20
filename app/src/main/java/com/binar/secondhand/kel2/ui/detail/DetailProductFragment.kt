@@ -13,6 +13,8 @@ import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.detail.dialog.BuyerPenawaranFragment
 import com.binar.secondhand.kel2.ui.detail.dialog.LihatPenawaranFragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
@@ -34,6 +36,7 @@ class DetailProductFragment :
     private var product = ""
     private var orderId = 0
     private var status = ""
+    private var basePrice = ""
 
 
 
@@ -101,6 +104,7 @@ class DetailProductFragment :
                     //sukses mendapat response, progressbar disembunyikan lagi
                     Glide.with(binding.ivBackdrop)
                         .load(it.data?.body()?.imageUrl)
+                        .centerCrop()
                         .error(R.drawable.ic_broken)
                         .into(binding.ivBackdrop)
 
@@ -120,6 +124,20 @@ class DetailProductFragment :
 
                         product = it.data?.body()?.name.toString()
                         imageProduct = it.data?.body()?.imageUrl.toString()
+                    }
+
+                    binding.btnTertarik.setOnClickListener {
+
+                        val modal = BuyerPenawaranFragment(
+                            args.productId,
+                            product,
+                            imageProduct,
+                            price,
+                            refreshButton = { viewModel.getBuyerOrder() }
+                        )
+                        modal.show(parentFragmentManager, "Tag")
+
+
                     }
 
                 }
@@ -143,6 +161,7 @@ class DetailProductFragment :
                     imageProduct = it.data.get(data).product.imageUrl
                     price = it.data.get(data).price.toString()
                     status = it.data.get(data).status
+                    basePrice = it.data.get(data).basePrice.toString()
 
                 }
 
@@ -181,55 +200,36 @@ class DetailProductFragment :
                         product,
                         imageProduct,
                         price,
+                        basePrice,
                         refreshButton = { viewModel.getBuyerOrder() }
                     )
                     modal.show(parentFragmentManager, "Tag")
-                }
-            }
-            else{
-                binding.btnTertarik.setOnClickListener {
-
-                    val modal = BuyerPenawaranFragment(
-                        args.productId,
-                        product,
-                        imageProduct,
-                        price,
-                        refreshButton = { viewModel.getBuyerOrder() }
-                    )
-                    modal.show(parentFragmentManager, "Tag")
-
-
                 }
             }
 
             if (accepted){
-                binding.btnEditTertarik.visibility = View.GONE
                 binding.btnTertarik.text = "Penawaran anda telah berhasil"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.Green)
 
             }else if(pending) {
-                binding.btnEditTertarik.visibility = View.GONE
                 binding.btnTertarik.text = "Menunggu respon penjual"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.orange)
 
 
             }else if(bid) {
-                binding.btnEditTertarik.visibility = View.GONE
                 binding.btnTertarik.text = "Naikan tawaranmu pada Produk"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.orange)
             }
 
             else if(declined) {
-                binding.btnEditTertarik.visibility = View.GONE
                 binding.btnTertarik.text = "Penawaran anda ditolak"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.red)
             }else{
                 binding.btnTertarik.isEnabled = true
-                binding.btnEditTertarik.visibility = View.GONE
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.primary_blue)
             }

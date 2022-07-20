@@ -13,18 +13,21 @@ import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderReques
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentDialogInputBinding
 import com.binar.secondhand.kel2.databinding.FragmentLogoutBinding
+import com.binar.secondhand.kel2.ui.detail.DetailProductFragmentDirections
 import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
+import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DialogDeleteFragment(
+    productId: Int,
      orderId: Int,
     private val refreshButton: () -> Unit
 ) : DialogFragment() {
     private var _binding : FragmentDialogInputBinding? = null
     private val binding get() = _binding!!
     private var orderId = orderId
-
+    private var productId = productId
     private val viewModel: DetailProductViewModel by viewModel()
 
     override fun onCreateView(
@@ -62,12 +65,9 @@ class DialogDeleteFragment(
         viewModel.deleteOrder.observe(viewLifecycleOwner){
             when (it.status) {
                 Status.LOADING -> {
-                    pb
-                    binding.progressBar.visibility = View.VISIBLE
                     binding.container.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
-                    binding.progressBar.visibility = View.GONE
                     binding.container.visibility = View.VISIBLE
                     getActivity()?.let { it1 ->
                         Snackbar.make(
@@ -82,13 +82,15 @@ class DialogDeleteFragment(
                             .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                             .show()
                     }
-                    Toast.makeText(context, "Penawaran Anda Bermasalah", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Penawaran Anda Telah Dihapus", Toast.LENGTH_SHORT).show()
+
+                    val action =
+                        DetailProductFragmentDirections.actionDetailProductFragmentSelf(productId)
                     refreshButton.invoke()
                     dialog?.dismiss()
 
                 }
                 Status.ERROR -> {
-                    binding.progressBar.visibility = View.VISIBLE
                     binding.container.visibility = View.GONE
                     val error = it.message
                     Toast.makeText(requireContext(), "Error get Data : $error", Toast.LENGTH_SHORT).show()

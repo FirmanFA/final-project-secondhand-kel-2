@@ -126,6 +126,9 @@
         <action
             android:id="@+id/action_detailProductFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_detailProductFragment_self"
+            app:destination="@id/detailProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/buyerPenawaranFragment"
