@@ -57,9 +57,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="TextView"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:fontFamily="@font/montserrat_regular"
+            android:maxLines="1"
+            android:text="TextView"
             android:textColor="#979797"
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@+id/cardView2"
@@ -72,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="24dp"
+            android:fontFamily="@font/montserrat_medium"
             android:text="TextView"
             android:textColor="@color/black"
             android:textSize="14sp"
@@ -82,36 +84,38 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.button.MaterialButton
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_product_price"
             android:id="@+id/btn_ubah"
-            android:layout_marginHorizontal="8dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/primary_60"
+            android:fontFamily="@font/montserrat_medium"
             android:text="Ubah"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:backgroundTint="@color/primary_60"
-            app:cornerRadius="8dp"/>
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_price" />
 
         <com.google.android.material.button.MaterialButton
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_ubah"
             android:id="@+id/btn_hapus"
-            android:layout_marginHorizontal="8dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
             android:layout_marginTop="2dp"
+            android:backgroundTint="@color/red"
+            android:fontFamily="@font/montserrat_medium"
             android:text="Hapus"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:backgroundTint="@color/red"
-            app:cornerRadius="8dp"/>
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_ubah" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -137,8 +141,9 @@
             android:id="@+id/textView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="Tambah Product"
+            android:fontFamily="@font/montserrat_medium"
             android:gravity="top|center_horizontal"
+            android:text="Tambah Product"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

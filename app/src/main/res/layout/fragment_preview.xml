@@ -55,32 +55,35 @@
 
                     <TextView
                         android:id="@+id/tv_title"
-                        android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
                         android:text="@string/title_product"
-                        android:textStyle="bold"
-                        android:textSize="20sp" />
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_marginTop="4dp"
                         android:id="@+id/tv_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/montserrat_regular"
                         android:text="@string/category"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title"
-                        android:textSize="12sp" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
                     <TextView
                         android:id="@+id/tv_price"
-                        android:layout_marginTop="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/montserrat_medium"
                         android:text="@string/rp_1_000_000"
                         android:textColor="@color/black"
-                        app:layout_constraintTop_toBottomOf="@id/tv_category"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_category" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -116,7 +119,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="60dp"
-                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/montserrat_bold"
                         android:text="@string/seller_name"
                         android:textColor="@color/black"
                         android:textSize="18sp"
@@ -130,6 +133,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="60dp"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/montserrat_regular"
                         android:text="@string/bandung"
                         android:textSize="14sp"
                         app:layout_constraintStart_toEndOf="@+id/img_profile"
@@ -164,19 +168,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/montserrat_bold"
                         android:text="@string/deskripsi"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_Desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:fontFamily="@font/montserrat_medium"
                         android:text="@string/lorem"
                         android:textSize="16sp"
                         app:layout_constraintTop_toBottomOf="@id/tv_titleDesc" />
@@ -216,13 +222,13 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/btn_tertarik"
+        android:fontFamily="@font/montserrat_medium"
         android:text="Terbitkan"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:fontFamily="@font/poppins_regular"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/montserrat_alternates_bold"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Ganti Password"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -104,12 +104,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_old_pass"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/montserrat_regular"
             android:hint="Masukan password lama anda"
-            android:inputType="textPassword"  />
+            android:inputType="textPassword"
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,12 +136,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_passowrd"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/montserrat_regular"
             android:hint="Masukkan password baru anda"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -168,12 +168,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_konfirmasi_passowrd"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/montserrat_regular"
             android:hint="Konfirmasi password baru anda"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -185,14 +185,14 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/button_background"
+        android:fontFamily="@font/montserrat_medium"
         android:text="Ganti"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:fontFamily="@font/poppins_regular"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/pb_loading"

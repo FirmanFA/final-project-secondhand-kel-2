@@ -60,16 +60,16 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_empty"
-        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8sp"
         android:layout_marginHorizontal="24dp"
-        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:fontFamily="@font/montserrat_semibold"
         android:text="Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana kok"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_empty" />

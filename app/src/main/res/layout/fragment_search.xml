@@ -41,6 +41,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
             android:hint="Cari apapun di sini"
             android:imeOptions="actionSearch"
             android:inputType="text"

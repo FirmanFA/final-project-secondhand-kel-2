@@ -16,6 +16,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding::inflate) {
 
@@ -69,6 +71,12 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
         bidderViewModel.bidder.observe(viewLifecycleOwner){
             when(it.status){
                 Status.SUCCESS -> {
+                    val formatter: NumberFormat = DecimalFormat("#,###")
+                    val myNumber = it.data?.body()?.basePrice
+                    val myBid = it.data?.body()?.price
+                    val formattedNumber: String = formatter.format(myNumber).toString()
+                    val formattedBid: String = formatter.format(myBid).toString()
+
                     orderId = it.data?.body()?.id.toString().toInt()
                     status = it.data?.body()?.status.toString()
                     binding.tvName.text = it.data?.body()?.product?.user?.fullName.toString()
@@ -80,8 +88,8 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
                         .into(binding.ivProduct)
                     binding.tvStatus.text = it.data?.body()?.status.toString()
                     binding.tvTitle.text = it.data?.body()?.product?.name.toString()
-                    binding.tvPrice.text = it.data?.body()?.basePrice.toString()
-                    binding.tvNego.text = it.data?.body()?.price.toString()
+                    binding.tvPrice.text = "Rp. $formattedNumber"
+                    binding.tvNego.text = "Rp. $formattedBid"
                     when(it.data?.body()?.status){
                         "declined" -> {
                             binding.tvNego.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
