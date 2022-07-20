@@ -43,8 +43,8 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
     private val _deleteWishlist = MutableLiveData<Resource<Response<Unit>>>()
     val deleteWishlist: LiveData<Resource<Response<Unit>>> get() = _deleteWishlist
 
-    private val _postWishlist = MutableLiveData<Resource<Response<PostWishlist>>>()
-    val postWishlist: LiveData<Resource<Response<PostWishlist>>> get() = postWishlist
+    private val _postWishList : MutableLiveData<Resource<Response<PostWishlist>>> = MutableLiveData()
+    val postWishlist : LiveData<Resource<Response<PostWishlist>>> get() = _postWishList
 
     private val _getIdWishlist :  MutableLiveData<Resource<Response<GetIdWishlist>>> = MutableLiveData()
     val getIdWishlist : LiveData<Resource<Response<GetIdWishlist>>> get() = _getIdWishlist
@@ -123,16 +123,18 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun postWishlist(requestBuyerWishlist: PostWishlistRequest){
+
+    fun postWishlist(requestBody : PostWishlistRequest){
         viewModelScope.launch {
-            _postWishlist.postValue(Resource.loading())
-            try{
-                _postWishlist.postValue(Resource.success(repository.postWishlist(requestBuyerWishlist)))
-            } catch (e:Exception){
-                _postWishlist.postValue(Resource.error(e.localizedMessage?:"Error occurred"))
+            _postWishList.postValue(Resource.loading())
+            try {
+                _postWishList.postValue(Resource.success(repository.postWishlist(requestBody)))
+            }catch (exception : Exception){
+                _postWishList.postValue(Resource.error(exception.message ?: "Error"))
             }
         }
     }
+
 
     fun deleteWishlist(productId: Int){
         viewModelScope.launch {

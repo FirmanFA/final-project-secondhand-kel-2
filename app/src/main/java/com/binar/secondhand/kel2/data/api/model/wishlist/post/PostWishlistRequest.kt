@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class PostWishlistRequest(
     @SerializedName("product_id")
-    val productId: Int,
+    val product_id : Int
 )

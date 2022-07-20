@@ -23,7 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
-class DetailProductFragment(private val refreshButton: () -> Unit) :
+class DetailProductFragment() :
     BaseFragment<DetailProductBinding>(DetailProductBinding::inflate) {
     //    private var _binding: FragmentDetailProductBinding? = null
 //    private val binding get() = _binding!!
