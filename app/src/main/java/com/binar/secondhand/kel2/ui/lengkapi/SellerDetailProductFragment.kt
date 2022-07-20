@@ -105,8 +105,12 @@ class SellerDetailProductFragment :
         binding.btnAddCategory.isEnabled = false
         binding.btnAddCategory.setOnClickListener {
             val selectCategoryDialog = CategoryBottomDialog(listCategory) {
+
+                binding.chipGroupSelectedCategory.removeAllViews()
+
                 listSelectedCategory.clear()
                 listSelectedCategory.addAll(it)
+
                 listSelectedCategory.forEach { category ->
                     listSelectedCategoryId.add(category.id)
                     binding.chipGroupSelectedCategory.addChip(category)
@@ -364,14 +368,10 @@ class SellerDetailProductFragment :
                             rawCategory?.forEach { getCategoryResponseItem ->
                                 if (listSelectedCategoryId.contains(getCategoryResponseItem.id)) {
                                     listCategory.add(Pair(true, getCategoryResponseItem))
+                                    Log.d("selected", getCategoryResponseItem.name)
                                 } else {
                                     listCategory.add(Pair(false, getCategoryResponseItem))
                                 }
-//                                if (listSelectedCategory.contains(getCategoryResponseItem)){
-//                                        listCategory.add(Pair(true,getCategoryResponseItem))
-//                                }else{
-//                                    listCategory.add(Pair(false,getCategoryResponseItem))
-//                                }
                             }
                             binding.btnAddCategory.isEnabled = true
                         }
