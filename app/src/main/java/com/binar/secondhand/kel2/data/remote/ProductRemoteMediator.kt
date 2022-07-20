@@ -62,7 +62,7 @@ class ProductRemoteMediator(
         try {
             val apiResponse =
                 apiHelper.getProduct(categoryId = category, page = page, itemsPerPage = state.config.pageSize)
-            val products = apiResponse.body()?.productResponseItem
+            val products = apiResponse.body()
             val endOfPaginationReached = products?.isEmpty()
 
             appDatabase.withTransaction {
