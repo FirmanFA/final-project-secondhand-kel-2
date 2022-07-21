@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.resource.Status
@@ -86,6 +87,9 @@ class DialogDeleteFragment(
 
                     refreshButton.invoke()
                     dialog?.dismiss()
+                    val action = DetailProductFragmentDirections.actionDetailProductFragmentSelf(productId)
+                    findNavController().navigate(action)
+
 
                 }
                 Status.ERROR -> {
