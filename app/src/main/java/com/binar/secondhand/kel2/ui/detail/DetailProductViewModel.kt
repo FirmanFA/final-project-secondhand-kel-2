@@ -10,8 +10,10 @@ import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRespon
 import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetBuyerOrderId
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
-import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistItem
+import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistResponse
+
 import com.binar.secondhand.kel2.data.api.model.wishlist.getId.GetIdWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlist
@@ -40,8 +42,9 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
     private val _deleteOrder = MutableLiveData<Resource<Response<Unit>>>()
     val deleteOrder: LiveData<Resource<Response<Unit>>> get() = _deleteOrder
 
-    private val _deleteWishlist = MutableLiveData<Resource<Response<Unit>>>()
-    val deleteWishlist: LiveData<Resource<Response<Unit>>> get() = _deleteWishlist
+    private val _deleteWishlist : MutableLiveData<Resource<Response<DeleteWishlist>>> = MutableLiveData()
+    val deleteWishlist : LiveData<Resource<Response<DeleteWishlist>>> get() = _deleteWishlist
+
 
     private val _postWishList : MutableLiveData<Resource<Response<PostWishlist>>> = MutableLiveData()
     val postWishlist : LiveData<Resource<Response<PostWishlist>>> get() = _postWishList
@@ -49,8 +52,9 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
     private val _getIdWishlist :  MutableLiveData<Resource<Response<GetIdWishlist>>> = MutableLiveData()
     val getIdWishlist : LiveData<Resource<Response<GetIdWishlist>>> get() = _getIdWishlist
 
-    private val _getWishlist :  MutableLiveData<Resource<List<GetWishlistResponse>>> = MutableLiveData()
-    val getWishlist : LiveData<Resource<List<GetWishlistResponse>>> get() = _getWishlist
+
+    private val _getWishlist :  MutableLiveData<Resource<Response<GetWishlist>>> = MutableLiveData()
+    val getWishlist : LiveData<Resource<Response<GetWishlist>>> get() = _getWishlist
 
     fun getWishlist(){
         viewModelScope.launch {
@@ -136,14 +140,14 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
     }
 
 
-    fun deleteWishlist(productId: Int){
+    fun deleteWishlist(id: Int){
         viewModelScope.launch {
-            _deleteWishlist .postValue(Resource.loading())
+            _deleteWishlist.postValue(Resource.loading())
             try {
-                val dataProduct = Resource.success(repository.deleteWishlist(productId))
-                _deleteWishlist.postValue(dataProduct)
-            }catch (exp: Exception){
-                _deleteWishlist.postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
+                val deleteWishlist = Resource.success(repository.deleteWishlist(id))
+                _deleteWishlist.postValue(deleteWishlist)
+            }catch (exception : Exception){
+                _deleteWishlist.postValue(Resource.error(exception.message ?: "Error"))
             }
         }
     }
@@ -159,11 +163,6 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
                 _getIdWishlist.postValue(Resource.error(exception.message?: "Error Occurred"))
             }
         }
-    }
-
-
-    interface OnClickListener{
-        fun onClickItem(data: GetWishlistItem)
     }
 
 }

@@ -25,14 +25,12 @@ import com.binar.secondhand.kel2.data.api.model.seller.order.id.GetOrderIdRespon
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductId
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductIdRequest
-import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdRequest
-import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.put.PutSellerProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlist
-import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistItem
+import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistResponse
+
 import com.binar.secondhand.kel2.data.api.model.wishlist.getId.GetIdWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
@@ -162,17 +160,15 @@ interface ApiService {
     @PATCH("notification/{id}")
     suspend fun readNotification(@Path("id") id: Int): Response<Unit>
 
-
     @GET("buyer/wishlist")
-    suspend fun getWishlist() : List<GetWishlistResponse>
+    suspend fun getWishlist(): Response<GetWishlist>
 
     @GET("buyer/wishlist/{product_id}")
     suspend fun getIdWishlist(@Path("product_id")productid:Int): Response<GetIdWishlist>
 
-    @DELETE("buyer/wishlist}")
-    suspend fun deleteWishlist(@Path("id")id:Int): Response<Unit>
-
     @POST("buyer/wishlist")
     suspend fun postWishlist(@Body request: PostWishlistRequest): Response<PostWishlist>
 
+    @DELETE("buyer/wishlist/{id}")
+    suspend fun deleteWishlist(@Path ("id") id: Int) : Response<DeleteWishlist>
 }

@@ -40,7 +40,6 @@ class DetailProductFragment() :
     private var orderId = 0
     private var status = ""
     private var basePrice = ""
-    private var wishlist = true
     private var wishlistId = 0
 
 
@@ -52,34 +51,29 @@ class DetailProductFragment() :
         binding.tvPrice
         setUpObserver()
         observerWishlist()
+
         getKoin().getProperty("access_token", "")
 
         viewModel.getDetailProduct(productId)
         viewModel.getBuyerOrder()
-        viewModel.getWishlist()
+        viewModel.getWishlist
 
+//        binding.ivfav.setOnClickListener {
+//            if (favourite) {
+//                viewModel.deleteWishlist(wishlistId)
+//                favourite = false
+//                binding.ivfav.setImageResource(R.drawable.ic_fav_full)
+//            } else {
+//                viewModel.postWishlist(PostWishlistRequest(productId))
+//                favourite = true
+//                binding.ivfav.setImageResource(R.drawable.ic_fav)
+//            }
+//        }
 
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        binding.ivfav.setOnClickListener{
-//            viewModel.getIdWishlist(productId)
-        }
-
-        viewModel.getIdWishlist.observe(viewLifecycleOwner){
-            if(it.data?.body()?.product_id == productId){
-                favourite = true
-                binding.ivfav.setImageResource(R.drawable.ic_fav_full)
-//                viewModel.deleteWishlist(productId)
-            }
-            else{
-                favourite = false
-                binding.ivfav.setImageResource(R.drawable.ic_fav)
-//                val addFav = PostWishlistRequest(productId)
-//                viewModel.postWishlist(addFav)
-            }
-        }
 
     }
 
@@ -235,6 +229,7 @@ class DetailProductFragment() :
         }
 
     }
+
     private fun observerWishlist() {
         val id = args.productId
         viewModel.getWishlist.observe(viewLifecycleOwner) {
@@ -243,38 +238,29 @@ class DetailProductFragment() :
 
                 }
                 Status.SUCCESS -> {
-                    if (it.data.isNullOrEmpty()) {
-
-                    } else {
-                        for (idWhishlist in it.data ){
-                            if (idWhishlist.productId == args.productId){
-                                wishlistId = idWhishlist.id
-                            }
-                        }
-
-                        for (data in 0 until (it.data.size ?: 0)) {
-                            if (it.data.get(data).productId == args.productId) {
-                                wishlist = true
-                            }
-                        }
-                        if (wishlist) {
-                            binding.ivfav.setImageResource(R.drawable.ic_fav_full)
-                        } else {
-                            binding.ivfav.setImageResource(R.drawable.ic_fav)
-                        }
-                        binding.ivfav.setOnClickListener {
-                            val request = PostWishlistRequest(id)
-                            if (wishlist) {
-                                viewModel.deleteWishlist(wishlistId)
-                                wishlist = false
-                            } else {
-                                viewModel.postWishlist(request)
-                                wishlist =true
-                            }
-                        }
-
-
-                    }
+//                    if (it.data.Product != null) {
+//
+//                    } else {
+//                        for (idWhishlist in it.data ){
+//                            if (idWhishlist.productId == args.productId){
+//                                wishlistId = idWhishlist.id
+//                            }
+//                        }
+//
+//                        for (data in 0 until (it.data.size ?: 0)) {
+//                            if (it.data?.body(). == args.productId) {
+//                                favourite = true
+//                            }
+//                        }
+//                        if (favourite) {
+//                            binding.ivfav.setImageResource(R.drawable.ic_fav_full)
+//                        } else {
+//                            binding.ivfav.setImageResource(R.drawable.ic_fav)
+//                        }
+//
+//
+//
+//                    }
 
                 }
                 Status.ERROR -> {
@@ -282,7 +268,16 @@ class DetailProductFragment() :
                 }
             }
         }
-
+        binding.ivfav.setOnClickListener {
+            val req = PostWishlistRequest(id)
+            if (favourite) {
+                viewModel.deleteWishlist(wishlistId)
+                favourite = false
+            } else {
+                viewModel.postWishlist(req)
+                favourite =true
+            }
+        }
         viewModel.postWishlist.observe(viewLifecycleOwner) {
             when (it.status){
                 Status.LOADING ->{

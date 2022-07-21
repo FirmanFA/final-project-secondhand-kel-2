@@ -123,6 +123,8 @@ class ApiHelper(val apiService: ApiService) {
 
     suspend fun getWishlist() = apiService.getWishlist()
 
+    suspend fun checkWishlist() = apiService.checkWishlist()
+
     suspend fun deleteWishlist(productId: Int) = apiService.deleteWishlist(productId)
 
 }

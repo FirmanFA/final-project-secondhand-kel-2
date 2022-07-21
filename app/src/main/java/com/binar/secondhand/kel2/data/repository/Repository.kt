@@ -83,6 +83,7 @@ class Repository(private val apiHelper: ApiHelper) {
         image
     )
     suspend fun getWishlist() = apiHelper.getWishlist()
+    suspend fun checkWishlist() = apiHelper.checkWishlist()
     suspend fun deleteWishlist(productId: Int) = apiHelper.deleteWishlist(productId)
     suspend fun getIdWishlist(productId: Int) = apiHelper.getIdWishlist(productId)
     suspend fun postWishlist(requestBuyerWishlist: PostWishlistRequest) = apiHelper.postWishlist(requestBuyerWishlist)
