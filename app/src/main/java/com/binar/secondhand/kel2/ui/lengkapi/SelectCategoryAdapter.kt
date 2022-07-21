@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponseItem
 import com.binar.secondhand.kel2.databinding.SelectCategoryListLayoutBinding
 
-class SelectCategoryAdapter(private val onClick: (GetCategoryResponseItem,Boolean, Int) -> Unit) :
+class SelectCategoryAdapter(private val onClick: (GetCategoryResponseItem,Boolean) -> Unit) :
     RecyclerView.Adapter<SelectCategoryAdapter.ViewHolder>() {
 
     private val diffCallback =
@@ -47,8 +47,11 @@ class SelectCategoryAdapter(private val onClick: (GetCategoryResponseItem,Boolea
     inner class ViewHolder(private val binding: SelectCategoryListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Pair<Boolean,GetCategoryResponseItem>, position: Int) {
-            binding.cbCategory.setOnCheckedChangeListener { _, isChecked ->
-                onClick(category.second, isChecked, position)
+//            binding.cbCategory.setOnCheckedChangeListener { _, isChecked ->
+//                onClick(category.second, isChecked, position)
+//            }
+            binding.cbCategory.setOnClickListener {
+                onClick(category.second, binding.cbCategory.isChecked)
             }
             binding.cbCategory.text = category.second.name
             binding.cbCategory.isChecked = category.first
