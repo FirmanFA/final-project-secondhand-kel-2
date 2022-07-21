@@ -142,7 +142,11 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
                                     .into(binding.ivCam)
                             }
                             binding.tvNama.text = it.data.body()?.fullName
-                            binding.tvNoHandphone.text = "+62"+ it.data.body()?.phoneNumber
+                            if (it.data.body()?.phoneNumber == null){
+                                binding.tvNoHandphone.text = "belum mengatur no Handphone"
+                            }else{
+                                binding.tvNoHandphone.text = it.data.body()?.phoneNumber
+                            }
                         }
                 }
             }

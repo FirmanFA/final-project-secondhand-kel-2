@@ -27,6 +27,7 @@ class CategoryBottomDialog(
     private lateinit var binding: BottomDialogCategoryBinding
     private val listSelectedCategory = ArrayList<GetCategoryResponseItem>()
     private lateinit var adapter: SelectCategoryAdapter
+//    private lateinit var adapter: CategoryListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,20 +38,12 @@ class CategoryBottomDialog(
         return binding.root
     }
 
-    private fun ChipGroup.addChip(category: GetCategoryResponseItem, chipId: Int) {
+    private fun ChipGroup.addChip(category: GetCategoryResponseItem) {
 
         Chip(context).apply {
-            id = chipId
+            id = category.id
             text = category.name
-            isClickable = true
-            isCloseIconVisible = true
-            setOnCloseIconClickListener {
-                listCategory.add(chipId, Pair(false, category))
-                adapter.notifyItemChanged(chipId)
-                removeView(it)
-            }
             addView(this)
-
         }
 
     }
@@ -60,15 +53,22 @@ class CategoryBottomDialog(
 
         val chipGroup = binding.chipGroupSelectedCategory
 
+        listCategory.forEach {
+            if (it.first){
+                listSelectedCategory.add(it.second)
+                chipGroup.addChip(it.second)
+            }
+        }
 
-
-        adapter = SelectCategoryAdapter { category, isChecked, pos ->
+        adapter = SelectCategoryAdapter{ category, isChecked ->
             if (isChecked) {
-                listSelectedCategory.add(category)
-                chipGroup.addChip(category, pos)
+                if (category !in listSelectedCategory){
+                    listSelectedCategory.add(category)
+                }
+                chipGroup.addChip(category)
             } else {
                 listSelectedCategory.remove(category)
-                val chip = view.findViewById<Chip>(pos)
+                val chip = view.findViewById<Chip>(category.id)
                 chipGroup.removeView(chip)
             }
         }
