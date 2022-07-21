@@ -1,4 +1,4 @@
-package com.binar.secondhand.kel2.ui.detail
+package com.binar.secondhand.kel2.ui.detail.dialog
 
 
 import android.annotation.SuppressLint
@@ -12,13 +12,17 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentBuyerPenawaranBinding
+import com.binar.secondhand.kel2.ui.MainActivity
+import com.binar.secondhand.kel2.ui.account.LogoutFragment
+import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.getKoin
@@ -75,6 +79,8 @@ class BuyerPenawaranFragment(
 
         Glide.with(binding.imgProfile)
             .load(imageProduct)
+            .centerCrop()
+            .transform(CenterCrop(), RoundedCorners(12))
             .error(R.drawable.ic_broken)
             .into(binding.imgProfile)
         binding.tvName.text = product
@@ -115,6 +121,7 @@ class BuyerPenawaranFragment(
                     productId,
                     harga.toInt()
                 )
+
                 viewModel.buyerOrder(buyerPenawaran)
                 refreshButton()
             }
@@ -125,7 +132,6 @@ class BuyerPenawaranFragment(
 
     @SuppressLint("SetTextI18n")
     private fun setUpObserver() {
-
         viewModel.buyerOrder.observe(viewLifecycleOwner){
             when (it.status) {
                 Status.LOADING -> {
@@ -136,7 +142,7 @@ class BuyerPenawaranFragment(
                     binding.progressBar.visibility = View.GONE
                     binding.dialogBottom.visibility = View.VISIBLE
                     when (it.data?.code()){
-                        201 -> {
+                        200 or 201 -> {
 
                             getActivity()?.let { it1 ->
                                 Snackbar.make(
@@ -198,7 +204,7 @@ class BuyerPenawaranFragment(
 
     fun EditText.setMaskingMoney(currencyText: String) {
 //        set delimiter
-        this.addTextChangedListener(object: MyTextWatcher{
+        this.addTextChangedListener(object: MyTextWatcher {
             val editTextWeakReference: WeakReference<EditText> = WeakReference<EditText>(this@setMaskingMoney)
             override fun afterTextChanged(editable: Editable?) {
                 val editText = editTextWeakReference.get() ?: return

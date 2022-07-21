@@ -1,15 +1,24 @@
 package com.binar.secondhand.kel2.data.api.model.wishlist.post
 
+import com.google.gson.annotations.SerializedName
+
 data class Product(
-    val base_price: Int,
+    @SerializedName("base_price")
+    val basePrice: Int,
+    @SerializedName("created_at")
     val createdAt: String,
+    @SerializedName("description")
     val description: String,
-    val id: Int,
-    val image_name: String,
-    val image_url: String,
+    @SerializedName("image_name")
+    val imageName: String,
+    @SerializedName("image_url")
+    val imageUrl: String,
+    @SerializedName("location")
     val location: String,
+    @SerializedName("name")
     val name: String,
-    val status: String,
+    @SerializedName("updated_at")
     val updatedAt: String,
-    val user_id: Int
+    @SerializedName("user_id")
+    val userId: Int
 )

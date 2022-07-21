@@ -11,6 +11,7 @@ import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRespon
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetBuyerOrderId
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
@@ -24,13 +25,12 @@ import com.binar.secondhand.kel2.data.api.model.seller.order.id.GetOrderIdRespon
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductId
 import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductIdRequest
-import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdRequest
-import com.binar.secondhand.kel2.data.api.model.seller.product.id.put.PutProductIdResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.put.PutSellerProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistResponse
+
 import com.binar.secondhand.kel2.data.api.model.wishlist.getId.GetIdWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
@@ -85,6 +85,8 @@ interface ApiService {
     @GET("buyer/product/{user_id}")
     suspend fun getUserProfile(@Path("user_id")userid:Int): Response<UserProduct>
 
+    @GET("buyer/order/{product_id}")
+    suspend fun getProductOrder(@Path("product_id")productid:Int): Response<GetBuyerOrderId>
 
     @GET("buyer/order")
     suspend fun getBuyerOrder(): List<GetOrderResponse.GetOrderResponseItem>
@@ -93,6 +95,9 @@ interface ApiService {
     suspend fun postBuyerOrder(
         @Body requestBuyerOrder: PostOrderRequest
     ): Response<PostOrderResponse>
+
+    @DELETE("buyer/order/{id}")
+    suspend fun deleteOrder(@Path("id")id:Int): Response<Unit>
 
     @Multipart
     @POST("seller/product")
@@ -161,10 +166,9 @@ interface ApiService {
     @GET("buyer/wishlist/{product_id}")
     suspend fun getIdWishlist(@Path("product_id")productid:Int): Response<GetIdWishlist>
 
-    @DELETE("buyer/wishlist}")
-    suspend fun deleteWishlist(@Path("id")id:Int): Response<DeleteWishlist>
-
     @POST("buyer/wishlist")
     suspend fun postWishlist(@Body request: PostWishlistRequest): Response<PostWishlist>
 
+    @DELETE("buyer/wishlist/{id}")
+    suspend fun deleteWishlist(@Path ("id") id: Int) : Response<DeleteWishlist>
 }

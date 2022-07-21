@@ -126,10 +126,13 @@
         <action
             android:id="@+id/action_detailProductFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_detailProductFragment_self"
+            app:destination="@id/detailProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/buyerPenawaranFragment"
-        android:name="com.binar.secondhand.kel2.ui.detail.BuyerPenawaranFragment"
+        android:name="com.binar.secondhand.kel2.ui.detail.dialog.BuyerPenawaranFragment"
         android:label="fragment_buyer_penawaran"
         tools:layout="@layout/fragment_buyer_penawaran" />
     <fragment
