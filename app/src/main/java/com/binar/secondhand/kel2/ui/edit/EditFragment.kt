@@ -81,6 +81,7 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
             isCloseIconVisible = true
             setOnCloseIconClickListener {
                 listSelectedCategory.remove(category)
+                listSelectedCategoryId.remove(category.id)
                 removeView(it)
             }
             addView(this)
@@ -98,10 +99,26 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
 
         binding.btnAddCategory.isEnabled = false
         binding.btnAddCategory.setOnClickListener {
-            val selectCategoryDialog = CategoryBottomDialog(listCategory) {
+            val newListCategory = ArrayList<Pair<Boolean, GetCategoryResponseItem>>()
+            listCategory.forEach {pair ->
+                if (listSelectedCategoryId.contains(pair.second.id)) {
+                    newListCategory.add(Pair(true, pair.second))
+                    Log.d("selected", pair.second.name)
+                } else {
+                    newListCategory.add(Pair(false, pair.second))
+                }
+            }
+
+            val selectCategoryDialog = CategoryBottomDialog(newListCategory) {
+
+                binding.chipGroupSelectedCategory.removeAllViews()
+
                 listSelectedCategory.clear()
+                listSelectedCategoryId.clear()
                 listSelectedCategory.addAll(it)
+
                 listSelectedCategory.forEach { category ->
+                    listSelectedCategoryId.add(category.id)
                     binding.chipGroupSelectedCategory.addChip(category)
                 }
             }
@@ -286,17 +303,9 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
 //                            it.data.body()?.let { it1 -> listCategory.addAll(it1) }
 //                            binding.etCategory.isEnabled = true
                             val rawCategory = it.data.body()
+                            listCategory.clear()
                             rawCategory?.forEach { getCategoryResponseItem ->
-                                if (listSelectedCategoryId.contains(getCategoryResponseItem.id)) {
-                                    listCategory.add(Pair(true, getCategoryResponseItem))
-                                } else {
-                                    listCategory.add(Pair(false, getCategoryResponseItem))
-                                }
-//                                if (listSelectedCategory.contains(getCategoryResponseItem)){
-//                                        listCategory.add(Pair(true,getCategoryResponseItem))
-//                                }else{
-//                                    listCategory.add(Pair(false,getCategoryResponseItem))
-//                                }
+                                listCategory.add(Pair(false, getCategoryResponseItem))
                             }
                             binding.btnAddCategory.isEnabled = true
                         }
