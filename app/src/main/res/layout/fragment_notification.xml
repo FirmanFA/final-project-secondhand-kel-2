@@ -25,14 +25,15 @@
         android:id="@+id/tv_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16sp"
         android:elevation="-1dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Notifikasi"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="16sp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_filter"
@@ -49,15 +50,16 @@
         android:id="@+id/tv_filter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="All Notification"
+        android:layout_margin="16sp"
         android:elevation="-1dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="All Notification"
+        android:textColor="@color/blue_redesign"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/blue_redesign"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_notification"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16sp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_notification" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_notification"
@@ -117,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8sp"
-        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:fontFamily="@font/montserrat_semibold"
         android:text="Silakan Sign In Dahulu"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -130,7 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8sp"
-        android:fontFamily="@font/montserrat_alternates_semibold"
+        android:fontFamily="@font/montserrat_semibold"
         android:text="Sign In"
         android:textAllCaps="false"
         android:textSize="16sp"

@@ -6,15 +6,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="8dp">
+
     <TextView
         android:id="@+id/error_msg"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="22sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="@font/montserrat_medium"
         android:textAlignment="center"
-        tools:text="Timeout"/>
+        android:textColor="?android:textColorPrimary"
+        android:textSize="22sp"
+        tools:text="Timeout" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress_bar"
@@ -31,8 +33,9 @@
         android:id="@+id/retry_button"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
-        android:textAllCaps="false"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Coba Ulang"/>
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Coba Ulang"
+        android:textAllCaps="false" />
 </LinearLayout>
