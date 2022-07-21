@@ -127,7 +127,7 @@
             android:id="@+id/action_detailProductFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
-            android:id="@+id/action_detailProductFragment_self"
+            android:id="@+id/action_detailProductFragment_to_self"
             app:destination="@id/detailProductFragment" />
     </fragment>
     <fragment
