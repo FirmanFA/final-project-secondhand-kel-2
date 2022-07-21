@@ -37,7 +37,7 @@ class ProfileFragment :
     //create instance viewModel
     private val profileViewModel: ProfileViewModel by viewModel()
 
-    private var imageUri : Uri? = null
+    private var imageUri: Uri? = null
 
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -52,7 +52,8 @@ class ProfileFragment :
 
                 }
                 ImagePicker.RESULT_ERROR -> {
-                    Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT)
+                        .show()
                 }
                 else -> {
                 }
@@ -87,9 +88,9 @@ class ProfileFragment :
                 val address = etAddress.editText?.text.toString()
                 val phoneNumber = etPhone.editText?.text.toString()
 
-                val imageFile = if (imageUri == null){
+                val imageFile = if (imageUri == null) {
                     null
-                }else{
+                } else {
                     File(URIPathHelper.getPath(requireContext(), imageUri!!).toString())
                 }
 
@@ -100,7 +101,8 @@ class ProfileFragment :
 
                 val requestImage = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 val imageBody = requestImage?.let { it1 ->
-                    MultipartBody.Part.createFormData("image",
+                    MultipartBody.Part.createFormData(
+                        "image",
                         imageFile.name, it1
                     )
                 }
@@ -118,12 +120,12 @@ class ProfileFragment :
 
     }
 
-    private fun profile(){
+    private fun profile() {
 
         //only call all the observer here once, do not call the observer somewhere else
 
-        profileViewModel.authPutResponse.observe(viewLifecycleOwner){
-            when(it.status){
+        profileViewModel.authPutResponse.observe(viewLifecycleOwner) {
+            when (it.status) {
 
                 Status.LOADING -> {
                     //loading state, misal menampilkan progressbar
@@ -134,14 +136,18 @@ class ProfileFragment :
                     //sukses mendapat response, progressbar disembunyikan lagi
                     binding.pbLoading.visibility = View.GONE
 
-                    when(it.data?.code()){
+                    when (it.data?.code()) {
                         //jika code response 200
-                        200 ->{
+                        200 -> {
                             //if 200 is the response code that contains data
                             //do something with data here, for example, add to recyclerlist
 
 //                            val data = it.data.body() //this is the data
-                            Snackbar.make(binding.snackbar, "Sukses mengedit akun", Snackbar.LENGTH_LONG)
+                            Snackbar.make(
+                                binding.snackbar,
+                                "Sukses mengedit akun",
+                                Snackbar.LENGTH_LONG
+                            )
                                 .setAction("x") {
                                     // Responds to click on the action
                                 }
@@ -152,10 +158,14 @@ class ProfileFragment :
                             //val result = data
                         }
                         //jika code response 403
-                        403 ->{
+                        403 -> {
                             //for example if 403 is wrong response "not authorized"
                             //do something for this code, shoing snackbar for example
-                            Snackbar.make(binding.snackbar, "Error code : 403", Snackbar.LENGTH_LONG)
+                            Snackbar.make(
+                                binding.snackbar,
+                                "Error code : 403",
+                                Snackbar.LENGTH_LONG
+                            )
                                 .setAction("x") {
                                     // Responds to click on the action
                                 }
@@ -166,12 +176,16 @@ class ProfileFragment :
                     }
                 }
 
-                Status.ERROR ->{
+                Status.ERROR -> {
                     //error state
                     //error cause, for example, you can toast it to show error
                     binding.pbLoading.visibility = View.GONE
                     val error = it.message
-                    Snackbar.make(binding.snackbar, "Error get Data : ${error}", Snackbar.LENGTH_LONG)
+                    Snackbar.make(
+                        binding.snackbar,
+                        "Error get Data : ${error}",
+                        Snackbar.LENGTH_LONG
+                    )
                         .setAction("x") {
                             // Responds to click on the action
                         }
@@ -182,8 +196,8 @@ class ProfileFragment :
             }
         }
 
-        profileViewModel.authGetResponse.observe(viewLifecycleOwner){
-            when(it.status){
+        profileViewModel.authGetResponse.observe(viewLifecycleOwner) {
+            when (it.status) {
 
                 Status.LOADING -> {
                     //loading state, misal menampilkan progressbar
@@ -212,8 +226,8 @@ class ProfileFragment :
 
                     binding.pbLoading.visibility = View.GONE
 
-                    when(it.data?.code()){
-                        200 ->{
+                    when (it.data?.code()) {
+                        200 -> {
                             val shimmer =
                                 Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
                                     .setDuration(1800) // how long the shimmering animation takes to do one full sweep
@@ -226,8 +240,8 @@ class ProfileFragment :
                                 setShimmer(shimmer)
                             }
 
-                            if (it.data.body()?.imageUrl == null){
-                                if (imageUri == null){
+                            if (it.data.body()?.imageUrl == null) {
+                                if (imageUri == null) {
 //                                    Glide.with(requireContext())
 //                                        .load(it.data.body()?.imageUrl)
 //                                        .placeholder(shimmerDrawable)
@@ -241,7 +255,7 @@ class ProfileFragment :
                                         .circleCrop()
                                         .into(binding.ivCam)
                                 }
-                            }else{
+                            } else {
                                 Glide.with(requireContext())
                                     .load(it.data.body()?.imageUrl)
                                     .placeholder(shimmerDrawable)
@@ -255,15 +269,23 @@ class ProfileFragment :
                             binding.etName.editText?.setText(it.data.body()?.fullName)
                             binding.etCity.editText?.setText(it.data.body()?.city)
                             binding.etAddress.editText?.setText(it.data.body()?.address)
-                            binding.etPhone.editText?.setText(it.data.body()?.phoneNumber.toString())
+                            if (it.data.body()?.phoneNumber == null) {
+                                binding.etPhone.editText?.setText("")
+                            } else {
+                                binding.etPhone.editText?.setText(it.data.body()?.phoneNumber.toString())
+                            }
                         }
                     }
                 }
 
-                Status.ERROR ->{
+                Status.ERROR -> {
                     binding.pbLoading.visibility = View.GONE
                     val error = it.message
-                    Snackbar.make(binding.snackbar, "Error get Data : ${error}", Snackbar.LENGTH_LONG)
+                    Snackbar.make(
+                        binding.snackbar,
+                        "Error get Data : ${error}",
+                        Snackbar.LENGTH_LONG
+                    )
                         .setAction("x") {
                             // Responds to click on the action
                         }

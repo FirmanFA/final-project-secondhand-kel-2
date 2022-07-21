@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.R
-import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginRequest
 import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentRegisterBinding
@@ -32,7 +31,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 binding.etNama.text.toString(),
                 binding.etEmail.text.toString(),
                 binding.etPassowrd.text.toString(),
-                0,"-",R.drawable.default_profile.toString(),"-"
+                null,"","",""
             )
 
             if (binding.etNama.text.isNullOrEmpty() || binding.etEmail.text.isNullOrEmpty() || binding.etPassowrd.text.isNullOrEmpty()) {
