@@ -60,11 +60,10 @@ class CategoryBottomDialog(
             }
         }
 
-        adapter = SelectCategoryAdapter{ category, isChecked ->
+        adapter = SelectCategoryAdapter{ category, isChecked, position ->
             if (isChecked) {
-                if (category !in listSelectedCategory){
-                    listSelectedCategory.add(category)
-                }
+                listSelectedCategory.add(category)
+                listCategory[position] = Pair(true, category)
                 chipGroup.addChip(category)
             } else {
                 listSelectedCategory.remove(category)

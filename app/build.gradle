@@ -130,9 +130,6 @@ dependencies {
     //Lottie Animation
     implementation "com.airbnb.android:lottie:5.0.3"
 
-    //Loading Screen
-    implementation "com.github.sakshampruthi:custom-loading-screen:1.16"
-
     //Mockito
     testImplementation "org.mockito:mockito-core:4.5.1"
     testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
