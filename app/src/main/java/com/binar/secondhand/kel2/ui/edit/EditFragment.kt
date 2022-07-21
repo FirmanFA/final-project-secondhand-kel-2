@@ -22,10 +22,11 @@ import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryR
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentEditBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
-import com.binar.secondhand.kel2.ui.detail.BuyerPenawaranFragment
 import com.binar.secondhand.kel2.ui.lengkapi.CategoryBottomDialog
 import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.utils.URIPathHelper
+import com.binar.secondhand.kel2.utils.hideLoadingDialog
+import com.binar.secondhand.kel2.utils.showLoadingDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -37,7 +38,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.lang.ref.WeakReference
@@ -231,9 +231,10 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
             val price = it.data?.body()?.basePrice.toString()
             when (it.status) {
                 Status.LOADING -> {
-
+                    showLoadingDialog(context)
                 }
                 Status.SUCCESS -> {
+                    hideLoadingDialog()
                     val formatter: NumberFormat = DecimalFormat("#,###")
                     val myNumber = price.toInt()
                     val formattedNumber: String = formatter.format(myNumber).toString()
@@ -270,6 +271,7 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
                     }
                 }
                 Status.ERROR -> {
+                    hideLoadingDialog()
                     val error = it.message
                     Toast.makeText(
                         requireContext(),
