@@ -37,7 +37,6 @@ class LihatPenawaranFragment(
     private val product = product
     private val imageProduct = imageProduct
     private var price = price
-    private var basePrice = basePrice
     private val status = status
     private val viewModel: DetailProductViewModel by viewModel()
     private var bid = false
@@ -75,6 +74,7 @@ class LihatPenawaranFragment(
         viewModel.getBuyerOrder()
         setUpObserver()
         cekStatus()
+
 
 
     }
@@ -140,7 +140,7 @@ class LihatPenawaranFragment(
 
     private fun setUpObserver(){
         viewModel.orderProduct.observe(viewLifecycleOwner){it ->
-            val basePrice = it.data?.body()?.base_price.toString()
+            var basePrice = it.data?.body()?.base_price.toString()
             val price = it.data?.body()?.price.toString()
 
             when (it.status){
@@ -166,11 +166,10 @@ class LihatPenawaranFragment(
 
                     }
                     binding.tvName.text = product
-
                     val formatter: NumberFormat = DecimalFormat("#,###")
                     val myNumber = basePrice.toInt()
                     val formattedNumber: String = formatter.format(myNumber).toString()
-                    this.basePrice = "Rp. $formattedNumber"
+                    basePrice = "Rp. $formattedNumber"
                     basePrice.toString().replace("Rp. ", "").replace(".", "")
                     binding.tvPrice.text = basePrice
 
