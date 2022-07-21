@@ -13,11 +13,8 @@ import com.binar.secondhand.kel2.databinding.FragmentLoginBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.utils.hideLoadingDialog
 import com.binar.secondhand.kel2.utils.showLoadingDialog
-import com.saksham.customloadingdialog.hideDialog
-import com.saksham.customloadingdialog.showDialog
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.java.KoinJavaComponent
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
