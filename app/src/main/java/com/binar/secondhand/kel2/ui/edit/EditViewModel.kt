@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.put.PutSellerProductIdResponse
 import com.binar.secondhand.kel2.data.repository.Repository
@@ -43,6 +44,21 @@ class EditViewModel(private val repository: Repository) : ViewModel() {
                 _editDetailProduct.postValue(Resource.success(data))
             } catch (e: Throwable) {
                 _editDetailProduct.postValue(Resource.error(e.message.toString()))
+            }
+        }
+    }
+
+    private val _detailProduct = MutableLiveData<Resource<Response<GetProductIdResponse>>>()
+    val detailProduct: LiveData<Resource<Response<GetProductIdResponse>>> get() = _detailProduct
+
+    fun getDetailProduct(productId: Int){
+        viewModelScope.launch {
+            _detailProduct.postValue(Resource.loading())
+            try {
+                val dataProduct = Resource.success(repository.getProductDetail(productId))
+                _detailProduct.postValue(dataProduct)
+            }catch (exp: Exception){
+                _detailProduct.postValue(Resource.error(exp.localizedMessage ?: "Error occured"))
             }
         }
     }

@@ -22,6 +22,7 @@ import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryR
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentEditBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.detail.BuyerPenawaranFragment
 import com.binar.secondhand.kel2.ui.lengkapi.CategoryBottomDialog
 import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.utils.URIPathHelper
@@ -41,10 +42,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.lang.ref.WeakReference
 import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::inflate) {
 
-    val args: EditFragmentArgs by navArgs()
+    private val args: EditFragmentArgs by navArgs()
     private val editViewModel: EditViewModel by viewModel()
     private var imageUri: Uri? = null
     private val listCategory = ArrayList<Pair<Boolean, GetCategoryResponseItem>>()
@@ -100,7 +102,7 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
         binding.btnAddCategory.isEnabled = false
         binding.btnAddCategory.setOnClickListener {
             val newListCategory = ArrayList<Pair<Boolean, GetCategoryResponseItem>>()
-            listCategory.forEach {pair ->
+            listCategory.forEach { pair ->
                 if (listSelectedCategoryId.contains(pair.second.id)) {
                     newListCategory.add(Pair(true, pair.second))
                     Log.d("selected", pair.second.name)
@@ -150,6 +152,7 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
 
         setUpObservers()
         editViewModel.getCategory()
+        editViewModel.getDetailProduct(id)
 
         binding.ivPhoto.setOnClickListener {
             openImagePicker()
@@ -224,6 +227,59 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
     }
 
     private fun setUpObservers() {
+        editViewModel.detailProduct.observe(viewLifecycleOwner) { it ->
+            val price = it.data?.body()?.basePrice.toString()
+            when (it.status) {
+                Status.LOADING -> {
+
+                }
+                Status.SUCCESS -> {
+                    val formatter: NumberFormat = DecimalFormat("#,###")
+                    val myNumber = price.toInt()
+                    val formattedNumber: String = formatter.format(myNumber).toString()
+                    //formattedNumber is equal to 1,000,000
+
+                    //sukses mendapat response, progressbar disembunyikan lagi
+                    Glide.with(binding.ivPhoto)
+                        .load(it.data?.body()?.imageUrl)
+                        .error(R.drawable.add_img)
+                        .into(binding.ivPhoto)
+
+                    binding.apply {
+
+//                        tvCategory.text = it.data?.body()?.categories?.joinToString {
+//                            it.name
+//                        }
+                        etName.editText?.setText(it.data?.body()?.name)
+                        etPrice.editText?.setText("Rp. $formattedNumber")
+                        etDescription.editText?.setText(it.data?.body()?.description.toString())
+                        etCity.editText?.setText(it.data?.body()?.location)
+                        listSelectedCategory.clear()
+                        listSelectedCategoryId.clear()
+                        it.data?.body()?.categories?.forEach {
+                            val category = GetCategoryResponseItem(
+                                "",
+                                it.id,
+                                it.name,
+                                ""
+                            )
+                            listSelectedCategory.add(category)
+                            listSelectedCategoryId.add(it.id)
+                            chipGroupSelectedCategory.addChip(category)
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    val error = it.message
+                    Toast.makeText(
+                        requireContext(),
+                        "Error get Data : $error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
         editViewModel.editDetailProduct.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
