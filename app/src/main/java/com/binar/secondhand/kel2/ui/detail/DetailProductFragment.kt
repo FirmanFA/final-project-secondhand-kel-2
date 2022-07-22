@@ -183,7 +183,7 @@ class DetailProductFragment() :
                     declined = true
                 }
             }
-            if (accepted||pending||declined) {
+            if (accepted||pending||bid||declined) {
                 binding.btnTertarik.setOnClickListener {
                     val modal = LihatPenawaranFragment(
                         args.productId,

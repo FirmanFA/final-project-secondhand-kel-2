@@ -77,7 +77,7 @@ data class SellerOrderIdResponse(
         @SerializedName("email")
         val email: String,
         @SerializedName("phone_number")
-        val phoneNumber: Long,
+        val phoneNumber: String,
         @SerializedName("address")
         val address: String,
         @SerializedName("city")

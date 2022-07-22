@@ -25,6 +25,8 @@ import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.lengkapi.CategoryBottomDialog
 import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.utils.URIPathHelper
+import com.binar.secondhand.kel2.utils.hideLoadingDialog
+import com.binar.secondhand.kel2.utils.showLoadingDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -36,15 +38,15 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.lang.ref.WeakReference
 import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::inflate) {
 
-    val args: EditFragmentArgs by navArgs()
+    private val args: EditFragmentArgs by navArgs()
     private val editViewModel: EditViewModel by viewModel()
     private var imageUri: Uri? = null
     private val listCategory = ArrayList<Pair<Boolean, GetCategoryResponseItem>>()
@@ -81,6 +83,7 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
             isCloseIconVisible = true
             setOnCloseIconClickListener {
                 listSelectedCategory.remove(category)
+                listSelectedCategoryId.remove(category.id)
                 removeView(it)
             }
             addView(this)
@@ -98,10 +101,26 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
 
         binding.btnAddCategory.isEnabled = false
         binding.btnAddCategory.setOnClickListener {
-            val selectCategoryDialog = CategoryBottomDialog(listCategory) {
+            val newListCategory = ArrayList<Pair<Boolean, GetCategoryResponseItem>>()
+            listCategory.forEach { pair ->
+                if (listSelectedCategoryId.contains(pair.second.id)) {
+                    newListCategory.add(Pair(true, pair.second))
+                    Log.d("selected", pair.second.name)
+                } else {
+                    newListCategory.add(Pair(false, pair.second))
+                }
+            }
+
+            val selectCategoryDialog = CategoryBottomDialog(newListCategory) {
+
+                binding.chipGroupSelectedCategory.removeAllViews()
+
                 listSelectedCategory.clear()
+                listSelectedCategoryId.clear()
                 listSelectedCategory.addAll(it)
+
                 listSelectedCategory.forEach { category ->
+                    listSelectedCategoryId.add(category.id)
                     binding.chipGroupSelectedCategory.addChip(category)
                 }
             }
@@ -133,6 +152,7 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
 
         setUpObservers()
         editViewModel.getCategory()
+        editViewModel.getDetailProduct(id)
 
         binding.ivPhoto.setOnClickListener {
             openImagePicker()
@@ -207,6 +227,61 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
     }
 
     private fun setUpObservers() {
+        editViewModel.detailProduct.observe(viewLifecycleOwner) { it ->
+            val price = it.data?.body()?.basePrice.toString()
+            when (it.status) {
+                Status.LOADING -> {
+                    showLoadingDialog(context)
+                }
+                Status.SUCCESS -> {
+                    hideLoadingDialog()
+                    val formatter: NumberFormat = DecimalFormat("#,###")
+                    val myNumber = price.toInt()
+                    val formattedNumber: String = formatter.format(myNumber).toString()
+                    //formattedNumber is equal to 1,000,000
+
+                    //sukses mendapat response, progressbar disembunyikan lagi
+                    Glide.with(binding.ivPhoto)
+                        .load(it.data?.body()?.imageUrl)
+                        .error(R.drawable.add_img)
+                        .into(binding.ivPhoto)
+
+                    binding.apply {
+
+//                        tvCategory.text = it.data?.body()?.categories?.joinToString {
+//                            it.name
+//                        }
+                        etName.editText?.setText(it.data?.body()?.name)
+                        etPrice.editText?.setText("Rp. $formattedNumber")
+                        etDescription.editText?.setText(it.data?.body()?.description.toString())
+                        etCity.editText?.setText(it.data?.body()?.location)
+                        listSelectedCategory.clear()
+                        listSelectedCategoryId.clear()
+                        it.data?.body()?.categories?.forEach {
+                            val category = GetCategoryResponseItem(
+                                "",
+                                it.id,
+                                it.name,
+                                ""
+                            )
+                            listSelectedCategory.add(category)
+                            listSelectedCategoryId.add(it.id)
+                            chipGroupSelectedCategory.addChip(category)
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    hideLoadingDialog()
+                    val error = it.message
+                    Toast.makeText(
+                        requireContext(),
+                        "Error get Data : $error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
         editViewModel.editDetailProduct.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
@@ -286,17 +361,9 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
 //                            it.data.body()?.let { it1 -> listCategory.addAll(it1) }
 //                            binding.etCategory.isEnabled = true
                             val rawCategory = it.data.body()
+                            listCategory.clear()
                             rawCategory?.forEach { getCategoryResponseItem ->
-                                if (listSelectedCategoryId.contains(getCategoryResponseItem.id)) {
-                                    listCategory.add(Pair(true, getCategoryResponseItem))
-                                } else {
-                                    listCategory.add(Pair(false, getCategoryResponseItem))
-                                }
-//                                if (listSelectedCategory.contains(getCategoryResponseItem)){
-//                                        listCategory.add(Pair(true,getCategoryResponseItem))
-//                                }else{
-//                                    listCategory.add(Pair(false,getCategoryResponseItem))
-//                                }
+                                listCategory.add(Pair(false, getCategoryResponseItem))
                             }
                             binding.btnAddCategory.isEnabled = true
                         }

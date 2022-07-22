@@ -87,7 +87,7 @@ class DialogDeleteFragment(
 
                     refreshButton.invoke()
                     dialog?.dismiss()
-                    val action = DetailProductFragmentDirections.actionDetailProductFragmentSelf(productId)
+                    val action = DetailProductFragmentDirections.actionDetailProductFragmentToSelf(productId)
                     findNavController().navigate(action)
 
 

@@ -52,6 +52,7 @@ class NotificationFragment :
             binding.btnLogin.setOnClickListener {
                 it.findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
             }
+            mainViewModel.setNotificationCount(0)
 
         } else {
             binding.ivLogin.visibility = View.GONE
@@ -78,7 +79,7 @@ class NotificationFragment :
                         binding.tvFilter.text = "Buyer Notification"
                     }
                     R.id.notification_seller -> {
-                        notificationViewModel.getNotification("seller")
+                        notificationViewModel.getNotification("sold")
                         binding.tvFilter.text = "Seller Notification"
                     }
                 }
