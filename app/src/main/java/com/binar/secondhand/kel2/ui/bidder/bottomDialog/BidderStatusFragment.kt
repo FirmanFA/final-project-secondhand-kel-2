@@ -65,7 +65,7 @@ class BidderStatusFragment (
             if (binding.radioGroup.checkedRadioButtonId != -1) {
                 if (binding.rbBerhasil.isChecked) {
                     if (productId != null) {
-                        viewModel.statusProduct(productId, PatchProductIdRequest(status = "seller"))
+                        viewModel.statusProduct(productId, PatchProductIdRequest(status = "sold"))
                     }
                     Toast.makeText(context, "Produk anda berhasil terjual", Toast.LENGTH_SHORT)
                         .show()
