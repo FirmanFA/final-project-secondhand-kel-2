@@ -1,5 +1,6 @@
 package com.binar.secondhand.kel2.ui.detail.dialog
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -55,13 +56,13 @@ class DialogOrderFragment(
         super.onViewCreated(view, savedInstanceState)
 
         setUpObserver()
+
         binding.tvKembali.setOnClickListener {
             dialog?.dismiss()
         }
 
         binding.tvYa.setOnClickListener {
             if (order == "edit"){
-
                 val bid = harga.toRequestBody("text/plain".toMediaTypeOrNull())
                 viewModel.editOrder(
                     orderId,
@@ -80,8 +81,22 @@ class DialogOrderFragment(
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setUpObserver() {
+        if (order == "edit"){
+            binding.tvTitle.text = "UBAH PENAWARAN"
+            binding.tvTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+            binding.tvDesc.text = "Apakah anda yakin ingin mengubah penawaran ini? "
+            binding.imgIcon.setImageResource(R.drawable.ic_ubah)
 
+        }
+        else if (order == "delete"){
+            binding.tvTitle.text = "HAPUS PENAWARAN"
+            binding.tvTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+            binding.tvDesc.text = "Apakah anda yakin ingin menghapus penawaran pada produk ini ?"
+            binding.imgIcon.setImageResource(R.drawable.ic_delete)
+
+        }
         viewModel.editOrder.observe(viewLifecycleOwner){
             when (it.status) {
                 Status.LOADING -> {

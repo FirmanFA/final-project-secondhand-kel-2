@@ -99,22 +99,6 @@ class LihatPenawaranFragment(
         setUpObserver()
         cekStatus()
 
-        etMoney = binding.etHargaTawar
-        etMoney.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (!s.toString().startsWith("Rp. ")) {
-                    etMoney.setMaskingMoney("Rp. ")
-                    Selection.setSelection(etMoney.text, etMoney.text!!.length)
-                }
-            }
-        })
-
 
     }
 
@@ -160,6 +144,7 @@ class LihatPenawaranFragment(
             }
 
             else if(declined) {
+                binding.etHargaTawar.setEnabled(false)
                 binding.btnEdit.isEnabled = false
                 binding.btnDelete.isEnabled = true
                 binding.image.setBackgroundResource(R.drawable.red_gradient)
@@ -175,6 +160,21 @@ class LihatPenawaranFragment(
             }
 
         }
+        etMoney = binding.etHargaTawar
+        etMoney.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (!s.toString().startsWith("Rp. ")) {
+                    etMoney.setMaskingMoney("Rp. ")
+                    Selection.setSelection(etMoney.text, etMoney.text!!.length)
+                }
+            }
+        })
     }
 
     private fun setUpObserver(){

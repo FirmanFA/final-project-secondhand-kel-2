@@ -42,8 +42,6 @@ class DetailProductFragment() :
     private var basePrice = ""
     private var wishlistId = 0
 
-
-
     @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
