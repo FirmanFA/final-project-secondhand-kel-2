@@ -12,6 +12,8 @@ import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetBuyerOrderId
+import com.binar.secondhand.kel2.data.api.model.buyer.orderid.put.PutOrderIdRequest
+import com.binar.secondhand.kel2.data.api.model.buyer.orderid.put.PutOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
@@ -156,6 +158,13 @@ interface ApiService {
         @Part("location") location: RequestBody,
         @Part image: MultipartBody.Part?
     ): Response<PutSellerProductIdResponse>
+
+    @Multipart
+    @PUT("buyer/order/{id}")
+    suspend fun putOrder(
+        @Path("id")id:Int,
+        @Part("bid_price") bid_price: RequestBody
+    ): Response<PutOrderIdResponse>
 
     @PATCH("notification/{id}")
     suspend fun readNotification(@Path("id") id: Int): Response<Unit>

@@ -8,8 +8,10 @@ import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetBuyerOrderId
+import com.binar.secondhand.kel2.data.api.model.buyer.orderid.put.PutOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
+import com.binar.secondhand.kel2.data.api.model.seller.product.put.PutSellerProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlistResponse
@@ -20,6 +22,8 @@ import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlist
 import com.binar.secondhand.kel2.data.repository.Repository
 import com.binar.secondhand.kel2.data.resource.Resource
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 
 class DetailProductViewModel(private val repository: Repository): ViewModel() {
@@ -165,4 +169,26 @@ class DetailProductViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
+    private val _editOrder =
+        MutableLiveData<Resource<Response<PutOrderIdResponse>>>()
+    val editOrder: LiveData<Resource<Response<PutOrderIdResponse>>>
+        get() = _editOrder
+
+    fun editOrder(
+        id: Int,
+        bid_order: RequestBody,
+    ) {
+        viewModelScope.launch {
+            _editOrder.postValue(Resource.loading())
+            try {
+                val data = repository.putOrder(
+                    id,
+                    bid_order
+                )
+                _editOrder.postValue(Resource.success(data))
+            } catch (e: Throwable) {
+                _editOrder.postValue(Resource.error(e.message.toString()))
+            }
+        }
+    }
 }

@@ -115,6 +115,14 @@ class ApiHelper(val apiService: ApiService) {
         image
     )
 
+    suspend fun putOrder(
+        id:Int,
+        bid_price: RequestBody,
+    ) = apiService.putOrder(
+        id,
+        bid_price
+    )
+
     suspend fun readNotification(id: Int) = apiService.readNotification(id)
 
     suspend fun getIdWishlist(productId: Int) = apiService.getIdWishlist(productId)
