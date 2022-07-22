@@ -1,7 +1,10 @@
 package com.binar.secondhand.kel2.ui.bidder
 
+import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
@@ -16,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.net.URLEncoder
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
@@ -25,6 +29,9 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
     private var orderId: Int? = null
     private var status: String? = null
     private var productId: Int? = null
+    private var phoneNumber = ""
+    private var productName = ""
+    private var bidPrice = ""
 
     val args: BidderFragmentArgs by navArgs()
 
@@ -56,13 +63,47 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
         }
 
         binding.btnTerima.setOnClickListener {
-            orderId?.let {
-                val modal = BidderBerhasilFragment(
-                    it
-                )
-                bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "accepted"))
-                modal.show(parentFragmentManager, "Tag")
+            status?.let { status ->
+                if (status == "pending") {
+                    orderId?.let {
+                        val modal = BidderBerhasilFragment(
+                            it
+                        )
+                        bidderViewModel.statusItem(id, PatchSellerOrderIdRequest(status = "accepted"))
+                        modal.show(parentFragmentManager, "Tag")
+                    }
+                } else {
+                    try {
+                        val packageManager = requireActivity().packageManager
+                        val i = Intent(Intent.ACTION_VIEW)
+                        val message = "Saya tertarik dengan tawaran anda untuk: $productName\n" +
+                                "dengan harga: Rp $bidPrice"
+                        val url =
+                            "https://api.whatsapp.com/send?phone=$phoneNumber&text=" + URLEncoder.encode(
+                                message,
+                                "UTF-8"
+                            )
+                        i.setPackage("com.whatsapp")
+                        i.data = Uri.parse(url)
+                        if (i.resolveActivity(packageManager) != null) {
+                            startActivity(i)
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Anda belum menginstall whatsapp",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } catch (e: Exception) {
+                        Toast.makeText(
+                            context,
+                            "Anda belum menginstall whatsapp",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
+
         }
 
 
@@ -72,6 +113,15 @@ class BidderFragment : BaseFragment<FragmentBidderBinding>(FragmentBidderBinding
         bidderViewModel.bidder.observe(viewLifecycleOwner){
             when(it.status){
                 Status.SUCCESS -> {
+                    phoneNumber = it.data?.body()?.user?.phoneNumber?:""
+                    phoneNumber = if (phoneNumber[0] != '0'){
+                        phoneNumber
+                    }else{
+                        "62${phoneNumber.drop(1)}"
+                    }
+                    Log.d("phoneNumber", phoneNumber)
+                    productName = it.data?.body()?.productName?:""
+                    bidPrice = it.data?.body()?.price.toString()
                     val formatter: NumberFormat = DecimalFormat("#,###")
                     val myNumber = it.data?.body()?.basePrice
                     val myBid = it.data?.body()?.price

@@ -79,7 +79,7 @@ class NotificationFragment :
                         binding.tvFilter.text = "Buyer Notification"
                     }
                     R.id.notification_seller -> {
-                        notificationViewModel.getNotification("seller")
+                        notificationViewModel.getNotification("sold")
                         binding.tvFilter.text = "Seller Notification"
                     }
                 }
