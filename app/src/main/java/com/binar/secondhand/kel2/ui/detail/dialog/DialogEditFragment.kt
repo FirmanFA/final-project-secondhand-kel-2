@@ -18,16 +18,20 @@ import com.binar.secondhand.kel2.ui.detail.DetailProductFragmentDirections
 import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
 import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.google.android.material.snackbar.Snackbar
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DialogDeleteFragment(
+class DialogEditFragment(
     productId: Int,
-     orderId: Int,
+    orderId: Int,
+    harga: Int,
     private val refreshButton: () -> Unit
 ) : DialogFragment() {
     private var _binding : FragmentDialogProdukBinding? = null
     private val binding get() = _binding!!
     private var orderId = orderId
+    private var harga = harga.toString()
     private var productId = productId
     private val viewModel: DetailProductViewModel by viewModel()
 
@@ -54,16 +58,21 @@ class DialogDeleteFragment(
         }
 
         binding.tvYa.setOnClickListener {
-            viewModel.deleteOrder(orderId)
             refreshButton.invoke()
 
+            val id = orderId
+            val bid = harga.toRequestBody("text/plain".toMediaTypeOrNull())
+            viewModel.editOrder(
+                id = id,
+                bid_order = bid,
+            )
 
         }
     }
 
     private fun setUpObserver() {
 
-        viewModel.deleteOrder.observe(viewLifecycleOwner){
+        viewModel.editOrder.observe(viewLifecycleOwner){
             when (it.status) {
                 Status.LOADING -> {
                     binding.container.visibility = View.GONE
@@ -73,7 +82,7 @@ class DialogDeleteFragment(
                     getActivity()?.let { it1 ->
                         Snackbar.make(
                             it1.findViewById(R.id.snackbar_detail),
-                            "Penawaranmu pada produk berhasil dihapus",
+                            "Penawaranmu pada produk berhasil diubah",
                             Snackbar.LENGTH_LONG
                         )
                             .setAction("x") {
@@ -83,7 +92,7 @@ class DialogDeleteFragment(
                             .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                             .show()
                     }
-                    Toast.makeText(context, "Penawaran Anda Telah Dihapus", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Penawaran Anda Telah Diubah", Toast.LENGTH_SHORT).show()
 
                     refreshButton.invoke()
                     dialog?.dismiss()
