@@ -49,32 +49,26 @@ class HomeViewModelTest {
     fun getProducts()= runTest{
         val getProductResponseItem = mock<Flow<PagingData<GetProductResponseItem>>>()
 
-        given(repository.getProductStream(1)).willReturn(getProductResponseItem)
+        given(repository.getProductStream()).willReturn(getProductResponseItem)
 
         viewModel.getProducts()
 
         advanceUntilIdle()
 
-        Mockito.verify(repository, Mockito.times(1)).getProductStream(1)
+        Mockito.verify(repository, Mockito.times(1)).getProductStream()
     }
 
     @Test
     fun getHomeProduct()= runTest{
         val productGetResponse = mock<Response<GetProductResponse>>()
 
-        given(repository.getProduct(
-            "Sold",
-            1,
-            "Pakaian")).willReturn(productGetResponse)
+        given(repository.getProduct()).willReturn(productGetResponse)
 
         viewModel.getHomeProduct()
 
         advanceUntilIdle()
 
-        Mockito.verify(repository, Mockito.times(1)).getProduct(
-            "Sold",
-            1,
-            "Pakaian")
+        Mockito.verify(repository, Mockito.times(1)).getProduct()
         kotlin.test.assertNotNull(viewModel.getHomeProductResponse)
         kotlin.test.assertEquals(viewModel.getHomeProductResponse.value?.data, productGetResponse)
     }
