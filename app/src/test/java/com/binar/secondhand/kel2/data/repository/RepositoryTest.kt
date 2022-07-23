@@ -78,14 +78,10 @@ class RepositoryTest {
         val address = "Jakarta Barat"
         val phoneNumber = 822233445
 
-        val imageFile = mockk<File>()
-
         val nameBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
         val cityBody = city.toRequestBody("text/plain".toMediaTypeOrNull())
         val addressBody = address.toRequestBody("text/plain".toMediaTypeOrNull())
         val phoneNumberBody = phoneNumber.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-
-//        val requestImage = imageFile?.asRequestBody("image/jpeg".toMediaTypeOrNull())
         val imageBody = mockk<MultipartBody.Part>()
 
         every {

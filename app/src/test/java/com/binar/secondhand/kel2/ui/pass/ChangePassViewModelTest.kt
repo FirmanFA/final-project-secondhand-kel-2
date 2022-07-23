@@ -47,9 +47,9 @@ class ChangePassViewModelTest {
         val putPassGetResponse = mock<Response<PutPassResponse>>()
 
         val request = PutPassRequest(
-        "000000",
-        "111111",
-        "111111")
+            "000000",
+            "111111",
+            "111111")
 
         given(repository.putPass(request)).willReturn(putPassGetResponse)
 
