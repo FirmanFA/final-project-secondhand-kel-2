@@ -2,17 +2,13 @@ package com.binar.secondhand.kel2.ui.sale.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
-import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
 import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.repository.ProductSaleListRepository
-import com.binar.secondhand.kel2.data.repository.RegisterRepository
 import com.binar.secondhand.kel2.rule.MainCoroutineRule
-import com.binar.secondhand.kel2.ui.register.RegisterViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Rule
@@ -23,6 +19,7 @@ import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ProductSaleListViewModelTest {
 
     private lateinit var viewModel: ProductSaleListViewModel

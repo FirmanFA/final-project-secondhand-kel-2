@@ -1,13 +1,10 @@
 package com.binar.secondhand.kel2.ui.preview
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassRequest
-import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassResponse
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
 import com.binar.secondhand.kel2.data.repository.Repository
 import com.binar.secondhand.kel2.rule.MainCoroutineRule
-import com.binar.secondhand.kel2.ui.pass.ChangePassViewModel
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -15,7 +12,6 @@ import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Rule
@@ -26,6 +22,7 @@ import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class PreviewViewModelTest {
 
     private lateinit var viewModel: PreviewViewModel
@@ -47,11 +44,6 @@ class PreviewViewModelTest {
     @Test
     fun getAuth()= runTest{
         val authGetResponse = mock<Response<GetAuthResponse>>()
-
-        val request = PutPassRequest(
-            "000000",
-            "111111",
-            "111111")
 
         given(repository.getAuth()).willReturn(authGetResponse)
 

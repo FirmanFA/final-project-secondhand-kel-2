@@ -1,10 +1,7 @@
 package com.binar.secondhand.kel2.data.repository
 
-import androidx.paging.PagingData
-import androidx.paging.PagingSource
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
-import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponseItem
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
 import com.binar.secondhand.kel2.data.api.service.ApiHelper
@@ -14,12 +11,10 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Response
-import java.util.concurrent.Flow
 
 class HomeRepositoryTest {
 
