@@ -109,4 +109,25 @@ class ProductSaleListRepositoryTest {
             }
         }
     }
+
+    @Test
+    fun deleteSellerProductId(): Unit = runBlocking {
+        val unit = mockk<Response<Unit>>()
+
+        val id = 1
+
+        every {
+            runBlocking {
+                apiHelper.deleteSellerProduct(id)
+            }
+        } returns unit
+
+        productSaleListRepository.deleteSellerProductId(id)
+
+        verify {
+            runBlocking {
+                apiHelper.deleteSellerProduct(id)
+            }
+        }
+    }
 }
