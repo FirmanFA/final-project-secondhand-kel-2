@@ -2,7 +2,6 @@ package com.binar.secondhand.kel2.data.repository
 
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
-import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.api.service.ApiHelper
@@ -11,7 +10,6 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Test

@@ -6,7 +6,6 @@ import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryR
 import com.binar.secondhand.kel2.data.api.model.seller.product.put.PutSellerProductIdResponse
 import com.binar.secondhand.kel2.data.repository.Repository
 import com.binar.secondhand.kel2.rule.MainCoroutineRule
-import com.binar.secondhand.kel2.ui.detail.DetailProductViewModel
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -14,7 +13,6 @@ import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Rule
@@ -25,6 +23,7 @@ import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class EditViewModelTest {
 
     private lateinit var viewModel: EditViewModel

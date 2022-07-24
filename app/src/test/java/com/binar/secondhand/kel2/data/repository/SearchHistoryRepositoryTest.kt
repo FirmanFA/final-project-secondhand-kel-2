@@ -1,20 +1,14 @@
 package com.binar.secondhand.kel2.data.repository
 
-import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
-import com.binar.secondhand.kel2.data.api.service.ApiHelper
-import com.binar.secondhand.kel2.data.api.service.ApiService
 import com.binar.secondhand.kel2.data.local.room.model.SearchHistoryEntity
 import com.binar.secondhand.kel2.data.local.room.service.DbHelper
-import com.binar.secondhand.kel2.data.local.room.service.SearchHistoryDao
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Test
-import retrofit2.Response
 
 class SearchHistoryRepositoryTest {
 

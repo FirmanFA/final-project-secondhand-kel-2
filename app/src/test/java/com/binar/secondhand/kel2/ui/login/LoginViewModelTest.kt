@@ -3,15 +3,11 @@ package com.binar.secondhand.kel2.ui.login
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginRequest
 import com.binar.secondhand.kel2.data.api.model.auth.login.PostLoginResponse
-import com.binar.secondhand.kel2.data.api.model.seller.order.SellerOrderIdResponse
 import com.binar.secondhand.kel2.data.repository.LoginRepository
-import com.binar.secondhand.kel2.data.repository.Repository
 import com.binar.secondhand.kel2.rule.MainCoroutineRule
-import com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Rule
@@ -22,6 +18,7 @@ import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest {
 
     private lateinit var viewModel: LoginViewModel

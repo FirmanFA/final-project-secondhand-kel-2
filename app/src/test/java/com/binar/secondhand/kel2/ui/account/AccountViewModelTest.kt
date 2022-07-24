@@ -2,15 +2,11 @@ package com.binar.secondhand.kel2.ui.account
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
-import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
-import com.binar.secondhand.kel2.data.repository.NotificationRepository
 import com.binar.secondhand.kel2.data.repository.Repository
 import com.binar.secondhand.kel2.rule.MainCoroutineRule
-import com.binar.secondhand.kel2.ui.notification.NotificationViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Rule

@@ -1,15 +1,12 @@
 package com.binar.secondhand.kel2.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse.GetOrderResponseItem
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetBuyerOrderId
 import com.binar.secondhand.kel2.data.api.model.buyer.orderid.put.PutOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
-import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
-import com.binar.secondhand.kel2.data.api.model.seller.order.SellerOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.getId.GetIdWishlist
@@ -17,13 +14,11 @@ import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlist
 import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import com.binar.secondhand.kel2.data.repository.Repository
 import com.binar.secondhand.kel2.rule.MainCoroutineRule
-import com.binar.secondhand.kel2.ui.bidder.BidderViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Rule
