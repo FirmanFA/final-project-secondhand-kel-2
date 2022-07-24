@@ -9,10 +9,25 @@ import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetBuyerOrderId
+import com.binar.secondhand.kel2.data.api.model.buyer.orderid.put.PutOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
 import com.binar.secondhand.kel2.data.api.model.notification.GetNotificationResponse
+import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
+import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdRequest
+import com.binar.secondhand.kel2.data.api.model.seller.order.PatchSellerOrderIdResponse
+import com.binar.secondhand.kel2.data.api.model.seller.order.SellerOrderIdResponse
+import com.binar.secondhand.kel2.data.api.model.seller.order.id.GetOrderIdResponse
+import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductId
+import com.binar.secondhand.kel2.data.api.model.seller.product.id.patch.PatchProductIdRequest
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
+import com.binar.secondhand.kel2.data.api.model.seller.product.put.PutSellerProductIdResponse
+import com.binar.secondhand.kel2.data.api.model.wishlist.delete.DeleteWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.get.GetWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.getId.GetIdWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlist
+import com.binar.secondhand.kel2.data.api.model.wishlist.post.PostWishlistRequest
 import com.binar.secondhand.kel2.data.api.service.ApiHelper
 import com.binar.secondhand.kel2.data.api.service.ApiService
 import com.binar.secondhand.kel2.utils.URIPathHelper
@@ -180,6 +195,48 @@ class RepositoryTest {
     }
 
     @Test
+    fun getOrderProductId(): Unit = runBlocking {
+        val getOrderIdResponse = mockk<Response<GetOrderIdResponse>>()
+
+        val productId = 1
+
+        every {
+            runBlocking {
+                apiHelper.getOrderProductId(productId)
+            }
+        } returns getOrderIdResponse
+
+        repository.getOrderProductId(productId)
+
+        verify {
+            runBlocking {
+                apiHelper.getOrderProductId(productId)
+            }
+        }
+    }
+
+    @Test
+    fun getProductOrder(): Unit = runBlocking {
+        val getBuyerOrderId = mockk<Response<GetBuyerOrderId>>()
+
+        val productId = 1
+
+        every {
+            runBlocking {
+                apiHelper.getProductOrder(productId)
+            }
+        } returns getBuyerOrderId
+
+        repository.getProductOrder(productId)
+
+        verify {
+            runBlocking {
+                apiHelper.getProductOrder(productId)
+            }
+        }
+    }
+
+    @Test
     fun getProductId(): Unit = runBlocking {
         val responseGetProductId = mockk<Response<GetProductIdResponse>>()
 
@@ -264,6 +321,27 @@ class RepositoryTest {
     }
 
     @Test
+    fun deleteOrder(): Unit = runBlocking {
+        val unit = mockk<Response<Unit>>()
+
+        val productId = 1
+
+        every {
+            runBlocking {
+                apiHelper.deleteOrder(productId)
+            }
+        } returns unit
+
+        repository.deleteOrder(productId)
+
+        verify {
+            runBlocking {
+                apiHelper.deleteOrder(productId)
+            }
+        }
+    }
+
+    @Test
     fun postProduct(): Unit = runBlocking {
         val responsePostProduct = mockk<Response<PostProductResponse>>()
 
@@ -315,4 +393,873 @@ class RepositoryTest {
             }
         }
     }
+
+    @Test
+    fun getSellerOrderId(): Unit = runBlocking {
+        val sellerOrderIdResponse = mockk<Response<SellerOrderIdResponse>>()
+
+        val id = 1
+
+        every {
+            runBlocking {
+                apiHelper.getSellerOrderId(id)
+            }
+        } returns sellerOrderIdResponse
+
+        repository.getSellerOrderId(id)
+
+        verify {
+            runBlocking {
+                apiHelper.getSellerOrderId(id)
+            }
+        }
+    }
+
+    @Test
+    fun patchSellerOrderId(): Unit = runBlocking {
+        val patchSellerOrderIdResponse = mockk<Response<PatchSellerOrderIdResponse>>()
+
+        val id = 1
+        val request = PatchSellerOrderIdRequest("Sold")
+
+        every {
+            runBlocking {
+                apiHelper.patchSellerOrderId(id, request)
+            }
+        } returns patchSellerOrderIdResponse
+
+        repository.patchSellerOrderId(id, request)
+
+        verify {
+            runBlocking {
+                apiHelper.patchSellerOrderId(id, request)
+            }
+        }
+    }
+
+    @Test
+    fun patchSellerProductId(): Unit = runBlocking {
+        val patchProductId = mockk<Response<PatchProductId>>()
+
+        val id = 1
+        val request = PatchProductIdRequest("Sold")
+
+        every {
+            runBlocking {
+                apiHelper.patchSellerProductId(id, request)
+            }
+        } returns patchProductId
+
+        repository.patchSellerProductId(id, request)
+
+        verify {
+            runBlocking {
+                apiHelper.patchSellerProductId(id, request)
+            }
+        }
+    }
+
+    @Test
+    fun putProduct(): Unit = runBlocking {
+        val putSellerProductIdResponse = mockk<Response<PutSellerProductIdResponse>>()
+
+        val id = 1
+        val name = "Coba"
+        val description = "Baju"
+        val price = 100000
+        val category = "Pakaian"
+        val city = "Jakarta"
+
+        val nameBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
+        val priceBody = price.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val cityBody = city.toRequestBody("text/plain".toMediaTypeOrNull())
+        val categoryBody = category.toRequestBody("text/plain".toMediaTypeOrNull())
+        val descriptionBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
+        val imageBody = mockk<MultipartBody.Part>()
+
+        every {
+            runBlocking {
+                apiHelper.putProduct(
+                    id,
+                    name = nameBody,
+                    base_price = priceBody,
+                    location = cityBody,
+                    category_ids = categoryBody,
+                    description = descriptionBody,
+                    image = imageBody
+                )
+            }
+        } returns putSellerProductIdResponse
+
+        repository.putProduct(
+            id,
+            name = nameBody,
+            base_price = priceBody,
+            location = cityBody,
+            category_ids = categoryBody,
+            description = descriptionBody,
+            image = imageBody
+        )
+
+        verify {
+            runBlocking {
+                apiHelper.putProduct(
+                    id,
+                    name = nameBody,
+                    base_price = priceBody,
+                    location = cityBody,
+                    category_ids = categoryBody,
+                    description = descriptionBody,
+                    image = imageBody
+                )
+            }
+        }
+    }
+
+    @Test
+    fun putOrder(): Unit = runBlocking {
+        val putOrderIdResponse = mockk<Response<PutOrderIdResponse>>()
+
+        val id = 1
+        val bidPrice = 100000
+        val bidPriceBody = bidPrice.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
+        every {
+            runBlocking {
+                apiHelper.putOrder(
+                    id,
+                    bidPriceBody
+                )
+            }
+        } returns putOrderIdResponse
+
+        repository.putOrder(
+            id,
+            bidPriceBody
+        )
+
+        verify {
+            runBlocking {
+                apiHelper.putOrder(
+                    id,
+                    bidPriceBody
+                )
+            }
+        }
+    }
+
+    @Test
+    fun getWishlist(): Unit = runBlocking {
+        val getWishlist = mockk<Response<GetWishlist>>()
+
+        every {
+            runBlocking {
+                apiHelper.getWishlist()
+            }
+        } returns getWishlist
+
+        repository.getWishlist()
+
+        verify {
+            runBlocking {
+                apiHelper.getWishlist()
+            }
+        }
+    }
+
+    @Test
+    fun deleteWishlist(): Unit = runBlocking {
+        val deleteWishlist = mockk<Response<DeleteWishlist>>()
+
+        val productId = 1
+
+        every {
+            runBlocking {
+                apiHelper.deleteWishlist(productId)
+            }
+        } returns deleteWishlist
+
+        repository.deleteWishlist(productId)
+
+        verify {
+            runBlocking {
+                apiHelper.deleteWishlist(productId)
+            }
+        }
+    }
+
+    @Test
+    fun getIdWishlist(): Unit = runBlocking {
+        val getIdWishlist = mockk<Response<GetIdWishlist>>()
+
+        val productId = 1
+
+        every {
+            runBlocking {
+                apiHelper.getIdWishlist(productId)
+            }
+        } returns getIdWishlist
+
+        repository.getIdWishlist(productId)
+
+        verify {
+            runBlocking {
+                apiHelper.getIdWishlist(productId)
+            }
+        }
+    }
+
+    @Test
+    fun postWishlist(): Unit = runBlocking {
+        val postWishlist = mockk<Response<PostWishlist>>()
+
+        val requestBuyerWishlist = PostWishlistRequest(1)
+
+        every {
+            runBlocking {
+                apiHelper.postWishlist(requestBuyerWishlist)
+            }
+        } returns postWishlist
+
+        repository.postWishlist(requestBuyerWishlist)
+
+        verify {
+            runBlocking {
+                apiHelper.postWishlist(requestBuyerWishlist)
+            }
+        }
+    }
+
+    @Test
+    fun getCategory(): Unit = runBlocking {
+        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+
+        every {
+            runBlocking {
+                apiHelper.getCategory()
+            }
+        } returns getCategoryResponse
+
+        repository.getCategory()
+
+        verify {
+            runBlocking {
+                apiHelper.getCategory()
+            }
+        }
+    }
+
+//    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }//    @Test
+////    fun getCategory(): Unit = runBlocking {
+////        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+////
+////        every {
+////            runBlocking {
+////                apiHelper.getCategory()
+////            }
+////        } returns getCategoryResponse
+////
+////        repository.getCategory()
+////
+////        verify {
+////            runBlocking {
+////                apiHelper.getCategory()
+////            }
+////        }
+////    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+    //    @Test
+//    fun getCategory(): Unit = runBlocking {
+//        val getCategoryResponse = mockk<Response<GetCategoryResponse>>()
+//
+//        every {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        } returns getCategoryResponse
+//
+//        repository.getCategory()
+//
+//        verify {
+//            runBlocking {
+//                apiHelper.getCategory()
+//            }
+//        }
+//    }
+
+
 }
