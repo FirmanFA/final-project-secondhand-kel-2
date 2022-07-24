@@ -12,7 +12,6 @@ import com.binar.secondhand.kel2.rule.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Rule

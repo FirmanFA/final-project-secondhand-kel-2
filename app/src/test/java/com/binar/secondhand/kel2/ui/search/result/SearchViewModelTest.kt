@@ -2,15 +2,11 @@ package com.binar.secondhand.kel2.ui.search.result
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
-import com.binar.secondhand.kel2.data.local.room.model.SearchHistoryEntity
 import com.binar.secondhand.kel2.data.repository.HomeRepository
-import com.binar.secondhand.kel2.data.repository.SearchHistoryRepository
 import com.binar.secondhand.kel2.rule.MainCoroutineRule
-import com.binar.secondhand.kel2.ui.search.page.SearchPageViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Rule
@@ -21,6 +17,7 @@ import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class SearchViewModelTest {
 
     private lateinit var viewModel: SearchViewModel

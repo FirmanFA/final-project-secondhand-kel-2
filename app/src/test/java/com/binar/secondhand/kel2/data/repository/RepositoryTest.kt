@@ -1,9 +1,7 @@
 package com.binar.secondhand.kel2.data.repository
 
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassRequest
 import com.binar.secondhand.kel2.data.api.model.auth.password.PutPassResponse
-import com.binar.secondhand.kel2.data.api.model.auth.register.PostRegisterRequest
 import com.binar.secondhand.kel2.data.api.model.auth.user.GetAuthResponse
 import com.binar.secondhand.kel2.data.api.model.auth.user.PutAuthResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse
@@ -37,14 +35,11 @@ import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Response
-import java.io.File
 
 class RepositoryTest {
 

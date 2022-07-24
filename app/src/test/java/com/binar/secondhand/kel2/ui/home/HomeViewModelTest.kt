@@ -7,16 +7,12 @@ import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.product.GetProductResponseItem
 import com.binar.secondhand.kel2.data.api.model.seller.banner.get.GetBannerResponse
 import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
-import com.binar.secondhand.kel2.data.api.model.seller.order.id.GetOrderIdResponse
 import com.binar.secondhand.kel2.data.repository.HomeRepository
-import com.binar.secondhand.kel2.data.repository.Repository
 import com.binar.secondhand.kel2.rule.MainCoroutineRule
-import com.binar.secondhand.kel2.ui.edit.EditViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Rule
@@ -27,6 +23,7 @@ import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelTest {
 
     private lateinit var viewModel: HomeViewModel
