@@ -51,6 +51,8 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
             binding.containerUbahAkun.visibility = View.GONE
             binding.containerPengaturanAkun.visibility = View.GONE
             binding.containerKeluar.visibility = View.GONE
+            binding.containerMyOrder.visibility = View.GONE
+            binding.lineFour.visibility = View.GONE
             binding.lineOne.visibility = View.GONE
             binding.lineTwo.visibility = View.GONE
             binding.lineThree.visibility = View.GONE
@@ -75,6 +77,12 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
             }else{
                 it.findNavController().navigate(R.id.action_mainFragment_to_profileFragment2)
             }
+        }
+
+        binding.containerMyOrder.setOnClickListener {
+
+            it.findNavController().navigate(R.id.action_mainFragment_to_myOrderFragment)
+
         }
 
         binding.containerPengaturanAkun.setOnClickListener {

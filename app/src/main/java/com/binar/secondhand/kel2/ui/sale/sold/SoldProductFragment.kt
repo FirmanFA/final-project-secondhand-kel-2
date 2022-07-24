@@ -2,17 +2,14 @@ package com.binar.secondhand.kel2.ui.sale.sold
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetSellerProductResponse
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentSoldProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
 import com.binar.secondhand.kel2.ui.sale.bid.BidProductAdapter
 import com.binar.secondhand.kel2.ui.sale.main.ProductSaleListViewModel
-import com.binar.secondhand.kel2.ui.sale.product.SellerProductAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SoldProductFragment :

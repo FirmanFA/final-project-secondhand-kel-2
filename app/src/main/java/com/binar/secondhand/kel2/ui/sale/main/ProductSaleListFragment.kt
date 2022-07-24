@@ -47,6 +47,17 @@ class ProductSaleListFragment :
             .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             .show()
             MainFragment.statusTerbit = ""
+        }else if(MainFragment.statusTerbit == "edit"){
+            val snackbar =
+                Snackbar.make(binding.snackbar, "Produk Berhasil Diubah", Snackbar.LENGTH_LONG)
+            snackbar.setAction("x") {
+                // Responds to click on the action
+                snackbar.dismiss()
+            }
+                .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.Green))
+                .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                .show()
+            MainFragment.statusTerbit = ""
         }
 
         val token = getKoin().getProperty("access_token", "")

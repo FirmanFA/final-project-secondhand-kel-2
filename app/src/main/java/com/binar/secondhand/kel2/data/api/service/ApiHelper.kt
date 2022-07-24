@@ -62,6 +62,7 @@ class ApiHelper(val apiService: ApiService) {
     suspend fun getProductOrder(productId: Int) = apiService.getProductOrder(productId)
     suspend fun getUserProfile(userId: Int) = apiService.getUserProfile(userId)
     suspend fun getBuyerOrder() = apiService.getBuyerOrder()
+    suspend fun getMyOrder() = apiService.getMyOrder()
     suspend fun postBuyerOrder(requestBuyerOrder: PostOrderRequest) = apiService.postBuyerOrder(requestBuyerOrder)
     suspend fun deleteOrder(productId: Int) = apiService.deleteOrder(productId)
 

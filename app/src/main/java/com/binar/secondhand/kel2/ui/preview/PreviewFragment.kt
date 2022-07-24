@@ -3,13 +3,18 @@ package com.binar.secondhand.kel2.ui.preview
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.binar.secondhand.kel2.R
 import com.binar.secondhand.kel2.data.resource.Status
 import com.binar.secondhand.kel2.databinding.FragmentPreviewBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
+import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.utils.URIPathHelper
+import com.binar.secondhand.kel2.utils.hideLoadingDialog
+import com.binar.secondhand.kel2.utils.showLoadingDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -75,32 +80,40 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
         previewViewModel.terbit.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Snackbar.make(binding.snackbar, "Produk Berhasil Terbit", Snackbar.LENGTH_LONG)
-                        .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>(){
-                            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                                super.onDismissed(transientBottomBar, event)
-                                requireActivity().onBackPressed()
-                            }
-                        })
-                        .setAction("x") {
-                            // Responds to click on the action
-                            requireActivity().onBackPressed()
-                        }
-                        .setBackgroundTint(resources.getColor(R.color.Green))
-                        .setActionTextColor(resources.getColor(R.color.white))
-                        .show()
+
+                    hideLoadingDialog()
+
+                    MainFragment.activePage = R.id.main_sale_list
+                    MainFragment.statusTerbit = "sukses"
+                    findNavController().navigate(R.id.action_previewFragment_to_mainFragment)
 
                 }
                 Status.ERROR -> {
-                    Snackbar.make(binding.snackbar, "Produk Gagal Terbit", Snackbar.LENGTH_LONG)
+                    hideLoadingDialog()
+                    Snackbar.make(
+                        binding.snackbar,
+                        "Terjadi kesalahan",
+                        Snackbar.LENGTH_LONG
+                    )
                         .setAction("x") {
                             // Responds to click on the action
                         }
-                        .setBackgroundTint(resources.getColor(R.color.Green))
-                        .setActionTextColor(resources.getColor(R.color.white))
+                        .setBackgroundTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.red
+                            )
+                        )
+                        .setActionTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.white
+                            )
+                        )
                         .show()
                 }
                 Status.LOADING -> {
+                    showLoadingDialog(context)
                 }
             }
         }
@@ -136,6 +149,7 @@ class PreviewFragment : BaseFragment<FragmentPreviewBinding>(FragmentPreviewBind
                                .load(it.data?.body()?.imageUrl)
                                .centerCrop()
                                .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
+                               .error(R.drawable.rectangle_camera)
                                .into(binding.imgProfile)
 
                            Glide.with(this)

@@ -27,7 +27,10 @@ import com.binar.secondhand.kel2.databinding.FragmentSellerDetailProductBinding
 import com.binar.secondhand.kel2.ui.base.BaseFragment
 import com.binar.secondhand.kel2.ui.main.MainFragment
 import com.binar.secondhand.kel2.ui.main.MainFragmentDirections
+import com.binar.secondhand.kel2.utils.LoadingDialog
 import com.binar.secondhand.kel2.utils.URIPathHelper
+import com.binar.secondhand.kel2.utils.hideLoadingDialog
+import com.binar.secondhand.kel2.utils.showLoadingDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -303,8 +306,10 @@ class SellerDetailProductFragment :
         sellerDetailProductViewModel.sellerPostProduct.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
+                    showLoadingDialog(context)
                 }
                 Status.SUCCESS -> {
+                    hideLoadingDialog()
                     when (it.data?.code()) {
                         201 -> {
                             MainFragment.activePage = R.id.main_sale_list
@@ -360,6 +365,7 @@ class SellerDetailProductFragment :
                     }
                 }
                 Status.ERROR -> {
+                    hideLoadingDialog()
                     Toast.makeText(context, "Gagal terbit ${it.message}", Toast.LENGTH_SHORT).show()
                 }
             }

@@ -54,20 +54,8 @@ class DetailProductFragment() :
         getKoin().getProperty("access_token", "")
 
         viewModel.getDetailProduct(productId)
-        viewModel.getBuyerOrder()
+//        viewModel.getBuyerOrder()
         viewModel.getWishlist()
-
-//        binding.ivfav.setOnClickListener {
-//            if (isFavorite) {
-//                viewModel.deleteWishlist(wishlistId)
-//                isFavorite = false
-//                binding.ivfav.setImageResource(R.drawable.ic_fav_full)
-//            } else {
-//                viewModel.postWishlist(PostWishlistRequest(productId))
-//                isFavorite = true
-//                binding.ivfav.setImageResource(R.drawable.ic_fav)
-//            }
-//        }
 
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
@@ -148,6 +136,7 @@ class DetailProductFragment() :
 
 
                     }
+                    viewModel.getBuyerOrder()
 
                 }
                 Status.ERROR -> {
@@ -216,7 +205,7 @@ class DetailProductFragment() :
                     requireContext().getColorStateList(R.color.Green)
 
             }else if(pending) {
-                binding.btnTertarik.text = "Menunggu respon penjual"
+                binding.btnTertarik.text = "Menunggu respon penjual\n(Klik untuk ubah)"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.orange)
 
@@ -228,7 +217,7 @@ class DetailProductFragment() :
             }
 
             else if(declined) {
-                binding.btnTertarik.text = "Penawaran anda ditolak"
+                binding.btnTertarik.text = "Penawaran anda ditolak\n(Klik untuk hapus)"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.red)
             }else{
@@ -251,9 +240,6 @@ class DetailProductFragment() :
                 Status.SUCCESS -> {
 
                     val listWishlist = it.data?.body()
-//                    val wishlistProductIdList = listWishlist?.map { wishlistItem ->
-//                        wishlistItem.product_id
-//                    }
 
                     val isWishlistExist = listWishlist?.find { wishlistItem ->
                         wishlistItem.product_id == id
@@ -268,30 +254,6 @@ class DetailProductFragment() :
                         false
                     }
 
-
-//                    if (it.data.Product != null) {
-//
-//                    } else {
-//                        for (idWhishlist in it.data ){
-//                            if (idWhishlist.productId == args.productId){
-//                                wishlistId = idWhishlist.id
-//                            }
-//                        }
-//
-//                        for (data in 0 until (it.data.size ?: 0)) {
-//                            if (it.data?.body(). == args.productId) {
-//                                isFavorite = true
-//                            }
-//                        }
-//                        if (isFavorite) {
-//                            binding.ivfav.setImageResource(R.drawable.ic_fav_full)
-//                        } else {
-//                            binding.ivfav.setImageResource(R.drawable.ic_fav)
-//                        }
-//
-//
-//
-//                    }
 
                 }
                 Status.ERROR -> {

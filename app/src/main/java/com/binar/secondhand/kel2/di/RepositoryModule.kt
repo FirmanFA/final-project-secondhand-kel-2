@@ -20,4 +20,6 @@ val repositoryModule = module {
     singleOf(::SearchHistoryRepository)
 
     singleOf(::NotificationRepository)
+
+    singleOf(::MyOrderRepository)
 }
