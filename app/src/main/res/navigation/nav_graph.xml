@@ -128,7 +128,9 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_detailProductFragment_to_self"
-            app:destination="@id/detailProductFragment" />
+            app:destination="@id/detailProductFragment"
+            app:popUpTo="@id/detailProductFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/buyerPenawaranFragment"

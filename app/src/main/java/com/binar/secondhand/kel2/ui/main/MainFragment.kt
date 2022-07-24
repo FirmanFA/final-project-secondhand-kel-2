@@ -16,6 +16,7 @@ import com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductFragment
 import com.binar.secondhand.kel2.ui.login.LoginFragment
 import com.binar.secondhand.kel2.ui.notification.NotificationFragment
 import com.binar.secondhand.kel2.ui.sale.main.ProductSaleListFragment
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -33,14 +34,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.bottomMainFragment.setOnItemReselectedListener {
-//            if (activePage == 0){
-//                activity?.supportFragmentManager?.beginTransaction()
-//                    ?.replace(R.id.main_fragment_host, HomeFragment())
-//                    ?.commit()
-//            }
-//        }
-
         preferences =
             this.requireActivity()
                 .getSharedPreferences("notification", Context.MODE_PRIVATE)
@@ -56,6 +49,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         } else {
             notificationBadge.isVisible = true
             notificationBadge.number = latestUnreadCount
+        }
+
+        val token = getKoin().getProperty("access_token", "")
+
+        if (token == ""){
+            mainViewModel.setNotificationCount(0)
         }
 
         setupObserver()
