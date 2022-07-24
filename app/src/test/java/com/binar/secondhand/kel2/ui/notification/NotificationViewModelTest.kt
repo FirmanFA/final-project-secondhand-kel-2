@@ -69,5 +69,21 @@ class NotificationViewModelTest {
 
     }
 
+    @Test
+    fun readNotification()= runTest{
+        val unitResponse = mock<Response<Unit>>()
 
+        val id = 1
+
+        given(repository.readNotification(id)).willReturn(unitResponse)
+
+        viewModel.readNotification(id)
+
+        advanceUntilIdle()
+
+        Mockito.verify(repository, times(1)).readNotification(id)
+        assertNotNull(viewModel.readNotificationResponse.value?.status)
+        assertEquals(viewModel.readNotificationResponse.value?.data, unitResponse)
+
+    }
 }

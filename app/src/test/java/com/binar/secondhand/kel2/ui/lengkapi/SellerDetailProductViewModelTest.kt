@@ -1,6 +1,7 @@
 package com.binar.secondhand.kel2.ui.lengkapi
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
 import com.binar.secondhand.kel2.data.api.model.seller.order.SellerOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.post.PostProductResponse
 import com.binar.secondhand.kel2.data.repository.Repository
@@ -90,5 +91,20 @@ class SellerDetailProductViewModelTest {
         )
         kotlin.test.assertNotNull(viewModel.sellerPostProduct)
         kotlin.test.assertEquals(viewModel.sellerPostProduct.value?.data, postProductGetResponse)
+    }
+
+    @Test
+    fun getCategory()= runTest{
+        val getCategoryResponse = mock<Response<GetCategoryResponse>>()
+
+        given(repository.getCategory()).willReturn(getCategoryResponse)
+
+        viewModel.getCategory()
+
+        advanceUntilIdle()
+
+        Mockito.verify(repository, Mockito.times(1)).getCategory()
+        kotlin.test.assertNotNull(viewModel.getCategoryResponse)
+        kotlin.test.assertEquals(viewModel.getCategoryResponse.value?.data, getCategoryResponse)
     }
 }
