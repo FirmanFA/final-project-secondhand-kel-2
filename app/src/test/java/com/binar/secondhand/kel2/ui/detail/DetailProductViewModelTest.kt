@@ -5,6 +5,8 @@ import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse.GetOrderResponseItem
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderRequest
 import com.binar.secondhand.kel2.data.api.model.buyer.order.post.PostOrderResponse
+import com.binar.secondhand.kel2.data.api.model.buyer.orderid.get.GetBuyerOrderId
+import com.binar.secondhand.kel2.data.api.model.buyer.orderid.put.PutOrderIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.UserProduct
 import com.binar.secondhand.kel2.data.api.model.seller.order.SellerOrderIdResponse
@@ -19,6 +21,8 @@ import com.binar.secondhand.kel2.ui.bidder.BidderViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.Assert.*
 
 import org.junit.Before
@@ -50,6 +54,21 @@ class DetailProductViewModelTest {
     }
 
     @Test
+    fun getWishlist()= runTest{
+        val getWishlist = mock<Response<GetWishlist>>()
+
+        given(repository.getWishlist()).willReturn(getWishlist)
+
+        viewModel.getWishlist()
+
+        advanceUntilIdle()
+
+        Mockito.verify(repository, Mockito.times(1)).getWishlist()
+        kotlin.test.assertNotNull(viewModel.getWishlist)
+        kotlin.test.assertEquals(viewModel.getWishlist.value?.data, getWishlist)
+    }
+
+    @Test
     fun getDetailProduct()= runTest{
         val productIdGetResponse = mock<Response<GetProductIdResponse>>()
 
@@ -62,6 +81,23 @@ class DetailProductViewModelTest {
         Mockito.verify(repository, Mockito.times(1)).getProductDetail(1)
         kotlin.test.assertNotNull(viewModel.detailProduct)
         kotlin.test.assertEquals(viewModel.detailProduct.value?.data, productIdGetResponse)
+    }
+
+    @Test
+    fun getProductOrder()= runTest{
+        val getBuyerOrderIdResponse = mock<Response<GetBuyerOrderId>>()
+
+        val productId = 1
+
+        given(repository.getProductOrder(productId)).willReturn(getBuyerOrderIdResponse)
+
+        viewModel.getProductOrder(productId)
+
+        advanceUntilIdle()
+
+        Mockito.verify(repository, Mockito.times(1)).getProductOrder(productId)
+        kotlin.test.assertNotNull(viewModel.orderProduct)
+        kotlin.test.assertEquals(viewModel.orderProduct.value?.data, getBuyerOrderIdResponse)
     }
 
     @Test
@@ -78,21 +114,6 @@ class DetailProductViewModelTest {
         kotlin.test.assertNotNull(viewModel.getBuyerOrder)
         kotlin.test.assertEquals(viewModel.getBuyerOrder.value?.data, productIdGetResponse)
     }
-
-//    @Test
-//    fun getUserProfile()= runTest{
-//        val userProductResponse = mock<Response<UserProduct>>()
-//
-//        given(repository.getUserProfile(1)).willReturn(userProductResponse)
-//
-//        viewModel.getUserProfile(1)
-//
-//        advanceUntilIdle()
-//
-//        Mockito.verify(repository, Mockito.times(1)).getUserProfile(1)
-//        kotlin.test.assertNotNull(viewModel.getProfile)
-//        kotlin.test.assertEquals(viewModel.getProfile.value?.data, userProductResponse)
-//    }
 
     @Test
     fun buyerOrder()= runTest{
@@ -114,22 +135,39 @@ class DetailProductViewModelTest {
         kotlin.test.assertEquals(viewModel.buyerOrder.value?.data, postOrderResponse)
     }
 
-//    @Test
-//    fun postWishlist()= runTest{
-//        val postWishlist = mock<Response<PostWishlist>>()
-//
-//        val requestBuyerWishlist = PostWishlistRequest(1)
-//
-//        given(repository.postWishlist(requestBuyerWishlist)).willReturn(postWishlist)
-//
-//        viewModel.postWishlist(requestBuyerWishlist)
-//
-//        advanceUntilIdle()
-//
-//        Mockito.verify(repository, Mockito.times(1)).postWishlist(requestBuyerWishlist)
-//        kotlin.test.assertNotNull(viewModel.postWishlist)
-//        kotlin.test.assertEquals(viewModel.postWishlist.value?.data, postWishlist)
-//    }
+    @Test
+    fun deleteOrder()= runTest{
+        val unitResponse = mock<Response<Unit>>()
+
+        val productId = 1
+
+        given(repository.deleteOrder(productId)).willReturn(unitResponse)
+
+        viewModel.deleteOrder(productId)
+
+        advanceUntilIdle()
+
+        Mockito.verify(repository, Mockito.times(1)).deleteOrder(productId)
+        kotlin.test.assertNotNull(viewModel.deleteOrder)
+        kotlin.test.assertEquals(viewModel.deleteOrder.value?.data, unitResponse)
+    }
+
+    @Test
+    fun postWishlist()= runTest{
+        val postWishlist = mock<Response<PostWishlist>>()
+
+        val requestBuyerWishlist = PostWishlistRequest(1)
+
+        given(repository.postWishlist(requestBuyerWishlist)).willReturn(postWishlist)
+
+        viewModel.postWishlist(requestBuyerWishlist)
+
+        advanceUntilIdle()
+
+        Mockito.verify(repository, Mockito.times(1)).postWishlist(requestBuyerWishlist)
+        kotlin.test.assertNotNull(viewModel.postWishlist)
+        kotlin.test.assertEquals(viewModel.postWishlist.value?.data, postWishlist)
+    }
 
     @Test
     fun deleteWishlist()= runTest{
@@ -166,17 +204,30 @@ class DetailProductViewModelTest {
     }
 
     @Test
-    fun getWishlist()= runTest{
-        val getWishlist = mock<Response<GetWishlist>>()
+    fun editOrder()= runTest{
+        val putOrderIdResponse = mock<Response<PutOrderIdResponse>>()
 
-        given(repository.getWishlist()).willReturn(getWishlist)
+        val id = 1
+        val bidOrder = 100000
+        val bidOrderBody = bidOrder.toString().toRequestBody("text/plain".toMediaTypeOrNull())
 
-        viewModel.getWishlist()
+        given(repository.putOrder(
+            id,
+            bidOrderBody
+        )).willReturn(putOrderIdResponse)
+
+        viewModel.editOrder(
+            id,
+            bidOrderBody,
+        )
 
         advanceUntilIdle()
 
-        Mockito.verify(repository, Mockito.times(1)).getWishlist()
-        kotlin.test.assertNotNull(viewModel.getWishlist)
-        kotlin.test.assertEquals(viewModel.getWishlist.value?.data, getWishlist)
+        Mockito.verify(repository, Mockito.times(1)).putOrder(
+            id,
+            bidOrderBody
+        )
+        kotlin.test.assertNotNull(viewModel.editOrder)
+        kotlin.test.assertEquals(viewModel.editOrder.value?.data, putOrderIdResponse)
     }
 }
