@@ -32,16 +32,14 @@
             android:id="@+id/tv_status"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="72dp"
             android:text="@string/status_penawaran"
             android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textSize="22sp"
-            android:layout_marginStart="72dp"
-            app:layout_constraintTop_toTopOf="@id/img_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_icon"
-            tools:layout_editor_absoluteY="16dp">
-        </TextView>
+            app:layout_constraintTop_toTopOf="@id/img_icon"></TextView>
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"

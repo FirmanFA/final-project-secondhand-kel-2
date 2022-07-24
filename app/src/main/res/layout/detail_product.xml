@@ -20,7 +20,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="320dp"
             android:fitsSystemWindows="true"
             tools:src="@tools:sample/backgrounds/scenic"
             android:background="@color/white">
@@ -38,8 +38,8 @@
                 <ImageView
                     android:id="@+id/ivBackdrop"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
                     tools:src="@tools:sample/backgrounds/scenic"
                     android:layout_gravity="center|end"
                     app:layout_collapseMode="parallax"/>
@@ -131,7 +131,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:layout_constraintEnd_toEndOf="parent"
-                            android:src="@drawable/ic_fav_grey" />
+                            android:src="@drawable/ic_fav" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>

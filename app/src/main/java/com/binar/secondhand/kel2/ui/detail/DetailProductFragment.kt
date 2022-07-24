@@ -3,6 +3,7 @@ package com.binar.secondhand.kel2.ui.detail
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -33,7 +34,7 @@ class DetailProductFragment() :
     private var pending = false
     private var accepted = false
     private var declined = false
-    private var favourite = false
+    private var isFavorite = false
     private var price = ""
     private var imageProduct = ""
     private var product = ""
@@ -53,23 +54,23 @@ class DetailProductFragment() :
         getKoin().getProperty("access_token", "")
 
         viewModel.getDetailProduct(productId)
-        viewModel.getBuyerOrder()
-        viewModel.getWishlist
-
-//        binding.ivfav.setOnClickListener {
-//            if (favourite) {
-//                viewModel.deleteWishlist(wishlistId)
-//                favourite = false
-//                binding.ivfav.setImageResource(R.drawable.ic_fav_full)
-//            } else {
-//                viewModel.postWishlist(PostWishlistRequest(productId))
-//                favourite = true
-//                binding.ivfav.setImageResource(R.drawable.ic_fav)
-//            }
-//        }
+//        viewModel.getBuyerOrder()
+        viewModel.getWishlist()
 
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        binding.ivfav.setOnClickListener {
+            val req = PostWishlistRequest(productId)
+            if (isFavorite) {
+                viewModel.deleteWishlist(wishlistId)
+                //                viewModel.getWishlist()
+            } else {
+                viewModel.postWishlist(req)
+
+                //                viewModel.getWishlist()
+            }
         }
 
 
@@ -135,6 +136,7 @@ class DetailProductFragment() :
 
 
                     }
+                    viewModel.getBuyerOrder()
 
                 }
                 Status.ERROR -> {
@@ -203,7 +205,7 @@ class DetailProductFragment() :
                     requireContext().getColorStateList(R.color.Green)
 
             }else if(pending) {
-                binding.btnTertarik.text = "Menunggu respon penjual"
+                binding.btnTertarik.text = "Menunggu respon penjual\n(Klik untuk ubah)"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.orange)
 
@@ -215,7 +217,7 @@ class DetailProductFragment() :
             }
 
             else if(declined) {
-                binding.btnTertarik.text = "Penawaran anda ditolak"
+                binding.btnTertarik.text = "Penawaran anda ditolak\n(Klik untuk hapus)"
                 binding.btnTertarik.backgroundTintList =
                     requireContext().getColorStateList(R.color.red)
             }else{
@@ -236,44 +238,27 @@ class DetailProductFragment() :
 
                 }
                 Status.SUCCESS -> {
-//                    if (it.data.Product != null) {
-//
-//                    } else {
-//                        for (idWhishlist in it.data ){
-//                            if (idWhishlist.productId == args.productId){
-//                                wishlistId = idWhishlist.id
-//                            }
-//                        }
-//
-//                        for (data in 0 until (it.data.size ?: 0)) {
-//                            if (it.data?.body(). == args.productId) {
-//                                favourite = true
-//                            }
-//                        }
-//                        if (favourite) {
-//                            binding.ivfav.setImageResource(R.drawable.ic_fav_full)
-//                        } else {
-//                            binding.ivfav.setImageResource(R.drawable.ic_fav)
-//                        }
-//
-//
-//
-//                    }
+
+                    val listWishlist = it.data?.body()
+
+                    val isWishlistExist = listWishlist?.find { wishlistItem ->
+                        wishlistItem.product_id == id
+                    }
+
+                    isFavorite = if (isWishlistExist != null){
+                        binding.ivfav.setImageResource(R.drawable.ic_fav_full)
+                        wishlistId = isWishlistExist.id
+                        true
+                    } else {
+                        binding.ivfav.setImageResource(R.drawable.ic_fav)
+                        false
+                    }
+
 
                 }
                 Status.ERROR -> {
                     AlertDialog.Builder(requireContext()).setMessage(it.message).show()
                 }
-            }
-        }
-        binding.ivfav.setOnClickListener {
-            val req = PostWishlistRequest(id)
-            if (favourite) {
-                viewModel.deleteWishlist(wishlistId)
-                favourite = false
-            } else {
-                viewModel.postWishlist(req)
-                favourite =true
             }
         }
         viewModel.postWishlist.observe(viewLifecycleOwner) {
@@ -282,7 +267,7 @@ class DetailProductFragment() :
                 }
                 Status.SUCCESS ->{
                     viewModel.getWishlist()
-                    binding.ivfav.setImageResource(R.drawable.ic_fav_full)
+//                    binding.ivfav.setImageResource(R.drawable.ic_fav_full)
                     Toast.makeText(requireContext(), "add to wishlist", Toast.LENGTH_SHORT).show()
 
                 }
@@ -296,7 +281,7 @@ class DetailProductFragment() :
                 Status.LOADING ->{}
                 Status.SUCCESS ->{
                     viewModel.getWishlist()
-                    binding.ivfav.setImageResource(R.drawable.ic_fav)
+//                    binding.ivfav.setImageResource(R.drawable.ic_fav)
                     Toast.makeText(requireContext(), "delete from wishlist", Toast.LENGTH_SHORT)
                         .show()
                 }

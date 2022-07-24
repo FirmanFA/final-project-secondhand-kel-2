@@ -170,6 +170,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
+                    android:gravity="top"
                     android:fontFamily="@font/montserrat_regular" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -199,12 +200,13 @@
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
-                android:hint="Contoh : +628123456789">
+                android:hint="628123456789">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_regular"
+                    android:inputType="number"
                     android:singleLine="true" />
 
             </com.google.android.material.textfield.TextInputLayout>

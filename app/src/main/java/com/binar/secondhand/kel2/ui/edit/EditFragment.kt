@@ -290,7 +290,7 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
                     when (it.data?.code()) {
                         200 -> {
                             MainFragment.activePage = R.id.main_sale_list
-                            MainFragment.statusTerbit = "sukses"
+                            MainFragment.statusTerbit = "edit"
                             findNavController()
                                 .navigate(R.id.action_editFragment_to_mainFragment)
                         }

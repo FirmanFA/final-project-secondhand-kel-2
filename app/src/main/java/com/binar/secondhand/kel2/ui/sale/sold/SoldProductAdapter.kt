@@ -1,18 +1,12 @@
 package com.binar.secondhand.kel2.ui.sale.sold
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
-import com.binar.secondhand.kel2.data.api.model.seller.product.get.GetProductResponseItem
 import com.binar.secondhand.kel2.databinding.NotificationContentBinding
-import com.binar.secondhand.kel2.databinding.ProductSaleListLayoutBinding
-import com.binar.secondhand.kel2.ui.sale.bid.BidProductAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners

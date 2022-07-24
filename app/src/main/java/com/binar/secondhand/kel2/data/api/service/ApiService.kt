@@ -93,6 +93,9 @@ interface ApiService {
     @GET("buyer/order")
     suspend fun getBuyerOrder(): List<GetOrderResponse.GetOrderResponseItem>
 
+    @GET("buyer/order")
+    suspend fun getMyOrder(): Response<GetOrderResponse>
+
     @POST("buyer/order")
     suspend fun postBuyerOrder(
         @Body requestBuyerOrder: PostOrderRequest

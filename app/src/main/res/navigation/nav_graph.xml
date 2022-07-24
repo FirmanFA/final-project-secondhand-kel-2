@@ -110,6 +110,9 @@
         <action
             android:id="@+id/action_mainFragment_to_wishlistFragment"
             app:destination="@id/wishlistFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_myOrderFragment"
+            app:destination="@id/myOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailProductFragment"
@@ -128,7 +131,9 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_detailProductFragment_to_self"
-            app:destination="@id/detailProductFragment" />
+            app:destination="@id/detailProductFragment"
+            app:popUpTo="@id/detailProductFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/buyerPenawaranFragment"
@@ -235,5 +240,13 @@
         <action
             android:id="@+id/action_wishlistFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myOrderFragment"
+        android:name="com.binar.secondhand.kel2.ui.order.MyOrderFragment"
+        android:label="MyOrderFragment" >
+        <action
+            android:id="@+id/action_myOrderFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
     </fragment>
 </navigation>

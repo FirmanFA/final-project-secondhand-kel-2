@@ -23,6 +23,8 @@ class GetOrderResponse : ArrayList<GetOrderResponse.GetOrderResponseItem>(){
         val productName: Any,
         @SerializedName("status")
         val status: String,
+        @SerializedName("transaction_date")
+        val transactionDate: String?,
         @SerializedName("User")
         val user: User
     ) {

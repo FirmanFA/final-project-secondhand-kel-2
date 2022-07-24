@@ -12,6 +12,7 @@ import com.binar.secondhand.kel2.ui.lengkapi.SellerDetailProductViewModel
 import com.binar.secondhand.kel2.ui.login.LoginViewModel
 import com.binar.secondhand.kel2.ui.main.MainViewModel
 import com.binar.secondhand.kel2.ui.notification.NotificationViewModel
+import com.binar.secondhand.kel2.ui.order.MyOrderViewModel
 import com.binar.secondhand.kel2.ui.pass.ChangePassViewModel
 import com.binar.secondhand.kel2.ui.preview.PreviewViewModel
 import com.binar.secondhand.kel2.ui.sale.main.ProductSaleListViewModel
@@ -56,5 +57,7 @@ val viewModelModule = module {
     viewModelOf(::MainViewModel)
 
     viewModelOf(::WishlistViewModel)
+
+    viewModelOf(::MyOrderViewModel)
 
 }

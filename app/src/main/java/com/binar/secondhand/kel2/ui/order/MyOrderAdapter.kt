@@ -1,12 +1,12 @@
-package com.binar.secondhand.kel2.ui.sale.bid
+package com.binar.secondhand.kel2.ui.order
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.binar.secondhand.kel2.data.api.model.seller.order.GetOrderResponse
-import com.binar.secondhand.kel2.databinding.NotificationContentBinding
+import com.binar.secondhand.kel2.data.api.model.buyer.order.get.GetOrderResponse
+import com.binar.secondhand.kel2.databinding.MyOrderContentBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -18,8 +18,8 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BidProductAdapter(private val onItemClick: OnClickListener) :
-    RecyclerView.Adapter<BidProductAdapter.ViewHolder>() {
+class MyOrderAdapter(private val onItemClick: OnClickListener) :
+    RecyclerView.Adapter<MyOrderAdapter.ViewHolder>() {
 
     private val diffCallback =
         object : DiffUtil.ItemCallback<GetOrderResponse.GetOrderResponseItem>() {
@@ -41,19 +41,19 @@ class BidProductAdapter(private val onItemClick: OnClickListener) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BidProductAdapter.ViewHolder {
+    ): MyOrderAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(NotificationContentBinding.inflate(inflater, parent, false))
+        return ViewHolder(MyOrderContentBinding.inflate(inflater, parent, false))
     }
 
-    override fun onBindViewHolder(holder: BidProductAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyOrderAdapter.ViewHolder, position: Int) {
         val data = differ.currentList[position]
         data.let { holder.bind(data) }
     }
 
     override fun getItemCount(): Int = differ.currentList.size
 
-    inner class ViewHolder(private val binding: NotificationContentBinding) :
+    inner class ViewHolder(private val binding: MyOrderContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: GetOrderResponse.GetOrderResponseItem) {
             binding.apply {
@@ -86,7 +86,7 @@ class BidProductAdapter(private val onItemClick: OnClickListener) :
                     .into(binding.ivProduct)
                 tvTitle.text = data.product.name
                 tvPrice.text = "Rp $formattedNumber"
-                tvNego.text = "Ditawar Rp $formattedNumber2"
+                tvNego.text = "Rp $formattedNumber2"
                 tvStatus.text = data.status
                 tvTime.text = DateFormat.getDateInstance(DateFormat.FULL).format(date)
                 root.setOnClickListener {
