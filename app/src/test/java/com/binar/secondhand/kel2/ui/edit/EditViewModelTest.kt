@@ -2,6 +2,7 @@ package com.binar.secondhand.kel2.ui.edit
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.binar.secondhand.kel2.data.api.model.buyer.productid.GetProductIdResponse
+import com.binar.secondhand.kel2.data.api.model.seller.category.get.GetCategoryResponse
 import com.binar.secondhand.kel2.data.api.model.seller.product.put.PutSellerProductIdResponse
 import com.binar.secondhand.kel2.data.repository.Repository
 import com.binar.secondhand.kel2.rule.MainCoroutineRule
@@ -92,5 +93,37 @@ class EditViewModelTest {
         )
         kotlin.test.assertNotNull(viewModel.editDetailProduct)
         kotlin.test.assertEquals(viewModel.editDetailProduct.value?.data, putSellerProductIdGetResponse)
+    }
+
+    @Test
+    fun getDetailProduct()= runTest{
+        val getProductIdResponse = mock<Response<GetProductIdResponse>>()
+
+        val productId = 1
+
+        given(repository.getProductDetail(productId)).willReturn(getProductIdResponse)
+
+        viewModel.getDetailProduct(productId)
+
+        advanceUntilIdle()
+
+        Mockito.verify(repository, Mockito.times(1)).getProductDetail(productId)
+        kotlin.test.assertNotNull(viewModel.detailProduct)
+        kotlin.test.assertEquals(viewModel.detailProduct.value?.data, getProductIdResponse)
+    }
+
+    @Test
+    fun getCategory()= runTest{
+        val getCategoryResponse = mock<Response<GetCategoryResponse>>()
+
+        given(repository.getCategory()).willReturn(getCategoryResponse)
+
+        viewModel.getCategory()
+
+        advanceUntilIdle()
+
+        Mockito.verify(repository, Mockito.times(1)).getCategory()
+        kotlin.test.assertNotNull(viewModel.getCategoryResponse)
+        kotlin.test.assertEquals(viewModel.getCategoryResponse.value?.data, getCategoryResponse)
     }
 }
