@@ -31,51 +31,6 @@ class EditProfileTest {
     @Test
     fun editProfileTest2() {
         Thread.sleep(3000)
-        val floatingActionButton = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton.perform(click())
-
-        val floatingActionButton2 = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton2.perform(click())
-
-        val floatingActionButton3 = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton3.perform(click())
-
         val bottomNavigationItemView = onView(
             allOf(
                 withId(R.id.main_account), withContentDescription("Akun"),
@@ -91,67 +46,66 @@ class EditProfileTest {
         )
         bottomNavigationItemView.perform(click())
 
-        val materialButton = onView(
-            allOf(
-                withId(R.id.btn_login), withText("Sign In"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.main_fragment_host),
-                        0
-                    ),
-                    8
-                ),
-                isDisplayed()
-            )
-        )
-        Thread.sleep(1000)
-        materialButton.perform(click())
-        Thread.sleep(5000)
-
-        val textInputEditText = onView(
-            allOf(
-                withId(R.id.et_email),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.email_container),
-                        0
-                    ),
-                    0
-                )
-            )
-        )
-        textInputEditText.perform(scrollTo(), replaceText("coba@mail.com"), closeSoftKeyboard())
-
-        val textInputEditText2 = onView(
-            allOf(
-                withId(R.id.et_masukkan_passowrd),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.password_container),
-                        0
-                    ),
-                    0
-                )
-            )
-        )
-        textInputEditText2.perform(scrollTo(), replaceText("000000"), closeSoftKeyboard())
-
-        pressBack()
-
-        val appCompatButton = onView(
-            allOf(
-                withId(R.id.btn_masuk), withText("Sign In"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    11
-                )
-            )
-        )
-        Thread.sleep(1000)
-        appCompatButton.perform(scrollTo(), click())
+//        val materialButton = onView(
+//            allOf(
+//                withId(R.id.btn_login), withText("Sign In"),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.main_fragment_host),
+//                        0
+//                    ),
+//                    8
+//                ),
+//                isDisplayed()
+//            )
+//        )
+//
+//        Thread.sleep(1000)
+//        materialButton.perform(click())
+//        Thread.sleep(1000)
+//
+//        val textInputEditText = onView(
+//            allOf(
+//                withId(R.id.et_email),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.email_container),
+//                        0
+//                    ),
+//                    0
+//                )
+//            )
+//        )
+//        textInputEditText.perform(scrollTo(), replaceText("testing@testing.com"), closeSoftKeyboard())
+//
+//        val textInputEditText2 = onView(
+//            allOf(
+//                withId(R.id.et_masukkan_passowrd),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.password_container),
+//                        0
+//                    ),
+//                    0
+//                )
+//            )
+//        )
+//        textInputEditText2.perform(scrollTo(), replaceText("000000"), closeSoftKeyboard())
+//
+//        val appCompatButton = onView(
+//            allOf(
+//                withId(R.id.btn_masuk), withText("Sign In"),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withClassName(`is`("android.widget.ScrollView")),
+//                        0
+//                    ),
+//                    11
+//                )
+//            )
+//        )
+//        Thread.sleep(1000)
+//        appCompatButton.perform(scrollTo(), click())
         Thread.sleep(5000)
 
         val linearLayout = onView(
@@ -169,9 +123,10 @@ class EditProfileTest {
         )
         linearLayout.perform(click())
 
+        Thread.sleep(1000)
+
         val textInputEditText3 = onView(
             allOf(
-                withText("Jalan baru"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.et_address),
@@ -198,11 +153,8 @@ class EditProfileTest {
         )
         textInputEditText4.perform(closeSoftKeyboard())
 
-        pressBack()
-
         val textInputEditText5 = onView(
             allOf(
-                withText("6281222333444"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.et_phone),
@@ -228,8 +180,6 @@ class EditProfileTest {
             )
         )
         textInputEditText6.perform(closeSoftKeyboard())
-
-        pressBack()
 
         val materialButton2 = onView(
             allOf(

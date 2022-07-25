@@ -320,6 +320,7 @@ class ProfileFragment :
         uri?.let {
             Glide.with(this)
                 .load(it)
+                .circleCrop()
                 .into(binding.ivCam)
         }
     }

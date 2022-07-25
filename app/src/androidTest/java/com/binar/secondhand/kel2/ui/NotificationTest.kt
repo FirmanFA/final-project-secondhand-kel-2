@@ -33,50 +33,6 @@ class NotificationTest {
     @Test
     fun notificationTest() {
         Thread.sleep(3000)
-        val floatingActionButton = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton.perform(click())
-
-        val floatingActionButton2 = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton2.perform(click())
-
-        val floatingActionButton3 = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton3.perform(click())
 
         val bottomNavigationItemView = onView(
             allOf(
@@ -93,66 +49,65 @@ class NotificationTest {
         )
         bottomNavigationItemView.perform(click())
 
-        val materialButton = onView(
-            allOf(
-                withId(R.id.btn_login), withText("Sign In"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.main_fragment_host),
-                        0
-                    ),
-                    8
-                ),
-                isDisplayed()
-            )
-        )
-        Thread.sleep(1000)
-        materialButton.perform(click())
+//        val materialButton = onView(
+//            allOf(
+//                withId(R.id.btn_login), withText("Sign In"),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.main_fragment_host),
+//                        0
+//                    ),
+//                    8
+//                ),
+//                isDisplayed()
+//            )
+//        )
+//        Thread.sleep(1000)
+//        materialButton.perform(click())
+//        Thread.sleep(500)
+//
+//        val textInputEditText = onView(
+//            allOf(
+//                withId(R.id.et_email),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.email_container),
+//                        0
+//                    ),
+//                    0
+//                )
+//            )
+//        )
+//        textInputEditText.perform(scrollTo(), replaceText("testing@testing.com"), closeSoftKeyboard())
+//
+//        val textInputEditText2 = onView(
+//            allOf(
+//                withId(R.id.et_masukkan_passowrd),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.password_container),
+//                        0
+//                    ),
+//                    0
+//                )
+//            )
+//        )
+//        textInputEditText2.perform(scrollTo(), replaceText("000000"), closeSoftKeyboard())
+//
+//        val appCompatButton = onView(
+//            allOf(
+//                withId(R.id.btn_masuk), withText("Sign In"),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withClassName(`is`("android.widget.ScrollView")),
+//                        0
+//                    ),
+//                    11
+//                )
+//            )
+//        )
+//        appCompatButton.perform(scrollTo(), click())
         Thread.sleep(5000)
-
-        val textInputEditText = onView(
-            allOf(
-                withId(R.id.et_email),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.email_container),
-                        0
-                    ),
-                    0
-                )
-            )
-        )
-        textInputEditText.perform(scrollTo(), replaceText("coba@mail.com"), closeSoftKeyboard())
-
-        val textInputEditText2 = onView(
-            allOf(
-                withId(R.id.et_masukkan_passowrd),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.password_container),
-                        0
-                    ),
-                    0
-                )
-            )
-        )
-        textInputEditText2.perform(scrollTo(), replaceText("111111"), closeSoftKeyboard())
-
-        pressBack()
-
-        val appCompatButton = onView(
-            allOf(
-                withId(R.id.btn_masuk), withText("Sign In"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    11
-                )
-            )
-        )
-        appCompatButton.perform(scrollTo(), click())
 
         val bottomNavigationItemView2 = onView(
             allOf(
@@ -168,6 +123,8 @@ class NotificationTest {
             )
         )
         bottomNavigationItemView2.perform(click())
+
+        Thread.sleep(3000)
 
         val recyclerView = onView(
             allOf(

@@ -73,25 +73,6 @@ class HomeRepositoryTest {
         }
     }
 
-//    @Test
-//    fun getProductStream(): Unit = runBlocking {
-//        val getProductResponseItem = mockk<PagingSource<1, GetProductResponseItem>>()
-//
-//        every {
-//            runBlocking {
-//                appDatabase.productDao().getProducts()
-//            }
-//        } returns getProductResponseItem
-//
-//        homeRepository.getProductStream()
-//
-//        verify {
-//            runBlocking {
-//                appDatabase.productDao().getProducts()
-//            }
-//        }
-//    }
-
     @Test
     fun getCategory(): Unit = runBlocking {
         val responseGetCategory = mockk<Response<GetCategoryResponse>>()

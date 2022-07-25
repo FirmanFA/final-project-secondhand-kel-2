@@ -19,10 +19,12 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class SignInAndSignUpTest {
+class AuthTest {
 
     @Rule
     @JvmField
@@ -30,6 +32,10 @@ class SignInAndSignUpTest {
 
     @Test
     fun signInAndSignUpTest() {
+
+        val randomNumber = System.currentTimeMillis()%100
+        val email = "kel2${randomNumber}@mail.com"
+
         Thread.sleep(3000)
         val bottomNavigationItemView = onView(
             allOf(
@@ -101,7 +107,7 @@ class SignInAndSignUpTest {
                 )
             )
         )
-        textInputEditText2.perform(scrollTo(), replaceText("coba@mail.com"), closeSoftKeyboard())
+        textInputEditText2.perform(scrollTo(), replaceText(email), closeSoftKeyboard())
 
         val textInputEditText3 = onView(
             allOf(
@@ -131,7 +137,6 @@ class SignInAndSignUpTest {
         )
         textInputEditText4.perform(scrollTo(), replaceText("000000"), closeSoftKeyboard())
 
-        pressBack()
 
         val appCompatButton = onView(
             allOf(
@@ -161,7 +166,7 @@ class SignInAndSignUpTest {
                 )
             )
         )
-        textInputEditText5.perform(scrollTo(), replaceText("coba@mail.com"), closeSoftKeyboard())
+        textInputEditText5.perform(scrollTo(), replaceText(email), closeSoftKeyboard())
 
         val textInputEditText6 = onView(
             allOf(
@@ -177,7 +182,6 @@ class SignInAndSignUpTest {
         )
         textInputEditText6.perform(scrollTo(), replaceText("000000"), closeSoftKeyboard())
 
-        pressBack()
         Thread.sleep(3000)
 
         val appCompatButton2 = onView(

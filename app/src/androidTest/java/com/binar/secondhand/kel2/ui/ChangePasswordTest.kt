@@ -31,50 +31,6 @@ class ChangePasswordTest {
     @Test
     fun changePasswordTest() {
         Thread.sleep(3000)
-        val floatingActionButton = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton.perform(click())
-
-        val floatingActionButton2 = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton2.perform(click())
-
-        val floatingActionButton3 = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton3.perform(click())
 
         val bottomNavigationItemView = onView(
             allOf(
@@ -118,7 +74,7 @@ class ChangePasswordTest {
                 )
             )
         )
-        textInputEditText.perform(scrollTo(), replaceText("coba@mail.com"), closeSoftKeyboard())
+        textInputEditText.perform(scrollTo(), replaceText("testing@testing.com"), closeSoftKeyboard())
 
         val textInputEditText2 = onView(
             allOf(
@@ -133,8 +89,6 @@ class ChangePasswordTest {
             )
         )
         textInputEditText2.perform(scrollTo(), replaceText("000000"), closeSoftKeyboard())
-
-        pressBack()
 
         val appCompatButton = onView(
             allOf(
@@ -195,7 +149,7 @@ class ChangePasswordTest {
                 isDisplayed()
             )
         )
-        textInputEditText4.perform(replaceText("111111"), closeSoftKeyboard())
+        textInputEditText4.perform(replaceText("000000"), closeSoftKeyboard())
 
         val textInputEditText5 = onView(
             allOf(
@@ -210,9 +164,7 @@ class ChangePasswordTest {
                 isDisplayed()
             )
         )
-        textInputEditText5.perform(replaceText("111111"), closeSoftKeyboard())
-
-        pressBack()
+        textInputEditText5.perform(replaceText("000000"), closeSoftKeyboard())
 
         val appCompatButton2 = onView(
             allOf(

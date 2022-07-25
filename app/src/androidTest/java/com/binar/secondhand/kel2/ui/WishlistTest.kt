@@ -33,50 +33,6 @@ class WishlistTest {
     @Test
     fun wishlistTest() {
         Thread.sleep(3000)
-        val floatingActionButton = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton.perform(click())
-
-        val floatingActionButton2 = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton2.perform(click())
-
-        val floatingActionButton3 = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton3.perform(click())
 
         val bottomNavigationItemView = onView(
             allOf(
@@ -93,66 +49,65 @@ class WishlistTest {
         )
         bottomNavigationItemView.perform(click())
 
-        val materialButton = onView(
-            allOf(
-                withId(R.id.btn_login), withText("Sign In"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.main_fragment_host),
-                        0
-                    ),
-                    8
-                ),
-                isDisplayed()
-            )
-        )
-        Thread.sleep(1000)
-        materialButton.perform(click())
+//        val materialButton = onView(
+//            allOf(
+//                withId(R.id.btn_login), withText("Sign In"),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.main_fragment_host),
+//                        0
+//                    ),
+//                    8
+//                ),
+//                isDisplayed()
+//            )
+//        )
+//        Thread.sleep(1000)
+//        materialButton.perform(click())
+//        Thread.sleep(5000)
+//
+//        val textInputEditText = onView(
+//            allOf(
+//                withId(R.id.et_email),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.email_container),
+//                        0
+//                    ),
+//                    0
+//                )
+//            )
+//        )
+//        textInputEditText.perform(scrollTo(), replaceText("testing@testing.com"), closeSoftKeyboard())
+//
+//        val textInputEditText2 = onView(
+//            allOf(
+//                withId(R.id.et_masukkan_passowrd),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.password_container),
+//                        0
+//                    ),
+//                    0
+//                )
+//            )
+//        )
+//        textInputEditText2.perform(scrollTo(), replaceText("000000"), closeSoftKeyboard())
+//
+//        val appCompatButton = onView(
+//            allOf(
+//                withId(R.id.btn_masuk), withText("Sign In"),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withClassName(`is`("android.widget.ScrollView")),
+//                        0
+//                    ),
+//                    11
+//                )
+//            )
+//        )
+//        appCompatButton.perform(scrollTo(), click())
         Thread.sleep(5000)
-
-        val textInputEditText = onView(
-            allOf(
-                withId(R.id.et_email),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.email_container),
-                        0
-                    ),
-                    0
-                )
-            )
-        )
-        textInputEditText.perform(scrollTo(), replaceText("coba@mail.com"), closeSoftKeyboard())
-
-        val textInputEditText2 = onView(
-            allOf(
-                withId(R.id.et_masukkan_passowrd),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.password_container),
-                        0
-                    ),
-                    0
-                )
-            )
-        )
-        textInputEditText2.perform(scrollTo(), replaceText("111111"), closeSoftKeyboard())
-
-        pressBack()
-
-        val appCompatButton = onView(
-            allOf(
-                withId(R.id.btn_masuk), withText("Sign In"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    11
-                )
-            )
-        )
-        appCompatButton.perform(scrollTo(), click())
 
         val bottomNavigationItemView2 = onView(
             allOf(
@@ -169,6 +124,8 @@ class WishlistTest {
         )
         bottomNavigationItemView2.perform(click())
 
+        Thread.sleep(5000)
+
         val recyclerView = onView(
             allOf(
                 withId(R.id.rv_home_product),
@@ -178,7 +135,9 @@ class WishlistTest {
                 )
             )
         )
-        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
+        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(3, click()))
+
+        Thread.sleep(4000)
 
         val appCompatImageView = onView(
             allOf(
@@ -213,6 +172,8 @@ class WishlistTest {
         )
         appCompatImageView2.perform(click())
 
+        Thread.sleep(5000)
+
         val appCompatImageView3 = onView(
             allOf(
                 withId(R.id.btn_wishlist),
@@ -227,6 +188,7 @@ class WishlistTest {
             )
         )
         appCompatImageView3.perform(click())
+        Thread.sleep(5000)
     }
 
     private fun childAtPosition(

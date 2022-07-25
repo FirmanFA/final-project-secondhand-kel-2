@@ -33,50 +33,102 @@ class SearchProdukTest {
     @Test
     fun searchProdukTest() {
         Thread.sleep(3000)
-        val floatingActionButton = onView(
-            allOf(
-                withId(R.id.fab),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        floatingActionButton.perform(click())
 
-        val floatingActionButton2 = onView(
+        val bottomNavigationItemView = onView(
             allOf(
-                withId(R.id.fab),
+                withId(R.id.main_account), withContentDescription("Akun"),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
+                        withId(R.id.bottom_main_fragment),
+                        0
                     ),
-                    1
+                    4
                 ),
                 isDisplayed()
             )
         )
-        floatingActionButton2.perform(click())
+        bottomNavigationItemView.perform(click())
 
-        val floatingActionButton3 = onView(
+//        val materialButton = onView(
+//            allOf(
+//                withId(R.id.btn_login), withText("Sign In"),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.main_fragment_host),
+//                        0
+//                    ),
+//                    8
+//                ),
+//                isDisplayed()
+//            )
+//        )
+//        Thread.sleep(1000)
+//        materialButton.perform(click())
+//        Thread.sleep(500)
+//
+//        val textInputEditText = onView(
+//            allOf(
+//                withId(R.id.et_email),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.email_container),
+//                        0
+//                    ),
+//                    0
+//                )
+//            )
+//        )
+//        textInputEditText.perform(
+//            scrollTo(),
+//            replaceText("testing@testing.com"),
+//            closeSoftKeyboard()
+//        )
+//
+//        val textInputEditText2 = onView(
+//            allOf(
+//                withId(R.id.et_masukkan_passowrd),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withId(R.id.password_container),
+//                        0
+//                    ),
+//                    0
+//                )
+//            )
+//        )
+//        textInputEditText2.perform(scrollTo(), replaceText("000000"), closeSoftKeyboard())
+//
+//        val appCompatButton = onView(
+//            allOf(
+//                withId(R.id.btn_masuk), withText("Sign In"),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withClassName(`is`("android.widget.ScrollView")),
+//                        0
+//                    ),
+//                    11
+//                )
+//            )
+//        )
+//        appCompatButton.perform(scrollTo(), click())
+        Thread.sleep(5000)
+
+        val bottomNavigationItemView2 = onView(
             allOf(
-                withId(R.id.fab),
+                withId(R.id.main_home), withContentDescription("Home"),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("android.widget.RelativeLayout")),
-                        2
+                        withId(R.id.bottom_main_fragment),
+                        0
                     ),
-                    1
+                    0
                 ),
                 isDisplayed()
             )
         )
-        floatingActionButton3.perform(click())
+        bottomNavigationItemView2.perform(click())
+
+        Thread.sleep(4000)
 
         val appCompatImageView = onView(
             allOf(
@@ -105,7 +157,7 @@ class SearchProdukTest {
                 isDisplayed()
             )
         )
-        textInputEditText.perform(replaceText("kipas"), closeSoftKeyboard())
+        textInputEditText.perform(replaceText("kipas"), pressImeActionButton(), closeSoftKeyboard())
 
 //        // Clik image produk
 //        val checkableImageButton = onView(
@@ -122,6 +174,8 @@ class SearchProdukTest {
 //            )
 //        )
 //        checkableImageButton.perform(click())
+
+        Thread.sleep(3000)
 
         val recyclerView = onView(
             allOf(

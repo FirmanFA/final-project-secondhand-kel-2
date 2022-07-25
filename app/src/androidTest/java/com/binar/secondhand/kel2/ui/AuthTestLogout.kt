@@ -22,15 +22,16 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class MyOrderTest {
+class AuthTestLogout {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun myOrderTest() {
+    fun logoutTest() {
         Thread.sleep(3000)
+
         val bottomNavigationItemView = onView(
             allOf(
                 withId(R.id.main_account), withContentDescription("Akun"),
@@ -108,18 +109,35 @@ class MyOrderTest {
 
         val linearLayout = onView(
             allOf(
-                withId(R.id.container_my_order),
+                withId(R.id.container_keluar),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.cardview),
                         0
                     ),
-                    2
+                    6
                 ),
                 isDisplayed()
             )
         )
         linearLayout.perform(click())
+
+        Thread.sleep(500)
+
+        val materialTextView = onView(
+            allOf(
+                withId(R.id.tv_ya), withText("Ya"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(android.R.id.content),
+                        0
+                    ),
+                    5
+                ),
+                isDisplayed()
+            )
+        )
+        materialTextView.perform(click())
     }
 
     private fun childAtPosition(

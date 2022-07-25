@@ -77,7 +77,7 @@ class WishlistFragment :
                     binding.rvWhistlist.visibility = View.VISIBLE
                     if (it.data?.body() != null) {
                         if (it.data.body()?.size == 0) {
-                            binding.tvLogin.text = "Tidak ada notifikasi"
+                            binding.tvLogin.text = "Tidak ada wishlist"
                             binding.ivLogin.visibility = View.VISIBLE
                             binding.tvLogin.visibility = View.VISIBLE
                             binding.rvWhistlist.visibility = View.GONE
