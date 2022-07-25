@@ -213,6 +213,11 @@
             app:destination="@id/searchFragment"
             app:popUpTo="@id/searchPageFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_detailProductFragment_to_self2"
+            app:destination="@id/detailProductFragment"
+            app:popUpTo="@id/detailProductFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/editFragment"
